@@ -1,15 +1,20 @@
-
-using System.Text;
-using FundRaiserMVC.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CrowdFundingCH.Areas.Identity.Data;
+using CrowdFundingCH.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 
-namespace FundRaiser
+namespace CrowdFundingCH
 {
     public class Startup
     {
@@ -23,37 +28,17 @@ namespace FundRaiser
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<AppUser, AppRole>(options =>
-            {
-                options.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<IdentityAppContext>();
+            services.AddDbContext<CrowdFundingDBContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("CrowdFundingDBContextConnection")));
 
-            services.AddDbContext<IdentityAppContext>(cfg =>
-              {
-                  cfg.UseSqlServer(Configuration.GetConnectionString("Default"));
-              });
+            //services.AddDefaultIdentity<IdentityUser>()
+            //    .AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<CrowdFundingDBContext>();
 
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
-            services.AddAuthentication()
-                .AddCookie(cfg => cfg.SlidingExpiration = true)
-                .AddJwtBearer(cfg =>
-                {
-                    cfg.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-                    {
-                        ValidIssuer = MVSJwtTokens.Issuer,
-                        ValidAudience = MVSJwtTokens.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(MVSJwtTokens.Key))
-                    };
-                });
-
-    //        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-    //        {
-    //            options.Password.RequiredLength = 10;
-    //            options.Password.RequiredUniqueChars = 6;
-    //        })
-    //.AddEntityFrameworkStores<ApplicationDbContext>()
-    //.AddDefaultTokenProviders();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,10 +54,9 @@ namespace FundRaiser
             }
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -80,6 +64,7 @@ namespace FundRaiser
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
