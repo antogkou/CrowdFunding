@@ -21,9 +21,11 @@ namespace CrowdFundingCH.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("CrowdFundingDBContextConnection")));
 
-                services.AddDefaultIdentity<AllUsers>()
-                    .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<CrowdFundingDBContext>();
+                
+                //works
+                //services.AddDefaultIdentity<AllUsers>()
+                //    .AddRoles<IdentityRole>()
+                //    .AddEntityFrameworkStores<CrowdFundingDBContext>();
 
                 //services.AddDefaultIdentity<AllUsers>(options => options.SignIn.RequireConfirmedAccount = false)
                 //    .AddEntityFrameworkStores<CrowdFundingDBContext>();
@@ -36,11 +38,12 @@ namespace CrowdFundingCH.Areas.Identity
                     options.Filters.Add(new AuthorizeFilter(policy));
                 }).AddXmlDataContractSerializerFormatters();
 
-                services.AddAuthorization(options =>
-                {
-                    options.AddPolicy("RequireAdministratorRole",
-                         policy => policy.RequireRole("Administrator"));
-                });
+                //services.AddAuthorization(options =>
+                //{
+                //    options.AddPolicy("RequireAdministratorRole",
+                //         policy => policy.RequireRole("Administrator"));
+                //});
+
             });
         }
     }
