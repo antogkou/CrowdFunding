@@ -3,43 +3,45 @@ using CrowdFundingCH.Models;
 using CrowdFundingCH.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace CrowdFundingCH.Services
 {
-    public class ProjectManagement
+    public class ProjectManagement : IProjectManager
     {
         private CrowdFundingDBContext db;
         private readonly UserManager<AllUsers> userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+       // private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProjectManagement(CrowdFundingDBContext _db, UserManager<AllUsers> userManager, HttpContextAccessor httpContextAccessor)
+        public ProjectManagement(CrowdFundingDBContext _db, UserManager<AllUsers> userManager) //, HttpContextAccessor httpContextAccessor
         {
             db = _db;
             this.userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
+          //  _httpContextAccessor = httpContextAccessor;
         }
 
 
         //Create Project
         public Project CreateProject(ProjectOptions projectoption)
         {
-            var creatorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //var creatorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+           // var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //CreatorManagement creatormanagement = new CreatorManagement(db);
             Project project = new Project
             {
                 Name = projectoption.Name,
                 Description = projectoption.Description,
-                Category = projectoption.Category,
-                CurrentAmount = projectoption.CurrentAmount,
-                NeededAmount = projectoption.NeededAmount,
-                Progress = projectoption.CurrentAmount / projectoption.NeededAmount,
+                //CurrentAmount = projectoption.CurrentAmount,
+               // NeededAmount = projectoption.NeededAmount,
+                //Progress = projectoption.CurrentAmount / projectoption.NeededAmount,
                 StartingDate = DateTime.Today,
-                EndingDate = projectoption.EndingDate,
+                //EndingDate = projectoption.EndingDate,
                 IsActive = true,
-                Creator = creatorId
+               // Creator = creatorId,
             };
 
             db.Projects.Add(project);

@@ -4,14 +4,16 @@ using CrowdFundingCH.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrowdFundingCH.Migrations
 {
     [DbContext(typeof(CrowdFundingDBContext))]
-    partial class CrowdFundingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200518210304_Nikos10")]
+    partial class Nikos10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +182,7 @@ namespace CrowdFundingCH.Migrations
                     b.Property<decimal>("Progress")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("ProjectCategoryId")
+                    b.Property<int>("ProjectCategory")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartingDate")
@@ -200,26 +202,9 @@ namespace CrowdFundingCH.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectCategoryId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("CrowdFundingCH.Models.ProjectCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProjectCategory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -381,10 +366,6 @@ namespace CrowdFundingCH.Migrations
 
             modelBuilder.Entity("CrowdFundingCH.Models.Project", b =>
                 {
-                    b.HasOne("CrowdFundingCH.Models.ProjectCategory", "ProjectCategory")
-                        .WithMany()
-                        .HasForeignKey("ProjectCategoryId");
-
                     b.HasOne("CrowdFundingCH.Areas.Identity.Data.AllUsers", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

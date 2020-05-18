@@ -10,7 +10,8 @@ namespace CrowdFundingCH.Models
     {
         public int Id { get; set; }
         //test
-        public AllUsers AllUsers { get; set; }
+        public AllUsers User { get; set; }
+        //public AllUsers AllUsers { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }

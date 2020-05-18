@@ -4,14 +4,16 @@ using CrowdFundingCH.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrowdFundingCH.Migrations
 {
     [DbContext(typeof(CrowdFundingDBContext))]
-    partial class CrowdFundingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200518210823_ant1")]
+    partial class ant1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,7 +221,7 @@ namespace CrowdFundingCH.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProjectCategory");
+                    b.ToTable("ProjectCategorys");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -382,7 +384,7 @@ namespace CrowdFundingCH.Migrations
             modelBuilder.Entity("CrowdFundingCH.Models.Project", b =>
                 {
                     b.HasOne("CrowdFundingCH.Models.ProjectCategory", "ProjectCategory")
-                        .WithMany()
+                        .WithMany("Projects")
                         .HasForeignKey("ProjectCategoryId");
 
                     b.HasOne("CrowdFundingCH.Areas.Identity.Data.AllUsers", "User")

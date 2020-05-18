@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrowdFundingCH.Areas.Identity.Data;
 using CrowdFundingCH.Controllers;
+using CrowdFundingCH.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace CrowdFundingCH
@@ -37,7 +39,12 @@ namespace CrowdFundingCH
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<CrowdFundingDBContext>();
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+          //  services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient<IProjectManager, ProjectManagement>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();

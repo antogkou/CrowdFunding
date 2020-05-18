@@ -5,4 +5,19 @@
 }
 
 <h1>Project Creator Page</h1>
+<h1 align="center"> Εισαγωγή Project</h1>
 
+<form>
+    <table align="center">
+        <tr><td>Name </td>  <td><input type="text" id="Name" name="Name">	</td>  </tr>
+        <tr><td>Description	</td>  <td> <input type="text" id="Description" name="Description">	</td>  </tr>
+        @*<tr><td>NeededAmount </td>  <td> <input type="text" id="NeededAmount" name="NeededAmount">	</td>  </tr>*@
+        <tr>
+            <td>
+                <input type="button" onclick="submitToServer()"
+                       value="Submit">
+    </table>
+
+</form>
+
+<div id="responseDiv">  </div>
