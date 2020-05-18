@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CrowdFundingCH.Areas.Identity.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using CrowdFundingCH.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +9,17 @@ namespace CrowdFundingCH.Areas.Identity.Data
         public CrowdFundingDBContext(DbContextOptions<CrowdFundingDBContext> options)
             : base(options)
         {
+
         }
+
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Fund> Funds { get; set; }
+
+        public DbSet<Funded> Fundeds { get; set; }
+
+        public DbSet<ProjectCategory> ProjectCategories { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,3 +31,4 @@ namespace CrowdFundingCH.Areas.Identity.Data
         }
     }
 }
+//IdentityDbContext<AllUsers>

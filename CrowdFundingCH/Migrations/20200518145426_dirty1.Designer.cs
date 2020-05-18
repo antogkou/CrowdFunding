@@ -4,14 +4,16 @@ using CrowdFundingCH.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrowdFundingCH.Migrations
 {
     [DbContext(typeof(CrowdFundingDBContext))]
-    partial class CrowdFundingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200518145426_dirty1")]
+    partial class dirty1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,35 +92,7 @@ namespace CrowdFundingCH.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("CrowdFundingCH.Models.Fund", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AllUsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AllUsersId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Funds");
-                });
-
-            modelBuilder.Entity("CrowdFundingCH.Models.Funded", b =>
+            modelBuilder.Entity("CrowdFundingCH.Models.BackedProject", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,7 +111,7 @@ namespace CrowdFundingCH.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Fundeds");
+                    b.ToTable("BackedProject");
                 });
 
             modelBuilder.Entity("CrowdFundingCH.Models.Project", b =>
@@ -183,9 +157,6 @@ namespace CrowdFundingCH.Migrations
                     b.Property<decimal>("Progress")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("ProjectCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
 
@@ -202,24 +173,7 @@ namespace CrowdFundingCH.Migrations
 
                     b.HasIndex("AllUsersId");
 
-                    b.HasIndex("ProjectCategoryId");
-
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("CrowdFundingCH.Models.ProjectCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProjectCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -357,25 +311,14 @@ namespace CrowdFundingCH.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CrowdFundingCH.Models.Fund", b =>
+            modelBuilder.Entity("CrowdFundingCH.Models.BackedProject", b =>
                 {
                     b.HasOne("CrowdFundingCH.Areas.Identity.Data.AllUsers", "AllUsers")
                         .WithMany()
                         .HasForeignKey("AllUsersId");
 
                     b.HasOne("CrowdFundingCH.Models.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId");
-                });
-
-            modelBuilder.Entity("CrowdFundingCH.Models.Funded", b =>
-                {
-                    b.HasOne("CrowdFundingCH.Areas.Identity.Data.AllUsers", "AllUsers")
-                        .WithMany()
-                        .HasForeignKey("AllUsersId");
-
-                    b.HasOne("CrowdFundingCH.Models.Project", "Project")
-                        .WithMany("FundedProjects")
+                        .WithMany("BackedProjects")
                         .HasForeignKey("ProjectId");
                 });
 
@@ -384,10 +327,6 @@ namespace CrowdFundingCH.Migrations
                     b.HasOne("CrowdFundingCH.Areas.Identity.Data.AllUsers", "AllUsers")
                         .WithMany()
                         .HasForeignKey("AllUsersId");
-
-                    b.HasOne("CrowdFundingCH.Models.ProjectCategory", "ProjectCategory")
-                        .WithMany("Projects")
-                        .HasForeignKey("ProjectCategoryId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

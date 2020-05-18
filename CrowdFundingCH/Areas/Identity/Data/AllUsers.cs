@@ -16,6 +16,5 @@ namespace CrowdFundingCH.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
         public string LastName { get; set; }
-        
     }
 }

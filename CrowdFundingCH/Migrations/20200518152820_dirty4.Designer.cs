@@ -4,14 +4,16 @@ using CrowdFundingCH.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrowdFundingCH.Migrations
 {
     [DbContext(typeof(CrowdFundingDBContext))]
-    partial class CrowdFundingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200518152820_dirty4")]
+    partial class dirty4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -375,7 +377,7 @@ namespace CrowdFundingCH.Migrations
                         .HasForeignKey("AllUsersId");
 
                     b.HasOne("CrowdFundingCH.Models.Project", "Project")
-                        .WithMany("FundedProjects")
+                        .WithMany("BackedProjects")
                         .HasForeignKey("ProjectId");
                 });
 
@@ -385,7 +387,7 @@ namespace CrowdFundingCH.Migrations
                         .WithMany()
                         .HasForeignKey("AllUsersId");
 
-                    b.HasOne("CrowdFundingCH.Models.ProjectCategory", "ProjectCategory")
+                    b.HasOne("CrowdFundingCH.Models.ProjectCategory", null)
                         .WithMany("Projects")
                         .HasForeignKey("ProjectCategoryId");
                 });

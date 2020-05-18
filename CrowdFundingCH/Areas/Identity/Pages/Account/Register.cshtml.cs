@@ -109,6 +109,7 @@ namespace CrowdFundingCH.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole(SD.BackerEndUser));
                     }
                     await _userManager.AddToRoleAsync(user, SD.BackerEndUser);
+                    await _userManager.AddToRoleAsync(user, SD.ProjectCreatorEndUser);
                     _logger.LogInformation("User created a new account with password.");
                     return LocalRedirect(returnUrl);
                 }
