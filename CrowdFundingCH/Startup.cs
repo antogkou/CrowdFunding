@@ -32,12 +32,15 @@ namespace CrowdFundingCH
 
             services.AddDefaultIdentity<AllUsers>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
                 .AddEntityFrameworkStores<CrowdFundingDBContext>();
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

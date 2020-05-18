@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@inject Microsoft.AspNetCore.Identity.SignInManager<CrowdFundingCH.Areas.Identity.Data.AllUsers> signInManager;
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,14 +7,14 @@
     <title>@ViewData["Title"] - CrmMvcProj</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    @*<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">*@
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CrmMvcProj</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Fund Raiser</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,11 +22,26 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial.cshtml" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"> <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Backer" asp-action="Index">Backer</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Role</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
-                    </ul>
+                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Backer" asp-action="Index">Backer</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="ProjectCreator" asp-action="Index">Project Creator</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">RoleList</a></li>
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-controller="Admin"
+                                       asp-action="ListUsers">Users</a>
+                                    <a class="dropdown-item" asp-controller="Admin"
+                                       asp-action="ListRoles">Roles</a>
+                                </div>
+                            </li>
+                        }
+                        </ul>
                 </div>
             </div>
         </nav>

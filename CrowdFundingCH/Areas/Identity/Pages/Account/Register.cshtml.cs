@@ -26,19 +26,22 @@ namespace CrowdFundingCH.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
+        private readonly CrowdFundingDBContext _db;
 
         public RegisterModel(
             UserManager<AllUsers> userManager,
             SignInManager<AllUsers> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            CrowdFundingDBContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _db = db;
         }
 
         [BindProperty]
@@ -75,33 +78,38 @@ namespace CrowdFundingCH.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            public string Name { get; set; }
            
         }
 
-        public void OnGet(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl = null)
         {
-            ViewData["roles"] = _roleManager.Roles.ToList();
             ReturnUrl = returnUrl;
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            var role = _roleManager.FindByIdAsync(Input.Name).Result;
+            //var role = _roleManager.FindByIdAsync(Input.Name).Result;
             if (ModelState.IsValid)
             {
                 var user = new AllUsers { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, 
                     LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-               
                 if (result.Succeeded)
                 {
+                    if (!await _roleManager.RoleExistsAsync(SD.AdminEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(SD.AdminEndUser));
+                    }
+
+                    if (!await _roleManager.RoleExistsAsync(SD.BackerEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(SD.BackerEndUser));
+                    }
+                    await _userManager.AddToRoleAsync(user, SD.BackerEndUser);
                     _logger.LogInformation("User created a new account with password.");
-                    await _userManager.AddToRoleAsync(user, role.Name);
-                   
-                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)

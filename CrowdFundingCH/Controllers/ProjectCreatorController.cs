@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdFundingCH.Controllers
 {
-
-    [Authorize(Roles="Backer,Admin,Project Creator")]
-    public class BackerController : Controller
+    [Authorize(Roles = "Project Creator,Admin")]
+    public class ProjectCreatorController : Controller
     {
         public IActionResult Index()
         {

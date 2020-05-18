@@ -9,11 +9,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrowdFundingCH.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<AllUsers> userManager;
 
+      
         public AdminController(RoleManager<IdentityRole> roleManager, 
             UserManager<AllUsers> userManager)
         {
@@ -21,11 +23,18 @@ namespace CrowdFundingCH.Controllers
             this.userManager = userManager;
         }
 
-       // [Authorize(Roles="Admin")]
         [HttpGet]
         public IActionResult Index()
         {
+            
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult ListUsers()
+        {
+            var users = userManager.Users;
+            return View(users);
         }
 
         [HttpGet]
@@ -87,18 +96,6 @@ namespace CrowdFundingCH.Controllers
                 RoleName = role.Name
             };
 
-            // Retrieve all the Users
-            //foreach (var user in userManager.Users)
-            //{
-            //    // If the user is in this role, add the username to
-            //    // Users property of EditRoleViewModel. This model
-            //    // object is then passed to the view for display
-            //    if (await userManager.IsInRoleAsync(user, role.Name))
-            //    {
-            //        model.Users.Add(user.UserName);
-            //    }
-            //}
-
             foreach (var user in await userManager.Users.ToListAsync())
             {
                 if (await userManager.IsInRoleAsync(user, role.Name))
@@ -108,6 +105,35 @@ namespace CrowdFundingCH.Controllers
             }
 
             return View(model);
+        }
+
+        //Delete a role from DB
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            var role = await roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                var result = await roleManager.DeleteAsync(role);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListRoles");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("ListRoles");
+            }
         }
 
         // This action responds to HttpPost and receives EditRoleViewModel
@@ -142,6 +168,7 @@ namespace CrowdFundingCH.Controllers
             }
         }
 
+        //Edit Users Roles
         [HttpGet]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
@@ -180,6 +207,35 @@ namespace CrowdFundingCH.Controllers
             return View(model);
         }
 
+        //Delete User from DB
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                var result = await userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("ListUsers");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> EditUsersInRole(List<UsersRoleViewModel> model, string roleId)
         {
@@ -208,5 +264,8 @@ namespace CrowdFundingCH.Controllers
 
             return RedirectToAction("EditRole", new { Id = roleId });
         }
+
+      
+          
     }
 }
