@@ -33,8 +33,8 @@
             <div class="form-group">
                 <select name="ProjectCategory" class="form-control">
                     @{ var categories = Enum.GetValues(
-                              typeof(CrowdFundingCH.Models.ProjectCategory))
-                              .Cast<CrowdFundingCH.Models.ProjectCategory>();
+                               typeof(CrowdFundingCH.Models.ProjectCategory))
+                               .Cast<CrowdFundingCH.Models.ProjectCategory>();
                         foreach (var category in categories)
                         {
                             <option value="@category">@category</option>
@@ -44,10 +44,9 @@
             </div>
 
             <div class="col col-md-12 d-flex justify-content-end pr-0">
-                <input type="button" onclick="submitToServer()" value="Submit">
+                <input type="button" onclick="submitProjectToServer()" value="Submit">
             </div>
 
         </form>
     </div>
 </div>
-

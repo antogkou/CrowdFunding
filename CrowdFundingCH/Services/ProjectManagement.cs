@@ -36,7 +36,6 @@ namespace CrowdFundingCH.Services
                 Creator = userName,
                 ProjectCategory = projectoption.ProjectCategory,
             };
-
             db.Projects.Add(project);
             db.SaveChanges();
             return project;

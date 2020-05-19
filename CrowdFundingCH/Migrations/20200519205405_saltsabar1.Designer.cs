@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CrowdFundingCH.Migrations
+namespace CrowdFundingMVC.Migrations
 {
     [DbContext(typeof(CrowdFundingDBContext))]
-    [Migration("20200519135445_antonis2")]
-    partial class antonis2
+    [Migration("20200519205405_saltsabar1")]
+    partial class saltsabar1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,6 +92,28 @@ namespace CrowdFundingCH.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("CrowdFundingCH.Models.BackedProject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AllUsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AllUsersId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("BackedProjects");
+                });
+
             modelBuilder.Entity("CrowdFundingCH.Models.Fund", b =>
                 {
                     b.Property<int>("Id")
@@ -120,26 +142,21 @@ namespace CrowdFundingCH.Migrations
                     b.ToTable("Funds");
                 });
 
-            modelBuilder.Entity("CrowdFundingCH.Models.Funded", b =>
+            modelBuilder.Entity("CrowdFundingCH.Models.Multimedia", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("MultimediaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AllUsersId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("AllUsersId");
+                    b.HasKey("MultimediaId");
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Fundeds");
+                    b.ToTable("Multimedia");
                 });
 
             modelBuilder.Entity("CrowdFundingCH.Models.Project", b =>
@@ -153,7 +170,7 @@ namespace CrowdFundingCH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("CurrentAmount")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -171,10 +188,10 @@ namespace CrowdFundingCH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("NeededAmount")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Progress")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProjectCategory")
                         .HasColumnType("int");
@@ -328,6 +345,17 @@ namespace CrowdFundingCH.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CrowdFundingCH.Models.BackedProject", b =>
+                {
+                    b.HasOne("CrowdFundingCH.Areas.Identity.Data.AllUsers", "AllUsers")
+                        .WithMany()
+                        .HasForeignKey("AllUsersId");
+
+                    b.HasOne("CrowdFundingCH.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId");
+                });
+
             modelBuilder.Entity("CrowdFundingCH.Models.Fund", b =>
                 {
                     b.HasOne("CrowdFundingCH.Areas.Identity.Data.AllUsers", "AllUsers")
@@ -339,12 +367,8 @@ namespace CrowdFundingCH.Migrations
                         .HasForeignKey("ProjectId");
                 });
 
-            modelBuilder.Entity("CrowdFundingCH.Models.Funded", b =>
+            modelBuilder.Entity("CrowdFundingCH.Models.Multimedia", b =>
                 {
-                    b.HasOne("CrowdFundingCH.Areas.Identity.Data.AllUsers", "AllUsers")
-                        .WithMany()
-                        .HasForeignKey("AllUsersId");
-
                     b.HasOne("CrowdFundingCH.Models.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");

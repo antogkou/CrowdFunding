@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CrowdFundingCH.Migrations
+namespace CrowdFundingMVC.Migrations
 {
     [DbContext(typeof(CrowdFundingDBContext))]
     partial class CrowdFundingDBContextModelSnapshot : ModelSnapshot
@@ -168,7 +168,7 @@ namespace CrowdFundingCH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("CurrentAmount")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -186,10 +186,10 @@ namespace CrowdFundingCH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("NeededAmount")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Progress")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProjectCategory")
                         .HasColumnType("int");
