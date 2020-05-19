@@ -1,6 +1,5 @@
 ﻿namespace CrowdFundingCH.Models
 {
-
     public enum ProjectCategory
     {
         Myth = 1,
@@ -9,6 +8,5 @@
         Football = 4,
         Fishing = 5
     }
-
 
 }

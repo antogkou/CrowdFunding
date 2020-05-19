@@ -35,7 +35,6 @@
                     @{ var categories = Enum.GetValues(
                               typeof(CrowdFundingCH.Models.ProjectCategory))
                               .Cast<CrowdFundingCH.Models.ProjectCategory>();
-
                         foreach (var category in categories)
                         {
                             <option value="@category">@category</option>

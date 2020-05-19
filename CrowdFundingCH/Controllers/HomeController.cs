@@ -30,12 +30,12 @@ namespace CrowdFundingCH.Controllers
             return View();
         }
 
-        //test register
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        ////test register
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
 
         [HttpGet]
         [AllowAnonymous]
