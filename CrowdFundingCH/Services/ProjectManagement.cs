@@ -29,7 +29,6 @@ namespace CrowdFundingCH.Services
         public Project CreateProject(ProjectOptions projectoption)
         {
           
-
             //CreatorManagement creatormanagement = new CreatorManagement(db);
             string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             Project project = new Project
@@ -37,7 +36,7 @@ namespace CrowdFundingCH.Services
                 Name = projectoption.Name,
                 Description = projectoption.Description,
                 //CurrentAmount = projectoption.CurrentAmount,
-               // NeededAmount = projectoption.NeededAmount,
+                NeededAmount = projectoption.NeededAmount,
                 //Progress = projectoption.CurrentAmount / projectoption.NeededAmount,
                 StartingDate = DateTime.Today,
                 //EndingDate = projectoption.EndingDate,
@@ -47,9 +46,13 @@ namespace CrowdFundingCH.Services
             };
 
             db.Projects.Add(project);
+           
+
             db.SaveChanges();
             return project;
         }
+
+
 
         //Find Project by id
         public Project FindProjectById(int id)

@@ -8,17 +8,11 @@ namespace CrowdFundingCH.Models
 
         public enum ProjectCategory
         {
-            Invalid = 0,
-
-            Technology = 1,
-
-            Science = 2,
-
+            Tech = 1,
+            Myth = 2,
             Arts = 3,
-
-            Sports = 4,
-
-            Publishing = 5
+            Football = 4,
+            Fishing = 5
         }
 
         //public int ProjectCategoryId { get; set; }

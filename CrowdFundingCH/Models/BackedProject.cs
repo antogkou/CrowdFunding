@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrowdFundingCH.Models
 {
-    public class Funded
+    public class BackedProject
     {
         public int Id { get; set; }
         public AllUsers AllUsers { get; set; }
