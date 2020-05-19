@@ -26,3 +26,4 @@ namespace CrowdFundingCH.Areas.Identity.Data
         }
     }
 }
+
