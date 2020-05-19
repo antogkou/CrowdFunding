@@ -14,8 +14,7 @@ namespace CrowdFundingCH.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<AllUsers> userManager;
-
-      
+    
         public AdminController(RoleManager<IdentityRole> roleManager, 
             UserManager<AllUsers> userManager)
         {
