@@ -3,15 +3,16 @@
 
 // Write your JavaScript code.
 
-function submitProjectToServer() {
+function submitToServer() {
     actionMethod = "POST"
     actionUrl = "/project/createproject"
     sendData = {
         "Name": $('#Name').val(),
         "Description": $('#Description').val(),
-        "NeededAmount": parseFloat($('#NeededAmount').val()),
+        "NeededAmount": $('#NeededAmount').val(),
         "ProjectCategory": $('#ProjectCategory').val()
     }
+
    // data: JSON.stringify({ Price: 5.0 })
 
     alert(JSON.stringify(sendData))
