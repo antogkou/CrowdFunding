@@ -25,5 +25,7 @@ namespace CrowdFundingCH.Models
         public ProjectCategory ProjectCategory  {  get; set; }
 
       
+
+
     }
 }
