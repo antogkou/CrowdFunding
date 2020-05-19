@@ -60,7 +60,7 @@ namespace CrowdFundingCH.Controllers
                     Name = model.RoleName
                 };
 
-                // Saves the role in the underlying AspNetRoles table
+                // Saves the role in the  AspNetRoles table
                 IdentityResult result = await roleManager.CreateAsync(identityRole);
 
                 if (result.Succeeded)

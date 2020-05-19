@@ -3,33 +3,26 @@ using CrowdFundingCH.Models;
 using CrowdFundingCH.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace CrowdFundingCH.Services
 {
     public class ProjectManagement : IProjectManager
     {
+        //Injections
         private CrowdFundingDBContext db;
-        private readonly UserManager<AllUsers> userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProjectManagement(CrowdFundingDBContext _db, UserManager<AllUsers> _userManager, IHttpContextAccessor httpContextAccessor) //, HttpContextAccessor httpContextAccessor
+        public ProjectManagement(CrowdFundingDBContext _db, IHttpContextAccessor httpContextAccessor)
         {
             db = _db;
-            _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
         }
-
 
         //Create Project
         public Project CreateProject(ProjectOptions projectoption)
         {
-          
-            //CreatorManagement creatormanagement = new CreatorManagement(db);
             string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             Project project = new Project
             {
@@ -46,13 +39,9 @@ namespace CrowdFundingCH.Services
             };
 
             db.Projects.Add(project);
-           
-
             db.SaveChanges();
             return project;
         }
-
-
 
         //Find Project by id
         public Project FindProjectById(int id)

@@ -1,9 +1,6 @@
-﻿using System;
-using CrowdFundingCH.Areas.Identity.Data;
+﻿using CrowdFundingCH.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,15 +18,6 @@ namespace CrowdFundingCH.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("CrowdFundingDBContextConnection")));
 
-                
-                //works
-                //services.AddDefaultIdentity<AllUsers>()
-                //    .AddRoles<IdentityRole>()
-                //    .AddEntityFrameworkStores<CrowdFundingDBContext>();
-
-                //services.AddDefaultIdentity<AllUsers>(options => options.SignIn.RequireConfirmedAccount = false)
-                //    .AddEntityFrameworkStores<CrowdFundingDBContext>();
-
                 services.AddMvc(options =>
                 {
                     var policy = new AuthorizationPolicyBuilder()
@@ -37,12 +25,6 @@ namespace CrowdFundingCH.Areas.Identity
                     .Build();
                     options.Filters.Add(new AuthorizeFilter(policy));
                 }).AddXmlDataContractSerializerFormatters();
-
-                //services.AddAuthorization(options =>
-                //{
-                //    options.AddPolicy("RequireAdministratorRole",
-                //         policy => policy.RequireRole("Administrator"));
-                //});
 
             });
         }
