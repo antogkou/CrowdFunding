@@ -1,18 +1,11 @@
-﻿using CrowdFundingCH.Areas.Identity.Data;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CrowdFundingCH.Models
 {
     public class Project
     {
         public int ProjectId { get; set; }
-        //test
-        // public AllUsers User { get; set; }
-        //public AllUsers AllUsers { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 

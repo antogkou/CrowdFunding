@@ -1,28 +1,8 @@
-﻿@model ProjectCategory
+﻿
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Project Create Page</h1>
 
-<@*form asp-controller="Project" asp-action="Index" method"post" class="form-horizontal" roles="form">
-    <div class="form-group">
-        <div class="row">
-            <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
-            <div class="col-xs-12 col-sm-6" col-md-6 cold-lg-4>
-                <label asp-for="ProjectCategoryName" class="control-label"></label>
-                <select asp-for="ProjectCategoryId"
-                        class="fore-control"
-                        asp-items="@(new SelectList(ViewBag.ListofProjectCategory,"ProjectCategoryId", "ProjectCategoryName"))"></select>
-            </div>
-        </div>
-    </div>
-    <div class="form-group"
-         <div class="row">
-             <div class="col-xs-12 col-sn-6 col-lg-4">
-                 <input id="Submit1" type="submit" value"submit" />
-             </div>
-         </div>
-    </div>
-</form>*@

@@ -2,7 +2,6 @@
 using CrowdFundingCH.Models;
 using CrowdFundingCH.Options;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 
@@ -12,18 +11,18 @@ namespace CrowdFundingCH.Services
     {
         //Injections
         private CrowdFundingDBContext db;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ProjectManagement(CrowdFundingDBContext _db, IHttpContextAccessor httpContextAccessor)
+        public ProjectManagement(CrowdFundingDBContext _db, IHttpContextAccessor _httpContextAccessor)
         {
             db = _db;
-            _httpContextAccessor = httpContextAccessor;
+            httpContextAccessor = _httpContextAccessor;
         }
 
         //Create Project
         public Project CreateProject(ProjectOptions projectoption)
         {
-            string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            string userName = httpContextAccessor.HttpContext.User.Identity.Name;
             Project project = new Project
             {
                 Name = projectoption.Name,
