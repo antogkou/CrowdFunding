@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingCH.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class antonis19_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,26 @@ namespace CrowdFundingCH.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Category_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +174,93 @@ namespace CrowdFundingCH.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    NeededAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    CurrentAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    EndingDate = table.Column<DateTime>(nullable: false),
+                    PhotoUrl = table.Column<string>(nullable: true),
+                    VideoUrl = table.Column<string>(nullable: true),
+                    StatusUpdate = table.Column<string>(nullable: true),
+                    Viewcounter = table.Column<int>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    IsComplete = table.Column<bool>(nullable: false),
+                    Progress = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    StartingDate = table.Column<DateTime>(nullable: false),
+                    Creator = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Projects_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fundeds",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AllUsersId = table.Column<string>(nullable: true),
+                    ProjectId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fundeds", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Fundeds_AspNetUsers_AllUsersId",
+                        column: x => x.AllUsersId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Fundeds_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Funds",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    AllUsersId = table.Column<string>(nullable: true),
+                    ProjectId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Funds", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Funds_AspNetUsers_AllUsersId",
+                        column: x => x.AllUsersId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Funds_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +299,36 @@ namespace CrowdFundingCH.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Category_CategoryId",
+                table: "Category",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fundeds_AllUsersId",
+                table: "Fundeds",
+                column: "AllUsersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fundeds_ProjectId",
+                table: "Fundeds",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Funds_AllUsersId",
+                table: "Funds",
+                column: "AllUsersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Funds_ProjectId",
+                table: "Funds",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_CategoryId",
+                table: "Projects",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +349,22 @@ namespace CrowdFundingCH.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Fundeds");
+
+            migrationBuilder.DropTable(
+                name: "Funds");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
+
+            migrationBuilder.DropTable(
+                name: "Category");
         }
     }
 }

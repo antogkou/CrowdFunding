@@ -11,6 +11,8 @@ namespace CrowdFundingCH.Models
     {
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Amount { get; set; }
         public AllUsers AllUsers { get; set; }
 

@@ -97,6 +97,27 @@ namespace CrowdFundingCH.Areas.Identity.Pages.Account
                 var user = new AllUsers { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, 
                     LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                //create roles for the first registers
+                IdentityResult roleResult;
+                bool adminRoleExists = await _roleManager.RoleExistsAsync("Admin");
+                bool backerRoleExists = await _roleManager.RoleExistsAsync("Backer");
+                bool projectCreatorRoleExists = await _roleManager.RoleExistsAsync("ProjectCreator");
+                if (!adminRoleExists)
+                {
+                    _logger.LogInformation("Adding Admin role");
+                    roleResult = await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                }
+                if (!backerRoleExists)
+                {
+                    _logger.LogInformation("Adding Backer role");
+                    roleResult = await _roleManager.CreateAsync(new IdentityRole("Backer"));
+                }
+                if (!projectCreatorRoleExists)
+                {
+                    _logger.LogInformation("Adding Project Creator role");
+                    roleResult = await _roleManager.CreateAsync(new IdentityRole("Project Creator"));
+                }
                 if (result.Succeeded)
                 {
                     if (!await _roleManager.RoleExistsAsync(SD.AdminEndUser))
@@ -108,8 +129,10 @@ namespace CrowdFundingCH.Areas.Identity.Pages.Account
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.BackerEndUser));
                     }
+                    //new users get these roles
                     await _userManager.AddToRoleAsync(user, SD.BackerEndUser);
                     await _userManager.AddToRoleAsync(user, SD.ProjectCreatorEndUser);
+                    //await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
                     _logger.LogInformation("User created a new account with password.");
                     return LocalRedirect(returnUrl);
                 }

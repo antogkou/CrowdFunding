@@ -15,22 +15,22 @@ namespace CrowdFundingCH.Services
     {
         private CrowdFundingDBContext db;
         private readonly UserManager<AllUsers> userManager;
-       // private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProjectManagement(CrowdFundingDBContext _db, UserManager<AllUsers> userManager) //, HttpContextAccessor httpContextAccessor
+        public ProjectManagement(CrowdFundingDBContext _db, UserManager<AllUsers> _userManager, IHttpContextAccessor httpContextAccessor) //, HttpContextAccessor httpContextAccessor
         {
             db = _db;
-            this.userManager = userManager;
-          //  _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
         //Create Project
         public Project CreateProject(ProjectOptions projectoption)
         {
-            //var creatorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-           // var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
             //CreatorManagement creatormanagement = new CreatorManagement(db);
+            string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             Project project = new Project
             {
                 Name = projectoption.Name,
@@ -41,7 +41,8 @@ namespace CrowdFundingCH.Services
                 StartingDate = DateTime.Today,
                 //EndingDate = projectoption.EndingDate,
                 IsActive = true,
-               // Creator = creatorId,
+                Creator = userName,
+                Category = projectoption.ProjectCategory,
             };
 
             db.Projects.Add(project);

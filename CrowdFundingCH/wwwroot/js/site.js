@@ -9,7 +9,8 @@ function submitToServer() {
     sendData = {
         "Name": $('#Name').val(),
         "Description": $('#Description').val(),
-        "NeededAmount": $('#NeededAmount').val()
+        "NeededAmount": $('#NeededAmount').val(),
+        "Category": $('#Category').val()
     }
 
     alert(JSON.stringify(sendData))

@@ -16,6 +16,6 @@ namespace CrowdFundingCH.Options
         //public string VideoUrl { get; set; }
         //public string StatusUpdate { get; set; }
        // public int CreatorId { get; set; }
-        public ProjectCategory ProjectCategory { get; set; }
+        public Category ProjectCategory { get; set; }
     }
 }

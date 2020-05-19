@@ -39,8 +39,8 @@ namespace CrowdFundingCH
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<CrowdFundingDBContext>();
 
-          //  services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            //  services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
             services.AddTransient<IProjectManager, ProjectManagement>();
             //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
