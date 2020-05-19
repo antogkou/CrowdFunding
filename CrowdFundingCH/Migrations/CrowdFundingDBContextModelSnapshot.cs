@@ -15,7 +15,7 @@ namespace CrowdFundingCH.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -90,21 +90,6 @@ namespace CrowdFundingCH.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("CrowdFundingCH.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Category");
-                });
-
             modelBuilder.Entity("CrowdFundingCH.Models.Fund", b =>
                 {
                     b.Property<int>("Id")
@@ -157,13 +142,10 @@ namespace CrowdFundingCH.Migrations
 
             modelBuilder.Entity("CrowdFundingCH.Models.Project", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ProjectId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Creator")
                         .HasColumnType("nvarchar(max)");
@@ -189,11 +171,11 @@ namespace CrowdFundingCH.Migrations
                     b.Property<decimal>("NeededAmount")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Progress")
                         .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("ProjectCategory")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
@@ -201,15 +183,10 @@ namespace CrowdFundingCH.Migrations
                     b.Property<string>("StatusUpdate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Viewcounter")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
+                    b.HasKey("ProjectId");
 
                     b.ToTable("Projects");
                 });
@@ -367,15 +344,8 @@ namespace CrowdFundingCH.Migrations
                         .HasForeignKey("AllUsersId");
 
                     b.HasOne("CrowdFundingCH.Models.Project", "Project")
-                        .WithMany("FundedProjects")
-                        .HasForeignKey("ProjectId");
-                });
-
-            modelBuilder.Entity("CrowdFundingCH.Models.Project", b =>
-                {
-                    b.HasOne("CrowdFundingCH.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("ProjectId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

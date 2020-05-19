@@ -15,8 +15,7 @@ namespace CrowdFundingCH.Areas.Identity.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Fund> Funds { get; set; }
         public DbSet<Funded> Fundeds { get; set; }
-       // public DbSet<ProjectCategory> ProjectCategorys { get; set; }
-
+        //public DbSet<ProjectCategory> ProjectCategory { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

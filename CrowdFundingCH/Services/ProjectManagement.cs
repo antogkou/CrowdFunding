@@ -28,7 +28,8 @@ namespace CrowdFundingCH.Services
         //Create Project
         public Project CreateProject(ProjectOptions projectoption)
         {
-           
+          
+
             //CreatorManagement creatormanagement = new CreatorManagement(db);
             string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             Project project = new Project
@@ -42,7 +43,7 @@ namespace CrowdFundingCH.Services
                 //EndingDate = projectoption.EndingDate,
                 IsActive = true,
                 Creator = userName,
-                Category = projectoption.ProjectCategory,
+                ProjectCategory = projectoption.ProjectCategory,
             };
 
             db.Projects.Add(project);

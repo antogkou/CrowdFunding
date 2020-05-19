@@ -9,9 +9,9 @@ namespace CrowdFundingCH.Models
 {
     public class Project
     {
-        public int Id { get; set; }
+        public int ProjectId { get; set; }
         //test
-       // public AllUsers User { get; set; }
+        // public AllUsers User { get; set; }
         //public AllUsers AllUsers { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -21,8 +21,6 @@ namespace CrowdFundingCH.Models
         [Column(TypeName = "decimal(18,4)")]
         public decimal CurrentAmount { get; set; } //The current amount of money this project has gathered.
         public DateTime EndingDate { get; set; }
-        public string PhotoUrl { get; set; }
-        public string VideoUrl { get; set; }
         public string StatusUpdate { get; set; }
         public int Viewcounter { get; set; }
         public bool IsActive { get; set; }
@@ -31,9 +29,6 @@ namespace CrowdFundingCH.Models
         public decimal Progress { get; set; } //calculated property - percentage progress
         public DateTime StartingDate { get; set; }
         public string Creator { get; set; }
-        public List<Funded> FundedProjects { get; set; }
-        public Category Category { get; set; }
-        //public Category ProjectCategory { get; set; }
-
+        public ProjectCategory ProjectCategory  {  get; set;   }
     }
 }

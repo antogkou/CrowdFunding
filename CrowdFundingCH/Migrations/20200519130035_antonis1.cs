@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingCH.Migrations
 {
-    public partial class antonis19_1 : Migration
+    public partial class antonis1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,23 +49,28 @@ namespace CrowdFundingCH.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Projects",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ProjectId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    NeededAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    CurrentAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    EndingDate = table.Column<DateTime>(nullable: false),
+                    StatusUpdate = table.Column<string>(nullable: true),
+                    Viewcounter = table.Column<int>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    IsComplete = table.Column<bool>(nullable: false),
+                    Progress = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    StartingDate = table.Column<DateTime>(nullable: false),
+                    Creator = table.Column<string>(nullable: true),
+                    ProjectCategory = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Category_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,39 +180,6 @@ namespace CrowdFundingCH.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projects",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    NeededAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    CurrentAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    EndingDate = table.Column<DateTime>(nullable: false),
-                    PhotoUrl = table.Column<string>(nullable: true),
-                    VideoUrl = table.Column<string>(nullable: true),
-                    StatusUpdate = table.Column<string>(nullable: true),
-                    Viewcounter = table.Column<int>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false),
-                    IsComplete = table.Column<bool>(nullable: false),
-                    Progress = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    StartingDate = table.Column<DateTime>(nullable: false),
-                    Creator = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Projects_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Fundeds",
                 columns: table => new
                 {
@@ -229,7 +201,7 @@ namespace CrowdFundingCH.Migrations
                         name: "FK_Fundeds_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "Id",
+                        principalColumn: "ProjectId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -257,7 +229,7 @@ namespace CrowdFundingCH.Migrations
                         name: "FK_Funds_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "Id",
+                        principalColumn: "ProjectId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -301,11 +273,6 @@ namespace CrowdFundingCH.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Category_CategoryId",
-                table: "Category",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Fundeds_AllUsersId",
                 table: "Fundeds",
                 column: "AllUsersId");
@@ -324,11 +291,6 @@ namespace CrowdFundingCH.Migrations
                 name: "IX_Funds_ProjectId",
                 table: "Funds",
                 column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Projects_CategoryId",
-                table: "Projects",
-                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -362,9 +324,6 @@ namespace CrowdFundingCH.Migrations
 
             migrationBuilder.DropTable(
                 name: "Projects");
-
-            migrationBuilder.DropTable(
-                name: "Category");
         }
     }
 }
