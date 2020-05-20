@@ -13,10 +13,10 @@ namespace CrowdFundingCH.Controllers
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
-        private readonly UserManager<AllUsers> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
     
         public AdminController(RoleManager<IdentityRole> roleManager, 
-            UserManager<AllUsers> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;

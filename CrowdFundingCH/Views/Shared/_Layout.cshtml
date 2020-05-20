@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-@inject Microsoft.AspNetCore.Identity.SignInManager<CrowdFundingCH.Areas.Identity.Data.AllUsers> signInManager;
+@inject Microsoft.AspNetCore.Identity.SignInManager<CrowdFundingCH.Areas.Identity.Data.ApplicationUser> signInManager;
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,12 +22,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial.cshtml" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Backer" asp-action="Index">Backer</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="CreateProject">Create Project</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">RoleList</a></li>
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Project Creator"))
+                        {
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="CreateProject">Create Project</a></li>
+
+                        }
+                        @*<li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">RoleList</a></li>*@
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,7 +45,8 @@
                                 </div>
                             </li>
                         }
-                        </ul>
+
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -54,7 +59,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - CrmMvcProj - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Crowd Funding #team5 project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

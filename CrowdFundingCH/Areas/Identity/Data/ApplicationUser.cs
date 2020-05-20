@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using CrowdFundingCH.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace CrowdFundingCH.Areas.Identity.Data
 {
-    // Add profile data for application users by adding properties to the AllUsers class
-    public class AllUsers : IdentityUser
+    // Add profile data for application users by adding properties to the ApplicationUser class
+    public class ApplicationUser : IdentityUser
     {
+       
+        public virtual ICollection<Project> Projects { get; set; }
+
         [PersonalData]
         [Column(TypeName ="nvarchar(100)") ]
         public string FirstName { get; set; }

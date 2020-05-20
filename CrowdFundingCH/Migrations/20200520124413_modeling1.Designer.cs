@@ -4,14 +4,16 @@ using CrowdFundingCH.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrowdFundingMVC.Migrations
 {
     [DbContext(typeof(CrowdFundingDBContext))]
-    partial class CrowdFundingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200520124413_modeling1")]
+    partial class modeling1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,6 +155,9 @@ namespace CrowdFundingMVC.Migrations
                     b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("StatusUpdate")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Viewcounter")
                         .HasColumnType("int");
 
@@ -165,10 +170,8 @@ namespace CrowdFundingMVC.Migrations
 
             modelBuilder.Entity("CrowdFundingMVC.Models.BackedProjects", b =>
                 {
-                    b.Property<int>("BackedProjectsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("FundId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
@@ -176,14 +179,12 @@ namespace CrowdFundingMVC.Migrations
                     b.Property<DateTimeOffset>("BackedFundDateCreated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("FundId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("BackedProjectsId");
+                    b.HasKey("FundId");
 
                     b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("FundId");
 
                     b.ToTable("BackedProjects");
                 });
@@ -195,13 +196,13 @@ namespace CrowdFundingMVC.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTimeOffset>("FundDateCreated")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("FundPrice")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FundReward")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FundTitle")
@@ -374,7 +375,9 @@ namespace CrowdFundingMVC.Migrations
 
                     b.HasOne("CrowdFundingMVC.Models.Fund", "Fund")
                         .WithMany("FundBackers")
-                        .HasForeignKey("FundId");
+                        .HasForeignKey("FundId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CrowdFundingMVC.Models.Fund", b =>

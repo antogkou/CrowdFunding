@@ -21,16 +21,16 @@ namespace CrowdFundingCH.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<AllUsers> _signInManager;
-        private readonly UserManager<AllUsers> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly CrowdFundingDBContext _db;
 
         public RegisterModel(
-            UserManager<AllUsers> userManager,
-            SignInManager<AllUsers> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             RoleManager<IdentityRole> roleManager,
@@ -94,7 +94,7 @@ namespace CrowdFundingCH.Areas.Identity.Pages.Account
             //var role = _roleManager.FindByIdAsync(Input.Name).Result;
             if (ModelState.IsValid)
             {
-                var user = new AllUsers { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, 
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, 
                     LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

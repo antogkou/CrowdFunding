@@ -1,11 +1,19 @@
-﻿namespace CrowdFundingCH.Models
+﻿namespace CrowdFundingMVC.Models
 {
-    public enum ProjectCategory
-    {
-        Myth = 1,
-        Tech = 2,
-        Arts = 3,
-        Football = 4,
-        Fishing = 5
-    }
+    
+        public enum ProjectCategory
+        {
+           
+            Technology = 1,
+
+            Science = 2,
+
+            Arts = 3,
+
+            Sports = 4,
+
+            Publishing = 5
+        }
+
+    
 }

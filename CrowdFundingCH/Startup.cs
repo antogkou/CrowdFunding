@@ -24,7 +24,7 @@ namespace CrowdFundingCH
             services.AddDbContext<CrowdFundingDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("CrowdFundingDBContextConnection")));
 
-            services.AddDefaultIdentity<AllUsers>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()

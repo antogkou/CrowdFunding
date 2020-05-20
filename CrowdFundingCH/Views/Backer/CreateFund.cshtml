@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Project>
+@{
+    ViewData["Title"] = "Projects";
+}
+
+
+<h1>Projects</h1>
+
+<table id="resultTable" border="1"
+       style="color:darkslateblue;background-color:lightcyan"
+       cellpadding="1" cellspacing="1">
+    <tr>
+        <th>Όνομα</th>
+        <th></th>
+    </tr>
+    @{
+        foreach (var project in Model)
+        {
+        <tr>
+            <td> @project.Name</td>
+            <td> @project.Description</td>
+            <td> @project.NeededAmount</td>
+            <td><input type="text" name="fname" /><button type="button" class="btn btn-primary">Donate!</button></td>
+        </tr>
+        }
+    }
+</table>
+<button type="button" class="btn btn-primary">Fund this project</button>
