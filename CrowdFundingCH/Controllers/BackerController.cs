@@ -15,5 +15,10 @@ namespace CrowdFundingCH.Controllers
         {
             return View();
         }
+
+        public IActionResult CreateFund()
+        {
+            return View();
+        }
     }
 }

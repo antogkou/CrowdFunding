@@ -30,7 +30,7 @@ namespace CrowdFundingCH.Services
                 //CurrentAmount = projectoption.CurrentAmount,
                 NeededAmount = projectoption.NeededAmount,
                 //Progress = projectoption.CurrentAmount / projectoption.NeededAmount,
-                StartingDate = DateTime.Today,
+                StartingDate = DateTime.Now,
                 //EndingDate = projectoption.EndingDate,
                 IsActive = true,
                 Creator = userName,

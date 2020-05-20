@@ -32,3 +32,34 @@ function submitProjectToServer() {
         }
     });
 }
+
+
+function submitFundToServer() {
+    actionMethod = "POST"
+    actionUrl = "/backer/createfund"
+    sendData = {
+        "Name": $('#Name').val(),
+        "Description": $('#Description').val(),
+        "NeededAmount": parseFloat($('#NeededAmount').val()),
+        "ProjectCategory": $('#ProjectCategory').val(),
+
+    }
+
+    alert(JSON.stringify(sendData))
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            $('#responseDiv').html(JSON.stringify(data));
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}

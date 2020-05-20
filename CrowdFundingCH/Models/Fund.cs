@@ -1,24 +1,31 @@
-﻿using CrowdFundingCH.Areas.Identity.Data;
+﻿using CrowdFundingCH.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CrowdFundingCH.Models
+namespace CrowdFundingMVC.Models
 {
     public class Fund
     {
-        public int Id { get; set; }
-        public DateTime DateTime { get; set; }
-
-        [Column(TypeName = "decimal(18,4)")]
-        public decimal Amount { get; set; }
-        public AllUsers AllUsers { get; set; }
-
+        public int FundId { get; set; }
+       
         public Project Project { get; set; }
-        //[ForeignKey("ProjectId")]
-        //public int ProjectId { get; set; }
+
+        public string FundTitle { get; set; }
+        public string FundPrice { get; set; }
+        public string FundReward { get; set; }
+        public DateTimeOffset FundDateCreated { get; set; }
+
+
+        public ICollection<BackedProjects> FundBackers { get; set; }
+       
+
+        public Fund()
+        {
+            FundBackers = new List<BackedProjects>();
+            FundDateCreated = DateTimeOffset.Now;
+        }
     }
 }
- 

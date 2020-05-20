@@ -11,6 +11,7 @@ namespace CrowdFundingCH.Models
 
         public Project Project { get; set; }
 
+        public string MultimediaURL { get; set; }
         //public MultimediaTypes MultimediaType { get; set; }
 
         //public string MultimediaURL { get; set; }

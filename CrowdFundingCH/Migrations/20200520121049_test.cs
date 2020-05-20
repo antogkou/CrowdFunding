@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingMVC.Migrations
 {
-    public partial class saltsabar1 : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,6 +49,21 @@ namespace CrowdFundingMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Funds",
+                columns: table => new
+                {
+                    FundId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    FundTitle = table.Column<string>(nullable: true),
+                    FundPrice = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Funds", x => x.FundId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Projects",
                 columns: table => new
                 {
@@ -66,7 +81,7 @@ namespace CrowdFundingMVC.Migrations
                     Progress = table.Column<decimal>(nullable: false),
                     StartingDate = table.Column<DateTime>(nullable: false),
                     Creator = table.Column<string>(nullable: true),
-                    ProjectCategory = table.Column<int>(nullable: false)
+                    ProjectCategory = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,53 +198,19 @@ namespace CrowdFundingMVC.Migrations
                 name: "BackedProjects",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    BackedProjectId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AllUsersId = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: true)
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    DateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BackedProjects", x => x.Id);
+                    table.PrimaryKey("PK_BackedProjects", x => x.BackedProjectId);
                     table.ForeignKey(
-                        name: "FK_BackedProjects_AspNetUsers_AllUsersId",
-                        column: x => x.AllUsersId,
+                        name: "FK_BackedProjects_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_BackedProjects_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "ProjectId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Funds",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateTime = table.Column<DateTime>(nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    AllUsersId = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Funds", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Funds_AspNetUsers_AllUsersId",
-                        column: x => x.AllUsersId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Funds_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "ProjectId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -239,7 +220,8 @@ namespace CrowdFundingMVC.Migrations
                 {
                     MultimediaId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProjectId = table.Column<int>(nullable: true)
+                    ProjectId = table.Column<int>(nullable: true),
+                    MultimediaURL = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -292,24 +274,9 @@ namespace CrowdFundingMVC.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BackedProjects_AllUsersId",
+                name: "IX_BackedProjects_ApplicationUserId",
                 table: "BackedProjects",
-                column: "AllUsersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BackedProjects_ProjectId",
-                table: "BackedProjects",
-                column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Funds_AllUsersId",
-                table: "Funds",
-                column: "AllUsersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Funds_ProjectId",
-                table: "Funds",
-                column: "ProjectId");
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Multimedia_ProjectId",
