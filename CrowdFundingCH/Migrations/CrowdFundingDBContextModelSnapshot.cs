@@ -197,9 +197,6 @@ namespace CrowdFundingMVC.Migrations
                     b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("StatusUpdate")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Viewcounter")
                         .HasColumnType("int");
 
