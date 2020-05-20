@@ -1,18 +1,19 @@
 ﻿using CrowdFundingCH.Areas.Identity.Data;
 using CrowdFundingCH.Options;
 using CrowdFundingCH.Services;
+using CrowdFundingMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdFundingCH.Models
 {
     public class ProjectController : Controller
     {
-       private IProjectManager projMangr;
-       private readonly CrowdFundingDBContext _db;
+        private IProjectManager _projMangr;
+        private readonly CrowdFundingDBContext _db;
 
-        public ProjectController(IProjectManager _projMangr, CrowdFundingDBContext db)
+        public ProjectController(IProjectManager projMangr, CrowdFundingDBContext db)
         {
-            projMangr = _projMangr;
+            _projMangr = projMangr;
             _db = db;
         }
 
@@ -21,11 +22,24 @@ namespace CrowdFundingCH.Models
             return View();
         }
 
-       // [Authorize("Admin,Project Creator")]
+        // [Authorize("Admin,Project Creator")]
         [HttpPost]
         public Project CreateProject([FromBody] ProjectOptions projOpt)
-        {   
-            return projMangr.CreateProject(projOpt);
+        {
+            return _projMangr.CreateProject(projOpt);
         }
+
+
+
+        [HttpGet]
+        public IActionResult SingleProjectView(int? id)
+        {
+
+            var singleproject = _projMangr.FindProjectById((int)id);
+
+            // strongly typed view - by putting object into the view vs. ViewBag.ComicBook = comicBook;
+            return View(singleproject);  // will automatically look in the views folder
+        }
+
     }
 }

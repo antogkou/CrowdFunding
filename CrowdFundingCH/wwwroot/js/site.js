@@ -5,7 +5,8 @@
 
 function submitProjectToServer() {
     actionMethod = "POST"
-    actionUrl = "/project/createproject"
+    actionUrl = "/project/
+    "
     sendData = {
         "Name": $('#Name').val(),
         "Description": $('#Description').val(),
