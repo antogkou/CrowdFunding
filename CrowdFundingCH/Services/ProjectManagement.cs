@@ -3,6 +3,7 @@ using CrowdFundingCH.Models;
 using CrowdFundingCH.Options;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CrowdFundingCH.Services
@@ -39,6 +40,12 @@ namespace CrowdFundingCH.Services
             db.Projects.Add(project);
             db.SaveChanges();
             return project;
+        }
+
+        //List Projects
+        public List<Project> GetAllProjects()
+        {
+            return db.Projects.ToList();
         }
 
         //Find Project by id

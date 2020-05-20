@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CrowdFundingCH.Models
@@ -23,7 +24,9 @@ namespace CrowdFundingCH.Models
         public string Creator { get; set; }
 
         public string ProjectCategory { get; set;}
-        
+
+        //public List<Project> Projects { get; set; }
+
         //public virtual ICollection<ProjectCategory> Categories { get; set; }
 
 

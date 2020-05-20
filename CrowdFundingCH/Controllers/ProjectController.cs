@@ -27,8 +27,5 @@ namespace CrowdFundingCH.Models
         {   
             return projMangr.CreateProject(projOpt);
         }
-
- 
-
     }
 }

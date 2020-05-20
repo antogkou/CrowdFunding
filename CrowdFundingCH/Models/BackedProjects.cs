@@ -15,7 +15,6 @@ namespace CrowdFundingMVC.Models
         public Fund Fund { get; set; }
 
 
-        //public Fund BackedProject { get; set; }
         public DateTimeOffset BackedFundDateCreated { get; set; }
 
         public BackedProjects()

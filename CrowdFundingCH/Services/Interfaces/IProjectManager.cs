@@ -9,4 +9,5 @@ namespace CrowdFundingCH.Services
         Project FindProjectById(int id);
         Project FindProjectByName(ProjectOptions projectoption);
     }
+
 }
