@@ -10,9 +10,9 @@ function submitProjectToServer() {
         "Name": $('#Name').val(),
         "Description": $('#Description').val(),
         "NeededAmount": parseFloat($('#NeededAmount').val()),
-        "ProjectCategory": $('#ProjectCategory').val()
+        "ProjectCategory": $('#ProjectCategory').val(),
+        
     }
-   // data: JSON.stringify({ Price: 5.0 })
 
     alert(JSON.stringify(sendData))
 

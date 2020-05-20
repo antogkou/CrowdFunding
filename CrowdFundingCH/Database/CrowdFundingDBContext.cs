@@ -17,7 +17,7 @@ namespace CrowdFundingCH.Areas.Identity.Data
 
         public DbSet<Multimedia> Multimedia { get; set; }
         public DbSet<BackedProject> BackedProjects { get; set; }
-        //public DbSet<ProjectCategory> ProjectCategory { get; set; }
+      //  public DbSet<ProjectCategory> ProjectCategorys { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

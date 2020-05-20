@@ -24,9 +24,11 @@ namespace CrowdFundingCH.Models
        // [Authorize("Admin,Project Creator")]
         [HttpPost]
         public Project CreateProject([FromBody] ProjectOptions projOpt)
-        {
+        {   
             return projMangr.CreateProject(projOpt);
         }
+
+ 
 
     }
 }

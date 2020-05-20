@@ -22,9 +22,14 @@ namespace CrowdFundingCH.Models
         public decimal Progress { get; set; } //calculated property - percentage progress
         public DateTime StartingDate { get; set; }
         public string Creator { get; set; }
-        public ProjectCategory ProjectCategory  {  get; set; }
 
-      
+        public string ProjectCategory { get; set;
+
+          
+       
+    }
+        
+        //public virtual ICollection<ProjectCategory> Categories { get; set; }
 
 
     }
