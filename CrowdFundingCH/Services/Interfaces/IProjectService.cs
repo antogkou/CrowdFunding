@@ -1,13 +1,15 @@
-﻿using CrowdFundingCH.Models;
-using CrowdFundingCH.Options;
+﻿using CrowdFundingMVC.Models;
+using CrowdFundingMVC.Options;
+using System.Linq;
 
-namespace CrowdFundingCH.Services
+namespace CrowdFundingMVC.Services
 {
-    public interface IProjectManager
+    public interface IProjectService
     {
         Project CreateProject(ProjectOptions projectoption);
         Project FindProjectById(int id);
         Project FindProjectByName(ProjectOptions projectoption);
+       
     }
 
 }

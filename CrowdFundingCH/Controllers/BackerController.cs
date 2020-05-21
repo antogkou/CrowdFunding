@@ -1,15 +1,13 @@
-﻿using CrowdFundingCH.Areas.Identity.Data;
-using CrowdFundingCH.Models;
+﻿using CrowdFundingMVC.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CrowdFundingCH.Controllers
+namespace CrowdFundingMVC.Controllers
 {
 
-    [Authorize(Roles="Backer,Admin,Project Creator")]
+    [Authorize(Roles = "Backer,Admin,Project Creator")]
     public class BackerController : Controller
     {
         //Injections

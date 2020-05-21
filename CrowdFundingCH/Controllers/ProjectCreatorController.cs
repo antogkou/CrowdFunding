@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CrowdFundingCH.Controllers
+namespace CrowdFundingMVC.Controllers
 {
     [Authorize(Roles = "Project Creator,Admin")]
     public class ProjectCreatorController : Controller

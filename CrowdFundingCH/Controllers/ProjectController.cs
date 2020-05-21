@@ -1,20 +1,27 @@
-﻿using CrowdFundingCH.Areas.Identity.Data;
-using CrowdFundingCH.Options;
-using CrowdFundingCH.Services;
-using CrowdFundingMVC.Models;
+﻿using CrowdFundingMVC.Areas.Identity.Data;
+using CrowdFundingMVC.Options;
+using CrowdFundingMVC.Services;
 using Microsoft.AspNetCore.Mvc;
+using CrowdFundingMVC.Models;
 
-namespace CrowdFundingCH.Models
+namespace CrowdFundingMVC.Controllers
 {
+    
     public class ProjectController : Controller
     {
-        private IProjectManager _projMangr;
         private readonly CrowdFundingDBContext _db;
+        private IProjectService _projMangr;
+       
 
-        public ProjectController(IProjectManager projMangr, CrowdFundingDBContext db)
+        public ProjectController( CrowdFundingDBContext db, IProjectService projMangr)
         {
-            _projMangr = projMangr;
             _db = db;
+            _projMangr = projMangr;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         public IActionResult CreateProject()
@@ -28,8 +35,6 @@ namespace CrowdFundingCH.Models
         {
             return _projMangr.CreateProject(projOpt);
         }
-
-
 
         [HttpGet]
         public IActionResult SingleProjectView(int? id)

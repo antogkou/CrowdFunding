@@ -1,5 +1,5 @@
-using CrowdFundingCH.Areas.Identity.Data;
-using CrowdFundingCH.Services;
+using CrowdFundingMVC.Areas.Identity.Data;
+using CrowdFundingMVC.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace CrowdFundingCH
+namespace CrowdFundingMVC
 {
     public class Startup
     {
@@ -34,7 +34,7 @@ namespace CrowdFundingCH
             services.AddHttpContextAccessor();
 
             //here we connect Interfaces to Managements
-            services.AddTransient<IProjectManager, ProjectManagement>();
+            services.AddTransient<IProjectService, ProjectServices>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

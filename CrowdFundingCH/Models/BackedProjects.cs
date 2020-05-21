@@ -1,4 +1,4 @@
-﻿using CrowdFundingCH.Areas.Identity.Data;
+﻿using CrowdFundingMVC.Areas.Identity.Data;
 using CrowdFundingMVC.Models;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;

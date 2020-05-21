@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingMVC.Migrations
 {
-    public partial class test : Migration
+    public partial class night : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,46 +46,6 @@ namespace CrowdFundingMVC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Funds",
-                columns: table => new
-                {
-                    FundId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateTime = table.Column<DateTime>(nullable: false),
-                    FundTitle = table.Column<string>(nullable: true),
-                    FundPrice = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Funds", x => x.FundId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Projects",
-                columns: table => new
-                {
-                    ProjectId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    NeededAmount = table.Column<decimal>(nullable: false),
-                    CurrentAmount = table.Column<decimal>(nullable: false),
-                    EndingDate = table.Column<DateTime>(nullable: false),
-                    StatusUpdate = table.Column<string>(nullable: true),
-                    Viewcounter = table.Column<int>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false),
-                    IsComplete = table.Column<bool>(nullable: false),
-                    Progress = table.Column<decimal>(nullable: false),
-                    StartingDate = table.Column<DateTime>(nullable: false),
-                    Creator = table.Column<string>(nullable: true),
-                    ProjectCategory = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,22 +155,56 @@ namespace CrowdFundingMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BackedProjects",
+                name: "Projects",
                 columns: table => new
                 {
-                    BackedProjectId = table.Column<int>(nullable: false)
+                    ProjectId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    DateTime = table.Column<DateTime>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    NeededAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    CurrentAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Progress = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Viewcounter = table.Column<int>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    IsComplete = table.Column<bool>(nullable: false),
+                    StartingDate = table.Column<DateTime>(nullable: false),
+                    EndingDate = table.Column<DateTime>(nullable: false),
+                    Creator = table.Column<string>(nullable: true),
+                    ProjectCategory = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BackedProjects", x => x.BackedProjectId);
+                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
                     table.ForeignKey(
-                        name: "FK_BackedProjects_AspNetUsers_ApplicationUserId",
+                        name: "FK_Projects_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Funds",
+                columns: table => new
+                {
+                    FundId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectId = table.Column<int>(nullable: true),
+                    FundTitle = table.Column<string>(nullable: true),
+                    FundPrice = table.Column<string>(nullable: true),
+                    FundReward = table.Column<string>(nullable: true),
+                    FundDateCreated = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Funds", x => x.FundId);
+                    table.ForeignKey(
+                        name: "FK_Funds_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -231,6 +225,33 @@ namespace CrowdFundingMVC.Migrations
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BackedProjects",
+                columns: table => new
+                {
+                    BackedProjectsId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    FundId = table.Column<int>(nullable: true),
+                    BackedFundDateCreated = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BackedProjects", x => x.BackedProjectsId);
+                    table.ForeignKey(
+                        name: "FK_BackedProjects_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BackedProjects_Funds_FundId",
+                        column: x => x.FundId,
+                        principalTable: "Funds",
+                        principalColumn: "FundId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -279,9 +300,24 @@ namespace CrowdFundingMVC.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BackedProjects_FundId",
+                table: "BackedProjects",
+                column: "FundId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Funds_ProjectId",
+                table: "Funds",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Multimedia_ProjectId",
                 table: "Multimedia",
                 column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_ApplicationUserId",
+                table: "Projects",
+                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -305,19 +341,19 @@ namespace CrowdFundingMVC.Migrations
                 name: "BackedProjects");
 
             migrationBuilder.DropTable(
-                name: "Funds");
-
-            migrationBuilder.DropTable(
                 name: "Multimedia");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Funds");
 
             migrationBuilder.DropTable(
                 name: "Projects");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

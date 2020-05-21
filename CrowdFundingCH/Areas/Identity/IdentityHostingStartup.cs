@@ -1,4 +1,4 @@
-﻿using CrowdFundingCH.Areas.Identity.Data;
+﻿using CrowdFundingMVC.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(CrowdFundingCH.Areas.Identity.IdentityHostingStartup))]
-namespace CrowdFundingCH.Areas.Identity
+[assembly: HostingStartup(typeof(CrowdFundingMVC.Areas.Identity.IdentityHostingStartup))]
+namespace CrowdFundingMVC.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

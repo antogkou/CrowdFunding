@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CrowdFundingCH.Areas.Identity.Pages.Account.Manage
+namespace CrowdFundingMVC.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {
