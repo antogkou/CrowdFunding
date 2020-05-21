@@ -12,5 +12,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Database\" />
+    <Folder Include="Services\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 
 </Project>
