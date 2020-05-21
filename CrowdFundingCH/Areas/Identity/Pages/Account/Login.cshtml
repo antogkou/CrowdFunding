@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Log in";
-    //Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
+    Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
 }
 
     @*<div class="col-md-10 offset-md-1">
@@ -53,7 +53,7 @@
             <span asp-validation-for="Input.Password" class="text-danger"></span>
             <div class="checkbox mb-3">
                 <label>
-                    <input asp-for="Input.RememberMe" type="checkbox" value="remember-me">Remember Me
+                    <input asp-for="Input.RememberMe" type="checkbox" >
                     @Html.DisplayNameFor(m => m.Input.RememberMe)
                 </label>
             </div>

@@ -1,5 +1,5 @@
-﻿using CrowdFundingCH.Areas.Identity.Data;
-using CrowdFundingCH.Models;
+﻿using CrowdFundingMVC.Areas.Identity.Data;
+using CrowdFundingMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

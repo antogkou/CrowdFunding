@@ -1,9 +1,9 @@
-﻿using CrowdFundingCH.Models;
+﻿using CrowdFundingMVC.Models;
 using CrowdFundingMVC.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrowdFundingCH.Areas.Identity.Data
+namespace CrowdFundingMVC.Areas.Identity.Data
 {
     public class CrowdFundingDBContext : IdentityDbContext<ApplicationUser>
     {

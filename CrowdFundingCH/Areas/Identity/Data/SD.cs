@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CrowdFundingCH.Areas.Identity.Data
+namespace CrowdFundingMVC.Areas.Identity.Data
 {
     public class SD
     {

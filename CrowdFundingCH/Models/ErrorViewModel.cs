@@ -1,6 +1,6 @@
 using System;
 
-namespace CrowdFundingCH.Models
+namespace CrowdFundingMVC.Models
 {
     public class ErrorViewModel
     {

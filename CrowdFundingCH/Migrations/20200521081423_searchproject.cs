@@ -2,7 +2,7 @@
 
 namespace CrowdFundingMVC.Migrations
 {
-    public partial class modeling3 : Migration
+    public partial class searchproject : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CrowdFundingCH.Areas.Identity.Data;
-using CrowdFundingCH.Models;
+using CrowdFundingMVC.Areas.Identity.Data;
+using CrowdFundingMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrowdFundingCH.Controllers
+namespace CrowdFundingMVC.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
