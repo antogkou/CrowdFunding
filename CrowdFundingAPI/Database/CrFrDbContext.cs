@@ -5,12 +5,16 @@ namespace CrowdFundingAPI.Database
 {
     public class CrFrDbContext : DbContext
     {
-        private readonly string connectionString_;
+        
+        private readonly string connectionString;
+
+        
 
         public CrFrDbContext()
         {
-            connectionString_ = "Server=localhost;Database=crowdfundingDB;User id=sa;Password=admin!@#123";
+            connectionString = "Server=localhost;Database=crowdfundingDB;User id=sa;Password=admin!@#123";
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -106,7 +110,7 @@ namespace CrowdFundingAPI.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString_);
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
 }

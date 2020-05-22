@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CrowdFundingAPI.Database;
 
 namespace CrowdFundingMVC
 {
@@ -22,7 +24,21 @@ namespace CrowdFundingMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
+
+            //services.AddTransient<ICustomerManager, CustomerManagement>();
+            //services.AddTransient<IProductManager, ProductManagement>();
+            //services.AddTransient<IBasketManager, BasketManagement>();
+            //services.AddTransient<IProjectManager, ProjectManagement>();
+
             services.AddControllersWithViews();
+            services.AddLogging();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
