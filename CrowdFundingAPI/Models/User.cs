@@ -7,7 +7,7 @@ namespace CrowdFundingAPI.Models
 {
     public class User
     {
-        public int user_Id { get; set; }
+        public int UserId { get; set; }
 
         public string user_First_Name { get; set; }
 

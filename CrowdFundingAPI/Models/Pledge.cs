@@ -7,7 +7,7 @@ namespace CrowdFundingAPI.Models
 {
     public class Pledge
     {
-        public int PledgedId { get; set; }
+        public int PledgeId { get; set; }
 
         public Project Project { get; set; }
 
@@ -16,7 +16,6 @@ namespace CrowdFundingAPI.Models
         public decimal PledgePrice { get; set; }
         public string PledgeReward { get; set; }
         public DateTimeOffset PledgeDateCreated { get; set; }
-
 
         public ICollection<BackedPledges> FundBackers { get; set; }
 
