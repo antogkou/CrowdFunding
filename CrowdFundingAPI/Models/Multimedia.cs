@@ -14,7 +14,6 @@ namespace CrowdFundingAPI.Models
         public string MultimediaURL { get; set; }
         public MultimediaTypes MultimediaType { get; set; }
 
-
         public DateTimeOffset MultimediaDateCreated { get; set; }
 
         public Multimedia()
