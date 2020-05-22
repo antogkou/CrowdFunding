@@ -9,7 +9,7 @@ namespace CrowdFundingAPI.Database
 {
     public class CrFrDbContext : DbContext
     {
-        private readonly string connectionString_;
+        public readonly string connectionString_;
 
         public CrFrDbContext()
         {
