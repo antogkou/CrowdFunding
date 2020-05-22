@@ -6,21 +6,37 @@ namespace CrowdFundingMVC.Controllers
 {
     public class ProjectController : Controller
     {
-        private IProjectService _projservice;
-        private readonly CrFrDbContext _db;
+        //private IProjectService _projservice;
+        //private readonly CrFrDbContext _db;
 
-        public ProjectController(IProjectService projservice, CrFrDbContext db)
-        {
-            _projservice = projservice;
-            _db = db;
+        //public ProjectController(IProjectService projservice, CrFrDbContext db)
+        //{
+        //    _projservice = projservice;
+        //    _db = db;
 
-        }
+        //}
 
+        //[HttpGet]
+        //public List<Project> GetAll()
+        //{
+        //    return _projservice.GetAll();
+        //}
         [HttpGet]
-        public List<Project> GetAll()
+        public IActionResult CreateProject()
         {
-            return _projservice.GetAll();
+            return View();
         }
+        [HttpGet]
+        public IActionResult GetAllProjects()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult GetPopularProjects()
+        {
+            return View();
+        }
+        [HttpGet]
 
         [HttpGet]
         public IActionResult Index()

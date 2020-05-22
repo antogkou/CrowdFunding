@@ -32,6 +32,7 @@ namespace CrowdFundingMVC
             });
 
 
+            services.AddDbContext<CrFrDbContext>(options => options.UseSqlServer(CrFrDbContext.connectionString));
             //services.AddTransient<ICustomerManager, CustomerManagement>();
             //services.AddTransient<IProductManager, ProductManagement>();
             //services.AddTransient<IBasketManager, BasketManagement>();
