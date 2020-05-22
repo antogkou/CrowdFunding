@@ -1,4 +1,5 @@
 ﻿using CrowdFundingAPI.Database;
+using CrowdFundingAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -26,22 +27,31 @@ namespace CrowdFundingMVC.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult GetAllProjects()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult GetPopularProjects()
         {
             return View();
         }
-        [HttpGet]
 
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+
+        // [HttpPost]
+
+        //[HttpPost]
+        //public Project AddProject([FromBody] ProjectOption projectopton)
+        //{
+        //    return projMangr.CreateProject(projectopton);
+        //}
     }
 }

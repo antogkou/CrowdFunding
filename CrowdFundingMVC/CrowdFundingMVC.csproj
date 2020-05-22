@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\User\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CrowdFundingAPI\CrowdFundingAPI.csproj" />
   </ItemGroup>
 
