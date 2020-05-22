@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "CreateProject";
+}
+
+<div class="text-center">
+    <h1>Create a Project</h1>
+</div>
+
+<div class="row">
+    <div class="col">
+        <form>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Name</label>
+                <input type="text" class="form-control" id="ProjectTitle" placeholder="Project Name">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2">Description</label>
+                <input type="text" class="form-control" id="ProjectDescription" placeholder="Project Description">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2">Project Goal</label>
+                <input type="text" class="form-control" id="ProjectTargetAmount" placeholder="Project Target Amount">
+            </div>
+            <button type="button" class="btn btn-primary" id="SubmitProject" onclick="submitToServer()">Submit</button>
+        </form>
+    </div>
+    <div class="col">
+        @*<img src="https://cdn.pixabay.com/photo/2017/06/30/10/14/social-media-2457842_960_720.png"  class="img-fluid" />*@
+    </div>
+</div>

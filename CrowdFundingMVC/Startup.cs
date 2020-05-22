@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CrowdFundingAPI.Database;
 
 namespace CrowdFundingMVC
 {
@@ -25,7 +27,15 @@ namespace CrowdFundingMVC
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
+
+            services.AddDbContext<CrFrDbContext>(options => options.UseSqlServer(CrFrDbContext.connectionString));
+            //services.AddTransient<ICustomerManager, CustomerManagement>();
+            //services.AddTransient<IProductManager, ProductManagement>();
+            //services.AddTransient<IBasketManager, BasketManagement>();
+            //services.AddTransient<IProjectManager, ProjectManagement>();
+
             services.AddControllersWithViews();
+            services.AddLogging();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +55,7 @@ namespace CrowdFundingMVC
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseBrowserLink();
 
             app.UseEndpoints(endpoints =>
             {
