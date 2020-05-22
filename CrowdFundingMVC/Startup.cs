@@ -58,6 +58,7 @@ namespace CrowdFundingMVC
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseBrowserLink();
 
             app.UseEndpoints(endpoints =>
             {
