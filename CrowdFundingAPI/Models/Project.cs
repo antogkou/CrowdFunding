@@ -29,6 +29,8 @@ namespace CrowdFundingAPI.Models
 
         public string ProjectCategory { get; set; }
 
+        public string Creator { get; set; }
+
         public ICollection<Post> ProjectPosts { get; set; }
 
         public ICollection<Pledge> ProjectPledges { get; set; }

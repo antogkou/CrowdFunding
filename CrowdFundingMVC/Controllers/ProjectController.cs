@@ -1,21 +1,24 @@
 ﻿using CrowdFundingAPI.Database;
 using CrowdFundingAPI.Models;
+using CrowdFundingAPI.Models.Options;
+using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CrowdFundingMVC.Controllers
 {
     public class ProjectController : Controller
     {
-        //private IProjectService _projservice;
-        //private readonly CrFrDbContext _db;
+        private IProjectServices _projMangr;
+        private readonly CrFrDbContext _db;
 
-        //public ProjectController(IProjectService projservice, CrFrDbContext db)
-        //{
-        //    _projservice = projservice;
-        //    _db = db;
+        public ProjectController(IProjectServices projMangr, CrFrDbContext db)
+        {
+            _projMangr = projMangr;
+            _db = db;
 
-        //}
+        }
 
         //[HttpGet]
         //public List<Project> GetAll()
@@ -27,6 +30,14 @@ namespace CrowdFundingMVC.Controllers
         {
             return View();
         }
+
+        // [Authorize("Admin,Project Creator")]
+        [HttpPost]
+        public Project CreateProject([FromBody] ProjectOptions projOpt)
+        {
+            return _projMangr.CreateProject2(projOpt);
+        }
+
 
         [HttpGet]
         public IActionResult GetAllProjects()

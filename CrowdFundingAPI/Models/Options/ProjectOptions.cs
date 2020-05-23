@@ -1,0 +1,16 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace CrowdFundingAPI.Models.Options
+{
+    public class ProjectOptions
+    {
+        public string ProjectTitle { get; set; }
+        public string ProjectDescription { get; set; }
+        //  [Column(TypeName = "decimal(18,4)")]
+        public decimal ProjectTargetAmount { get; set; }
+        public string ProjectCategory { get; set; }
+        [Required, DataType(DataType.Date), Display(Name = "Ending date"), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        public DateTimeOffset EndingDate { get; set; }
+    }
+}

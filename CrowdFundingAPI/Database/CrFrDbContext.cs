@@ -11,9 +11,6 @@ namespace CrowdFundingAPI.Database
         public readonly static string connectionString =
             "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123";
 
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

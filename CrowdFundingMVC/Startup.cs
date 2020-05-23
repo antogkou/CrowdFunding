@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using CrowdFundingAPI.Database;
 using Microsoft.AspNetCore.Identity;
 using CrowdFundingAPI.Models;
+using CrowdFundingAPI.Services.Interfaces;
+using CrowdFundingAPI.Services;
 
 namespace CrowdFundingMVC
 {
@@ -43,7 +45,7 @@ namespace CrowdFundingMVC
 
 
             services.AddDbContext<CrFrDbContext>(options => options.UseSqlServer(CrFrDbContext.connectionString));
-            //services.AddTransient<ICustomerManager, CustomerManagement>();
+            services.AddTransient<IProjectServices, ProjectServices>();
             //services.AddTransient<IProductManager, ProductManagement>();
             //services.AddTransient<IBasketManager, BasketManagement>();
             //services.AddTransient<IProjectManager, ProjectManagement>();
