@@ -23,7 +23,6 @@ namespace CrowdFundingAPI.Services
             httpContextAccessor = _httpContextAccessor;
         }
 
-
         //Create Project approach1
         public Project CreateProject(ProjectOptions projectoption)
         {
@@ -139,8 +138,7 @@ namespace CrowdFundingAPI.Services
             return query;
         }
 
-        public IQueryable<Project> SearchProject(
-            ProjectOptions options)
+        public IQueryable<Project> SearchProject(ProjectOptions options)
         {
             if (options == null)
             {
@@ -151,15 +149,17 @@ namespace CrowdFundingAPI.Services
                 .Set<Project>()
                 .AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(options.ProjectTitle))
-            {
-                query = query.Where(c => c.ProjectTitle == options.ProjectTitle);
-            }
                 query = query.Where(c => c.ProjectId == options.ProjectId);
           
             query = query.Take(500);
 
             return query;
+        }
+
+        //new find way
+        public Project FindProjectById(int id)
+        {
+            return _db.Set<Project>().Find(id);
         }
     }
 }

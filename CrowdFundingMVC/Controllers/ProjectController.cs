@@ -3,9 +3,7 @@ using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CrowdFundingMVC.Controllers
 {
@@ -19,14 +17,7 @@ namespace CrowdFundingMVC.Controllers
             _projMangr = projMangr;
             _db = db;
         }
-
-        //old_not_working
-        //[HttpGet]
-        //public List<Project> GetAll()
-        //{
-        //    return _projMangr.ListProjects();
-        //}
-        
+       
         //All Projects List
         [HttpGet]
         public IActionResult GetAllProjects()
@@ -79,10 +70,19 @@ namespace CrowdFundingMVC.Controllers
         }
 
 
+        // [HttpPost]
+
         //[HttpPost]
         //public Project AddProject([FromBody] ProjectOption projectopton)
         //{
         //    return projMangr.CreateProject(projectopton);
+        //}
+
+        //old_not_working
+        //[HttpGet]
+        //public List<Project> GetAll()
+        //{
+        //    return _projMangr.ListProjects();
         //}
     }
 }

@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace CrowdFundingAPI.Models.Options
+{
+    public class PledgeOptions
+    {
+        public string PledgeTitle { get; set; }
+
+        public decimal PledgePrice { get; set; }
+
+        public string PledgeReward { get; set; }
+
+        public int ProjectId { get; set; }
+
+    }
+}
