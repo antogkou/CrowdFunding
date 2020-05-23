@@ -9,15 +9,15 @@ namespace CrowdFundingAPI.Models
     {
         public int UserId { get; set; }
 
-        public string user_First_Name { get; set; }
+        //public string user_First_Name { get; set; } = null!;
 
-        public string user_Last_Name { get; set; }
+        //public string user_Last_Name { get; set; } = null!;
 
-        public string user_VAT { get; set; }
+        //public string user_VAT { get; set; } = null!;
 
         public ICollection<Project> UserCreatedProjects { get; set; }
 
-        public DateTimeOffset UserDateCreated { get; set; }
+        public DateTimeOffset UserDateCreated { get; set; } 
 
         public MyUsers()
         {

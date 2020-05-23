@@ -29,6 +29,9 @@ namespace CrowdFundingMVC
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
+            services.AddDbContext<CrFrDbContext>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+
             services.AddDefaultIdentity<MyUsers>(options => options.SignIn.RequireConfirmedAccount = false)
                  .AddRoles<IdentityRole>()
                  .AddDefaultTokenProviders()
@@ -62,7 +65,6 @@ namespace CrowdFundingMVC
             }
           //  app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthentication();
@@ -71,6 +73,7 @@ namespace CrowdFundingMVC
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

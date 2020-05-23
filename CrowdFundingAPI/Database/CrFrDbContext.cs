@@ -39,8 +39,8 @@ namespace CrowdFundingAPI.Database
                 b.Property(u => u.Email).HasMaxLength(256).IsRequired();
                 b.Property(u => u.NormalizedEmail).HasMaxLength(256).IsRequired();
 
-                b.Property(u => u.user_First_Name).HasMaxLength(256).IsRequired();
-                b.Property(u => u.user_Last_Name).HasMaxLength(256).IsRequired();
+                //b.Property(u => u.user_First_Name).HasMaxLength(256).IsRequired();
+                //b.Property(u => u.user_Last_Name).HasMaxLength(256).IsRequired();
 
                 // The relationships between User and other entity types
                 // Note that these relationships are configured with no navigation properties
