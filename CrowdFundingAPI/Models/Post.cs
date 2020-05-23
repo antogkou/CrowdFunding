@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
+using System;
 
 namespace CrowdFundingAPI.Models
 {
@@ -9,7 +7,7 @@ namespace CrowdFundingAPI.Models
     {
         public int PostId { get; set; }
 
-        public User User { get; set; }
+        public MyUsers User { get; set; }
 
         public Project Project { get; set; }
 

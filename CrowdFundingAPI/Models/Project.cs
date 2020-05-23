@@ -10,7 +10,7 @@ namespace CrowdFundingAPI.Models
 
         public int ProjectId { get; set; }
 
-        public User User { get; set; }
+        public MyUsers User { get; set; }
         public string ProjectTitle { get; set; }
         
         public string ProjectDescription { get; set; }
