@@ -3,7 +3,9 @@ using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
+using System.Security.Claims;
 
 namespace CrowdFundingAPI.Services
 {
@@ -11,10 +13,12 @@ namespace CrowdFundingAPI.Services
     {
         private CrFrDbContext _db;
         private readonly IHttpContextAccessor httpContextAccessor;
+        protected UserManager<MyUsers> _userManager { get; set; }
 
-        public ProjectServices(CrFrDbContext db, IHttpContextAccessor _httpContextAccessor)
+        public ProjectServices(CrFrDbContext db, IHttpContextAccessor _httpContextAccessor, UserManager<MyUsers> userManager)
         {
             _db = db;
+            _userManager = userManager;
             httpContextAccessor = _httpContextAccessor;
         }
 
@@ -47,6 +51,8 @@ namespace CrowdFundingAPI.Services
         public Project CreateProject2(ProjectOptions projectoption)
         {
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (projectoption == null)
             {
                 return null;
@@ -59,6 +65,7 @@ namespace CrowdFundingAPI.Services
 
             var project = new Project()
             {
+                UserId = userId,
                 Creator = userName,
                 ProjectTitle = projectoption.ProjectTitle,
                 ProjectDescription = projectoption.ProjectDescription,
