@@ -1,4 +1,6 @@
 ﻿@model CrowdFundingAPI.Models.Project
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<CrowdFundingAPI.Models.MyUsers> UserManager
 
 @{
     ViewData["Title"] = "Project Details View";
@@ -19,7 +21,14 @@
         </div>
         <h5>Description</h5>@Html.Raw(Model.ProjectDescription)
 
-
-        <button type="submit" class="btn btn-primary" onclick="submitFundToServer()" id="@Model.ProjectId" name="fundmit">Fund this!</button>
+    <h1>
+        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.UserId)
+        {
+            <a href="@Url.Action("CreatePledges", new { id = @Model.ProjectId})" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
+        }
+    </h1>
+        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer( @Model.ProjectId, @Model.UserId)" id="@Model.ProjectId" name="fundmit5">Fund 5!</button>
+        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.ProjectId" name="fundmit10">Fund 10!</button>
+        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.ProjectId" name="fundmit220">Fund 20!</button>
     </div>
 </div>

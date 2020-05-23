@@ -1,0 +1,43 @@
+﻿@model CrowdFundingAPI.Models.Pledge
+@{
+    ViewData["Title"] = "Add Pledge";
+}
+
+<div class="text-center">
+    <h1>Add Pledges to your project</h1>
+</div>
+
+<div class="row">
+    <div class="col col-md-2"></div>
+    <div class="tab col-md-8">
+        <form data-form="0">
+
+
+            <div class="form-group">
+                <label asp-for="PledgeTitle" class="control-label"></label>
+                <input asp-for="PledgeTitle" class="form-control" type="text" required />
+                <div class="invalid-feedback">
+                    Please provide a valid Name.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PledgePrice" class="control-label"></label>
+                <input asp-for="PledgePrice" class="form-control" type="number" required />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PledgeReward" class="control-label"></label>
+                <input asp-for="PledgeReward" class="form-control" type="number" required />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+
+            <div class="col col-md-12 d-flex justify-content-end pr-0">
+                <input type="button" onclick="submitPledgeToServer()" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>

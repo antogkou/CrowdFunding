@@ -16,5 +16,8 @@ namespace CrowdFundingAPI.Models.Options
         public string ProjectCategory { get; set; }
         [Required, DataType(DataType.Date), Display(Name = "Ending date"), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTimeOffset EndingDate { get; set; }
+
+        public string UserId { get; set; }
+        public string Creator { get; set; }
     }
 }
