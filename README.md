@@ -1,2 +1,2 @@
-# FundRaiserAG
-CodeHub Project #5_AG
+# Crowd Funding Application for Code Hub - Learn
+CodeHub Project #team5
