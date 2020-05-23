@@ -4,9 +4,6 @@ using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CrowdFundingAPI.Services
 {
@@ -22,7 +19,7 @@ namespace CrowdFundingAPI.Services
         }
 
 
-        //Create Project
+        //Create Project approach1
         public Project CreateProject(ProjectOptions projectoption)
         {
           
@@ -46,8 +43,10 @@ namespace CrowdFundingAPI.Services
             return project;
         }
 
+        //Create Project approach2
         public Project CreateProject2(ProjectOptions projectoption)
         {
+            string userName = httpContextAccessor.HttpContext.User.Identity.Name;
             if (projectoption == null)
             {
                 return null;
@@ -60,10 +59,13 @@ namespace CrowdFundingAPI.Services
 
             var project = new Project()
             {
+                Creator = userName,
                 ProjectTitle = projectoption.ProjectTitle,
                 ProjectDescription = projectoption.ProjectDescription,
                 ProjectTargetAmount = projectoption.ProjectTargetAmount,
                 EndingDate = projectoption.EndingDate,
+                ProjectCategory = projectoption.ProjectCategory,
+                IsActive = true,
 
             };
 
