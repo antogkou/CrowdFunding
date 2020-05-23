@@ -32,6 +32,5 @@ namespace CrowdFundingAPI.Services
             return pledge;
         }
 
-
     }
 }

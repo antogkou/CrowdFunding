@@ -11,7 +11,7 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="card" style="width: 18rem;" @Html.ActionLink(item.ProjectTitle, "SingleProjectView", new { id = item.ProjectId })>
+            <div class="card" style="width: 18rem;">
 
                 <img class="card-img-top" src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" alt="Card image cap">
                 <div class="card-body">
@@ -20,7 +20,7 @@
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectTargetAmount)</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.Creator)</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.CreationDate)</p>
-                    <a href="@Url.Action("SingleProjectView", new { id = item.ProjectId})" class="btn btn-sm btn-outline-primary" id="SingleProjectView">Go to this Project!</a>
+                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})" class="btn btn-sm btn-outline-primary" id="SingleProjectView">Go to this Project!</a>
 
                 </div>
             </div>

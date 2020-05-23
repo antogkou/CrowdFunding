@@ -1,0 +1,25 @@
+﻿@model CrowdFundingAPI.Models.Project
+
+@{
+    ViewData["Title"] = "Project Details View";
+}
+
+<h1>Project Details</h1>
+
+
+<h2>@Model.ProjectTitle</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
+            <h5><label>Project Name:</label> @Model.ProjectTitle</h5>
+            <h5><label>Creator:</label> @Model.Creator</h5>
+            <h5><label>Needed Amount:</label> @(Model.ProjectTargetAmount)</h5>
+        </div>
+        <h5>Description</h5>
+        @Html.Raw(Model.ProjectDescription)
+        <input type="number" name="fname" />
+        <button type="submit" class="btn btn-primary" onclick="submitFundToServer()" id="@Model.ProjectId" name="fundmit">Fund this!</button>
+    </div>
+</div>

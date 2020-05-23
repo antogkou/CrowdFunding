@@ -11,6 +11,7 @@ namespace CrowdFundingAPI.Services.Interfaces
         IQueryable<Project> ListProjects(ProjectOptions options);
         IQueryable<Project> SearchProject(ProjectOptions options);
 
+        Project FindProjectById(int id);
 
     }
 }

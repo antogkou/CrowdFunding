@@ -4,6 +4,7 @@ using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CrowdFundingMVC.Controllers
 {
@@ -26,8 +27,18 @@ namespace CrowdFundingMVC.Controllers
                 .ListProjects(new ProjectOptions())
                 .ToList();
 
-            return Json(projectList);
+            return View(projectList);
         }
+
+        [HttpGet]
+        public IActionResult SingleProject(int? id)
+        {
+            var singleproject = _projMangr.FindProjectById((int)id);
+
+            // strongly typed view - by putting object into the view vs. ViewBag.ComicBook = comicBook;
+            return View(singleproject);  // will automatically look in the views folder
+        }
+
         //Get Project by Id
         [HttpGet]
         public IActionResult GetProjectById([FromRoute] int projectId)

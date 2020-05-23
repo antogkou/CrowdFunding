@@ -5,6 +5,7 @@ using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
@@ -111,6 +112,8 @@ namespace CrowdFundingAPI.Services
         //    return _db.Projects.ToList();
         //}
 
+       
+
         public IQueryable<Project> ListProjects(ProjectOptions options)
         {
             if (options == null)
@@ -160,6 +163,12 @@ namespace CrowdFundingAPI.Services
         public Project FindProjectById(int id)
         {
             return _db.Set<Project>().Find(id);
+        }
+
+        ////List Projects
+        public List<Project> GetAllProjects()
+        {
+            return _db.Set<Project>().ToList();
         }
     }
 }
