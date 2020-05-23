@@ -17,9 +17,9 @@
             <h5><label>Creator:</label> @Model.Creator</h5>
             <h5><label>Needed Amount:</label> @(Model.ProjectTargetAmount)</h5>
         </div>
-        <h5>Description</h5>
-        @Html.Raw(Model.ProjectDescription)
-        <input type="number" name="fname" />
+        <h5>Description</h5>@Html.Raw(Model.ProjectDescription)
+
+
         <button type="submit" class="btn btn-primary" onclick="submitFundToServer()" id="@Model.ProjectId" name="fundmit">Fund this!</button>
     </div>
 </div>
