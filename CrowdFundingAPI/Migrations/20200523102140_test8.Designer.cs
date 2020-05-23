@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrowdFundingAPI.Migrations
 {
     [DbContext(typeof(CrFrDbContext))]
-    [Migration("20200523095352_test4")]
-    partial class test4
+    [Migration("20200523102140_test8")]
+    partial class test8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -97,6 +97,9 @@ namespace CrowdFundingAPI.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("MyUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("NormalizedEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)")
@@ -124,14 +127,13 @@ namespace CrowdFundingAPI.Migrations
                     b.Property<DateTimeOffset>("UserDateCreated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MyUserId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -414,6 +416,13 @@ namespace CrowdFundingAPI.Migrations
                     b.HasOne("CrowdFundingAPI.Models.Project", "Project")
                         .WithMany("ProjectMultimedia")
                         .HasForeignKey("ProjectId");
+                });
+
+            modelBuilder.Entity("CrowdFundingAPI.Models.MyUsers", b =>
+                {
+                    b.HasOne("CrowdFundingAPI.Models.MyUsers", "MyUser")
+                        .WithMany()
+                        .HasForeignKey("MyUserId");
                 });
 
             modelBuilder.Entity("CrowdFundingAPI.Models.Pledge", b =>

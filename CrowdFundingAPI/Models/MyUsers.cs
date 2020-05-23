@@ -7,14 +7,14 @@ namespace CrowdFundingAPI.Models
     // Add profile data for application users by adding properties to the MyUsers class
     public class MyUsers : IdentityUser
     {
-        public int UserId { get; set; }
+        //public MyUsers MyUser { get; set; }
 
         //public string user_First_Name { get; set; } = null!;
 
         //public string user_Last_Name { get; set; } = null!;
 
         //public string user_VAT { get; set; } = null!;
-
+        
         public ICollection<Project> UserCreatedProjects { get; set; }
 
         public DateTimeOffset UserDateCreated { get; set; } 
@@ -23,7 +23,9 @@ namespace CrowdFundingAPI.Models
         {
             UserCreatedProjects = new List<Project>();
             UserDateCreated = DateTimeOffset.Now;
+            this.Id = Guid.NewGuid().ToString();
         }
+       
     }
 
 }

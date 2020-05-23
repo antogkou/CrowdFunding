@@ -5,6 +5,7 @@ using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Linq;
 using System.Security.Claims;
 
 namespace CrowdFundingAPI.Services
@@ -21,7 +22,6 @@ namespace CrowdFundingAPI.Services
             _userManager = userManager;
             httpContextAccessor = _httpContextAccessor;
         }
-
 
         //Create Project approach1
         public Project CreateProject(ProjectOptions projectoption)
@@ -86,19 +86,22 @@ namespace CrowdFundingAPI.Services
             return null;
         }
 
-        //public async Task<ApiResult<Project>> CreateProject2(ProjectOptions projectoption)
+        //public async Task<ApiResult<Project>> CreateProject3(ProjectOptions projectoption)
         //{
         //    string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+        //    string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         //    var project = new Project()
         //    {
+        //        UserId = userId,
         //        Creator = userName,
-        //        ProjectDescription = options.ProjectDescription,
-        //        ProjectTitle = options.ProjectTitle,
-        //        ProjectFinancialGoal = options.ProjectFinancialGoal,
-        //        ProjectCategory = options.ProjectCategory,
-        //        ProjectDateExpiring = options.ProjectDateExpiring
+        //        ProjectTitle = projectoption.ProjectTitle,
+        //        ProjectDescription = projectoption.ProjectDescription,
+        //        ProjectTargetAmount = projectoption.ProjectTargetAmount,
+        //        EndingDate = projectoption.EndingDate,
+        //        ProjectCategory = projectoption.ProjectCategory,
+        //        IsActive = true,
         //    };
-        //    context.Add(project);
+        //    _db.Add(project);
         //}
 
 
@@ -108,5 +111,55 @@ namespace CrowdFundingAPI.Services
         //    return _db.Projects.ToList();
         //}
 
+        public IQueryable<Project> ListProjects(ProjectOptions options)
+        {
+            if (options == null)
+            {
+                return null;
+            }
+
+            var query = _db
+                .Set<Project>()
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(options.ProjectTitle))
+            {
+                query = query.Where(c => c.ProjectTitle == options.ProjectTitle);
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.ProjectDescription))
+            {
+                query = query.Where(c => c.ProjectDescription == options.ProjectDescription);
+            }
+
+
+            query = query.Take(500);
+
+            return query;
+        }
+
+        public IQueryable<Project> SearchProject(ProjectOptions options)
+        {
+            if (options == null)
+            {
+                return null;
+            }
+
+            var query = _db
+                .Set<Project>()
+                .AsQueryable();
+
+                query = query.Where(c => c.ProjectId == options.ProjectId);
+          
+            query = query.Take(500);
+
+            return query;
+        }
+
+        //new find way
+        public Project FindProjectById(int id)
+        {
+            return _db.Set<Project>().Find(id);
+        }
     }
 }

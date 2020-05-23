@@ -3,8 +3,7 @@ using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace CrowdFundingMVC.Controllers
 {
@@ -17,14 +16,33 @@ namespace CrowdFundingMVC.Controllers
         {
             _projMangr = projMangr;
             _db = db;
+        }
+       
+        //All Projects List
+        [HttpGet]
+        public IActionResult GetAllProjects()
+        {
+            var projectList = _projMangr
+                .ListProjects(new ProjectOptions())
+                .ToList();
 
+            return Json(projectList);
+        }
+        //Get Project by Id
+        [HttpGet]
+        public IActionResult GetProjectById([FromRoute] int projectId)
+        {
+            var project = _projMangr
+            .SearchProject(
+                new ProjectOptions()
+                {
+                    ProjectId = projectId
+                }).SingleOrDefault();
+
+            return Json(project);
         }
 
-        //[HttpGet]
-        //public List<Project> GetAll()
-        //{
-        //    return _projservice.GetAll();
-        //}
+        //Create Project
         [HttpGet]
         public IActionResult CreateProject()
         {
@@ -40,7 +58,7 @@ namespace CrowdFundingMVC.Controllers
 
 
         [HttpGet]
-        public IActionResult GetAllProjects()
+        public IActionResult Index()
         {
             return View();
         }
@@ -51,11 +69,6 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         // [HttpPost]
 
@@ -63,6 +76,13 @@ namespace CrowdFundingMVC.Controllers
         //public Project AddProject([FromBody] ProjectOption projectopton)
         //{
         //    return projMangr.CreateProject(projectopton);
+        //}
+
+        //old_not_working
+        //[HttpGet]
+        //public List<Project> GetAll()
+        //{
+        //    return _projMangr.ListProjects();
         //}
     }
 }

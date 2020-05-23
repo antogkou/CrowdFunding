@@ -122,9 +122,6 @@ namespace CrowdFundingAPI.Migrations
                     b.Property<DateTimeOffset>("UserDateCreated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
