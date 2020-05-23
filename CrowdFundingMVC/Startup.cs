@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CrowdFundingAPI.Database;
+using Microsoft.AspNetCore.Identity;
+using CrowdFundingAPI.Models;
 
 namespace CrowdFundingMVC
 {
@@ -26,6 +28,18 @@ namespace CrowdFundingMVC
                 options.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+
+            services.AddDbContext<CrFrDbContext>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+
+            services.AddDefaultIdentity<MyUsers>(options => options.SignIn.RequireConfirmedAccount = false)
+                 .AddRoles<IdentityRole>()
+                 .AddDefaultTokenProviders()
+                 .AddDefaultUI()
+                 .AddEntityFrameworkStores<CrFrDbContext>();
+
+            //we use this to get current user's details
+            services.AddHttpContextAccessor();
 
 
             services.AddDbContext<CrFrDbContext>(options => options.UseSqlServer(CrFrDbContext.connectionString));
@@ -51,14 +65,15 @@ namespace CrowdFundingMVC
             }
           //  app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseBrowserLink();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

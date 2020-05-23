@@ -1,14 +1,15 @@
 ﻿using CrowdFundingAPI.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrowdFundingAPI.Database
 {
-    public class CrFrDbContext : DbContext
+    public class CrFrDbContext : IdentityDbContext<MyUsers>
     {
 
         
         public readonly static string connectionString =
-            "Server=localhost;Database=crowdfundingDB;User id=sa;Password=admin!@#123";
+            "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123";
 
 
 
@@ -17,27 +18,58 @@ namespace CrowdFundingAPI.Database
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<MyUsers>(b =>
+            {
+                // Primary key
+                b.HasKey(u => u.Id);
+
+                // Indexes for "normalized" username and email, to allow efficient lookups
+                b.HasIndex(u => u.NormalizedUserName).HasName("UserNameIndex").IsUnique();
+                b.HasIndex(u => u.NormalizedEmail).HasName("EmailIndex");
+
+                // Maps to the AspNetUsers table
+                b.ToTable("MyUsers");
+
+                // A concurrency token for use with the optimistic concurrency checking
+                b.Property(u => u.ConcurrencyStamp).IsConcurrencyToken();
+
+                // Limit the size of columns to use efficient database types
+                b.Property(u => u.UserName).HasMaxLength(256);
+                b.Property(u => u.NormalizedUserName).HasMaxLength(256);
+                b.Property(u => u.Email).HasMaxLength(256).IsRequired();
+                b.Property(u => u.NormalizedEmail).HasMaxLength(256).IsRequired();
+
+                //b.Property(u => u.user_First_Name).HasMaxLength(256).IsRequired();
+                //b.Property(u => u.user_Last_Name).HasMaxLength(256).IsRequired();
+
+                // The relationships between User and other entity types
+                // Note that these relationships are configured with no navigation properties
+
+
+            });
+
+
             // Create User table
-            modelBuilder
-                .Entity<User>()
-                .ToTable("User");
+            //modelBuilder
+            //    .Entity<User>()
+            //    .ToTable("User");
 
-            modelBuilder
-                .Entity<User>()
-                .Property(u => u.user_First_Name)
-                .IsRequired()
-                .HasMaxLength(255);
+            //modelBuilder
+            //    .Entity<User>()
+            //    .Property(u => u.user_First_Name)
+            //    .IsRequired()
+            //    .HasMaxLength(255);
 
-            modelBuilder
-                .Entity<User>()
-                .HasIndex(u => u.user_Last_Name)
-                .IsUnique();
+            //modelBuilder
+            //    .Entity<User>()
+            //    .HasIndex(u => u.user_Last_Name)
+            //    .IsUnique();
 
-            modelBuilder
-                .Entity<User>()
-                .Property(u => u.user_Email)
-                .IsRequired()
-                .HasMaxLength(255);
+            //modelBuilder
+            //    .Entity<User>()
+            //    .Property(u => u.user_Email)
+            //    .IsRequired()
+            //    .HasMaxLength(255);
 
             // Create Project table
             modelBuilder
