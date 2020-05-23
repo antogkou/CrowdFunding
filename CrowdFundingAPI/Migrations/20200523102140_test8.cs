@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingAPI.Migrations
 {
-    public partial class test : Migration
+    public partial class test8 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,12 +40,18 @@ namespace CrowdFundingAPI.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
+                    MyUserId = table.Column<string>(nullable: true),
                     UserDateCreated = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MyUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MyUsers_MyUsers_MyUserId",
+                        column: x => x.MyUserId,
+                        principalTable: "MyUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -170,7 +176,8 @@ namespace CrowdFundingAPI.Migrations
                     IsComplete = table.Column<bool>(nullable: false),
                     CreationDate = table.Column<DateTimeOffset>(nullable: false),
                     EndingDate = table.Column<DateTimeOffset>(nullable: false),
-                    ProjectCategory = table.Column<string>(nullable: true)
+                    ProjectCategory = table.Column<string>(nullable: true),
+                    Creator = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -325,6 +332,11 @@ namespace CrowdFundingAPI.Migrations
                 name: "IX_Multimedia_ProjectId",
                 table: "Multimedia",
                 column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyUsers_MyUserId",
+                table: "MyUsers",
+                column: "MyUserId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

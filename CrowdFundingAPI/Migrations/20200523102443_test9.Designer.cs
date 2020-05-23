@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrowdFundingAPI.Migrations
 {
     [DbContext(typeof(CrFrDbContext))]
-    [Migration("20200523092626_test1")]
-    partial class test1
+    [Migration("20200523102443_test9")]
+    partial class test9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -123,9 +123,6 @@ namespace CrowdFundingAPI.Migrations
 
                     b.Property<DateTimeOffset>("UserDateCreated")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")

@@ -5,7 +5,11 @@ namespace CrowdFundingAPI.Models.Options
 {
     public class ProjectOptions
     {
+        //test
+        public int ProjectId { get; set; }
+        //test
         public string ProjectTitle { get; set; }
+        
         public string ProjectDescription { get; set; }
         //  [Column(TypeName = "decimal(18,4)")]
         public decimal ProjectTargetAmount { get; set; }

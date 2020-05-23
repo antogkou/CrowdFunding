@@ -26,6 +26,10 @@ function submitProjectToServer() {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             $('#responseDiv').html(JSON.stringify(data));
+
+            ProjectId = data["id"]
+            alert('You have successfully added a project')
+            window.open("/Project/SearchProject?id=" + ProjectId, "_self")
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
