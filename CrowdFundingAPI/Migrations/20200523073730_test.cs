@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingAPI.Migrations
 {
-    public partial class Identity_PLEASEGODPLEASE : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,9 +41,6 @@ namespace CrowdFundingAPI.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
-                    user_First_Name = table.Column<string>(maxLength: 256, nullable: false),
-                    user_Last_Name = table.Column<string>(maxLength: 256, nullable: false),
-                    user_VAT = table.Column<string>(nullable: true),
                     UserDateCreated = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>

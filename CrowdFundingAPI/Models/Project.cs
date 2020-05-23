@@ -11,6 +11,8 @@ namespace CrowdFundingAPI.Models
         public int ProjectId { get; set; }
 
         public MyUsers User { get; set; }
+
+        public string UserId { get; set; }
         public string ProjectTitle { get; set; }
         
         public string ProjectDescription { get; set; }
@@ -28,6 +30,8 @@ namespace CrowdFundingAPI.Models
         public DateTimeOffset EndingDate { get; set; }
 
         public string ProjectCategory { get; set; }
+
+        public string Creator { get; set; }
 
         public ICollection<Post> ProjectPosts { get; set; }
 

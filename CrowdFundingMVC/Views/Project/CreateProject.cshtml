@@ -1,4 +1,4 @@
-﻿
+﻿@model CrowdFundingAPI.Models.Project
 @{
     ViewData["Title"] = "CreateProject";
 }
@@ -7,7 +7,7 @@
     <h1>Create a Project</h1>
 </div>
 
-<div class="row">
+@*<div class="row">
     <div class="col">
         <form>
             <div class="form-group">
@@ -26,6 +26,57 @@
         </form>
     </div>
     <div class="col">
-        @*<img src="https://cdn.pixabay.com/photo/2017/06/30/10/14/social-media-2457842_960_720.png"  class="img-fluid" />*@
+        <img src="https://cdn.pixabay.com/photo/2017/06/30/10/14/social-media-2457842_960_720.png"  class="img-fluid" />
+    </div>
+</div>*@
+
+<div class="row">
+    <div class="col col-md-2"></div>
+    <div class="tab col-md-8">
+        <form data-form="0">
+
+
+            <div class="form-group">
+                <label asp-for="ProjectTitle" class="control-label"></label>
+                <input asp-for="ProjectTitle" class="form-control" type="text" required />
+                <div class="invalid-feedback">
+                    Please provide a valid Name.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectDescription" class="control-label"></label>
+                <input asp-for="ProjectDescription" class="form-control" type="text" required />
+                <div class="invalid-feedback">
+                    Please provide a Description.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectTargetAmount" class="control-label"></label>
+                <input asp-for="ProjectTargetAmount" class="form-control" type="number" required />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndingDate" class="control-label"></label>
+                <input asp-for="EndingDate" class="form-control" required />
+                <div class="invalid-feedback">
+                    Please provide a valid EndingDate.
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.DropDownList("ProjectCategory", new List<SelectListItem>
+           {
+               new SelectListItem { Text = "Sport", Value = "1", Selected=true},
+               new SelectListItem { Text = "History", Value = "2"},
+               new SelectListItem { Text = "Drama", Value = "3"}
+           }, "Select Category")
+            </div>
+
+            <div class="col col-md-12 d-flex justify-content-end pr-0">
+                <input type="button" onclick="submitProjectToServer()" value="Submit">
+                </div>
+        </form>
     </div>
 </div>

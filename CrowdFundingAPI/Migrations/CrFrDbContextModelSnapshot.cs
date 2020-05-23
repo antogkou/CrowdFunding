@@ -220,6 +220,9 @@ namespace CrowdFundingAPI.Migrations
                     b.Property<DateTimeOffset>("CreationDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("Creator")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTimeOffset>("EndingDate")
                         .HasColumnType("datetimeoffset");
 

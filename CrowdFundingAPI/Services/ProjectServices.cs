@@ -1,0 +1,112 @@
+﻿using CrowdFundingAPI.Database;
+using CrowdFundingAPI.Models;
+using CrowdFundingAPI.Models.Options;
+using CrowdFundingAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using System;
+using System.Security.Claims;
+
+namespace CrowdFundingAPI.Services
+{
+    public class ProjectServices : IProjectServices
+    {
+        private CrFrDbContext _db;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        protected UserManager<MyUsers> _userManager { get; set; }
+
+        public ProjectServices(CrFrDbContext db, IHttpContextAccessor _httpContextAccessor, UserManager<MyUsers> userManager)
+        {
+            _db = db;
+            _userManager = userManager;
+            httpContextAccessor = _httpContextAccessor;
+        }
+
+
+        //Create Project approach1
+        public Project CreateProject(ProjectOptions projectoption)
+        {
+          
+            string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+            Project project = new Project
+            {
+                ProjectTitle = projectoption.ProjectTitle,
+                ProjectDescription = projectoption.ProjectDescription,
+                //CurrentAmount = projectoption.CurrentAmount,
+                ProjectTargetAmount = projectoption.ProjectTargetAmount,
+                //Progress = projectoption.CurrentAmount / projectoption.NeededAmount,
+                CreationDate = DateTime.Now,
+                EndingDate = projectoption.EndingDate,
+                IsActive = true,
+                Creator = userName,
+                ProjectCategory = projectoption.ProjectCategory,
+            };
+
+            _db.Add(project);
+            _db.SaveChanges();
+            return project;
+        }
+
+        //Create Project approach2
+        public Project CreateProject2(ProjectOptions projectoption)
+        {
+            string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (projectoption == null)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrWhiteSpace(projectoption.ProjectTitle))
+            {
+                return null;
+            }
+
+            var project = new Project()
+            {
+                UserId = userId,
+                Creator = userName,
+                ProjectTitle = projectoption.ProjectTitle,
+                ProjectDescription = projectoption.ProjectDescription,
+                ProjectTargetAmount = projectoption.ProjectTargetAmount,
+                EndingDate = projectoption.EndingDate,
+                ProjectCategory = projectoption.ProjectCategory,
+                IsActive = true,
+
+            };
+
+            _db.Add(project);
+
+            if (_db.SaveChanges() > 0)
+            {
+                return project;
+            }
+
+            return null;
+        }
+
+        //public async Task<ApiResult<Project>> CreateProject2(ProjectOptions projectoption)
+        //{
+        //    string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+        //    var project = new Project()
+        //    {
+        //        Creator = userName,
+        //        ProjectDescription = options.ProjectDescription,
+        //        ProjectTitle = options.ProjectTitle,
+        //        ProjectFinancialGoal = options.ProjectFinancialGoal,
+        //        ProjectCategory = options.ProjectCategory,
+        //        ProjectDateExpiring = options.ProjectDateExpiring
+        //    };
+        //    context.Add(project);
+        //}
+
+
+        ////List Projects
+        //public List<Project> GetAllProjects()
+        //{
+        //    return _db.Projects.ToList();
+        //}
+
+    }
+}
