@@ -21,6 +21,7 @@ namespace CrowdFundingAPI.Models
         public decimal ProjectTargetAmount { get; set; } 
         [Column(TypeName = "decimal(18,4)")]
         public decimal ProjectCurrentAmount { get; set; } 
+        public decimal Progress { get; set; }
         public int ProjectViewsCounter { get; set; }
         public bool IsActive { get; set; }
         public bool IsComplete { get; set; }
