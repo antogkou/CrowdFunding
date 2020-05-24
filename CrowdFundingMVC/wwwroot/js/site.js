@@ -38,10 +38,19 @@ function submitProjectToServer() {
     });
 }
 
+
+
+
 function submitPledgeToServer() {
-    //let projectId = $('.project_id').val();
+    //something like this?
+    //let ProjectId = $('.project_id').val();
+    //var url = `http://localhost:54391/Project/CreatePledges/`;
+    //var id = url.substring(url.lastIndexOf('/') + 1);
+    //alert(id);
+    
+
     actionMethod = "POST"
-    actionUrl = `/Project/CreatePledges/${projectId}`
+    actionUrl = "/Project/CreatePledges/"
     sendData = {
         "PledgeTitle": $('#PledgeTitle').val(),
         "PledgePrice": parseFloat($('#PledgePrice').val()),

@@ -32,26 +32,28 @@ namespace CrowdFundingAPI.Services
         //    return pledge;
         //}
 
-        public Pledge CreatePledges(int projectId, PledgeOptions options)
+        //CreatePledges
+        public Pledge CreatePledges(int ProjectId, PledgeOptions pledgeOptions)
         {
 
-            var project = _db.Set<Project>().Find(projectId);
+            Project project = _db.Set<Project>().Find(ProjectId);
 
             Pledge pledge = new Pledge
             {
                 Project = project,
-                PledgeTitle = options.PledgeTitle,
-                PledgePrice = options.PledgePrice,
-                PledgeReward = options.PledgeReward
+                PledgeTitle = pledgeOptions.PledgeTitle,
+                PledgePrice = pledgeOptions.PledgePrice,
+                PledgeReward = pledgeOptions.PledgeReward
             };
 
             _db.Add(pledge);
-            //_db.Update(project.ProjectTargetAmount);
             _db.SaveChanges();
             return pledge;
-            //Task<ApiResult<Pledge>> AddPledge(int projectId, PledgeOptions options);
-
         }
+
+        //Task<ApiResult<Pledge>> AddPledge(int projectId, PledgeOptions options);
+        //_db.Update(project.ProjectTargetAmount);
+
 
         //new find way
         public Pledge FindPledgeById(int id)

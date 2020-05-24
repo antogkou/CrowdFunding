@@ -7,7 +7,7 @@ namespace CrowdFundingAPI.Services.Interfaces
     {
         // Pledge CreatePledge(PledgeOptions pledgeOptions);
 
-        public Pledge CreatePledges(int projectId, PledgeOptions options);
+        public Pledge CreatePledges(int ProjectId, PledgeOptions options);
         Pledge FindPledgeById(int id);
     }
 }

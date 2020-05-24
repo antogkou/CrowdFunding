@@ -2,6 +2,7 @@
 using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace CrowdFundingMVC.Controllers
 {
+    
     public class ProjectController : Controller
     {
         private IProjectServices _projMangr;
@@ -53,15 +55,13 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult CreatePledges(int? id)
         {
             var createPledgepage = _pledges.FindPledgeById((int)id);
-
-            // strongly typed view - by putting object into the view vs. ViewBag.ComicBook = comicBook;
-            return View(createPledgepage);  // will automatically look in the views folder
+            return View(createPledgepage);  
         }
 
-        [HttpPost("/CreatePledges/{projectId}")]
-        public Pledge CreatePledges(int projectId, PledgeOptions options)
+        [HttpPost("/CreatePledges/{ProjectId}")]
+        public Pledge CreatePledges([FromRoute]int ProjectId, PledgeOptions options)
         {
-            return _pledges.CreatePledges(projectId, options);
+            return _pledges.CreatePledges(ProjectId, options);
         }
 
         //Get Project by Id
