@@ -29,15 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CrowdFundingAPI\CrowdFundingAPI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CrowdFundingAPI\CrowdFundingAPI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Areas\Identity\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrowdFundingAPI\CrowdFundingAPI.csproj" />
   </ItemGroup>
 
 </Project>

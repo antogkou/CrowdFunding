@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Services.Interfaces;
 using CrowdFundingAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CrowdFundingMVC
 {
@@ -46,9 +47,15 @@ namespace CrowdFundingMVC
 
             services.AddDbContext<CrFrDbContext>(options => options.UseSqlServer(CrFrDbContext.connectionString));
             services.AddTransient<IProjectServices, ProjectServices>();
-            //services.AddTransient<IProductManager, ProductManagement>();
+            services.AddTransient<IPledgeServices, PledgeServices>();
             //services.AddTransient<IBasketManager, BasketManagement>();
             //services.AddTransient<IProjectManager, ProjectManagement>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOriginsHeadersAndMethods",
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
 
             services.AddControllersWithViews();
             services.AddLogging();
@@ -68,10 +75,12 @@ namespace CrowdFundingMVC
           //  app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseCors("AllowAllOriginsHeadersAndMethods");
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseBrowserLink();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

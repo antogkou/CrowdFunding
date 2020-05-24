@@ -7,6 +7,7 @@ function submitProjectToServer() {
     actionMethod = "POST"
     actionUrl = "/Project/CreateProject"
 
+    
     sendData = {
         "ProjectTitle": $('#ProjectTitle').val(),
         "ProjectDescription": $('#ProjectDescription').val(),
@@ -27,9 +28,9 @@ function submitProjectToServer() {
         success: function (data, textStatus, jQxhr) {
             $('#responseDiv').html(JSON.stringify(data));
 
-            ProjectId = data["id"]
+            //ProjectId = data["id"]
             alert('You have successfully added a project')
-            window.open("/Project/SearchProject?id=" + ProjectId, "_self")
+            //window.open("/Project/SearchProject?id=" + ProjectId, "_self")
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -37,12 +38,23 @@ function submitProjectToServer() {
     });
 }
 
-function submitFundToServer() {
-    let projectId = $('.js-project-id').val();
+
+
+
+function submitPledgeToServer() {
+    //something like this?
+    //let ProjectId = $('.project_id').val();
+    //var url = `http://localhost:54391/Project/CreatePledges/`;
+    //var id = url.substring(url.lastIndexOf('/') + 1);
+    //alert(id);
+    
+
     actionMethod = "POST"
-    actionUrl = "/Project/SingleProjectView/${projectId}"
+    actionUrl = "/Project/CreatePledges/"
     sendData = {
-        "FundAmount": parseFloat($('#FundAmount').val())
+        "PledgeTitle": $('#PledgeTitle').val(),
+        "PledgePrice": parseFloat($('#PledgePrice').val()),
+        "PledgeReward": $('#PledgeReward').val()
     }
 
     alert(JSON.stringify(sendData))
