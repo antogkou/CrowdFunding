@@ -74,9 +74,24 @@
            }, "Select Category")
             </div>
 
-            <div class="col col-md-12 d-flex justify-content-end pr-0">
-                <input type="button" onclick="submitProjectToServer()" value="Submit">
-                </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="PledgeTitle" placeholder="Title...">
+            </div>
+
+            <div class="form-group d-flex justify-content-start col-md-12 p-0">
+                <input type="number" class="form-control col-md-3 mr-3" name="IncentivePrice" placeholder="Price in $">
+
+                <input type="text" name="IncentiveReward" class="form-control" placeholder="Reward...">
+            </div>
+
+            <div>
+                <textarea class="form-control" name="IncentiveDescription" placeholder="Description..."></textarea>
+            </div>
+
+            <div class="col col-md-12 d-flex justify-content-end mt-2 pr-0">
+                <button type="button" class="btn btn-primary js-submit-incentive continue mr-2">Add and continue</button>
+                <button type="button" class="btn btn-primary js-submit-incentive">Submit</button>
+            </div>
         </form>
     </div>
 </div>

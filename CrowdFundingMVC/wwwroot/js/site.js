@@ -50,7 +50,7 @@ function submitPledgeToServer() {
     
 
     actionMethod = "POST"
-    actionUrl = "/Project/CreatePledges/"
+    actionUrl = "/Project/CreatePledges/{projectid}"
     sendData = {
         "PledgeTitle": $('#PledgeTitle').val(),
         "PledgePrice": parseFloat($('#PledgePrice').val()),
