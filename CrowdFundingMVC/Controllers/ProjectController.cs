@@ -2,18 +2,16 @@
 using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CrowdFundingMVC.Controllers
 {
-    
-    public class ProjectController : Controller
+
+    public class ProjectController : BaseController
     {
         private IProjectServices _projMangr;
         private IPledgeServices _pledges;
@@ -58,11 +56,21 @@ namespace CrowdFundingMVC.Controllers
             return View(createPledgepage);  
         }
 
-        [HttpPost("/CreatePledges/{ProjectId}")]
-        public Pledge CreatePledges([FromRoute]int ProjectId, PledgeOptions options)
+        
+        [HttpPost("/CreatePledges/{projectId}")]
+        public Pledge CreatePledges(int projectId, [FromBody] PledgeOptions options)
         {
-            return _pledges.CreatePledges(ProjectId, options);
+            return _pledges.CreatePledges(projectId, options);
         }
+
+        //[HttpPost("project/CreatePledges/{projectId}")]
+        //public async Task<IActionResult> CreatePledges2(int projectId,[FromBody] PledgeOptions options)
+        //{
+        //    var result = await _pledges.CreatePledges(projectId, options);
+
+        //    return result.AsStatusResult();
+        //}
+
 
         //Get Project by Id
         [HttpGet]
@@ -100,9 +108,9 @@ namespace CrowdFundingMVC.Controllers
 
         // [Authorize("Admin,Project Creator")]
         [HttpPost]
-        public Project CreateProject([FromBody] ProjectOptions projOpt)
+        public Project CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
         {
-            return _projMangr.CreateProject2(projOpt);
+            return _projMangr.CreateProject2(projOpt, pledgeOptions);
         }
 
         //

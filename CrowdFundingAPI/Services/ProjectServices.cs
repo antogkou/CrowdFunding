@@ -48,7 +48,7 @@ namespace CrowdFundingAPI.Services
         }
 
         //Create Project approach2
-        public Project CreateProject2(ProjectOptions projectoption)
+        public Project CreateProject2(ProjectOptions projectoption, PledgeOptions pledgeOptions)
         {
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -73,8 +73,18 @@ namespace CrowdFundingAPI.Services
                 EndingDate = projectoption.EndingDate,
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
-                ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####")
-
+                ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####"),
+              
+                ProjectPledges = new List<Pledge>
+                {
+                    new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "LigaDineisLigaPairneis", PledgePrice = 5, PledgeReward = "iPhone SE" },
+                     new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "KatiEdwses", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
+                      new Pledge { 
+                          PledgeTitle = pledgeOptions.PledgeTitle , 
+                          PledgeDescription = pledgeOptions.PledgeDescription , 
+                          PledgePrice = pledgeOptions.PledgePrice, 
+                          PledgeReward = pledgeOptions.PledgeReward  }
+                }
             };
 
             _db.Add(project);
