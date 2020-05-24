@@ -2,6 +2,9 @@
 using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CrowdFundingAPI.Services
 {
@@ -60,5 +63,14 @@ namespace CrowdFundingAPI.Services
         {
             return _db.Set<Pledge>().Find(id);
         }
-    }
+
+
+        //////List My Projects
+        //public List<Pledge> PledgesByProjId(int id)
+        //{
+        //    return _db.Set<Pledge>()
+        //        .Include(x => x.Project)
+        //        .Where(o => o.Project = id).ToList();
+        //}
+    }   
 }

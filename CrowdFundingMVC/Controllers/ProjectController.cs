@@ -50,6 +50,14 @@ namespace CrowdFundingMVC.Controllers
         }
 
         [HttpGet]
+        public IActionResult PledgesByProjId(int? id)
+        {
+            var pledgebyprojid = _projMangr.PledgesByProjId((int)id);
+        
+            return View(pledgebyprojid);  
+        }
+
+        [HttpGet]
         public IActionResult CreatePledges(int? id)
         {
             var createPledgepage = _pledges.FindPledgeById((int)id);
