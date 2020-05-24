@@ -39,6 +39,7 @@ namespace CrowdFundingAPI.Services
                 IsActive = true,
                 Creator = userName,
                 ProjectCategory = projectoption.ProjectCategory,
+                ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####")
             };
 
             _db.Add(project);
@@ -72,6 +73,7 @@ namespace CrowdFundingAPI.Services
                 EndingDate = projectoption.EndingDate,
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
+                ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####")
 
             };
 
