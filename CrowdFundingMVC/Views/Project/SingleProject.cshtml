@@ -6,10 +6,10 @@
     ViewData["Title"] = "Project Details View";
 }
 
-<h1>Project Details</h1>
+<div class="text-center">
+    <h1>Project Details</h1>
+</div>
 
-
-<h2>@Model.ProjectTitle</h2>
 
 <div class="row">
     <div class="col-md-6">
@@ -17,16 +17,19 @@
             @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
             <h5><label>Project Name:</label> @Model.ProjectTitle</h5>
             <h5><label>Creator:</label> @Model.Creator</h5>
-            <h5><label>Needed Amount:</label> @(Model.ProjectTargetAmount)</h5>
+            <h5><label>Needed Amount:</label> @(Model.ProjectTargetAmount.ToString("0.####"))</h5>
         </div>
         <h5>Description</h5>@Html.Raw(Model.ProjectDescription)
+        <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
 
-    <h1>
-        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.UserId)
-        {
-            <a href="@Url.Action("CreatePledges", new { id = @Model.ProjectId})" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
-        }
-    </h1>
+        <h1>
+            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.UserId)
+            {
+                <a href="@Url.Action("CreatePledges", new { id = @Model.ProjectId})" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
+            }
+        </h1>
         <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer( @Model.ProjectId, @Model.UserId)" id="@Model.ProjectId" name="fundmit5">Fund 5!</button>
         <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.ProjectId" name="fundmit10">Fund 10!</button>
         <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.ProjectId" name="fundmit220">Fund 20!</button>

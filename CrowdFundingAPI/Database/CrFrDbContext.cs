@@ -7,7 +7,7 @@ namespace CrowdFundingAPI.Database
     public class CrFrDbContext : IdentityDbContext<MyUsers>
     {
 
-        
+
         public readonly static string connectionString =
             "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123";
 
@@ -121,7 +121,7 @@ namespace CrowdFundingAPI.Database
                 .Entity<BackedPledges>()
                 .HasKey(key => new { key.UserId, key.PledgeId });
 
-           
+
             // Post table
             modelBuilder
                 .Entity<Post>()
