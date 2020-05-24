@@ -17,7 +17,7 @@
             @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
             <h5><label>Project Name:</label> @Model.ProjectTitle</h5>
             <h5><label>Creator:</label> @Model.Creator</h5>
-            <h5><label>Needed Amount:</label> @(Model.ProjectTargetAmount)</h5>
+            <h5><label>Needed Amount:</label> @(Model.ProjectTargetAmount.ToString("0.####"))</h5>
         </div>
         <h5>Description</h5>@Html.Raw(Model.ProjectDescription)
         <div class="progress">
