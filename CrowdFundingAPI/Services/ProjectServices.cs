@@ -3,7 +3,7 @@ using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,16 +74,16 @@ namespace CrowdFundingAPI.Services
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
                 ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####"),
-              
+
                 ProjectPledges = new List<Pledge>
                 {
                     new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "LigaDineisLigaPairneis", PledgePrice = 5, PledgeReward = "iPhone SE" },
                      new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "KatiEdwses", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
-                      new Pledge { 
-                          PledgeTitle = pledgeOptions.PledgeTitle , 
-                          PledgeDescription = pledgeOptions.PledgeDescription , 
-                          PledgePrice = pledgeOptions.PledgePrice, 
-                          PledgeReward = pledgeOptions.PledgeReward  }
+                      new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "Dunatos!", PledgePrice = 20, PledgeReward = "OnePlus8Pro" }
+                      //PledgeTitle = pledgeOptions.PledgeTitle , 
+                      //    PledgeDescription = pledgeOptions.PledgeDescription ,
+                      //    PledgePrice = pledgeOptions.PledgePrice,
+                      //    PledgeReward = pledgeOptions.PledgeReward
                 }
             };
 
@@ -124,6 +124,8 @@ namespace CrowdFundingAPI.Services
             return query;
         }
 
+       
+
         public IQueryable<Project> SearchProject2(ProjectOptions options)
         {
             if (options == null)
@@ -161,6 +163,14 @@ namespace CrowdFundingAPI.Services
             {
                 UserId = s.UserId
             }).ToList();
+        }
+
+        ////List My Projects
+        public List<Project> PledgesByProjId(int id)
+        {
+            return _db.Set<Project>()
+                .Include(x => x.ProjectPledges)
+                .Where(o => o.ProjectId == id).ToList();
         }
 
 

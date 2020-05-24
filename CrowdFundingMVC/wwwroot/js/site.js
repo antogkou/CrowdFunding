@@ -39,8 +39,6 @@ function submitProjectToServer() {
 }
 
 
-
-
 function submitPledgeToServer() {
     //something like this?
     //let ProjectId = $('.project_id').val();
@@ -74,3 +72,17 @@ function submitPledgeToServer() {
         }
     });
 }
+
+$('.js-pledge').on('click', function () {
+    let projId = $('#projectId').val();
+    let incentiveId = $(this).find('input[type="hidden"]').val();
+    http://localhost:54391/Project/CreatePledges/9
+    $.ajax({
+        url: `https://localhost:54391/project/AddProjectBacker/${projId}/${incentiveId}`,
+        type: 'POST'
+    }).done((pledge) => {
+        location.reload();
+    }).fail((xhr) => {
+        alert(xhr.responseText);
+    });
+});

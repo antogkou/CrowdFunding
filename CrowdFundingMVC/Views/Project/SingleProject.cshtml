@@ -1,9 +1,12 @@
 ﻿@model CrowdFundingAPI.Models.Project
 @using Microsoft.AspNetCore.Identity
+
+@using System.Globalization;
 @inject UserManager<CrowdFundingAPI.Models.MyUsers> UserManager
 
 @{
     ViewData["Title"] = "Project Details View";
+    var pledges = Model.ProjectPledges.ToList();
 }
 
 <div class="text-center">
@@ -34,4 +37,37 @@
         <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.ProjectId" name="fundmit10">Fund 10!</button>
         <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.ProjectId" name="fundmit220">Fund 20!</button>
     </div>
-</div>
+        <div class="col-sm-12 mb-2 p-2">
+            @{
+                foreach (var pledge in pledges)
+                {
+                    <div class="well m-2 pledge js-pledge">
+
+                        <input type="hidden" value="@pledge.PledgeId" />
+
+                        <div class="media">
+                            <div class="media-body">
+
+                                <h5 class="media-heading font-weight-bold text-info">
+                                    @pledge.PledgePrice (@pledge.PledgePrice€)
+                                </h5>
+
+                                <span class="text-success">
+                                    Reward:
+                                    <span class="font-italic">
+                                        @pledge.PledgeReward
+                                    </span>
+                                </span>
+
+                                <p class="text-info mt-1">
+                                    @pledge.PledgeDescription
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
