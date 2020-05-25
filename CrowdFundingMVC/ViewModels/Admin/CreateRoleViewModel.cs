@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrowdFundingMVC.Models.Admin
+namespace CrowdFundingMVC.ViewModels.Admin
 {
     public class CreateRoleViewModel
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
-namespace CrowdFundingMVC.Models
+namespace CrowdFundingMVC.ViewModels
 {
     public class ProjectCategoryViewModel
     {
