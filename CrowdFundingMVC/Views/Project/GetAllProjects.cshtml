@@ -1,15 +1,30 @@
-﻿@model IEnumerable<CrowdFundingAPI.Models.Project>
+﻿@*@model IEnumerable<CrowdFundingAPI.Models.Project>*@
+@model CrowdFundingMVC.Models.ProjectCategoryViewModel
+
 @{
-    ViewData["Title"] = "GetAllProjects";
+    ViewData["Title"] = "Projects List";
 }
 
-<div class="text-center">
-    <h1>View all Projects</h1>
-</div>
+<h1>Index</h1>
+
+<p>
+    <a asp-action="CreateProject">Create New</a>
+</p>
+<form asp-controller="Project" asp-action="GetAllProjects" method="get">
+    <p>
+
+        <select asp-for="ProjectCategory" asp-items="Model.Categories">
+            <option value="">All</option>
+        </select>
+
+        Title: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 
 <div class="container">
     <div class="row">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Projects)
         {
             <div class="card" style="width: 18rem;">
 
@@ -20,7 +35,7 @@
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectTargetAmountTostring)</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.Creator)</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.CreationDate)</p>
-                   
+
                     <div class="progress">
                         <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>

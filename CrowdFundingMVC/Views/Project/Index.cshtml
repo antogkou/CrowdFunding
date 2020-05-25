@@ -1,9 +1,91 @@
-﻿
+﻿@model CrowdFundingMVC.Models.ProjectCategoryViewModel
+
 @{
-    ViewData["Title"] = "Projects";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h1>Index</h1>
 
+<p>
+    <a asp-action="CreateProject">Create New</a>
+</p>
+<form asp-controller="Project" asp-action="Index" method="get">
+    <p>
 
+        <select asp-for="ProjectCategory" asp-items="Model.Categories">
+            <option value="">All</option>
+        </select>
+
+        Title: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.Projects)
+        {
+            <div class="card" style="width: 18rem;">
+
+                <img class="card-img-top" src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectTargetAmountTostring)</p>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.Creator)</p>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.CreationDate)</p>
+
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})" class="btn btn-sm btn-outline-primary float" id="SingleProjectView">Go to this Project!</a>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].ProjectTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].ProjectCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].ProjectTargetAmount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Projects)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectTargetAmount)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProjectId">Edit</a> |
+                    <a asp-action="SingleProject" asp-route-id="@item.ProjectId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProjectId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@

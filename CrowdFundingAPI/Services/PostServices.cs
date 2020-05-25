@@ -5,6 +5,7 @@ using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 
 namespace CrowdFundingAPI.Services
@@ -39,6 +40,31 @@ namespace CrowdFundingAPI.Services
             _db.Add(post);
             _db.SaveChanges();
             return post;
+        }
+
+        public IQueryable<Post> ListPosts(PostOptions options)
+        {
+            if (options == null)
+            {
+                return null;
+            }
+
+            var query = _db
+                .Set<Post>()
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(options.PostTitle))
+            {
+                query = query.Where(c => c.PostTitle == options.PostTitle);
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.PostDescription))
+            {
+                query = query.Where(c => c.PostDescription == options.PostDescription);
+            }
+            query = query.Take(500);
+
+            return query;
         }
     }
 }
