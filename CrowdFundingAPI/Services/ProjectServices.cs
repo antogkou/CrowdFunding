@@ -83,7 +83,7 @@ namespace CrowdFundingAPI.Services
 
                 ProjectPosts = new List<Post>
                 {
-                    new Post { PostTitle = "Welcome to our Project!" , PostDescription = "You can help us by funding our projec, or simply share it to your friends who might be intrested!"},
+                    new Post { PostTitle = "Welcome to our Project!" , PostDescription = "You can help us by funding our project, or simply share it to your friends who might be intrested!"},
                 },
 
             };
