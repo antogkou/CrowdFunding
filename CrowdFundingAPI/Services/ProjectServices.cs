@@ -25,7 +25,7 @@ namespace CrowdFundingAPI.Services
         //Create Project approach1
         public Project CreateProject(ProjectOptions projectoption)
         {
-          
+
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
             Project project = new Project
             {
@@ -74,16 +74,12 @@ namespace CrowdFundingAPI.Services
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
                 ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####"),
-              
+
                 ProjectPledges = new List<Pledge>
                 {
                     new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "LigaDineisLigaPairneis", PledgePrice = 5, PledgeReward = "iPhone SE" },
                      new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "KatiEdwses", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
-                      new Pledge { 
-                          PledgeTitle = pledgeOptions.PledgeTitle , 
-                          PledgeDescription = pledgeOptions.PledgeDescription , 
-                          PledgePrice = pledgeOptions.PledgePrice, 
-                          PledgeReward = pledgeOptions.PledgeReward  }
+                      new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "POLY PRAGMA Edwses", PledgePrice = 20, PledgeReward = "SamsungGalaxyS20e"  },
                 }
             };
 
@@ -96,7 +92,7 @@ namespace CrowdFundingAPI.Services
 
             return null;
         }
-       
+
 
         public IQueryable<Project> ListProjects(ProjectOptions options)
         {
@@ -135,8 +131,8 @@ namespace CrowdFundingAPI.Services
                 .Set<Project>()
                 .AsQueryable();
 
-                query = query.Where(c => c.ProjectId == options.ProjectId);
-          
+            query = query.Where(c => c.ProjectId == options.ProjectId);
+
             query = query.Take(500);
 
             return query;

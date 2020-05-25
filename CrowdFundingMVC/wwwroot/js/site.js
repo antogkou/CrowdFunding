@@ -74,3 +74,36 @@ function submitPledgeToServer() {
         }
     });
 }
+
+function submitPostToServer(projectId) {
+    actionMethod = "POST"
+    actionUrl = "/Post/CreatePost"
+
+
+    sendData = {
+        "ProjectId": projectId,
+        "PostTitle": "placeholder_title",
+        "PostDescription": $('#PostDescription').val()
+    }
+
+    alert(JSON.stringify(sendData))
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            $('#responseDiv').html(JSON.stringify(data));
+
+            //ProjectId = data["id"]
+            alert('You have successfully added a project')
+            //window.open("/Project/SearchProject?id=" + ProjectId, "_self")
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
