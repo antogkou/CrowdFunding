@@ -41,22 +41,19 @@ function submitProjectToServer() {
 
 
 
-function submitPledgeToServer() {
-    //something like this?
-    //let ProjectId = $('.project_id').val();
-    //var url = `http://localhost:54391/Project/CreatePledges/`;
-    //var id = url.substring(url.lastIndexOf('/') + 1);
-    //alert(id);
-    
+function submitPledgeToServer(projectId) {
 
     actionMethod = "POST"
-    actionUrl = "/Project/CreatePledges/{projectid}"
+    actionUrl = `/Project/CreatePledges/${projectId}`
     sendData = {
+        "ProjectId": projectId,
         "PledgeTitle": $('#PledgeTitle').val(),
+        "PledgeDescription": $('#PledgeDescription').val(),
         "PledgePrice": parseFloat($('#PledgePrice').val()),
         "PledgeReward": $('#PledgeReward').val()
     }
 
+    alert(projectId)
     alert(JSON.stringify(sendData))
 
     $.ajax({

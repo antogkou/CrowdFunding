@@ -49,19 +49,7 @@ namespace CrowdFundingMVC.Controllers
             return View(singleproject);  // will automatically look in the views folder
         }
 
-        [HttpGet]
-        public IActionResult CreatePledges(int? id)
-        {
-            var createPledgepage = _pledges.FindPledgeById((int)id);
-            return View(createPledgepage);  
-        }
 
-        
-        [HttpPost("/CreatePledges/{projectId}")]
-        public Pledge CreatePledges(int projectId, [FromBody] PledgeOptions options)
-        {
-            return _pledges.CreatePledges(projectId, options);
-        }
 
         //[HttpPost("project/CreatePledges/{projectId}")]
         //public async Task<IActionResult> CreatePledges2(int projectId,[FromBody] PledgeOptions options)
