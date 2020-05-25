@@ -12,10 +12,10 @@ namespace CrowdFundingAPI.Models
         public decimal PledgePrice { get; set; }
         public string PledgeReward { get; set; }
         public DateTimeOffset PledgeDateCreated { get; set; }
-        public ICollection<BackedPledges> FundBackers { get; set; }
+        public ICollection<BackedPledges> PledgeUsers { get; set; }
         public Pledge()
         {
-            FundBackers = new List<BackedPledges>();
+            PledgeUsers = new List<BackedPledges>();
             PledgeDateCreated = DateTimeOffset.Now;
         }
     }
