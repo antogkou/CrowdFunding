@@ -10,5 +10,6 @@ namespace CrowdFundingAPI.Services.Interfaces
     public interface IPostServices
     {
         Post CreatePost(PostOptions postOptions);
+        List<Post> GetAllPosts(int projectId);
     }
 }

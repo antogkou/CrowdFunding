@@ -1,13 +1,13 @@
-﻿@model CrowdFundingAPI.Models.Project
+﻿@model CrowdFundingMVC.ViewModels.SingleProjectMV
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<CrowdFundingAPI.Models.MyUsers> UserManager
 
 @{
     ViewData["Title"] = "Project Details View";
-    var pledges = Model.ProjectPledges.ToList();
+    var pledges = Model.Project.ProjectPledges.ToList();
 }
 
-<div class="text-center" id="@Model.ProjectId">
+<div class="text-center" id="@Model.Project.ProjectId">
     <h1>Project Details</h1>
 </div>
 
@@ -16,65 +16,122 @@
     <div class="col-md-6">
         <div class="well">
             @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
-            <h5><label>Project Name:</label> @Model.ProjectTitle</h5>
-            <h5><label>Creator:</label> @Model.Creator</h5>
-            <h5><label>Needed Amount:</label> @(Model.ProjectTargetAmount.ToString("0.####"))</h5>
+            <h5><label>Project Name:</label> @Model.Project.ProjectTitle</h5>
+            <h5><label>Creator:</label> @Model.Project.Creator</h5>
+            <h5><label>Needed Amount:</label> @(Model.Project.ProjectTargetAmount.ToString("0.####"))</h5>
         </div>
-        <h5>Description</h5>@Html.Raw(Model.ProjectDescription)
+        <h5>Description</h5>@Html.Raw(Model.Project.ProjectDescription)
         <div class="progress">
             <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.UserId)
+        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
         {
             <span class="input-group-text" id="">Title</span>
             <input type="text" class="form-control" placeholder="Title" id="PostTitle">
             <span class="input-group-text" id="">Description</span>
             <input type="text" class="form-control" placeholder="Description" id="PostDescription">
-            <input type="button" onclick="submitPostToServer('@Model.ProjectId')" value="Submit Post">
+            <input type="button" onclick="submitPostToServer('@Model.Project.ProjectId')" value="Submit Post">
         }
 
-    <h1>
-        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.UserId)
-        {
-            <a href="@Url.Action("CreatePledges", new { id = @Model.ProjectId})" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
-            @*<a href="@Url.Action("CreatePledges")" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>*@
-        }
-    </h1>
-        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer( @Model.ProjectId, @Model.UserId)" id="@Model.ProjectId" name="fundmit5">Fund 5!</button>
-        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.ProjectId" name="fundmit10">Fund 10!</button>
-        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.ProjectId" name="fundmit220">Fund 20!</button>
+        <h1>
+            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+            {
+                <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
+                @*<a href="@Url.Action("CreatePledges")" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>*@
+            }
+        </h1>
+        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer( @Model.Project.ProjectId, @Model.Project.UserId)" id="@Model.Project.ProjectId" name="fundmit5">Fund 5!</button>
+        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.Project.ProjectId" name="fundmit10">Fund 10!</button>
+        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.Project.ProjectId" name="fundmit220">Fund 20!</button>
     </div>
-        <div class="col-sm-12 mb-2 p-2">
-            @{
-                foreach (var pledge in pledges)
-                {
-                    <div class="well m-2 pledge js-pledge">
+    <div class="col-sm-12 mb-2 p-2">
+        @{
+            foreach (var pledge in pledges)
+            {
+                <div class="well m-2 pledge js-pledge">
 
-                        <input type="hidden" value="@pledge.PledgeId" />
+                    <input type="hidden" value="@pledge.PledgeId" />
 
-                        <div class="media">
-                            <div class="media-body">
+                    <div class="media">
+                        <div class="media-body">
 
-                                <h5 class="media-heading font-weight-bold text-info">
-                                    @pledge.PledgePrice (@pledge.PledgePrice€)
-                                </h5>
+                            <h5 class="media-heading font-weight-bold text-info">
+                                @pledge.PledgePrice (@pledge.PledgePrice€)
+                            </h5>
 
-                                <span class="text-success">
-                                    Reward:
-                                    <span class="font-italic">
-                                        @pledge.PledgeReward
-                                    </span>
+                            <span class="text-success">
+                                Reward:
+                                <span class="font-italic">
+                                    @pledge.PledgeReward
                                 </span>
+                            </span>
 
-                                <p class="text-info mt-1">
-                                    @pledge.PledgeDescription
-                                </p>
+                            <p class="text-info mt-1">
+                                @pledge.PledgeDescription
+                            </p>
 
-                            </div>
                         </div>
                     </div>
+                </div>
                 }
-
             }
-        </div>
+        }
     </div>
+</div>
+
+@*@{*@
+    @*//razor syntax*@
+    @*foreach (var post in Model.Posts)
+        {
+            <tr>
+                <td> @post.PostTitle</td>
+                <td> @post.PostDescription</td>
+                <td> @post.PostDateCreated</td>
+            </tr>
+        }*@
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <label>Post Title</label>
+                    @*<label>@(Model.Posts.PostTitle)</label>*@
+                </th>
+                <th>
+                    <label>Post Description</label>
+                </th>
+                <th>
+                    <label>Post Date Created</label>
+                </th>
+                <th>
+                    <label>Post Id</label>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            }
+            @foreach (var item in Model.Posts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostDateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                        <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

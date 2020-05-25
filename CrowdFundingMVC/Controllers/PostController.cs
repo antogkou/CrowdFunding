@@ -2,7 +2,7 @@
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using CrowdFundingMVC.Models;
+using CrowdFundingMVC.ViewModels;
 
 namespace CrowdFundingMVC.Controllers
 {

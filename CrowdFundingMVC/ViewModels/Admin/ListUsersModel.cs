@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CrowdFundingMVC.Models.Admin
+namespace CrowdFundingMVC.ViewModels.Admin
 {
     public class ListUsersModel
     {

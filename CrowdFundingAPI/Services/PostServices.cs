@@ -66,5 +66,12 @@ namespace CrowdFundingAPI.Services
 
             return query;
         }
+
+        public List<Post> GetAllPosts(int projectId)
+        {
+            return _db.Set<Post>()
+                .Where(p => p.Project.ProjectId == projectId)
+                .ToList();
+        }
     }
 }

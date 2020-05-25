@@ -2,14 +2,14 @@
 using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
+using CrowdFundingMVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CrowdFundingMVC.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CrowdFundingMVC.Controllers
 {
@@ -18,20 +18,22 @@ namespace CrowdFundingMVC.Controllers
     {
         private IProjectServices _projMangr;
         private IPledgeServices _pledges;
+        private IPostServices _postservices;
 
         private readonly CrFrDbContext _db;
 
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ProjectController(IProjectServices projMangr, CrFrDbContext db, IHttpContextAccessor _httpContextAccessor, 
-            IPledgeServices pledges)
+        public ProjectController(IProjectServices projMangr, CrFrDbContext db, IHttpContextAccessor _httpContextAccessor,
+            IPledgeServices pledges, IPostServices postservices)
         {
             _projMangr = projMangr;
             _pledges = pledges;
-            _db = db;
+            _postservices = postservices;
+             _db = db;
             httpContextAccessor = _httpContextAccessor;
         }
-       
+
         //All Projects List OLD no search
         //[HttpGet]
         //public IActionResult GetAllProjectsOLD()
@@ -56,8 +58,8 @@ namespace CrowdFundingMVC.Controllers
         {
             // Use LINQ to get list of genres.
             IQueryable<string> categoryQuery = from m in _db.Set<Project>()
-                                            orderby m.ProjectCategory
-                                            select m.ProjectCategory;
+                                               orderby m.ProjectCategory
+                                               select m.ProjectCategory;
 
             var projects = from m in _db.Set<Project>()
                            select m;
@@ -84,9 +86,12 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet]
         public IActionResult SingleProject(int? id)
         {
-            var singleproject = _projMangr.FindProjectById((int)id);
-            
-            // strongly typed view - by putting object into the view vs. ViewBag.ComicBook = comicBook;
+            SingleProjectMV singleproject = new SingleProjectMV
+            {
+                Project = _projMangr.FindProjectById((int)id),
+                Posts = _postservices.GetAllPosts((int)id)
+            };
+
             return View(singleproject);  // will automatically look in the views folder
         }
 
@@ -94,7 +99,7 @@ namespace CrowdFundingMVC.Controllers
         //public IActionResult PledgesByProjId(int? id)
         //{
         //    var pledgebyprojid = _projMangr.PledgesByProjId((int)id);
-        
+
         //    return View(pledgebyprojid);  
         //}
 
@@ -102,10 +107,10 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult CreatePledges(int? id)
         {
             var createPledgepage = _pledges.FindPledgeById((int)id);
-            return View(createPledgepage);  
+            return View(createPledgepage);
         }
 
-        
+
         //[HttpPost("/CreatePledges/{projectId}")]
         //public Pledge CreatePledges(int projectId, [FromBody] PledgeOptions options)
         //{
@@ -162,7 +167,7 @@ namespace CrowdFundingMVC.Controllers
             return _projMangr.CreateProject2(projOpt, pledgeOptions);
         }
 
-        
+
         //[HttpGet]
         //public async Task<IActionResult> Index(int? id, int? projectID)
         //{
@@ -174,7 +179,7 @@ namespace CrowdFundingMVC.Controllers
         //          .AsNoTracking()
         //          .OrderBy(i => i.PostDateCreated)
         //          .ToListAsync();
-          
+
 
         //    return View(viewModel);
         //}
