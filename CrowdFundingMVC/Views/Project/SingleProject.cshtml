@@ -73,64 +73,54 @@
                         </div>
                     </div>
                 </div>
-                }
             }
         }
+
     </div>
 </div>
 
-@*@{*@
-    @*//razor syntax*@
-    @*foreach (var post in Model.Posts)
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Post Title</label>
+                @*<label>@(Model.Posts.PostTitle)</label>*@
+            </th>
+            <th>
+                <label>Post Description</label>
+            </th>
+            <th>
+                <label>Post Date Created</label>
+            </th>
+            <th>
+                <label>Post Id</label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Posts)
         {
             <tr>
-                <td> @post.PostTitle</td>
-                <td> @post.PostDescription</td>
-                <td> @post.PostDateCreated</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostDateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                    <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                </td>
             </tr>
-        }*@
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <label>Post Title</label>
-                    @*<label>@(Model.Posts.PostTitle)</label>*@
-                </th>
-                <th>
-                    <label>Post Description</label>
-                </th>
-                <th>
-                    <label>Post Date Created</label>
-                </th>
-                <th>
-                    <label>Post Id</label>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Posts)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostDateCreated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostId)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                        <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
