@@ -34,14 +34,41 @@
             <input type="button" class="btn btn-dark" onclick="submitPostToServer('@Model.Project.ProjectId')" value="Submit Post">
         }
     </div>
-    <div>
+
         @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
         {
             <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
             @*<a href="@Url.Action("CreatePledges")" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>*@
-        }
-    </div>
+    <div class="col-sm-12 mb-2 p-2">
+        @{
+            foreach (var pledge in pledges)
+            {
+                <div class="well m-2 pledge js-pledge">
 
+                    <input type="hidden" value="@pledge.PledgeId" />
+
+                    <div class="media">
+                        <div class="media-body">
+
+                            <h5 class="media-heading font-weight-bold text-info">
+                                @pledge.PledgePrice (@pledge.PledgePrice€)
+                            </h5>
+
+                            <span class="text-success">
+                                Reward:
+                                <span class="font-italic">
+                                    @pledge.PledgeReward
+                                </span>
+                            </span>
+
+                            <p class="text-info mt-1">
+                                @pledge.PledgeDescription
+                            </p>
+
+                        </div>
+                    </div>
+      </div>
+  </div>
     <button type="submit" class="btn btn-outline-danger" onclick="submitPledgeToServer( @Model.Project.ProjectId, @Model.Project.UserId)" id="@Model.Project.ProjectId" name="fundmit5">Fund 5!</button>
     <button type="submit" class="btn btn-outline-danger" onclick="" id="@Model.Project.ProjectId" name="fundmit10">Fund 10!</button>
     <button type="submit" class="btn btn-outline-danger" onclick="" id="@Model.Project.ProjectId" name="fundmit220">Fund 20!</button>
