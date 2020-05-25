@@ -75,7 +75,13 @@ namespace CrowdFundingAPI.Services
                 IsActive = true,
                 ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####"),
 
-                ProjectPledges = new List<Pledge>
+
+                ProjectPosts = new List<Post>
+                {
+                    new Post { PostTitle="titlos", PostDescription = "details"}
+                },
+
+                ProjectPledges = new List<Pledge> 
                 {
                     new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "LigaDineisLigaPairneis", PledgePrice = 5, PledgeReward = "iPhone SE" },
                      new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "KatiEdwses", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
@@ -85,6 +91,7 @@ namespace CrowdFundingAPI.Services
                       //    PledgePrice = pledgeOptions.PledgePrice,
                       //    PledgeReward = pledgeOptions.PledgeReward
                 }
+
             };
 
             _db.Add(project);
@@ -124,7 +131,25 @@ namespace CrowdFundingAPI.Services
             return query;
         }
 
-       
+        //public IQueryable<Pledge> ListPledgesByProjectId(int id, PledgeOptions options)
+        //{
+        //    if (options == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    var query = _db
+        //        .Set<Pledge>()
+        //        .AsQueryable();
+
+        //    query = query.Where(c => c.Project = options.ProjectId);
+           
+
+        //    query = query.Take(500);
+        //    return query;
+        //}
+
+
 
         public IQueryable<Project> SearchProject2(ProjectOptions options)
         {

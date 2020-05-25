@@ -44,9 +44,7 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult SingleProject(int? id)
         {
             var singleproject = _projMangr.FindProjectById((int)id);
-
-            // strongly typed view - by putting object into the view vs. ViewBag.ComicBook = comicBook;
-            return View(singleproject);  // will automatically look in the views folder
+            return View(singleproject); 
         }
 
         [HttpGet]
@@ -56,6 +54,7 @@ namespace CrowdFundingMVC.Controllers
         
             return View(pledgebyprojid);  
         }
+     
 
         [HttpGet]
         public IActionResult CreatePledges(int? id)
@@ -70,15 +69,6 @@ namespace CrowdFundingMVC.Controllers
         {
             return _pledges.CreatePledges(projectId, options);
         }
-
-        //[HttpPost("project/CreatePledges/{projectId}")]
-        //public async Task<IActionResult> CreatePledges2(int projectId,[FromBody] PledgeOptions options)
-        //{
-        //    var result = await _pledges.CreatePledges(projectId, options);
-
-        //    return result.AsStatusResult();
-        //}
-
 
         //Get Project by Id
         [HttpGet]
@@ -120,13 +110,6 @@ namespace CrowdFundingMVC.Controllers
         {
             return _projMangr.CreateProject2(projOpt, pledgeOptions);
         }
-
-        //
-        //[HttpPost]
-        //public Project AddPledge([FromRoute] PledgeOptions pledgeOpts)
-        //{
-        //    return _projMangr.CreateProject2(pledgeOpts);
-        //}
 
         
         [HttpGet]

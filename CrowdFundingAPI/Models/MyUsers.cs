@@ -17,6 +17,8 @@ namespace CrowdFundingAPI.Models
         
         public ICollection<Project> UserCreatedProjects { get; set; }
 
+        public virtual ICollection<Post> Posts { get; set; }
+
         public DateTimeOffset UserDateCreated { get; set; } 
 
         public MyUsers()
