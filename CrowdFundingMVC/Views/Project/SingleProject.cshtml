@@ -34,85 +34,58 @@
             <input type="button" class="btn btn-dark" onclick="submitPostToServer('@Model.Project.ProjectId')" value="Submit Post">
         }
     </div>
-
+    <div>
         @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
         {
             <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
             @*<a href="@Url.Action("CreatePledges")" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>*@
-    <div class="col-sm-12 mb-2 p-2">
-        @{
-            foreach (var pledge in pledges)
-            {
-                <div class="well m-2 pledge js-pledge">
+        }
+    </div>
 
-                    <input type="hidden" value="@pledge.PledgeId" />
-
-                    <div class="media">
-                        <div class="media-body">
-
-                            <h5 class="media-heading font-weight-bold text-info">
-                                @pledge.PledgePrice (@pledge.PledgePrice€)
-                            </h5>
-
-                            <span class="text-success">
-                                Reward:
-                                <span class="font-italic">
-                                    @pledge.PledgeReward
-                                </span>
-                            </span>
-
-                            <p class="text-info mt-1">
-                                @pledge.PledgeDescription
-                            </p>
-
-                        </div>
-                    </div>
-      </div>
-  </div>
     <button type="submit" class="btn btn-outline-danger" onclick="submitPledgeToServer( @Model.Project.ProjectId, @Model.Project.UserId)" id="@Model.Project.ProjectId" name="fundmit5">Fund 5!</button>
     <button type="submit" class="btn btn-outline-danger" onclick="" id="@Model.Project.ProjectId" name="fundmit10">Fund 10!</button>
     <button type="submit" class="btn btn-outline-danger" onclick="" id="@Model.Project.ProjectId" name="fundmit220">Fund 20!</button>
 </div>
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Post Title</label>
+            </th>
+            <th>
+                <label>Post Description</label>
+            </th>
+            <th>
+                <label>Post Date Created</label>
+            </th>
+            <th>
+                <label>Post Id</label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Posts)
+        {
             <tr>
-                <th>
-                    <label>Post Title</label>
-                </th>
-                <th>
-                    <label>Post Description</label>
-                </th>
-                <th>
-                    <label>Post Date Created</label>
-                </th>
-                <th>
-                    <label>Post Id</label>
-                </th>
-                <th></th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostDateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                    <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Posts)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostDateCreated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostId)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                        <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
