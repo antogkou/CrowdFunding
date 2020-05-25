@@ -14,6 +14,6 @@ namespace CrowdFundingAPI.Services.Interfaces
 
         Project FindProjectById(int id);
         List<Project> SearchProject();
-
+        List<Project> PledgesByProjId(int id);
     }
 }
