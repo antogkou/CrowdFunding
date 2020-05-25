@@ -17,9 +17,9 @@ namespace CrowdFundingAPI.Models
         
         public string ProjectDescription { get; set; }
 
-        [Required, Column(TypeName = "decimal(18,4)")]
+        [Required, Column(TypeName = "decimal(18,2)")]
         public decimal ProjectTargetAmount { get; set; } 
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal ProjectCurrentAmount { get; set; } 
         public string ProjectTargetAmountTostring { get; set; }
         public decimal Progress { get; set; }

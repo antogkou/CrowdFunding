@@ -4,8 +4,12 @@ using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using CrowdFundingMVC.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CrowdFundingMVC.Controllers
 {
@@ -28,22 +32,60 @@ namespace CrowdFundingMVC.Controllers
             httpContextAccessor = _httpContextAccessor;
         }
        
-        //All Projects List
-        [HttpGet]
-        public IActionResult GetAllProjects()
-        {
-            var projectList = _projMangr
-                .ListProjects(new ProjectOptions())
-                .ToList();
+        //All Projects List OLD no search
+        //[HttpGet]
+        //public IActionResult GetAllProjectsOLD()
+        //{
+        //    var projectList = _projMangr
+        //        .ListProjects(new ProjectOptions())
+        //        .ToList();
 
-            return View(projectList);
+        //    return View(projectList);
+        //}
+
+        //search by category and project title 
+        [HttpPost]
+        public string GetAllProjects(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
+        }
+
+        //All Projects List search
+        [HttpGet]
+        public async Task<IActionResult> GetAllProjects(string projectCategory, string searchString)
+        {
+            // Use LINQ to get list of genres.
+            IQueryable<string> categoryQuery = from m in _db.Set<Project>()
+                                            orderby m.ProjectCategory
+                                            select m.ProjectCategory;
+
+            var projects = from m in _db.Set<Project>()
+                           select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                projects = projects.Where(s => s.ProjectTitle.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(projectCategory))
+            {
+                projects = projects.Where(x => x.ProjectCategory == projectCategory);
+            }
+
+            var projectCategoryVM = new ProjectCategoryViewModel
+            {
+                Categories = new SelectList(await categoryQuery.Distinct().ToListAsync()),
+                Projects = await projects.ToListAsync()
+            };
+
+            return View(projectCategoryVM);
         }
 
         [HttpGet]
         public IActionResult SingleProject(int? id)
         {
             var singleproject = _projMangr.FindProjectById((int)id);
-
+            
             // strongly typed view - by putting object into the view vs. ViewBag.ComicBook = comicBook;
             return View(singleproject);  // will automatically look in the views folder
         }
@@ -120,19 +162,22 @@ namespace CrowdFundingMVC.Controllers
             return _projMangr.CreateProject2(projOpt, pledgeOptions);
         }
 
-        //
-        //[HttpPost]
-        //public Project AddPledge([FromRoute] PledgeOptions pledgeOpts)
-        //{
-        //    return _projMangr.CreateProject2(pledgeOpts);
-        //}
-
         
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Index(int? id, int? projectID)
+        //{
+        //    var viewModel = new ProjectIndexData();
+        //    viewModel.Posts = await _db.Set<Post>()
+        //          .Include(i => i.PostTitle)
+        //          .Include(i => i.PostDescription)
+        //          .Include(i => i.PostDateCreated)
+        //          .AsNoTracking()
+        //          .OrderBy(i => i.PostDateCreated)
+        //          .ToListAsync();
+          
+
+        //    return View(viewModel);
+        //}
 
         [HttpGet]
         public IActionResult GetPopularProjects()
@@ -140,7 +185,14 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
-        
+        public async Task<IActionResult> GetPosts()
+        {
+            var projects = _db.Set<Project>()
+                .Include(c => c.ProjectPosts)
+                .AsNoTracking();
+            return View(await projects.ToListAsync());
+        }
+
 
     }
 }
