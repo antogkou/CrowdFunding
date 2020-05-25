@@ -82,7 +82,7 @@ function submitPostToServer(projectId) {
 
     sendData = {
         "ProjectId": projectId,
-        "PostTitle": "placeholder_title",
+        "PostTitle": $('#PostTitle').val(),
         "PostDescription": $('#PostDescription').val()
     }
 

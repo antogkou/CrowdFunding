@@ -25,6 +25,9 @@
         </div>
         @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.UserId)
         {
+            <span class="input-group-text" id="">Title</span>
+            <input type="text" class="form-control" placeholder="Title" id="PostTitle">
+            <span class="input-group-text" id="">Description</span>
             <input type="text" class="form-control" placeholder="Description" id="PostDescription">
             <input type="button" onclick="submitPostToServer('@Model.ProjectId')" value="Submit Post">
         }
