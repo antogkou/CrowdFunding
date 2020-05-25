@@ -2,13 +2,11 @@
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using CrowdFundingMVC.ViewModels;
 
 namespace CrowdFundingMVC.Controllers
 {
     public class PostController : Controller
     {
-
         private IProjectServices _projectservices;
         private IPostServices _postservices;
         public PostController(IPostServices postservices, IProjectServices projectServices)
@@ -17,17 +15,16 @@ namespace CrowdFundingMVC.Controllers
             _projectservices = projectServices;
         }
 
-
         public IActionResult Index()
         {
             return View();
         }
-
-        [HttpGet]
-        public IActionResult CreatePost()
-        {
-            return View("/Project/SingleProject/{id}");
-        }
+        //GETnotused
+        //[HttpGet]
+        //public IActionResult CreatePost()
+        //{
+        //    return View("/Project/SingleProject/{id}");
+        //}
 
         [HttpPost]
         public Post CreatePost([FromBody] PostOptions postOptions)
