@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace CrowdFundingMVC.Controllers
 {
 
-    public class ProjectController : BaseController
+    public class ProjectController : Controller
     {
         private IProjectServices _projMangr;
         private IPledgeServices _pledges;
@@ -34,23 +34,21 @@ namespace CrowdFundingMVC.Controllers
             httpContextAccessor = _httpContextAccessor;
         }
 
-        //All Projects List OLD no search
-        //[HttpGet]
-        //public IActionResult GetAllProjectsOLD()
-        //{
-        //    var projectList = _projMangr
-        //        .ListProjects(new ProjectOptions())
-        //        .ToList();
-
-        //    return View(projectList);
-        //}
-
-        //search by category and project title 
-        [HttpPost]
-        public string GetAllProjects(string searchString, bool notUsed)
+        //Create Project View
+        [HttpGet]
+        public IActionResult CreateProject()
         {
-            return "From [HttpPost]Index: filter on " + searchString;
+            return View();
         }
+
+
+        // [Authorize("Admin,Project Creator")]
+        [HttpPost]
+        public Project CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
+        {
+            return _projMangr.CreateProject2(projOpt, pledgeOptions);
+        }
+   
 
         //All Projects List search
         [HttpGet]
@@ -83,6 +81,13 @@ namespace CrowdFundingMVC.Controllers
             return View(projectCategoryVM);
         }
 
+        [HttpPost]
+        public string GetAllProjects(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
+        }
+
+        //Single Project View (with posts, TODO pledges/multimedia)
         [HttpGet]
         public IActionResult SingleProject(int? id)
         {
@@ -95,52 +100,15 @@ namespace CrowdFundingMVC.Controllers
             return View(singleproject);  // will automatically look in the views folder
         }
 
-        //[HttpGet]
-        //public IActionResult PledgesByProjId(int? id)
-        //{
-        //    var pledgebyprojid = _projMangr.PledgesByProjId((int)id);
-
-        //    return View(pledgebyprojid);  
-        //}
-
+        //Create Pledge (needs fixing)
         [HttpGet]
         public IActionResult CreatePledges(int? id)
         {
             var createPledgepage = _pledges.FindPledgeById((int)id);
             return View(createPledgepage);
         }
-
-
-        //[HttpPost("/CreatePledges/{projectId}")]
-        //public Pledge CreatePledges(int projectId, [FromBody] PledgeOptions options)
-        //{
-        //    return _pledges.CreatePledges(projectId, options);
-        //}
-
-        //[HttpPost("project/CreatePledges/{projectId}")]
-        //public async Task<IActionResult> CreatePledges2(int projectId,[FromBody] PledgeOptions options)
-        //{
-        //    var result = await _pledges.CreatePledges(projectId, options);
-
-        //    return result.AsStatusResult();
-        //}
-
-
-        //Get Project by Id
-        [HttpGet]
-        public IActionResult GetProjectById([FromRoute] int projectId)
-        {
-            var project = _projMangr
-            .SearchProject2(
-                new ProjectOptions()
-                {
-                    ProjectId = projectId
-                }).SingleOrDefault();
-
-            return Json(project);
-        }
-
-        //Get My Projects by Id
+        
+        //Get current user's projects View
         [HttpGet]
         public IActionResult GetMyProjects()
         {
@@ -153,51 +121,48 @@ namespace CrowdFundingMVC.Controllers
             return View(myprojectList);
         }
 
-        //Create Project
-        [HttpGet]
-        public IActionResult CreateProject()
-        {
-            return View();
-        }
 
-        // [Authorize("Admin,Project Creator")]
-        [HttpPost]
-        public Project CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
-        {
-            return _projMangr.CreateProject2(projOpt, pledgeOptions);
-        }
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> Index(int? id, int? projectID)
-        //{
-        //    var viewModel = new ProjectIndexData();
-        //    viewModel.Posts = await _db.Set<Post>()
-        //          .Include(i => i.PostTitle)
-        //          .Include(i => i.PostDescription)
-        //          .Include(i => i.PostDateCreated)
-        //          .AsNoTracking()
-        //          .OrderBy(i => i.PostDateCreated)
-        //          .ToListAsync();
-
-
-        //    return View(viewModel);
-        //}
-
+        //TODO
         [HttpGet]
         public IActionResult GetPopularProjects()
         {
             return View();
         }
 
-        public async Task<IActionResult> GetPosts()
-        {
-            var projects = _db.Set<Project>()
-                .Include(c => c.ProjectPosts)
-                .AsNoTracking();
-            return View(await projects.ToListAsync());
-        }
+        //public async Task<IActionResult> GetPosts()
+        //{
+        //    var projects = _db.Set<Project>()
+        //        .Include(c => c.ProjectPosts)
+        //        .AsNoTracking();
+        //    return View(await projects.ToListAsync());
+        //}
+        //All Projects List OLD no search
+        //[HttpGet]
+        //public IActionResult GetAllProjectsOLD()
+        //{
+        //    var projectList = _projMangr
+        //        .ListProjects(new ProjectOptions())
+        //        .ToList();
 
+        //    return View(projectList);
+        //}
+
+        //search by category and project title 
+        //Get Project by Id Json
+        //[HttpGet]
+        //public IActionResult GetProjectById([FromRoute] int projectId)
+        //{
+        //    var project = _projMangr
+        //    .SearchProject2(
+        //        new ProjectOptions()
+        //        {
+        //            ProjectId = projectId
+        //        }).SingleOrDefault();
+
+        //    return Json(project);
+        //}
+
+        //Get My Projects by Id
 
     }
 }

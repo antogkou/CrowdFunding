@@ -21,6 +21,7 @@
             <h5><label>Needed Amount:</label> @(Model.Project.ProjectTargetAmount.ToString("0.####"))</h5>
         </div>
         <h5>Description</h5>@Html.Raw(Model.Project.ProjectDescription)
+
         <div class="progress">
             <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
@@ -30,72 +31,26 @@
             <input type="text" class="form-control" placeholder="Title" id="PostTitle">
             <span class="input-group-text" id="">Description</span>
             <input type="text" class="form-control" placeholder="Description" id="PostDescription">
-            <input type="button" onclick="submitPostToServer('@Model.Project.ProjectId')" value="Submit Post">
-        }
-
-        <h1>
-            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-            {
-                <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
-                @*<a href="@Url.Action("CreatePledges")" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>*@
-            }
-        </h1>
-        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer( @Model.Project.ProjectId, @Model.Project.UserId)" id="@Model.Project.ProjectId" name="fundmit5">Fund 5!</button>
-        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.Project.ProjectId" name="fundmit10">Fund 10!</button>
-        <button type="submit" class="btn btn-primary" onclick="submitPledgeToServer()" id="@Model.Project.ProjectId" name="fundmit220">Fund 20!</button>
-    </div>
-    <div class="col-sm-12 mb-2 p-2">
-        @{
-            foreach (var pledge in pledges)
-            {
-                <div class="well m-2 pledge js-pledge">
-
-                    <input type="hidden" value="@pledge.PledgeId" />
-
-                    <div class="media">
-                        <div class="media-body">
-
-                            <h5 class="media-heading font-weight-bold text-info">
-                                @pledge.PledgePrice (@pledge.PledgePrice€)
-                            </h5>
-
-                            <span class="text-success">
-                                Reward:
-                                <span class="font-italic">
-                                    @pledge.PledgeReward
-                                </span>
-                            </span>
-
-                            <p class="text-info mt-1">
-                                @pledge.PledgeDescription
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-                }
-            }
+            <input type="button" class="btn btn-dark" onclick="submitPostToServer('@Model.Project.ProjectId')" value="Submit Post">
         }
     </div>
-</div>
-
-@*@{*@
-    @*//razor syntax*@
-    @*foreach (var post in Model.Posts)
+    <div>
+        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
         {
-            <tr>
-                <td> @post.PostTitle</td>
-                <td> @post.PostDescription</td>
-                <td> @post.PostDateCreated</td>
-            </tr>
-        }*@
+            <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
+            @*<a href="@Url.Action("CreatePledges")" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>*@
+        }
+    </div>
 
+    <button type="submit" class="btn btn-outline-danger" onclick="submitPledgeToServer( @Model.Project.ProjectId, @Model.Project.UserId)" id="@Model.Project.ProjectId" name="fundmit5">Fund 5!</button>
+    <button type="submit" class="btn btn-outline-danger" onclick="" id="@Model.Project.ProjectId" name="fundmit10">Fund 10!</button>
+    <button type="submit" class="btn btn-outline-danger" onclick="" id="@Model.Project.ProjectId" name="fundmit220">Fund 20!</button>
+</div>
     <table class="table">
         <thead>
             <tr>
                 <th>
                     <label>Post Title</label>
-                    @*<label>@(Model.Posts.PostTitle)</label>*@
                 </th>
                 <th>
                     <label>Post Description</label>
@@ -110,7 +65,6 @@
             </tr>
         </thead>
         <tbody>
-            }
             @foreach (var item in Model.Posts)
             {
                 <tr>

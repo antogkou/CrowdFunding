@@ -16,14 +16,15 @@ namespace CrowdFundingAPI.Services
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IProjectServices projectServices;
 
-        public PostServices(CrFrDbContext db, IHttpContextAccessor _httpContextAccessor, IProjectServices _projectServices)
+        public PostServices(CrFrDbContext db, IHttpContextAccessor _httpContextAccessor, 
+            IProjectServices _projectServices)
         {
             _db = db;
             httpContextAccessor = _httpContextAccessor;
             projectServices = _projectServices;
         }
 
-        //Create post
+        //Create post TODO
         public Post CreatePost(PostOptions postOptions)
         {
 
@@ -42,6 +43,16 @@ namespace CrowdFundingAPI.Services
             return post;
         }
 
+
+        //Get All Posts for current Project (working)
+        public List<Post> GetAllPosts(int projectId)
+        {
+            return _db.Set<Post>()
+                .Where(p => p.Project.ProjectId == projectId)
+                .ToList();
+        }
+
+        //not used
         public IQueryable<Post> ListPosts(PostOptions options)
         {
             if (options == null)
@@ -65,13 +76,6 @@ namespace CrowdFundingAPI.Services
             query = query.Take(500);
 
             return query;
-        }
-
-        public List<Post> GetAllPosts(int projectId)
-        {
-            return _db.Set<Post>()
-                .Where(p => p.Project.ProjectId == projectId)
-                .ToList();
         }
     }
 }

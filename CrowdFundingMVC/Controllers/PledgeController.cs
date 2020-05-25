@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis;
 
 namespace CrowdFundingMVC.Controllers
 {
-    public class PledgeController : BaseController
+    public class PledgeController : Controller
     {
         private IProjectServices _projMangr;
         private IPledgeServices _pledges;
