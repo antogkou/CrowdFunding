@@ -79,6 +79,11 @@ namespace CrowdFundingAPI.Services
                     new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "LigaDineisLigaPairneis", PledgePrice = 5, PledgeReward = "iPhone SE" },
                      new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "KatiEdwses", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
                       new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "POLY PRAGMA Edwses", PledgePrice = 20, PledgeReward = "SamsungGalaxyS20e"  },
+                },
+
+                ProjectPosts = new List<Post>
+                {
+                    new Post { PostTitle = "Welcome to our Project!" , PostDescription = "You can help us by funding our projec, or simply share it to your friends who might be intrested!"},
                 }
             };
 

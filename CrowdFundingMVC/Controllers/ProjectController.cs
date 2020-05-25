@@ -64,11 +64,11 @@ namespace CrowdFundingMVC.Controllers
         }
 
         
-        [HttpPost("/CreatePledges/{projectId}")]
-        public Pledge CreatePledges(int projectId, [FromBody] PledgeOptions options)
-        {
-            return _pledges.CreatePledges(projectId, options);
-        }
+        //[HttpPost("/CreatePledges/{projectId}")]
+        //public Pledge CreatePledges(int projectId, [FromBody] PledgeOptions options)
+        //{
+        //    return _pledges.CreatePledges(projectId, options);
+        //}
 
         //[HttpPost("project/CreatePledges/{projectId}")]
         //public async Task<IActionResult> CreatePledges2(int projectId,[FromBody] PledgeOptions options)
