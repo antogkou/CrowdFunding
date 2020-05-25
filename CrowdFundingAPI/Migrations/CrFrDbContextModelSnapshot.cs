@@ -184,7 +184,7 @@ namespace CrowdFundingAPI.Migrations
                     b.Property<DateTimeOffset>("PostDateCreated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("PostExcerpt")
+                    b.Property<string>("PostDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostTitle")

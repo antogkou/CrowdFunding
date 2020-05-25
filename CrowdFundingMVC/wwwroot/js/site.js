@@ -39,6 +39,8 @@ function submitProjectToServer() {
 }
 
 
+
+
 function submitPledgeToServer() {
     //something like this?
     //let ProjectId = $('.project_id').val();
@@ -73,16 +75,35 @@ function submitPledgeToServer() {
     });
 }
 
-$('.js-pledge').on('click', function () {
-    let projId = $('#projectId').val();
-    let incentiveId = $(this).find('input[type="hidden"]').val();
-    http://localhost:54391/Project/CreatePledges/9
+function submitPostToServer(projectId) {
+    actionMethod = "POST"
+    actionUrl = "/Post/CreatePost"
+
+
+    sendData = {
+        "ProjectId": projectId,
+        "PostTitle": $('#PostTitle').val(),
+        "PostDescription": $('#PostDescription').val()
+    }
+
+    alert(JSON.stringify(sendData))
+
     $.ajax({
-        url: `https://localhost:54391/project/AddProjectBacker/${projId}/${incentiveId}`,
-        type: 'POST'
-    }).done((pledge) => {
-        location.reload();
-    }).fail((xhr) => {
-        alert(xhr.responseText);
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            $('#responseDiv').html(JSON.stringify(data));
+
+            //ProjectId = data["id"]
+            alert('You have successfully added a project')
+            //window.open("/Project/SearchProject?id=" + ProjectId, "_self")
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
     });
-});
+}

@@ -3,7 +3,6 @@ using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +24,7 @@ namespace CrowdFundingAPI.Services
         //Create Project approach1
         public Project CreateProject(ProjectOptions projectoption)
         {
-          
+
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
             Project project = new Project
             {
@@ -79,11 +78,7 @@ namespace CrowdFundingAPI.Services
                 {
                     new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "LigaDineisLigaPairneis", PledgePrice = 5, PledgeReward = "iPhone SE" },
                      new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "KatiEdwses", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
-                      new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "Dunatos!", PledgePrice = 20, PledgeReward = "OnePlus8Pro" }
-                      //PledgeTitle = pledgeOptions.PledgeTitle , 
-                      //    PledgeDescription = pledgeOptions.PledgeDescription ,
-                      //    PledgePrice = pledgeOptions.PledgePrice,
-                      //    PledgeReward = pledgeOptions.PledgeReward
+                      new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "POLY PRAGMA Edwses", PledgePrice = 20, PledgeReward = "SamsungGalaxyS20e"  },
                 }
             };
 
@@ -96,7 +91,7 @@ namespace CrowdFundingAPI.Services
 
             return null;
         }
-       
+
 
         public IQueryable<Project> ListProjects(ProjectOptions options)
         {
@@ -124,8 +119,6 @@ namespace CrowdFundingAPI.Services
             return query;
         }
 
-       
-
         public IQueryable<Project> SearchProject2(ProjectOptions options)
         {
             if (options == null)
@@ -137,8 +130,8 @@ namespace CrowdFundingAPI.Services
                 .Set<Project>()
                 .AsQueryable();
 
-                query = query.Where(c => c.ProjectId == options.ProjectId);
-          
+            query = query.Where(c => c.ProjectId == options.ProjectId);
+
             query = query.Take(500);
 
             return query;
@@ -163,14 +156,6 @@ namespace CrowdFundingAPI.Services
             {
                 UserId = s.UserId
             }).ToList();
-        }
-
-        ////List My Projects
-        public List<Project> PledgesByProjId(int id)
-        {
-            return _db.Set<Project>()
-                .Include(x => x.ProjectPledges)
-                .Where(o => o.ProjectId == id).ToList();
         }
 
 

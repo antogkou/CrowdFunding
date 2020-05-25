@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingAPI.Migrations
 {
-    public partial class pledge : Migration
+    public partial class post_test1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -164,6 +164,8 @@ namespace CrowdFundingAPI.Migrations
                     ProjectDescription = table.Column<string>(nullable: true),
                     ProjectTargetAmount = table.Column<decimal>(type: "decimal(18,4)", maxLength: 20, nullable: false),
                     ProjectCurrentAmount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    ProjectTargetAmountTostring = table.Column<string>(nullable: true),
+                    Progress = table.Column<decimal>(nullable: false),
                     ProjectViewsCounter = table.Column<int>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     IsComplete = table.Column<bool>(nullable: false),
@@ -238,7 +240,7 @@ namespace CrowdFundingAPI.Migrations
                     UserId = table.Column<string>(nullable: true),
                     ProjectId = table.Column<int>(nullable: true),
                     PostTitle = table.Column<string>(maxLength: 255, nullable: false),
-                    PostExcerpt = table.Column<string>(nullable: true),
+                    PostDescription = table.Column<string>(nullable: true),
                     PostDateCreated = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>

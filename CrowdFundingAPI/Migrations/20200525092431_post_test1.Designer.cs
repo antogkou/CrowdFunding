@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrowdFundingAPI.Migrations
 {
     [DbContext(typeof(CrFrDbContext))]
-    [Migration("20200523150332_pledge")]
-    partial class pledge
+    [Migration("20200525092431_post_test1")]
+    partial class post_test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -186,7 +186,7 @@ namespace CrowdFundingAPI.Migrations
                     b.Property<DateTimeOffset>("PostDateCreated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("PostExcerpt")
+                    b.Property<string>("PostDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostTitle")
@@ -231,6 +231,9 @@ namespace CrowdFundingAPI.Migrations
                     b.Property<bool>("IsComplete")
                         .HasColumnType("bit");
 
+                    b.Property<decimal>("Progress")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("ProjectCategory")
                         .HasColumnType("nvarchar(max)");
 
@@ -243,6 +246,9 @@ namespace CrowdFundingAPI.Migrations
                     b.Property<decimal>("ProjectTargetAmount")
                         .HasColumnType("decimal(18,4)")
                         .HasMaxLength(20);
+
+                    b.Property<string>("ProjectTargetAmountTostring")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProjectTitle")
                         .IsRequired()
