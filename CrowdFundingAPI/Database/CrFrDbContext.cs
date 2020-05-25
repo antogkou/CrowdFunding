@@ -9,7 +9,7 @@ namespace CrowdFundingAPI.Database
 
 
         public readonly static string connectionString =
-            "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123";
+            "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123;MultipleActiveResultSets=true";
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace CrowdFundingAPI.Database
             {
                 // Primary key
                 b.HasKey(u => u.Id);
-
+                b.Property(p => p.Id).HasColumnName("UserId");
                 // Indexes for "normalized" username and email, to allow efficient lookups
                 b.HasIndex(u => u.NormalizedUserName).HasName("UserNameIndex").IsUnique();
                 b.HasIndex(u => u.NormalizedEmail).HasName("EmailIndex");

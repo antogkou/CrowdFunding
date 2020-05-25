@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingAPI.Migrations
 {
-    public partial class SKATA : Migration
+    public partial class post_test1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace CrowdFundingMVC.Controllers
 {
@@ -49,13 +48,13 @@ namespace CrowdFundingMVC.Controllers
             return View(singleproject);  // will automatically look in the views folder
         }
 
-        [HttpGet]
-        public IActionResult PledgesByProjId(int? id)
-        {
-            var pledgebyprojid = _projMangr.PledgesByProjId((int)id);
+        //[HttpGet]
+        //public IActionResult PledgesByProjId(int? id)
+        //{
+        //    var pledgebyprojid = _projMangr.PledgesByProjId((int)id);
         
-            return View(pledgebyprojid);  
-        }
+        //    return View(pledgebyprojid);  
+        //}
 
         [HttpGet]
         public IActionResult CreatePledges(int? id)

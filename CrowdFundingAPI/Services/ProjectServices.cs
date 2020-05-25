@@ -3,7 +3,6 @@ using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

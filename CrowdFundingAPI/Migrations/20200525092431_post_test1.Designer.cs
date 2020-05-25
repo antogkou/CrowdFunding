@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrowdFundingAPI.Migrations
 {
     [DbContext(typeof(CrFrDbContext))]
-    [Migration("20200525002053_SKATA")]
-    partial class SKATA
+    [Migration("20200525092431_post_test1")]
+    partial class post_test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
