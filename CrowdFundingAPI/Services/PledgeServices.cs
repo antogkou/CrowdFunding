@@ -2,51 +2,34 @@
 using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CrowdFundingAPI.Services
 {
     public class PledgeServices : IPledgeServices
     {
+
+        private readonly IProjectServices projectservices;
         private CrFrDbContext _db;
 
-        public PledgeServices(CrFrDbContext db)
+        public PledgeServices(CrFrDbContext db, IProjectServices _projectservices)
         {
             _db = db;
+            projectservices = _projectservices;
         }
 
-        //public Pledge CreatePledge(PledgeOptions pledgeOptions)
-        //{
-        //    //var project = _db.Set<Project>().GetProjectById(projectId);
-
-        //    Project project = _db.Set<Project>().Find(pledgeOptions.ProjectId);
-        //    Pledge pledge = new Pledge
-        //    {
-        //        PledgeTitle = pledgeOptions.PledgeTitle,
-        //        PledgePrice = pledgeOptions.PledgePrice,
-        //        PledgeReward = pledgeOptions.PledgeReward,
-        //        Project = project
-        //    };
-
-        //    _db.Set<Pledge>().Add(pledge);
-        //    _db.SaveChanges();
-        //    return pledge;
-        //}
-
         //CreatePledges
-        public Pledge CreatePledges(int ProjectId, PledgeOptions pledgeOptions)
+        public Pledge CreatePledges(PledgeOptions pledgeOptions)
+
         {
 
-            Project project = _db.Set<Project>().Find(ProjectId);
-
+            var project = projectservices.FindProjectById(pledgeOptions.ProjectId);
             Pledge pledge = new Pledge
             {
                 Project = project,
                 PledgeTitle = pledgeOptions.PledgeTitle,
+                PledgeDescription = pledgeOptions.PledgeDescription,
                 PledgePrice = pledgeOptions.PledgePrice,
-                PledgeReward = pledgeOptions.PledgeReward
+                PledgeReward = pledgeOptions.PledgeReward,
             };
 
             _db.Add(pledge);
@@ -54,23 +37,10 @@ namespace CrowdFundingAPI.Services
             return pledge;
         }
 
-        //Task<ApiResult<Pledge>> AddPledge(int projectId, PledgeOptions options);
-        //_db.Update(project.ProjectTargetAmount);
-
-
         //new find way
         public Pledge FindPledgeById(int id)
         {
             return _db.Set<Pledge>().Find(id);
         }
-
-
-        //////List My Projects
-        //public List<Pledge> PledgesByProjId(int id)
-        //{
-        //    return _db.Set<Pledge>()
-        //        .Include(x => x.Project)
-        //        .Where(o => o.Project = id).ToList();
-        //}
-    }   
+    }
 }
