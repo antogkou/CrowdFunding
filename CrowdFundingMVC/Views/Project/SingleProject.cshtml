@@ -3,7 +3,7 @@
 @inject UserManager<CrowdFundingAPI.Models.MyUsers> UserManager
 
 <div class="text-center" id="@Model.Project.ProjectId">
-    <h1>Project Details</h1>
+    <h1>@Model.Project.ProjectTitle</h1>
 </div>
 <script type="text/javascript">
     function myFunc("@Model.Project.ProjectId") {
@@ -11,93 +11,134 @@
     }
 </script>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="well">
-            @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
-            <h5><label>Project Name:</label> @Model.Project.ProjectTitle</h5>
-            <h5><label>Creator:</label> @Model.Project.Creator</h5>
-            <h5><label>Needed Amount:</label> @(Model.Project.ProjectTargetAmount.ToString("0.####"))</h5>
-        </div>
-        <h5>Description</h5>@Html.Raw(Model.Project.ProjectDescription)
-
-        <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-        {
-            <span class="input-group-text" id="">Title</span>
-            <input type="text" class="form-control" placeholder="Title" id="PostTitle">
-            <span class="input-group-text" id="">Description</span>
-            <input type="text" class="form-control" placeholder="Description" id="PostDescription">
-            <input type="button" class="btn btn-dark" onclick="submitPostToServer(myFunc(this.@Model.Project.ProjectId);)" value="Submit Post">
-        }
-    </div>
-    <div>
-        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-        {
-            <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg" id="GoToCreatePledges">Add Pledge!</a>           
-        }
-    </div>
-    <div>
-        @foreach (var item in Model.Pledges)
-        {
-            <div class="card text-center" style="width: 18rem;">
-
-                <div class="card-body">
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.PledgeTitle)</h5>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.PledgeDescription)</p>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.PledgePrice)</p>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.PledgeReward)</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+<div class="grid-row pt7-lg mt3 mt0-lg mb6-lg order2-md order1-lg text-center">
+    <div class="grid-col-12">
+        <div class="grid-row hide-md flex flex-column flex-row-md relative">
+            <div class="grid-col-12 grid-col-2-md flex items-center mb3">
+            </div>
+            <div class="grid-col-12">
+                <p class="type-14 type-18-md soft-black project-description mb1">@Html.Raw(Model.Project.ProjectDescription)</p>
+            </div><div class="grid-col-12">
 
             </div>
-        }
+        </div>
     </div>
-
 </div>
 
-<table class="table" name="Posts Table">
-    <thead>
-        <tr>
-            <th>
-                <label>Post Title</label>
-            </th>
-            <th>
-                <label>Post Description</label>
-            </th>
-            <th>
-                <label>Post Date Created</label>
-            </th>
-            <th>
-                <label>Post Id</label>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Posts)
-        {
+<div class="container-fluid" style="background-color:lavender;">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="well">
+                @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
+
+                <h5><label>created by:</label> @Model.Project.Creator</h5>
+                <h5><label>Our goal is:</label> @(Model.Project.ProjectTargetAmount.ToString("0.####"))</h5>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+        <div>
+            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+            {
+                <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg" id="GoToCreatePledges">Add Pledge!</a>
+            }
+        </div>
+        <div class="card-deck mb-3 text-center">
+            @foreach (var item in Model.Pledges)
+            {<div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">@Html.DisplayFor(modelItem => item.PledgeTitle)</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title"><ccc title="$0" class="ccc--converted" style="font-size: inherit; display: inline; color: inherit; --darkreader-inline-color: inherit;" data-darkreader-inline-color="">@Html.DisplayFor(modelItem => item.PledgePrice)</ccc> </h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>@Html.DisplayFor(modelItem => item.PledgeDescription)</li>
+                            <li>You get a reward for being cool!</li>
+                            <li>@Html.DisplayFor(modelItem => item.PledgeReward)</li>
+                        </ul>
+                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Get</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div>
+    @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+    {
+
+        <input type="text" class="form-control" placeholder="Title" id="PostTitle">
+        <input type="text" class="form-control" placeholder="Description" id="PostDescription">
+        <input type="button" class="btn btn-dark" onclick="submitPostToServer(@Model.Project.ProjectId)" value="Submit Post">
+    }
+</div>
+<ul class="bg-grey-100 border border-grey-400 p2 mb3">
+
+    @foreach (var item in Model.Posts)
+    {
+        <li class="mb2">
+            <div class="border-box relative break-word border border-grey-400 px3 pt3 pb2 o100p transition-all transition-delay-1000 bg-grey-100">
+            </div><div class="flex">
+                <div class="w100p">
+                    <p class="type-14 mb2">@Html.DisplayFor(modelItem => item.PostTitle)</p>
+                    <p class="type-14 mb0">@Html.DisplayFor(modelItem => item.PostDescription)</p>
+                    <p class="type-14 mb0"> @Html.DisplayFor(modelItem => item.PostDateCreated)</p>
+                    @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a>
+                        <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                    }
+                </div>
+            </div>
+            <div class="flex justify-end">
+            </div>
+        </li>
+    }
+</ul>
+
+@*<table class="table" name="Posts Table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostDateCreated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostId)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                    <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-                </td>
+                <th>
+                    <label>Post Title</label>
+                </th>
+                <th>
+                    <label>Post Description</label>
+                </th>
+                <th>
+                    <label>Post Date Created</label>
+                </th>
+                <th>
+                    <label>Post Id</label>
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Posts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostDateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                        <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
