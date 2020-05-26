@@ -38,6 +38,7 @@ namespace CrowdFundingAPI.Models
         public ICollection<Post> ProjectPosts { get; set; }
 
         public ICollection<Pledge> ProjectPledges { get; set; }
+        //public Pledge Pledge { get; set; }
 
         public ICollection<Multimedia> ProjectMultimedia { get; set; }
 

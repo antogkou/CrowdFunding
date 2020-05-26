@@ -88,7 +88,6 @@
                     @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
                     {
                         <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a>
-                        <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a>
                         <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
                     }
                 </div>

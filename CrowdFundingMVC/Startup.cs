@@ -1,15 +1,14 @@
+using CrowdFundingAPI.Database;
+using CrowdFundingAPI.Models;
+using CrowdFundingAPI.Services;
+using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CrowdFundingAPI.Database;
-using Microsoft.AspNetCore.Identity;
-using CrowdFundingAPI.Models;
-using CrowdFundingAPI.Services.Interfaces;
-using CrowdFundingAPI.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CrowdFundingMVC
 {
@@ -46,9 +45,9 @@ namespace CrowdFundingMVC
 
 
             services.AddDbContext<CrFrDbContext>(options => options.UseSqlServer(CrFrDbContext.connectionString));
-            services.AddTransient<IProjectServices, ProjectServices>();
-            services.AddTransient<IPledgeServices, PledgeServices>();
-            services.AddTransient<IPostServices, PostServices>();
+            services.AddScoped<IProjectServices, ProjectServices>();
+            services.AddScoped<IPledgeServices, PledgeServices>();
+            services.AddScoped<IPostServices, PostServices>();
             //services.AddTransient<IProjectManager, ProjectManagement>();
 
             services.AddCors(options =>

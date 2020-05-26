@@ -25,7 +25,7 @@ namespace CrowdFundingAPI.Models
         {
             UserCreatedProjects = new List<Project>();
             UserDateCreated = DateTimeOffset.Now;
-            this.Id = Guid.NewGuid().ToString();
+           // this.Id = Guid.NewGuid().ToString();
         }
        
     }
