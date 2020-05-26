@@ -99,12 +99,17 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet]
         public IActionResult CreatePledges(int? id)
         {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             SingleProjectMV createpledges = new SingleProjectMV
             {
                 Project = _projMangr.FindProjectById((int)id),
                 Pledges = _pledges.GetPledgesByProjectId((int)id)
             };
-            return View(createpledges);
+            if (createpledges.Project.UserId == userId)
+            {
+                return View(createpledges);
+            }
+            return NotFound();
         }
 
 
