@@ -63,7 +63,9 @@ function submitPledgeToServer(projectId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             $('#responseDiv').html(JSON.stringify(data));
+
             alert('You have successfully added a pledge!')
+            window.open("/Project/SingleProject?id=" + projectId, "_self")
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -74,8 +76,6 @@ function submitPledgeToServer(projectId) {
 function submitPostToServer(projectId) {
     actionMethod = "POST"
     actionUrl = "/Post/CreatePost"
-
-
     sendData = {
         "ProjectId": projectId,
         "PostTitle": $('#PostTitle').val(),
@@ -92,11 +92,14 @@ function submitPostToServer(projectId) {
         contentType: 'application/json',
         processData: false,
         success: function (data, textStatus, jQxhr) {
-            $('#responseDiv').html(JSON.stringify(data));
-
-            //ProjectId = data["id"]
-            alert('You have successfully added a project')
-            //window.open("/Project/SearchProject?id=" + ProjectId, "_self")
+            if (data.success == true) { // if true (1)
+                setTimeout(function () {// wait for 5 secs(2)
+                    location.reload(); // then reload the page.(3)
+                }, 5000);
+            }
+            //$('#responseDiv').html(JSON.stringify(data));
+            //refresh page after the post is added 
+            
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);

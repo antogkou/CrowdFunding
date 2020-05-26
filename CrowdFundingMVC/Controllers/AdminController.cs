@@ -63,9 +63,9 @@ namespace CrowdFundingMVC.Controllers
                     };
 
                     // Saves the role in the  AspNetRoles table
-                    IdentityResult result = await roleManager.CreateAsync(identityRole);
+                   IdentityResult result = await roleManager.CreateAsync(identityRole);
 
-                    if (result.Succeeded)
+                if (result.Succeeded)
                     {
                         return RedirectToAction("index", "admin");
                     }

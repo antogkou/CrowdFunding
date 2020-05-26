@@ -1,11 +1,7 @@
 ﻿using CrowdFundingAPI.Database;
-using CrowdFundingAPI.Models;
-using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CrowdFundingMVC.Controllers
 {
