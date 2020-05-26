@@ -1,7 +1,7 @@
-﻿using CrowdFundingAPI.Database;
-using CrowdFundingAPI.Models;
-using CrowdFundingAPI.Models.Options;
-using CrowdFundingAPI.Services.Interfaces;
+﻿using CrowdFundingCore.Database;
+using CrowdFundingCore.Models;
+using CrowdFundingCore.Models.Options;
+using CrowdFundingCore.Services.Interfaces;
 using CrowdFundingMVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

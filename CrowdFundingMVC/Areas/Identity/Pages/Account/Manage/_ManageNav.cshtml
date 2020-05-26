@@ -1,4 +1,4 @@
-﻿@inject SignInManager<CrowdFundingAPI.Models.MyUsers> SignInManager
+﻿@inject SignInManager<CrowdFundingCore.Models.MyUsers> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
