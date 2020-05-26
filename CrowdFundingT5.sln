@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdFundingAPI", "CrowdFundingAPI\CrowdFundingAPI.csproj", "{F1486DFF-8EC5-4A59-9D1E-604E4670F2E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrowdFundingCore", "CrowdFundingCore\CrowdFundingCore.csproj", "{F1486DFF-8EC5-4A59-9D1E-604E4670F2E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdFundingMVC", "CrowdFundingMVC\CrowdFundingMVC.csproj", "{A39056C5-C995-47DC-989D-C34BA9E24F0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrowdFundingMVC", "CrowdFundingMVC\CrowdFundingMVC.csproj", "{A39056C5-C995-47DC-989D-C34BA9E24F0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

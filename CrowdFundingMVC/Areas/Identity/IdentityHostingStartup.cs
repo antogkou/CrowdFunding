@@ -1,5 +1,5 @@
-﻿using CrowdFundingAPI.Database;
-using CrowdFundingAPI.Models;
+﻿using CrowdFundingCore.Database;
+using CrowdFundingCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
