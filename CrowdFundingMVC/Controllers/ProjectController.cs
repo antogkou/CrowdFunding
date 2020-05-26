@@ -13,15 +13,12 @@ using System.Threading.Tasks;
 
 namespace CrowdFundingMVC.Controllers
 {
-
     public class ProjectController : Controller
     {
         private IProjectServices _projMangr;
         private IPledgeServices _pledges;
         private IPostServices _postservices;
-
         private readonly CrFrDbContext _db;
-
         private readonly IHttpContextAccessor httpContextAccessor;
 
         public ProjectController(IProjectServices projMangr, CrFrDbContext db, IHttpContextAccessor _httpContextAccessor,
@@ -41,15 +38,13 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
-
         // [Authorize("Admin,Project Creator")]
         [HttpPost]
         public Project CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
         {
-            return _projMangr.CreateProject2(projOpt, pledgeOptions);
+            return _projMangr.CreateProject(projOpt, pledgeOptions);
         }
    
-
         //All Projects List search
         [HttpGet]
         public async Task<IActionResult> GetAllProjects(string projectCategory, string searchString)
@@ -94,20 +89,26 @@ namespace CrowdFundingMVC.Controllers
             SingleProjectMV singleproject = new SingleProjectMV
             {
                 Project = _projMangr.FindProjectById((int)id),
-                Posts = _postservices.GetAllPosts((int)id)
+                Posts = _postservices.GetAllPosts((int)id),
+                Pledges = _pledges.GetPledgesByProjectId((int)id)
             };
 
             return View(singleproject);  // will automatically look in the views folder
         }
 
-        //Create Pledge (needs fixing)
         [HttpGet]
-        public IActionResult CreatePledges(int? id)
+        public IActionResult CreatePledges()
         {
-            var createPledgepage = _pledges.FindPledgeById((int)id);
-            return View(createPledgepage);
+            return View();
         }
-        
+
+
+        [HttpPost]
+        public Pledge CreatePledges([FromBody] PledgeOptions pledgeOptions)
+        {
+            return _pledges.CreatePledges(pledgeOptions);
+        }
+
         //Get current user's projects View
         [HttpGet]
         public IActionResult GetMyProjects()

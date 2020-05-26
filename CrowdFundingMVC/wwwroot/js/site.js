@@ -39,12 +39,10 @@ function submitProjectToServer() {
 }
 
 
-
-
 function submitPledgeToServer(projectId) {
 
     actionMethod = "POST"
-    actionUrl = `/Project/CreatePledges/${projectId}`
+    actionUrl = "/Project/CreatePledges/"
     sendData = {
         "ProjectId": projectId,
         "PledgeTitle": $('#PledgeTitle').val(),
@@ -65,6 +63,7 @@ function submitPledgeToServer(projectId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             $('#responseDiv').html(JSON.stringify(data));
+            alert('You have successfully added a pledge!')
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);

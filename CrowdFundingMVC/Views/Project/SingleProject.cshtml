@@ -5,12 +5,17 @@
 @{
     ViewData["Title"] = "Project Details View";
     var pledges = Model.Project.ProjectPledges.ToList();
+    TempData["projectId"] = @Model.Project.ProjectId;
 }
 
 <div class="text-center" id="@Model.Project.ProjectId">
     <h1>Project Details</h1>
 </div>
-
+<script type="text/javascript">
+    function myFunc("@Model.Project.ProjectId") {
+        alert("@Model.Project.ProjectId");
+    }
+</script>
 
 <div class="row">
     <div class="col-md-6">
@@ -31,22 +36,35 @@
             <input type="text" class="form-control" placeholder="Title" id="PostTitle">
             <span class="input-group-text" id="">Description</span>
             <input type="text" class="form-control" placeholder="Description" id="PostDescription">
-            <input type="button" class="btn btn-dark" onclick="submitPostToServer('@Model.Project.ProjectId')" value="Submit Post">
+            <input type="button" class="btn btn-dark" onclick="submitPostToServer(myFunc(this.@Model.Project.ProjectId);)" value="Submit Post">
         }
     </div>
     <div>
         @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
         {
-            <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>
-            @*<a href="@Url.Action("CreatePledges")" class="btn btn-sm btn-outline-primary" id="GoToCreatePledges">Add Pledge!</a>*@
+            <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg" id="GoToCreatePledges">Add Pledge!</a>           
+        }
+    </div>
+    <div>
+        @foreach (var item in Model.Pledges)
+        {
+            <div class="card text-center" style="width: 18rem;">
+
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.PledgeTitle)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.PledgeDescription)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.PledgePrice)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.PledgeReward)</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+
+            </div>
         }
     </div>
 
-    <button type="submit" class="btn btn-outline-danger" onclick="submitPledgeToServer( @Model.Project.ProjectId, @Model.Project.UserId)" id="@Model.Project.ProjectId" name="fundmit5">Fund 5!</button>
-    <button type="submit" class="btn btn-outline-danger" onclick="" id="@Model.Project.ProjectId" name="fundmit10">Fund 10!</button>
-    <button type="submit" class="btn btn-outline-danger" onclick="" id="@Model.Project.ProjectId" name="fundmit220">Fund 20!</button>
 </div>
-<table class="table">
+
+<table class="table" name="Posts Table">
     <thead>
         <tr>
             <th>

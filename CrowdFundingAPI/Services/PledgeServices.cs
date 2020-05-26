@@ -2,6 +2,8 @@
 using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CrowdFundingAPI.Services
 {
@@ -17,11 +19,17 @@ namespace CrowdFundingAPI.Services
             projectservices = _projectservices;
         }
 
-        //CreatePledges
-        public Pledge CreatePledges(PledgeOptions pledgeOptions)
-
+        //Get pledges by project id
+        public List<Pledge> GetPledgesByProjectId(int projectId)
         {
+            return _db.Set<Pledge>()
+                .Where(p => p.Project.ProjectId == projectId)
+                .ToList();
+        }
 
+        //Create Pledges
+        public Pledge CreatePledges(PledgeOptions pledgeOptions)
+        {
             var project = projectservices.FindProjectById(pledgeOptions.ProjectId);
             Pledge pledge = new Pledge
             {
@@ -36,6 +44,8 @@ namespace CrowdFundingAPI.Services
             _db.SaveChanges();
             return pledge;
         }
+
+       
 
         //new find way
         public Pledge FindPledgeById(int id)
