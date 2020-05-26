@@ -27,7 +27,6 @@ namespace CrowdFundingAPI.Services
         //Create post TODO
         public Post CreatePost(PostOptions postOptions)
         {
-
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var project = projectServices.FindProjectById(postOptions.ProjectId);
             Post post = new Post

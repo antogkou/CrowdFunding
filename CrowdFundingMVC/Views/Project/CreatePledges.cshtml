@@ -1,9 +1,15 @@
 ﻿@model CrowdFundingAPI.Models.Pledge
 @{
     ViewData["Title"] = "Add Pledge";
-}
 
-<div class="text-center">
+}
+@{
+    var projectId = TempData["projectid"];
+}
+@*@{
+        int projectId = ViewBag.projectID;
+    }*@
+<div class="text-center" id="">
     <h1>Add Pledges to your project</h1>
 </div>
 
@@ -14,30 +20,37 @@
 
 
             <div class="form-group">
-                <label asp-for="PledgeTitle" class="control-label"></label>
-                <input asp-for="PledgeTitle" class="form-control" type="text" required />
+                <label asp-for="PledgeTitle" class="control-label">Pledge Title</label>
+                <input class="form-control" type="text" required id="PledgeTitle" />
                 <div class="invalid-feedback">
                     Please provide a valid Name.
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="PledgePrice" class="control-label"></label>
-                <input asp-for="PledgePrice" class="form-control" type="number" required />
+                <label asp-for="PledgeDescription" class="control-label">Pledge Description</label>
+                <input class="form-control" type="text" required id="PledgeDescription" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="PledgeReward" class="control-label"></label>
-                <input asp-for="PledgeReward" class="form-control" type="text" required />
+                <label asp-for="PledgePrice" class="control-label">Pledge Price</label>
+                <input class="form-control" type="number" required id="PledgePrice" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
-            
-                <div class="col col-md-12 d-flex justify-content-end pr-0">
-                    <input type="button" onclick="submitPledgeToServer()" value="Submit">
+            <div class="form-group">
+                <label asp-for="PledgeReward" class="control-label">Pledge Reward</label>
+                <input class="form-control" type="text" required id="PledgeReward" />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
                 </div>
+            </div>
+
+            <div class="col col-md-12 d-flex justify-content-end pr-0">
+                <input type="button" onclick="submitPledgeToServer(@projectId)" value="Submit">
+            </div>
         </form>
     </div>
 </div>

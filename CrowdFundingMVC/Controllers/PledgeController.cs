@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CrowdFundingAPI.Database;
+﻿using CrowdFundingAPI.Database;
 using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
-using CrowdFundingAPI.Services;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CrowdFundingMVC.Controllers
 {
@@ -17,9 +13,7 @@ namespace CrowdFundingMVC.Controllers
     {
         private IProjectServices _projMangr;
         private IPledgeServices _pledges;
-
         private readonly CrFrDbContext _db;
-
         private readonly IHttpContextAccessor httpContextAccessor;
 
         public PledgeController(IProjectServices projMangr, CrFrDbContext db,
@@ -32,28 +26,13 @@ namespace CrowdFundingMVC.Controllers
             httpContextAccessor = _httpContextAccessor;
         }
 
-        [HttpGet("/Project/CreatePledges/{id}")]
-        //[HttpGet("/Project/CreatePledges/")]
-        public IActionResult CreatePledges(int? id)
+        [HttpGet]
+        public IActionResult CreatePledges([FromRoute]int? id)
         {
-            TempData["projectid"] = id;
-            //ViewBag.projectID = projectId;
-            var createPledgepage = _pledges.FindPledgeById((int)id);
-            //return View();
-            return View(createPledgepage);
+           // TempData["projectid"] = id;
+            //var createPledgepage = _pledges.FindPledgeById((int)id);
+            return View();
         }
-
-
-    [HttpPost]
-    public Pledge CreatePledges([FromBody] PledgeOptions options)
-    {
-        return _pledges.CreatePledges(options);
+    
     }
-
-
-    public IActionResult Index()
-    {
-        return View();
-    }
-}
 }

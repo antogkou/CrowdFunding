@@ -21,54 +21,35 @@
 
             <div class="form-group">
                 <label asp-for="PledgeTitle" class="control-label">Pledge Title</label>
-                <input asp-for="PledgeTitle" class="form-control" type="text" required id="PledgeTitle" />
+                <input class="form-control" type="text" required id="PledgeTitle" />
                 <div class="invalid-feedback">
                     Please provide a valid Name.
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="PledgeDescription" class="control-label">Pledge Description</label>
-                <input asp-for="PledgeDescription" class="form-control" type="text" required id="PledgeDescription" />
+                <input class="form-control" type="text" required id="PledgeDescription" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="PledgePrice" class="control-label">Pledge Price</label>
-                <input asp-for="PledgePrice" class="form-control" type="number" required id="PledgePrice" />
+                <input class="form-control" type="number" required id="PledgePrice" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="PledgeReward" class="control-label">Pledge Reward</label>
-                <input asp-for="PledgeReward" class="form-control" type="text" required id="PledgeReward" />
+                <input class="form-control" type="text" required id="PledgeReward" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
 
-            @*<div class="row">
-                    @foreach (var item in Model)
-                    {
-                        <div class="card" style="width: 18rem;">
-
-                            <img class="card-img-top" src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.PledgeTitle)</h5>
-                                <p class="card-text"> @Html.DisplayFor(modelItem => item.PledgeDescription)</p>
-                                <p class="card-text"> @Html.DisplayFor(modelItem => item.PledgePrice)</p>
-                                <p class="card-text"> @Html.DisplayFor(modelItem => item.PledgeReward)</p>
-
-                                <a href="@Url.Action("SingleProject", new { id = item.ProjectId})" class="btn btn-sm btn-outline-primary float" id="SingleProjectView">Go to this Project!</a>
-
-                            </div>
-                        </div>
-                    }
-                </div>*@
-
             <div class="col col-md-12 d-flex justify-content-end pr-0">
-                <input type="button" onclick="submitPledgeToServer('@TempData["projectid"]')" value="Submit">
+                <input type="button" onclick="submitPledgeToServer(@projectId)" value="Submit">
             </div>
         </form>
     </div>

@@ -3,7 +3,6 @@ using CrowdFundingAPI.Models;
 using CrowdFundingAPI.Models.Options;
 using CrowdFundingAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -21,33 +20,8 @@ namespace CrowdFundingAPI.Services
             httpContextAccessor = _httpContextAccessor;
         }
 
-        //Create Project approach1
-        public Project CreateProject(ProjectOptions projectoption)
-        {
-
-            string userName = httpContextAccessor.HttpContext.User.Identity.Name;
-            Project project = new Project
-            {
-                ProjectTitle = projectoption.ProjectTitle,
-                ProjectDescription = projectoption.ProjectDescription,
-                //CurrentAmount = projectoption.CurrentAmount,
-                ProjectTargetAmount = projectoption.ProjectTargetAmount,
-                //Progress = projectoption.CurrentAmount / projectoption.NeededAmount,
-                CreationDate = DateTime.Now,
-                EndingDate = projectoption.EndingDate,
-                IsActive = true,
-                Creator = userName,
-                ProjectCategory = projectoption.ProjectCategory,
-                ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####")
-            };
-
-            _db.Add(project);
-            _db.SaveChanges();
-            return project;
-        }
-
-        //Create Project approach2
-        public Project CreateProject2(ProjectOptions projectoption, PledgeOptions pledgeOptions)
+        //Create Project
+        public Project CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
         {
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -163,7 +137,6 @@ namespace CrowdFundingAPI.Services
                 UserId = s.UserId
             }).ToList();
         }
-
 
     }
 }
