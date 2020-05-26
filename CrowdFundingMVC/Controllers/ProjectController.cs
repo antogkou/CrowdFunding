@@ -27,7 +27,7 @@ namespace CrowdFundingMVC.Controllers
             _projMangr = projMangr;
             _pledges = pledges;
             _postservices = postservices;
-             _db = db;
+            _db = db;
             httpContextAccessor = _httpContextAccessor;
         }
 
@@ -44,7 +44,7 @@ namespace CrowdFundingMVC.Controllers
         {
             return _projMangr.CreateProject(projOpt, pledgeOptions);
         }
-   
+
         //All Projects List search
         [HttpGet]
         public async Task<IActionResult> GetAllProjects(string projectCategory, string searchString)
@@ -105,11 +105,17 @@ namespace CrowdFundingMVC.Controllers
                 Project = _projMangr.FindProjectById((int)id),
                 Pledges = _pledges.GetPledgesByProjectId((int)id)
             };
-            if (createpledges.Project.UserId == userId)
+
+            if (createpledges.Project != null)
             {
-                return View(createpledges);
+
+
+                if (createpledges.Project.UserId == userId)
+                {
+                    return View(createpledges);
+                }
             }
-            return NotFound();
+            return NotFound(); //404
         }
 
 
