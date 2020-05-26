@@ -42,6 +42,45 @@ namespace CrowdFundingAPI.Services
             return post;
         }
 
+        public bool DeletePost(int postId)
+        {
+            Post post = _db.Set<Post>().Find(postId);
+             if (post != null)
+            {
+                _db.Set<Post>().Remove(post);
+                _db.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public IQueryable<Post> SearchPosts(
+            PostOptions postOptions)
+        {
+            if (postOptions == null)
+            {
+                return null;
+            }
+
+            var query = _db
+                .Set<Post>()
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(postOptions.PostTitle))
+            {
+                query = query.Where(c => c.PostTitle == postOptions.PostTitle);
+            }
+
+            if (!string.IsNullOrWhiteSpace(postOptions.PostDescription))
+            {
+                query = query.Where(c => c.PostDescription == postOptions.PostDescription);
+            }
+
+            query = query.Take(500);
+
+            return query;
+        }
 
         //Get All Posts for current Project (working)
         public List<Post> GetAllPosts(int projectId)
@@ -50,6 +89,8 @@ namespace CrowdFundingAPI.Services
                 .Where(p => p.Project.ProjectId == projectId)
                 .ToList();
         }
+
+
 
         //not used
         public IQueryable<Post> ListPosts(PostOptions options)

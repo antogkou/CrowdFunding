@@ -23,7 +23,9 @@ namespace CrowdFundingAPI.Services
         //Create Project
         public Project CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
         {
+            //User's Email=UserName
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+            //User's ID
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (projectoption == null)
@@ -50,10 +52,21 @@ namespace CrowdFundingAPI.Services
 
                 ProjectPledges = new List<Pledge>
                 {
-                    new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "LigaDineisLigaPairneis", PledgePrice = 5, PledgeReward = "iPhone SE" },
-                     new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "KatiEdwses", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
-                      new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "POLY PRAGMA Edwses", PledgePrice = 20, PledgeReward = "SamsungGalaxyS20e"  },
+                    new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "liga", PledgePrice = 5, PledgeReward = "iPhone SE" },
+                     new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "metria", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
+                      new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "polla", PledgePrice = 20, PledgeReward = "OnePlus8Pro"  },
                 },
+
+                //ProjectPledges = new List<Pledge>
+                //{
+                //    new Pledge {
+                //    PledgeTitle = pledgeOptions.PledgeTitle,
+                //    PledgeDescription = pledgeOptions.PledgeDescription,
+                //    PledgePrice = pledgeOptions.PledgePrice,
+                //    PledgeReward = pledgeOptions.PledgeReward
+                //    }
+                //},
+
 
                 ProjectPosts = new List<Post>
                 {

@@ -12,31 +12,30 @@
     <div class="tab col-md-8">
         <form data-form="0">
 
-
             <div class="form-group">
-                <label asp-for="ProjectTitle" class="control-label">Project Title</label>
-                <input asp-for="ProjectTitle" class="form-control" type="text" required />
+                <label asp-for="@Model.ProjectTitle" class="control-label">Project Title</label>
+                <input asp-for="@Model.ProjectTitle" class="form-control" type="text" required />
                 <div class="invalid-feedback">
                     Please provide a valid Name.
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectDescription" class="control-label">Short Description</label>
-                <input asp-for="ProjectDescription" class="form-control" type="text" required />
+                <label asp-for="@Model.ProjectDescription" class="control-label">Short Description</label>
+                <input asp-for="@Model.ProjectDescription" class="form-control" type="text" required />
                 <div class="invalid-feedback">
                     Please provide a Description.
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectTargetAmount" class="control-label">Target Amount</label>
-                <input asp-for="ProjectTargetAmount" class="form-control" type="number" required />
+                <label asp-for="@Model.ProjectTargetAmount" class="control-label">Target Amount</label>
+                <input asp-for="@Model.ProjectTargetAmount" class="form-control" type="number" required />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="EndingDate" class="control-label">Ending Date</label>
-                <input asp-for="EndingDate" class="form-control" required />
+                <label asp-for="@Model.EndingDate" class="control-label">Ending Date</label>
+                <input asp-for="@Model.EndingDate" class="form-control" required />
                 <div class="invalid-feedback">
                     Please provide a valid EndingDate.
                 </div>
@@ -45,11 +44,14 @@
             <div class="form-group">
                 @Html.DropDownList("ProjectCategory", new List<SelectListItem>
            {
-               new SelectListItem { Text = "Sport", Value = "1", Selected=true},
-               new SelectListItem { Text = "History", Value = "2"},
-               new SelectListItem { Text = "Drama", Value = "3"}
+               new SelectListItem { Text = "Sport", Value = "Sport", Selected=true},
+               new SelectListItem { Text = "History", Value = "History"},
+               new SelectListItem { Text = "Technology", Value = "Technology"},
+               new SelectListItem { Text = "Pourgoutzidou", Value = "Pourgoutzidou"},
+               new SelectListItem { Text = "Art", Value = "Art"}
            }, "Select Category")
             </div>
+
             <div class="col col-md-12 d-flex justify-content-end pr-0">
                 <input type="button" onclick="submitProjectToServer()" value="Submit">
             </div>

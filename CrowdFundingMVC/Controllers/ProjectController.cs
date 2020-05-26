@@ -108,8 +108,6 @@ namespace CrowdFundingMVC.Controllers
 
             if (createpledges.Project != null)
             {
-
-
                 if (createpledges.Project.UserId == userId)
                 {
                     return View(createpledges);

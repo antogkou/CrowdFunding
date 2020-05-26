@@ -31,5 +31,24 @@ namespace CrowdFundingMVC.Controllers
         {
             return _postservices.CreatePost(postOptions);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePost(int id)
+        {
+            return Ok();
+        }
+
+        
+        //[HttpGet("{id}/edit")]
+        //public IActionResult Edit(int id)
+        //{
+        //    var post = _postservices.DeletePost(
+        //        new SearchPostOptions()
+        //        {
+        //            PostId = id
+        //        }).SingleOrDefault();
+
+        //    return View(post);
+        //}
     }
 }

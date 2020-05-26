@@ -6,14 +6,17 @@
 function submitProjectToServer() {
     actionMethod = "POST"
     actionUrl = "/Project/CreateProject"
-
-    
     sendData = {
         "ProjectTitle": $('#ProjectTitle').val(),
         "ProjectDescription": $('#ProjectDescription').val(),
         "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
         "ProjectCategory": $('#ProjectCategory').val(),
         "EndingDate": $('#EndingDate').val(),
+
+        //"PledgeTitle": $('#PledgeTitle').val(),
+        //"PledgeDescription": $('#PledgeDescription').val(),
+        //"PledgePrice": $('#PledgePrice').val(),
+        //"PledgeReward": $('#PledgeReward').val(),
     }
 
     alert(JSON.stringify(sendData))
@@ -27,17 +30,15 @@ function submitProjectToServer() {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             $('#responseDiv').html(JSON.stringify(data));
-
             //ProjectId = data["id"]
             alert('You have successfully added a project')
-            //window.open("/Project/SearchProject?id=" + ProjectId, "_self")
+            // window.open("/Project/GetAllProjects/ " + "_self")
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
         }
     });
 }
-
 
 function submitPledgeToServer(projectId) {
 
@@ -99,7 +100,39 @@ function submitPostToServer(projectId) {
             }
             //$('#responseDiv').html(JSON.stringify(data));
             //refresh page after the post is added 
-            
+
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
+
+function deletePostFromServer(postId) {
+    actionMethod = "DELETE"
+    actionUrl = "/Post/DeletePost"
+    sendData = {
+        "ProjectId": projectId,
+        "PostTitle": $('#PostTitle').val(),
+        "PostDescription": $('#PostDescription').val()
+    }
+
+    alert(JSON.stringify(sendData))
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            if (data == null) {
+                $('#responseDiv).html("There is no such post');
+            }
+            //$('#responseDiv').html(JSON.stringify(data));
+            //refresh page after the post is added 
+
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
