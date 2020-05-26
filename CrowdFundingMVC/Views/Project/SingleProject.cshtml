@@ -2,12 +2,6 @@
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<CrowdFundingAPI.Models.MyUsers> UserManager
 
-@{
-    ViewData["Title"] = "Project Details View";
-    var pledges = Model.Project.ProjectPledges.ToList();
-    TempData["projectId"] = @Model.Project.ProjectId;
-}
-
 <div class="text-center" id="@Model.Project.ProjectId">
     <h1>Project Details</h1>
 </div>

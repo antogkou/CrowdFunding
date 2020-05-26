@@ -97,9 +97,14 @@ namespace CrowdFundingMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreatePledges()
+        public IActionResult CreatePledges(int? id)
         {
-            return View();
+            SingleProjectMV createpledges = new SingleProjectMV
+            {
+                Project = _projMangr.FindProjectById((int)id),
+                Pledges = _pledges.GetPledgesByProjectId((int)id)
+            };
+            return View(createpledges);
         }
 
 
