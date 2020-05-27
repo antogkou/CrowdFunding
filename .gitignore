@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/CrowdFundingCore/Migrations/20200527043130_Nick.cs
+/CrowdFundingCore/Migrations/20200527043130_Nick.Designer.cs
+/CrowdFundingCore/Migrations/CrFrDbContextModelSnapshot.cs

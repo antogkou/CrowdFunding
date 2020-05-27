@@ -142,10 +142,10 @@ function deletePostFromServer(postId) {
 
 function submitBuyPledgeToServer(projectId, pledgeId) {
     actionMethod = "POST"
-    actionUrl = "/Project/AddPlege/"
+    actionUrl = "/Project/AddPledge/"
     sendData = {
-        "ProjectId": projectId,
-        "PledgeId": pledgeId
+        "PledgeId": pledgeId,
+        "ProjectId": projectId
     }
 
     alert(JSON.stringify(sendData))
