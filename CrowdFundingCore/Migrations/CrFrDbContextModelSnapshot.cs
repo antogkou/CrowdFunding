@@ -21,21 +21,21 @@ namespace CrowdFundingCore.Migrations
 
             modelBuilder.Entity("CrowdFundingCore.Models.BackedPledges", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("BackedPledgesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("PledgeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("BackedUserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("created_BackedPledge")
                         .HasColumnType("datetimeoffset");
 
-                    b.HasKey("UserId", "PledgeId");
-
-                    b.HasIndex("BackedUserId");
+                    b.HasKey("BackedPledgesId");
 
                     b.HasIndex("PledgeId");
 
@@ -246,9 +246,6 @@ namespace CrowdFundingCore.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasMaxLength(20);
 
-                    b.Property<string>("ProjectTargetAmountTostring")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProjectTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)")
@@ -400,10 +397,6 @@ namespace CrowdFundingCore.Migrations
 
             modelBuilder.Entity("CrowdFundingCore.Models.BackedPledges", b =>
                 {
-                    b.HasOne("CrowdFundingCore.Models.MyUsers", "BackedUser")
-                        .WithMany()
-                        .HasForeignKey("BackedUserId");
-
                     b.HasOne("CrowdFundingCore.Models.Pledge", "BackedPledge")
                         .WithMany("PledgeUsers")
                         .HasForeignKey("PledgeId")

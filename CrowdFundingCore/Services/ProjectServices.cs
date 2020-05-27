@@ -48,7 +48,6 @@ namespace CrowdFundingCore.Services
                 EndingDate = projectoption.EndingDate,
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
-                ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####"),
 
                 ProjectPledges = new List<Pledge>
                 {

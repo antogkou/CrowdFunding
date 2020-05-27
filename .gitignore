@@ -353,3 +353,5 @@ MigrationBackup/
 /CrowdFundingCore/Migrations/CrFrDbContextModelSnapshot.cs
 /CrowdFundingCore/Migrations/20200527123158_Nikoz3.cs
 /CrowdFundingCore/Migrations/20200527123158_Nikoz3.Designer.cs
+/CrowdFundingCore/Migrations/20200527142854_adf.cs
+/CrowdFundingCore/Migrations/20200527142854_adf.Designer.cs
