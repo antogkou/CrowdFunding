@@ -151,5 +151,20 @@ namespace CrowdFundingCore.Services
             }).ToList();
         }
 
+        //Edit project
+        public Project UpdateProject(int projectId, UpdateProjectOptions options)
+        {
+            Project project = FindProjectById(projectId);
+            if (options.ProjectTitle != null)
+                project.ProjectTitle = options.ProjectTitle;
+            if (options.ProjectDescription != null)
+                project.ProjectDescription = options.ProjectDescription;
+            if (project.ProjectCategory != null)
+                project.ProjectCategory = options.ProjectCategory;
+            _db.SaveChanges();
+            return project;
+
+        }
+
     }
 }
