@@ -59,7 +59,7 @@ namespace CrowdFundingCore.Services
             var project = projectservices.FindProjectById(projectId);
             var pledge =  _db
                 .Set<Pledge>()
-                .Where(i => i.PledgeId == 2)
+                .Where(i => i.PledgeId == pledgeId)
                 .SingleOrDefault();
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -71,6 +71,7 @@ namespace CrowdFundingCore.Services
             };
 
             project.ProjectCurrentAmount += pledge.PledgePrice;
+            project.Progress = project.ProjectCurrentAmount / project.ProjectTargetAmount;
 
             _db.Add(backedPledge);
             _db.Update(project);

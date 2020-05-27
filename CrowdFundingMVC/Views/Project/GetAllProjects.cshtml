@@ -26,6 +26,7 @@
     <div class="row">
         @foreach (var item in Model.Projects)
         {
+            string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");
             var progress = Math.Round((item.ProjectCurrentAmount * 100) / item.ProjectTargetAmount, 2).ToString(System.Globalization.CultureInfo.InvariantCulture);
             <div class="card" style="width: 18rem;">
 
@@ -33,7 +34,7 @@
                 <div class="card-body">
                     <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectTargetAmountTostring)</p>
+                    <p class="card-text"> @projectTargetAmount</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.Creator)</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.CreationDate)</p>
                     <div class="text-center">@progress% funded</div>
