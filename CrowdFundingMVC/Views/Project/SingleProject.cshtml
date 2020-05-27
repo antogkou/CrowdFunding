@@ -47,7 +47,7 @@
                 <div class="progress-bar bg-success progress-bar-striped"
                      role="progressbar"
                      aria-valuenow="@progress" aria-valuemin="0"
-                     style="width:@progress;" aria-valuemax="100">
+                     style="width:@progress%;" aria-valuemax="100">
                 </div>
             </div>
 
@@ -72,7 +72,7 @@
                             <li>You get a reward for being cool!</li>
                             <li>@Html.DisplayFor(modelItem => item.PledgeReward)</li>
                         </ul>
-                        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="submitBuyPledgeToServer('@Model.Project.ProjectId','@item.PledgeId')">Get</button>
+                        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Get</button>
                     </div>
                 </div>
             }

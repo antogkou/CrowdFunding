@@ -153,10 +153,17 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public BackedPledges AddPledge(int projectId, int pledgeId)
+        //{
+        //    return _pledges.AddPledge(projectId, pledgeId);
+        //}
+
+
         [HttpPost]
-        public BackedPledges AddPledge(int projectId, int pledgeId)
+        public BackedPledges AddPledge([FromBody] PledgeProjectOptions pledgeProjectOptions)
         {
-            return _pledges.AddPledge(projectId, pledgeId);
+            return _pledges.AddPledge(pledgeProjectOptions.PledgeId, pledgeProjectOptions.ProjectId);
         }
 
         //Get current user's projects View
