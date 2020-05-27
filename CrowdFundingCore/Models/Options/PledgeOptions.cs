@@ -7,5 +7,6 @@
         public decimal PledgePrice { get; set; }
         public string PledgeReward { get; set; }
         public int ProjectId { get; set; }
+        public int PledgeId { get; set; }
     }
 }

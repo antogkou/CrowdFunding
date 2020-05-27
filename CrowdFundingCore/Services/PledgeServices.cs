@@ -54,19 +54,20 @@ namespace CrowdFundingCore.Services
         }
 
         //Buy a pledge
-        public BackedPledges AddPledge(int projectId, int pledgeId)
+        public BackedPledges AddPledge(int pledgeId, int projectId)
         {
             var project = projectservices.FindProjectById(projectId);
             var pledge =  _db
                 .Set<Pledge>()
-                .Where(i => i.PledgeId == pledgeId)
+                .Where(i => i.PledgeId == 2)
                 .SingleOrDefault();
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var backedPledge = new BackedPledges()
             {
                 UserId = userId,
-                PledgeId = pledge.PledgeId
+                //PledgeId = pledge.PledgeId
+                PledgeId = pledgeId
             };
 
             project.ProjectCurrentAmount += pledge.PledgePrice;
