@@ -100,17 +100,24 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult CreatePledges(int? id)
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            SingleProjectMV createpledges = new SingleProjectMV
+
+            if (new SingleProjectMV
             {
                 Project = _projMangr.FindProjectById((int)id),
                 Pledges = _pledges.GetPledgesByProjectId((int)id)
-            };
-
-            if (createpledges.Project != null)
+            }.Project != null)
             {
-                if (createpledges.Project.UserId == userId)
+                if (new SingleProjectMV
                 {
-                    return View(createpledges);
+                    Project = _projMangr.FindProjectById((int)id),
+                    Pledges = _pledges.GetPledgesByProjectId((int)id)
+                }.Project.UserId == userId)
+                {
+                    return View(new SingleProjectMV
+                    {
+                        Project = _projMangr.FindProjectById((int)id),
+                        Pledges = _pledges.GetPledgesByProjectId((int)id)
+                    });
                 }
             }
             return NotFound(); //404
@@ -119,7 +126,44 @@ namespace CrowdFundingMVC.Controllers
         [HttpPost]
         public Pledge CreatePledges([FromBody] PledgeOptions pledgeOptions)
         {
-                return _pledges.CreatePledges(pledgeOptions);
+            return _pledges.CreatePledges(pledgeOptions);
+        }
+
+        //Edit Project
+        [HttpGet]
+        public IActionResult EditProject(int projectId)
+        {
+            Project project = _projMangr.FindProjectById((int) projectId);
+
+          
+            return View(project); 
+        }
+
+        //[HttpPost]
+        //public Project EditProject(int projectId, UpdateProjectOptions options)
+        //{
+        //    return _projMangr.UpdateProject(projectId, options);
+        //}
+
+
+
+        [HttpGet]
+        public IActionResult AddPledge()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public BackedPledges AddPledge(int projectId, int pledgeId)
+        //{
+        //    return _pledges.AddPledge(projectId, pledgeId);
+        //}
+
+
+        [HttpPost]
+        public BackedPledges AddPledge([FromBody] PledgeProjectOptions pledgeProjectOptions)
+        {
+            return _pledges.AddPledge(pledgeProjectOptions.PledgeId, pledgeProjectOptions.ProjectId);
         }
 
         //Get current user's projects View

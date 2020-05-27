@@ -2,21 +2,29 @@
 using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace CrowdFundingCore.Services
 {
     public class PledgeServices : IPledgeServices
     {
-
         private readonly IProjectServices projectservices;
         private CrFrDbContext _db;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public PledgeServices(CrFrDbContext db, IProjectServices _projectservices)
+        public PledgeServices(CrFrDbContext db, IProjectServices _projectservices,
+            IHttpContextAccessor _httpContextAccessor)
         {
             _db = db;
             projectservices = _projectservices;
+            httpContextAccessor = _httpContextAccessor;
         }
 
         //Get pledges by project id
@@ -45,7 +53,33 @@ namespace CrowdFundingCore.Services
             return pledge;
         }
 
-       
+        //Buy a pledge
+        public BackedPledges AddPledge(int pledgeId, int projectId)
+        {
+            var project = projectservices.FindProjectById(projectId);
+            var pledge =  _db
+                .Set<Pledge>()
+                .Where(i => i.PledgeId == pledgeId)
+                .SingleOrDefault();
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var backedPledge = new BackedPledges()
+            {
+                UserId = userId,
+                //PledgeId = pledge.PledgeId
+                PledgeId = pledgeId
+            };
+
+            project.ProjectCurrentAmount += pledge.PledgePrice;
+            project.Progress = project.ProjectCurrentAmount / project.ProjectTargetAmount;
+
+            _db.Add(backedPledge);
+            _db.Update(project);
+
+            _db.SaveChanges();
+
+            return backedPledge;
+        }
 
         //new find way
         public Pledge FindPledgeById(int id)

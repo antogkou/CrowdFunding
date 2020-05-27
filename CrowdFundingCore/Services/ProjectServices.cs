@@ -48,7 +48,6 @@ namespace CrowdFundingCore.Services
                 EndingDate = projectoption.EndingDate,
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
-                ProjectTargetAmountTostring = projectoption.ProjectTargetAmount.ToString("0.####"),
 
                 ProjectPledges = new List<Pledge>
                 {
@@ -149,6 +148,21 @@ namespace CrowdFundingCore.Services
             {
                 UserId = s.UserId
             }).ToList();
+        }
+
+        //Edit project
+        public Project UpdateProject(int projectId, UpdateProjectOptions options)
+        {
+            Project project = FindProjectById(projectId);
+            if (options.ProjectTitle != null)
+                project.ProjectTitle = options.ProjectTitle;
+            if (options.ProjectDescription != null)
+                project.ProjectDescription = options.ProjectDescription;
+            if (project.ProjectCategory != null)
+                project.ProjectCategory = options.ProjectCategory;
+            _db.SaveChanges();
+            return project;
+
         }
 
     }
