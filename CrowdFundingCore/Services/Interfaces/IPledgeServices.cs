@@ -9,5 +9,6 @@ namespace CrowdFundingCore.Services.Interfaces
         Pledge CreatePledges(PledgeOptions options);
         Pledge FindPledgeById(int id);
         List<Pledge> GetPledgesByProjectId(int projectId);
+        BackedPledges AddPledge(int projectId, int pledgeId);
     }
 }

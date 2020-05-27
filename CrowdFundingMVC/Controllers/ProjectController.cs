@@ -119,7 +119,20 @@ namespace CrowdFundingMVC.Controllers
         [HttpPost]
         public Pledge CreatePledges([FromBody] PledgeOptions pledgeOptions)
         {
-                return _pledges.CreatePledges(pledgeOptions);
+            return _pledges.CreatePledges(pledgeOptions);
+        }
+
+
+        [HttpGet]
+        public IActionResult AddPledge()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public BackedPledges AddPledge(int projectId, int pledgeId)
+        {
+            return _pledges.AddPledge(projectId, pledgeId);
         }
 
         //Get current user's projects View

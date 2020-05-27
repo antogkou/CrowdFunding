@@ -1,29 +1,51 @@
-﻿namespace CrowdFundingCore
+﻿using CrowdFundingCore.Models;
+using System;
+
+namespace CrowdFundingCore
 {
     public class Result<T>
     {
-        public T Data { get; set; }
-        public string ErrorText { get; set; }
         public StatusCode ErrorCode { get; set; }
+
+        public string ErrorText { get; set; }
+
+        public T Data { get; set; }
+
         public bool Success => ErrorCode == StatusCode.OK;
 
-        public static Result<T> CreateSuccessful(T data)
+
+        public Result()
+        { }
+
+        public static Result<T> CreateSuccess(T data)
         {
-            return new Result<T>
+            return new Result<T>()
             {
                 ErrorCode = StatusCode.OK,
                 Data = data
             };
         }
 
-        public static Result<T> CreateFailed(StatusCode code,
-            string text)
+        public Result<U> ToResult<U>()
         {
-            return new Result<T>
+            var res = new Result<U>()
             {
-                ErrorCode = code,
-                ErrorText = text
+                ErrorCode = ErrorCode,
+                ErrorText = ErrorText
             };
+
+            return res;
+        }
+
+        public Result(StatusCode errorCode, string errorText)
+        {
+            ErrorCode = errorCode;
+            ErrorText = errorText;
+        }
+
+        internal static Result<MyUsers> CreateSuccess()
+        {
+            throw new NotImplementedException();
         }
     }
 }

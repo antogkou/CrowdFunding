@@ -139,3 +139,32 @@ function deletePostFromServer(postId) {
         }
     });
 }
+
+function submitBuyPledgeToServer(projectId, pledgeId) {
+    actionMethod = "POST"
+    actionUrl = "/Project/AddPlege/"
+    sendData = {
+        "ProjectId": projectId,
+        "PledgeId": pledgeId
+    }
+
+    alert(JSON.stringify(sendData))
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+
+            $('#responseDiv').html(JSON.stringify(data));
+            //refresh page after the post is added 
+
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
