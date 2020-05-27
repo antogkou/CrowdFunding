@@ -83,7 +83,13 @@ function submitPostToServer(projectId) {
         "PostDescription": $('#PostDescription').val()
     }
 
-    alert(JSON.stringify(sendData))
+    //alert(JSON.stringify(sendData))
+    //location.reload();
+    if (sendData.success == true) { // if true (1)
+        setTimeout(function () {// wait for 5 secs(2)
+            location.reload(); // then reload the page.(3)
+        }, 5000);
+    }
 
     $.ajax({
         url: actionUrl,
@@ -148,7 +154,13 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
         "ProjectId": projectId
     }
 
-    alert(JSON.stringify(sendData))
+    //alert(JSON.stringify(sendData))
+    //location.reload();
+    //if (sendData.success == true) { // if true (1)
+    //    setTimeout(function () {// wait for 5 secs(2)
+    //        location.reload(); // then reload the page.(3)
+    //    }, 5000);
+    //}
 
     $.ajax({
         url: actionUrl,
@@ -159,7 +171,8 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
 
-            $('#responseDiv').html(JSON.stringify(data));
+
+            //$('#responseDiv').html(JSON.stringify(data));
             //refresh page after the post is added 
 
         },
@@ -167,4 +180,33 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
             console.log(errorThrown);
         }
     });
+
+    //$.ajax({
+    //    xhr: function () {
+    //        var xhr = new window.XMLHttpRequest();
+    //        //Upload progress
+    //        xhr.upload.addEventListener("progress", function (evt) {
+    //            if (evt.lengthComputable) {
+    //                var percentComplete = evt.loaded / evt.total;
+    //                //Do something with upload progress
+    //                console.log(percentComplete);
+    //            }
+    //        }, false);
+    //        //Download progress
+    //        xhr.addEventListener("progress", function (evt) {
+    //            if (evt.lengthComputable) {
+    //                var percentComplete = evt.loaded / evt.total;
+    //                //Do something with download progress
+    //                console.log(percentComplete);
+    //            }
+    //        }, false);
+    //        return xhr;
+    //    },
+    //    type: 'POST',
+    //    url: "/",
+    //    data: {},
+    //    success: function (data) {
+    //        //Do something success-ish
+    //    }
+    //});
 }
