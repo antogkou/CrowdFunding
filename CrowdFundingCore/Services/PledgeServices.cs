@@ -82,6 +82,71 @@ namespace CrowdFundingCore.Services
 
         }
 
+        public Result<Pledge> UpdatePledge(PledgeOptions pledgeOptions)
+        {
+            if (pledgeOptions == null)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeTitle))
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PledgeTitle");
+            }
+            if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeDescription))
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PledgeDescription");
+            }
+            if (pledgeOptions.PledgePrice == 0)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PledgePrice");
+            }
+            if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeReward))
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PledgeReward");
+            }
+
+
+
+
+            var pledge = _db.Set<Pledge>().Find(pledgeOptions.PledgeId);
+
+            
+            pledge.PledgeTitle = pledgeOptions.PledgeTitle;
+            pledge.PledgeDescription = pledgeOptions.PledgeDescription;
+            pledge.PledgePrice = pledgeOptions.PledgePrice;
+            pledge.PledgeReward = pledgeOptions.PledgeReward;
+            
+
+
+            var rows = 0;
+            try
+            {
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Pledge could not be updated");
+            }
+
+            return Result<Pledge>.CreateSuccessful(pledge);
+
+        }
+
+
         //Buy a pledge
         public Result<BackedPledges> AddPledge(int pledgeId, int projectId)
         {
@@ -97,7 +162,7 @@ namespace CrowdFundingCore.Services
                 return Result<BackedPledges>.CreateFailed(
                     StatusCode.BadRequest, "Null projectId");
             }
-          
+
             var project = projectservices.FindProjectById(projectId);
             var pledge = _db
                 .Set<Pledge>()
@@ -137,7 +202,7 @@ namespace CrowdFundingCore.Services
             }
 
             return Result<BackedPledges>.CreateSuccessful(backedPledge);
-          
+
         }
 
         //new find way

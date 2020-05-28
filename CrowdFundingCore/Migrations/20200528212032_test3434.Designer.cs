@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrowdFundingCore.Migrations
 {
     [DbContext(typeof(CrFrDbContext))]
-    [Migration("20200528094905_Initial2")]
-    partial class Initial2
+    [Migration("20200528212032_test3434")]
+    partial class test3434
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -144,18 +144,18 @@ namespace CrowdFundingCore.Migrations
                         {
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "45d0d4d8-341e-4d84-b51e-e0503a32af2a",
+                            ConcurrencyStamp = "88b5b3c8-f389-4cad-9fe0-2d8e46ffe479",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFTNjuLOI8r3N+7sQ5vcUsNdTq7frml22ygegHdtriT2w8GUaFfmg+Iog4Q/RuOocQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDc8e8yq6cIps1X8St1P+QZ1IzCxxG4WhIxzehxj50rfLavPnQ3JE8o89wQKsx8x3A==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
                             TwoFactorEnabled = false,
-                            UserDateCreated = new DateTimeOffset(new DateTime(2020, 5, 28, 12, 49, 4, 821, DateTimeKind.Unspecified).AddTicks(1971), new TimeSpan(0, 3, 0, 0, 0)),
+                            UserDateCreated = new DateTimeOffset(new DateTime(2020, 5, 29, 0, 20, 32, 577, DateTimeKind.Unspecified).AddTicks(8744), new TimeSpan(0, 3, 0, 0, 0)),
                             UserName = "admin@admin.com"
                         });
                 });
@@ -314,21 +314,21 @@ namespace CrowdFundingCore.Migrations
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "fcd377d7-a6aa-422c-9758-f5e34dddfa4f",
+                            ConcurrencyStamp = "f387e05c-62ec-4f40-b633-aed56c2e69ec",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "a179f95b-727f-4e5b-b142-691e404b06fc",
+                            ConcurrencyStamp = "a45ca50e-aba0-42d9-98d3-43a13f059bb6",
                             Name = "Backer",
                             NormalizedName = "BACKER"
                         },
                         new
                         {
                             Id = "78A7570F-3CE5-48BA-9461-80283ED1D94D",
-                            ConcurrencyStamp = "e587f085-f9fa-4663-84ab-2cc83c88f6b0",
+                            ConcurrencyStamp = "ee232fca-1ef9-4e7b-ad2d-d1adafe42eba",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         });
