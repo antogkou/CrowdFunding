@@ -33,6 +33,8 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Project" asp-action="GetPopularProjects">Popular Projects</a>
                 </li>
+            @if (signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+            {
                 <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
@@ -46,6 +48,7 @@
                            asp-action="ListRoles">Roles</a>
                     </div>
                 </li>
+            }
             </ul>
 
 

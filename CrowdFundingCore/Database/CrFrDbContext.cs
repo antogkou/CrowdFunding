@@ -1,6 +1,10 @@
-﻿using CrowdFundingCore.Models;
+﻿using System;
+using CrowdFundingCore.Models;
+using CrowdFundingCore.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CrowdFundingCore.Database
 {
@@ -10,6 +14,7 @@ namespace CrowdFundingCore.Database
 
         public readonly static string connectionString =
             "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123;MultipleActiveResultSets=true";
+ 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -132,6 +137,12 @@ namespace CrowdFundingCore.Database
                 .Property(p => p.PostTitle)
                 .IsRequired()
                 .HasMaxLength(255);
+
+
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new AdminConfiguration());
+            modelBuilder.ApplyConfiguration(new UsersWithRolesConfig());
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

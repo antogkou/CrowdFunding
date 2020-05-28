@@ -9,9 +9,9 @@ namespace CrowdFundingCore.Models
     {
       //  public int MyUserCustomId { get; set; }
 
-        //public string user_First_Name { get; set; } = null!;
+        //public string userFirstName { get; set; } = null!;
 
-        //public string user_Last_Name { get; set; } = null!;
+        //public string userLastName { get; set; } = null!;
 
         //public string user_VAT { get; set; } = null!;
         

@@ -88,7 +88,7 @@ namespace CrowdFundingMVC
             app.UseAuthorization();
             app.UseBrowserLink();
 
-            
+           
 
             app.UseEndpoints(endpoints =>
             {

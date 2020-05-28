@@ -1,5 +1,6 @@
 ﻿@model CrowdFundingMVC.ViewModels.SingleProjectMV
 @using Microsoft.AspNetCore.Identity
+@using CrowdFundingCore.Models
 @inject UserManager<CrowdFundingCore.Models.MyUsers> UserManager
 
 <div class="text-center" id="@Model.Project.ProjectId">
@@ -83,7 +84,58 @@
                             <li>You get a reward for being cool!</li>
                             <li>@Html.DisplayFor(modelItem => item.PledgeReward)</li>
                         </ul>
+
                         <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Get</button>
+                        <!-- Button trigger modal-->
+                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalBuyPledge">
+                            Pledge
+                            please
+                        </button>*@
+
+                         @*Modal: modalBuyPledge
+                        <div class="modal fade right" id="modalBuyPledge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             aria-hidden="true" data-backdrop="false">
+                            <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
+                                Content
+                                <div class="modal-content">
+                                    Header
+                                    <div class="modal-header">
+                                        <p class="heading">
+                                            Your pledge
+                                        </p>
+
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" class="white-text">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    Body
+                                    <div class="modal-body">
+
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <p>You chose: </p>
+                                                <p>@Html.DisplayFor(modelItem => item.PledgePrice)e</p>
+                                            </div>
+
+                                            <div class="col-9">
+                                                <p>Are you sure about your decision?</p>
+                                                <p>No pressure!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    Footer
+                                    <div class="modal-footer justify-content-center">
+                                        <a type="button" class="btn btn-info" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Take my money!</a>
+                                        <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a>
+                                    </div>
+                                </div>
+                                /.Content
+                            </div>
+                        </div>
+                         Modal: modalAbandonedCart*@
+
                     </div>
                 </div>
             }

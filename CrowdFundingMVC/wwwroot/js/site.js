@@ -19,7 +19,7 @@ function submitProjectToServer() {
         //"PledgeReward": $('#PledgeReward').val(),
     }
 
-    alert(JSON.stringify(sendData))
+    //alert(JSON.stringify(sendData))
 
     $.ajax({
         url: actionUrl,
@@ -32,7 +32,7 @@ function submitProjectToServer() {
             $('#responseDiv').html(JSON.stringify(data));
             //ProjectId = data["id"]
             alert('You have successfully added a project')
-             window.open("/Project/GetAllProjects/ " + "_self")
+            window.open("/Project/GetMyProjects/ " + "_self")
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -170,7 +170,8 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
         contentType: 'application/json',
         processData: false,
         success: function (data, textStatus, jQxhr) {
-
+            alert('You have successfully payed for this!')
+            window.open("/Project/SingleProject?id=" + projectId, "_self")
 
             //$('#responseDiv').html(JSON.stringify(data));
             //refresh page after the post is added 

@@ -1,4 +1,5 @@
-﻿@model CrowdFundingCore.Models.Pledge
+﻿@using CrowdFundingCore.Models
+@model CrowdFundingCore.Models.Pledge
 @{
     ViewData["Title"] = "Add Pledge";
 
@@ -47,7 +48,6 @@
                     Please provide a NeededAmount.
                 </div>
             </div>
-
             <div class="col col-md-12 d-flex justify-content-end pr-0">
                 <input type="button" onclick="submitPledgeToServer(@projectId)" value="Submit">
             </div>
