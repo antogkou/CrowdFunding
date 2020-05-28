@@ -21,8 +21,8 @@ namespace CrowdFundingCore.Services
             httpContextAccessor = _httpContextAccessor;
         }
 
-       
-        public  Result<Project> CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
+
+        public Result<Project> CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
         {
             if (projectoption == null)
             {
@@ -229,19 +229,71 @@ namespace CrowdFundingCore.Services
         }
 
         //Edit project
-        public Project UpdateProject(int projectId, UpdateProjectOptions options)
+        public Result<Project> UpdateProject(UpdateProjectOptions options)
         {
-            Project project = FindProjectById(projectId);
+            if (options == null)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.ProjectTitle))
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty ProjectTitle");
+            }
+            if (string.IsNullOrWhiteSpace(options.ProjectDescription))
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty ProjectDescription");
+            }
+            if (options.ProjectTargetAmount == 0)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty ProjectTargetAmount");
+            }
+            if (string.IsNullOrWhiteSpace(options.ProjectCategory))
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty ProjectCategory");
+            }
+
+
+            var project = _db.Set<Project>().Find(options.ProjectId);
+
             if (options.ProjectTitle != null)
                 project.ProjectTitle = options.ProjectTitle;
             if (options.ProjectDescription != null)
                 project.ProjectDescription = options.ProjectDescription;
             if (project.ProjectCategory != null)
                 project.ProjectCategory = options.ProjectCategory;
-            _db.SaveChanges();
-            return project;
+            if (project.ProjectTargetAmount != 0)
+                project.ProjectTargetAmount = options.ProjectTargetAmount;
+            if (options.EndingDate != null)
+                project.EndingDate = options.EndingDate;
 
+                project.IsActive = options.IsActive;
+                project.IsComplete = options.IsComplete;
+
+            var rows = 0;
+            try
+            {
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Project could not be updated");
+            }
+
+            return Result<Project>.CreateSuccessful(project);
         }
-
     }
 }

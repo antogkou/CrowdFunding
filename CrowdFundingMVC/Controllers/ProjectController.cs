@@ -178,19 +178,32 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //UpdateProjectInfo
-        [HttpPut("updateproject")]
-        public bool UpdateProject([FromBody]int projectId, UpdateProjectOptions options)
+        //[HttpPut]
+        //public bool UpdateProject([FromBody]int projectId, UpdateProjectOptions options)
+        //{
+        //    //ProjectOptions p = new ProjectOptions()
+        //    {
+        //        ProjectTitle = options.ProjectTitle,
+        //        ProjectTargetAmount = options.ProjectTargetAmount,
+        //        ProjectDescription = options.ProjectDescription,
+        //        ProjectCategory = options.ProjectCategory,
+        //    };
+        //    _projMangr.UpdateProject(projectId, options);
+        //    return true;
+        //    //_projMangr.UpdateProject(projectId, options);
+        //}
+
+        [HttpPut]
+        public IActionResult UpdateProject([FromBody] UpdateProjectOptions updateProjectOptions)
         {
-            ProjectOptions p = new ProjectOptions()
+            var result = _projMangr.UpdateProject(updateProjectOptions);
+
+            if (!result.Success)
             {
-                ProjectTitle = options.ProjectTitle,
-                ProjectTargetAmount = options.ProjectTargetAmount,
-                ProjectDescription = options.ProjectDescription,
-                ProjectCategory = options.ProjectCategory,
-            };
-            _projMangr.UpdateProject(projectId, options);
-            return true;
-            //_projMangr.UpdateProject(projectId, options);
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+            return Json(result.Data);
         }
 
 
@@ -265,8 +278,5 @@ namespace CrowdFundingMVC.Controllers
             }
             return Json(result.Data);
         }
-
-
-
     }
 }

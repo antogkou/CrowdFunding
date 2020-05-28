@@ -216,6 +216,37 @@ function editProject(projectId) {
 }
 
 function doUpdateProject(projectId) {
+    actionMethod = "PUT"
+    actionUrl = "/Project/updateproject"
+    sendData = {
+        "ProjectTitle": $('#ProjectTitle').val(),
+        "ProjectDescription": $('#ProjectDescription').val(),
+        "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
+        "IsActive": $('#IsActive').val(),
+        "IsComplete": $('#IsComplete').val(),
+        "EndingDate": $('#EndingDate').val(),
+        "ProjectCategory": $('#ProjectCategory').val(),
+        "ProjectId": projectId
+    }
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            alert("The project has been successfully updated!");
+            
+
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
 
 }
 
