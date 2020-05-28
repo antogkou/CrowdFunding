@@ -1,4 +1,5 @@
-﻿using CrowdFundingCore.Database;
+﻿using CrowdFundingCore;
+using CrowdFundingCore.Database;
 using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
@@ -172,8 +173,8 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet]
         public IActionResult EditProject([FromQuery]int projectId)
         {
-            Project project = _projMangr.FindProjectById((int) projectId);
-            return View(project); 
+            Project project = _projMangr.FindProjectById((int)projectId);
+            return View(project);
         }
 
         //UpdateProjectInfo
@@ -183,9 +184,9 @@ namespace CrowdFundingMVC.Controllers
             ProjectOptions p = new ProjectOptions()
             {
                 ProjectTitle = options.ProjectTitle,
-                ProjectTargetAmount  = options.ProjectTargetAmount,
-                ProjectDescription  = options.ProjectDescription,
-                ProjectCategory  = options.ProjectCategory,
+                ProjectTargetAmount = options.ProjectTargetAmount,
+                ProjectDescription = options.ProjectDescription,
+                ProjectCategory = options.ProjectCategory,
             };
             _projMangr.UpdateProject(projectId, options);
             return true;
@@ -227,7 +228,7 @@ namespace CrowdFundingMVC.Controllers
             var projects = _db.Set<BackedPledges>()
                 .Select(p => p.PledgeId)
                 .ToList();
-                
+
             //var projects = _db.Set<Project>()
             //    .Include(m => m.ProjectPledges)
             //    .Take(100)
@@ -245,7 +246,27 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
-        
+        [HttpGet]
+        public IActionResult EditPledge([FromQuery]int pledgeId)
+        {
+            Pledge pledge = _pledges.FindPledgeById((int)pledgeId);
+            return View(pledge);
+        }
+
+        [HttpPut]
+        public IActionResult UpdatePledge([FromBody] PledgeOptions pledgeOptions)
+        {
+            var result = _pledges.UpdatePledge(pledgeOptions);
+
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+            return Json(result.Data);
+        }
+
+
 
     }
 }

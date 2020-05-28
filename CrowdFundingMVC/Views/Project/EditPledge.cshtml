@@ -1,0 +1,55 @@
+﻿@model CrowdFundingCore.Models.Pledge
+@{
+    ViewData["Title"] = "Edit Pledge";
+
+}
+@{
+    var projectId = TempData["projectid"];
+}
+@*@{
+        int projectId = ViewBag.projectID;
+    }*@
+<div class="text-center" id="">
+    <h1>Edit this Pledge</h1>
+</div>
+
+<div class="row">
+    <div class="col col-md-2"></div>
+    <div class="tab col-md-8">
+        <form data-form="0">
+
+
+            <div class="form-group">
+                <label asp-for="PledgeTitle" class="control-label">Pledge Title</label>
+                <input class="form-control" type="text" required id="PledgeTitle" asp-for="PledgeTitle" />
+                <div class="invalid-feedback">
+                    Please provide a valid Name.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PledgeDescription" class="control-label">Pledge Description</label>
+                <input class="form-control" type="text" required id="PledgeDescription" asp-for="PledgeDescription" />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PledgePrice" class="control-label">Pledge Price</label>
+                <input class="form-control" type="number" required id="PledgePrice" asp-for="PledgePrice" />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PledgeReward" class="control-label">Pledge Reward</label>
+                <input class="form-control" type="text" required id="PledgeReward" asp-for="PledgeReward" />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+            <div class="col col-md-12 d-flex justify-content-end pr-0">
+                <input type="button" onclick="doUpdatePledge(@Model.PledgeId)" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
