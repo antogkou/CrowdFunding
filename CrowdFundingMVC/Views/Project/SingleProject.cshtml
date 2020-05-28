@@ -43,11 +43,22 @@
                 <h5><label>Our goal is:</label> @(Model.Project.ProjectTargetAmount.ToString("0.##"))</h5>
             </div>
             @progress% funded
-            <div class="progress" style="height: 35px;">
-                <div class="progress-bar bg-success progress-bar-striped"
+            @*<div class="progress" style="height: 35px;">
+            <div class="progress-bar bg-success progress-bar-striped"
+                 role="progressbar"
+                 aria-valuenow="@progress" aria-valuemin="0"
+                 style="width:@progress%;" aria-valuemax="100">
+            </div>
+        </div>*@
+
+            <div class="text-center">@progress% funded</div>
+            <div class="progress bg-warning" style="height: 35px;">
+                <div class="progress-bar bg-success"
                      role="progressbar"
-                     aria-valuenow="@progress" aria-valuemin="0"
-                     style="width:@progress%;" aria-valuemax="100">
+                     aria-valuenow="@progress"
+                     aria-valuemin="0"
+                     aria-valuemax="100"
+                     style="width:@progress%">
                 </div>
             </div>
 
