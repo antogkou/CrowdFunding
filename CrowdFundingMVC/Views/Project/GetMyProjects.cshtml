@@ -22,15 +22,19 @@
                     <p class="card-text"> @projectTargetAmount</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.Creator)</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.CreationDate)</p>
+
                     <div class="text-center">@progress% funded</div>
-                    <div class="progress">
+                    <div class="progress bg-warning">
                         <div class="progress-bar bg-success"
                              role="progressbar"
-                             style="width:@progress%;"
                              aria-valuenow="@progress"
                              aria-valuemin="0"
-                             aria-valuemax="100"></div>
+                             aria-valuemax="100"
+                             style="width:@progress%">
+                        </div>
                     </div>
+
+
                     <p></p>
                     <a href="@Url.Action("SingleProject", new { id = item.ProjectId})" class="btn btn-sm btn-outline-primary mx-auto d-block" id="SingleProjectView">Go to this Project!</a>
 
