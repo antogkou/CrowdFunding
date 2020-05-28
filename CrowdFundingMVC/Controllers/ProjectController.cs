@@ -1,5 +1,4 @@
-﻿using CrowdFundingCore;
-using CrowdFundingCore.Database;
+﻿using CrowdFundingCore.Database;
 using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
@@ -173,8 +172,8 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet]
         public IActionResult EditProject([FromQuery]int projectId)
         {
-            Project project = _projMangr.FindProjectById((int)projectId);
-            return View(project);
+            Project project = _projMangr.FindProjectById((int) projectId);
+            return View(project); 
         }
 
         //UpdateProjectInfo
@@ -233,24 +232,15 @@ namespace CrowdFundingMVC.Controllers
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            //var myprojectList = _db.Set<Project>()
-            //    .Include(i=>i.ProjectPledges )
-            //    .Include(s => s.UserId == userId)
-            //    .ToList();
-
             var projects = _db.Set<BackedPledges>()
-                .Select(p => p.PledgeId)
-                .ToList();
-
-            //var projects = _db.Set<Project>()
-            //    .Include(m => m.ProjectPledges)
-            //    .Take(100)
-            //    .OrderByDescending(p => p.ProjectCurrentAmount)
-            //    .AsQueryable();
-
+                .Where(p => p.UserId == userId)
+                .Select(p => p.BackedPledge)
+                .Select(p=>p.Project)
+                .Distinct();
+                
+               
             return View(projects);
         }
-
 
         //TODO
         [HttpGet]
@@ -278,5 +268,6 @@ namespace CrowdFundingMVC.Controllers
             }
             return Json(result.Data);
         }
+
     }
 }
