@@ -219,24 +219,15 @@ namespace CrowdFundingMVC.Controllers
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            //var myprojectList = _db.Set<Project>()
-            //    .Include(i=>i.ProjectPledges )
-            //    .Include(s => s.UserId == userId)
-            //    .ToList();
-
             var projects = _db.Set<BackedPledges>()
-                .Select(p => p.PledgeId)
-                .ToList();
+                .Where(p => p.UserId == userId)
+                .Select(p => p.BackedPledge)
+                .Select(p=>p.Project)
+                .Distinct();
                 
-            //var projects = _db.Set<Project>()
-            //    .Include(m => m.ProjectPledges)
-            //    .Take(100)
-            //    .OrderByDescending(p => p.ProjectCurrentAmount)
-            //    .AsQueryable();
-
+               
             return View(projects);
         }
-
 
         //TODO
         [HttpGet]
@@ -244,8 +235,6 @@ namespace CrowdFundingMVC.Controllers
         {
             return View();
         }
-
-        
 
     }
 }
