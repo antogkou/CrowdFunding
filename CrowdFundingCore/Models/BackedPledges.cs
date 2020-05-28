@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace CrowdFundingCore.Models
 {
@@ -6,7 +7,7 @@ namespace CrowdFundingCore.Models
     {
         public int BackedPledgesId { get; set; }
         public string UserId { get; set; }
-        //public MyUsers BackedUser { get; set; }
+        public MyUsers User { get; set; }
 
         public int PledgeId { get; set; }
         public Pledge BackedPledge { get; set; }

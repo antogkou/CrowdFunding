@@ -32,7 +32,7 @@ function submitProjectToServer() {
             $('#responseDiv').html(JSON.stringify(data));
             //ProjectId = data["id"]
             alert('You have successfully added a project')
-            // window.open("/Project/GetAllProjects/ " + "_self")
+             window.open("/Project/GetAllProjects/ " + "_self")
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);

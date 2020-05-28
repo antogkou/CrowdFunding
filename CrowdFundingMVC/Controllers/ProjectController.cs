@@ -38,11 +38,26 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
+        //// [Authorize("Admin,Project Creator")]
+        //[HttpPost]
+        //public Project CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
+        //{
+        //    return _projMangr.CreateProject(projOpt, pledgeOptions);
+        //}
+
         // [Authorize("Admin,Project Creator")]
         [HttpPost]
-        public Project CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
+        public IActionResult CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
         {
-            return _projMangr.CreateProject(projOpt, pledgeOptions);
+
+            var result = _projMangr.CreateProject(projOpt, pledgeOptions);
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+
+            return Json(result.Data);
         }
 
         //All Projects List search
@@ -123,10 +138,19 @@ namespace CrowdFundingMVC.Controllers
             return NotFound(); //404
         }
 
+        //CreatePledges
         [HttpPost]
-        public Pledge CreatePledges([FromBody] PledgeOptions pledgeOptions)
+        public IActionResult CreatePledges([FromBody] PledgeOptions pledgeOptions)
         {
-            return _pledges.CreatePledges(pledgeOptions);
+            var result = _pledges.CreatePledges(pledgeOptions);
+
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+
+            return Json(result.Data);
         }
 
         //Edit Project
@@ -165,6 +189,7 @@ namespace CrowdFundingMVC.Controllers
         {
             return _pledges.AddPledge(pledgeProjectOptions.PledgeId, pledgeProjectOptions.ProjectId);
         }
+
 
         //Get current user's projects View
         [HttpGet]

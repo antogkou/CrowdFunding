@@ -7,7 +7,8 @@ namespace CrowdFundingCore.Services.Interfaces
 {
     public interface IProjectServices
     {
-        Project CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions);
+        //Project CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions);
+        Result<Project> CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions);
         IQueryable<Project> ListProjects(ProjectOptions options);
         IQueryable<Project> SearchProject2(ProjectOptions options);
 
