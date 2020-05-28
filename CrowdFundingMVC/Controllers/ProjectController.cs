@@ -153,6 +153,21 @@ namespace CrowdFundingMVC.Controllers
             return Json(result.Data);
         }
 
+        //Buy a pledge!
+        [HttpPost]
+        public IActionResult AddPledge([FromBody] PledgeProjectOptions pledgeProjectOptions)
+        {
+            var result = _pledges.AddPledge(pledgeProjectOptions.PledgeId, pledgeProjectOptions.ProjectId);
+
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+
+            return Json(result.Data);
+        }
+
         //Edit Project
         [HttpGet]
         public IActionResult EditProject(int projectId)
@@ -184,11 +199,7 @@ namespace CrowdFundingMVC.Controllers
         //}
 
 
-        [HttpPost]
-        public BackedPledges AddPledge([FromBody] PledgeProjectOptions pledgeProjectOptions)
-        {
-            return _pledges.AddPledge(pledgeProjectOptions.PledgeId, pledgeProjectOptions.ProjectId);
-        }
+        
 
 
         //Get current user's projects View

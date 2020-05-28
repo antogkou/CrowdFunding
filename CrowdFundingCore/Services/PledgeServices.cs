@@ -83,8 +83,21 @@ namespace CrowdFundingCore.Services
         }
 
         //Buy a pledge
-        public BackedPledges AddPledge(int pledgeId, int projectId)
+        public Result<BackedPledges> AddPledge(int pledgeId, int projectId)
         {
+
+            if (pledgeId == 0)
+            {
+                return Result<BackedPledges>.CreateFailed(
+                    StatusCode.BadRequest, "Null pledgeId");
+            }
+
+            if (projectId == 0)
+            {
+                return Result<BackedPledges>.CreateFailed(
+                    StatusCode.BadRequest, "Null projectId");
+            }
+          
             var project = projectservices.FindProjectById(projectId);
             var pledge = _db
                 .Set<Pledge>()
@@ -104,9 +117,27 @@ namespace CrowdFundingCore.Services
             _db.Add(backedPledge);
             _db.Update(project);
 
-            _db.SaveChanges();
 
-            return backedPledge;
+            var rows = 0;
+            try
+            {
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<BackedPledges>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<BackedPledges>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Pledge could not be updated");
+            }
+
+            return Result<BackedPledges>.CreateSuccessful(backedPledge);
+          
         }
 
         //new find way

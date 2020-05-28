@@ -21,70 +21,7 @@ namespace CrowdFundingCore.Services
             httpContextAccessor = _httpContextAccessor;
         }
 
-        //Create Project
-        //public Project CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
-        //{
-        //    //User's Email=UserName
-        //    string userName = httpContextAccessor.HttpContext.User.Identity.Name;
-        //    //User's ID
-        //    string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        //    if (projectoption == null)
-        //    {
-        //        return null;
-        //    }
-
-        //    if (string.IsNullOrWhiteSpace(projectoption.ProjectTitle))
-        //    {
-        //        return null;
-        //    }
-
-        //var project = new Project()
-        //{
-        //    UserId = userId,
-        //    Creator = userName,
-        //    ProjectTitle = projectoption.ProjectTitle,
-        //    ProjectDescription = projectoption.ProjectDescription,
-        //    ProjectTargetAmount = projectoption.ProjectTargetAmount,
-        //    EndingDate = projectoption.EndingDate,
-        //    ProjectCategory = projectoption.ProjectCategory,
-        //    IsActive = true,
-
-        //    ProjectPledges = new List<Pledge>
-        //        {
-        //            new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "liga", PledgePrice = 5, PledgeReward = "iPhone SE" },
-        //             new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "metria", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
-        //              new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "polla", PledgePrice = 20, PledgeReward = "OnePlus8Pro"  },
-        //        },
-
-        //    //ProjectPledges = new List<Pledge>
-        //    //{
-        //    //    new Pledge {
-        //    //    PledgeTitle = pledgeOptions.PledgeTitle,
-        //    //    PledgeDescription = pledgeOptions.PledgeDescription,
-        //    //    PledgePrice = pledgeOptions.PledgePrice,
-        //    //    PledgeReward = pledgeOptions.PledgeReward
-        //    //    }
-        //    //},
-
-
-        //    ProjectPosts = new List<Post>
-        //        {
-        //            new Post { PostTitle = "Welcome to our Project!" , PostDescription = "You can help us by funding our project, or simply share it to your friends who might be intrested!"},
-        //        },
-
-        //    };
-
-        //    _db.Add(project);
-
-        //    if (_db.SaveChanges() > 0)
-        //    {
-        //        return project;
-        //    }
-
-        //    return null;
-        //}
-
+       
         public Result<Project> CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
         {
             if (projectoption == null)
