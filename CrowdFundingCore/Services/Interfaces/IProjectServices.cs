@@ -14,6 +14,6 @@ namespace CrowdFundingCore.Services.Interfaces
 
         Project FindProjectById(int id);
         List<Project> SearchProject();
-        Project UpdateProject(int projectId, UpdateProjectOptions options);
+        Result<Project> UpdateProject(UpdateProjectOptions options);
     }
 }

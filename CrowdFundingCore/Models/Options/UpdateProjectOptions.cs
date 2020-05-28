@@ -4,6 +4,7 @@ namespace CrowdFundingCore.Models.Options
 {
     public class UpdateProjectOptions
     {
+        public int ProjectId { get; set; }
         public string ProjectTitle { get; set; }
 
         public string ProjectDescription { get; set; }
@@ -15,5 +16,7 @@ namespace CrowdFundingCore.Models.Options
         public string ProjectCategory { get; set; }
 
         public DateTimeOffset EndingDate { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsComplete { get; set; }
     }
 }

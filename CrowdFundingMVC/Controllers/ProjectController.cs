@@ -177,19 +177,32 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //UpdateProjectInfo
-        [HttpPut("updateproject")]
-        public bool UpdateProject([FromBody]int projectId, UpdateProjectOptions options)
+        //[HttpPut]
+        //public bool UpdateProject([FromBody]int projectId, UpdateProjectOptions options)
+        //{
+        //    //ProjectOptions p = new ProjectOptions()
+        //    {
+        //        ProjectTitle = options.ProjectTitle,
+        //        ProjectTargetAmount = options.ProjectTargetAmount,
+        //        ProjectDescription = options.ProjectDescription,
+        //        ProjectCategory = options.ProjectCategory,
+        //    };
+        //    _projMangr.UpdateProject(projectId, options);
+        //    return true;
+        //    //_projMangr.UpdateProject(projectId, options);
+        //}
+
+        [HttpPut]
+        public IActionResult UpdateProject([FromBody] UpdateProjectOptions updateProjectOptions)
         {
-            ProjectOptions p = new ProjectOptions()
+            var result = _projMangr.UpdateProject(updateProjectOptions);
+
+            if (!result.Success)
             {
-                ProjectTitle = options.ProjectTitle,
-                ProjectTargetAmount  = options.ProjectTargetAmount,
-                ProjectDescription  = options.ProjectDescription,
-                ProjectCategory  = options.ProjectCategory,
-            };
-            _projMangr.UpdateProject(projectId, options);
-            return true;
-            //_projMangr.UpdateProject(projectId, options);
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+            return Json(result.Data);
         }
 
 
@@ -234,6 +247,26 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult GetPopularProjects()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditPledge([FromQuery]int pledgeId)
+        {
+            Pledge pledge = _pledges.FindPledgeById((int)pledgeId);
+            return View(pledge);
+        }
+
+        [HttpPut]
+        public IActionResult UpdatePledge([FromBody] PledgeOptions pledgeOptions)
+        {
+            var result = _pledges.UpdatePledge(pledgeOptions);
+
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+            return Json(result.Data);
         }
 
     }
