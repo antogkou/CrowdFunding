@@ -1,4 +1,5 @@
-﻿using CrowdFundingCore.Database;
+﻿using System;
+using CrowdFundingCore.Database;
 using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
@@ -24,8 +25,20 @@ namespace CrowdFundingCore.Services
         }
 
         //Create post TODO
-        public Post CreatePost(PostOptions postOptions)
+        public Result<Post> CreatePost(PostOptions postOptions)
         {
+            if (postOptions == null)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(postOptions.PostTitle))
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PostTitle");
+            }
+
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var project = projectServices.FindProjectById(postOptions.ProjectId);
             Post post = new Post
@@ -37,8 +50,27 @@ namespace CrowdFundingCore.Services
             };
 
             _db.Add(post);
-            _db.SaveChanges();
-            return post;
+
+            var rows = 0;
+            try
+            {
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Post could not be updated");
+            }
+
+            return Result<Post>.CreateSuccessful(post);
+         
         }
 
         public bool DeletePost(int postId)

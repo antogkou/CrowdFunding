@@ -83,13 +83,8 @@ function submitPostToServer(projectId) {
         "PostDescription": $('#PostDescription').val()
     }
 
-    //alert(JSON.stringify(sendData))
+    alert(JSON.stringify(sendData))
     //location.reload();
-    if (sendData.success == true) { // if true (1)
-        setTimeout(function () {// wait for 5 secs(2)
-            location.reload(); // then reload the page.(3)
-        }, 5000);
-    }
 
     $.ajax({
         url: actionUrl,
@@ -99,11 +94,14 @@ function submitPostToServer(projectId) {
         contentType: 'application/json',
         processData: false,
         success: function (data, textStatus, jQxhr) {
-            if (data.success == true) { // if true (1)
-                setTimeout(function () {// wait for 5 secs(2)
-                    location.reload(); // then reload the page.(3)
-                }, 5000);
-            }
+            //if (data.success == true) { // if true (1)
+            //    setTimeout(function () {// wait for 5 secs(2)
+            //        location.reload(); // then reload the page.(3)
+            //    }, 5000);
+            //}
+
+            location.reload();
+
             //$('#responseDiv').html(JSON.stringify(data));
             //refresh page after the post is added 
 
@@ -162,6 +160,7 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
     //    }, 5000);
     //}
 
+
     $.ajax({
         url: actionUrl,
         dataType: 'json',
@@ -210,4 +209,12 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
     //        //Do something success-ish
     //    }
     //});
+}
+
+function editProject(projectId) {
+    window.open("/Project/EditProject/" + projectId, "_self");
+}
+
+function doUpdateProject(projectId) {
+
 }

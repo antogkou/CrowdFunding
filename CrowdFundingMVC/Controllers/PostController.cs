@@ -26,10 +26,18 @@ namespace CrowdFundingMVC.Controllers
         //    return View("/Project/SingleProject/{id}");
         //}
 
+        //Create Post(comment)
         [HttpPost]
-        public Post CreatePost([FromBody] PostOptions postOptions)
+        public IActionResult CreatePost([FromBody] PostOptions postOptions)
         {
-            return _postservices.CreatePost(postOptions);
+            var result = _postservices.CreatePost(postOptions);
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+
+            return Json(result.Data);
         }
 
         [HttpDelete("{id}")]

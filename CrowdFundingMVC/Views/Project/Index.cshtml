@@ -1,4 +1,5 @@
-﻿@model CrowdFundingMVC.ViewModels.ProjectCategoryViewModel
+﻿@using CrowdFundingCore.Models
+@model CrowdFundingMVC.ViewModels.ProjectCategoryViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -15,6 +16,7 @@
         <select asp-for="ProjectCategory" asp-items="Model.Categories">
             <option value="">All</option>
         </select>
+       
 
         Title: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Filter" />

@@ -1,4 +1,5 @@
-﻿@model CrowdFundingCore.Models.Project
+﻿@using CrowdFundingCore.Models
+@model CrowdFundingCore.Models.Project
 @{
     ViewData["Title"] = "CreateProject";
 }
@@ -40,6 +41,23 @@
                     Please provide a valid EndingDate.
                 </div>
             </div>
+            
+             
+            @*<select asp-for="ProjectCategory" asp-items="Html.GetEnumSelectList<ProjectCategory>()">
+                <option selected="selected" value="">Please select</option>
+            </select>*@
+            
+            @*<select name="ProjectCategory" class="form-control col col-md-4">
+                @{
+                    var categories = Enum.GetValues(
+                        typeof(CrowdFundingCore.Models.ProjectCategory))
+                        .Cast< CrowdFundingCore.Models.ProjectCategory>();
+
+                    foreach (var category in categories) {
+                        <option value="@category">@category</option>
+                    }
+                }
+            </select>*@
 
             <div class="form-group">
                 @Html.DropDownList("ProjectCategory", new List<SelectListItem>

@@ -170,20 +170,27 @@ namespace CrowdFundingMVC.Controllers
 
         //Edit Project
         [HttpGet]
-        public IActionResult EditProject(int projectId)
+        public IActionResult EditProject([FromQuery]int projectId)
         {
             Project project = _projMangr.FindProjectById((int) projectId);
-
-          
             return View(project); 
         }
 
-        //[HttpPost]
-        //public Project EditProject(int projectId, UpdateProjectOptions options)
-        //{
-        //    return _projMangr.UpdateProject(projectId, options);
-        //}
-
+        //UpdateProjectInfo
+        [HttpPut("updateproject")]
+        public bool UpdateProject([FromBody]int projectId, UpdateProjectOptions options)
+        {
+            ProjectOptions p = new ProjectOptions()
+            {
+                ProjectTitle = options.ProjectTitle,
+                ProjectTargetAmount  = options.ProjectTargetAmount,
+                ProjectDescription  = options.ProjectDescription,
+                ProjectCategory  = options.ProjectCategory,
+            };
+            _projMangr.UpdateProject(projectId, options);
+            return true;
+            //_projMangr.UpdateProject(projectId, options);
+        }
 
 
         [HttpGet]
@@ -191,15 +198,6 @@ namespace CrowdFundingMVC.Controllers
         {
             return View();
         }
-
-        //[HttpPost]
-        //public BackedPledges AddPledge(int projectId, int pledgeId)
-        //{
-        //    return _pledges.AddPledge(projectId, pledgeId);
-        //}
-
-
-        
 
 
         //Get current user's projects View
@@ -215,6 +213,30 @@ namespace CrowdFundingMVC.Controllers
             return View(myprojectList);
         }
 
+        //Get backed user's projects View
+        [HttpGet]
+        public IActionResult GetMyBackedProjects()
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            //var myprojectList = _db.Set<Project>()
+            //    .Include(i=>i.ProjectPledges )
+            //    .Include(s => s.UserId == userId)
+            //    .ToList();
+
+            var projects = _db.Set<BackedPledges>()
+                .Select(p => p.PledgeId)
+                .ToList();
+                
+            //var projects = _db.Set<Project>()
+            //    .Include(m => m.ProjectPledges)
+            //    .Take(100)
+            //    .OrderByDescending(p => p.ProjectCurrentAmount)
+            //    .AsQueryable();
+
+            return View(projects);
+        }
+
 
         //TODO
         [HttpGet]
@@ -223,40 +245,7 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> GetPosts()
-        //{
-        //    var projects = _db.Set<Project>()
-        //        .Include(c => c.ProjectPosts)
-        //        .AsNoTracking();
-        //    return View(await projects.ToListAsync());
-        //}
-        //All Projects List OLD no search
-        //[HttpGet]
-        //public IActionResult GetAllProjectsOLD()
-        //{
-        //    var projectList = _projMangr
-        //        .ListProjects(new ProjectOptions())
-        //        .ToList();
-
-        //    return View(projectList);
-        //}
-
-        //search by category and project title 
-        //Get Project by Id Json
-        //[HttpGet]
-        //public IActionResult GetProjectById([FromRoute] int projectId)
-        //{
-        //    var project = _projMangr
-        //    .SearchProject2(
-        //        new ProjectOptions()
-        //        {
-        //            ProjectId = projectId
-        //        }).SingleOrDefault();
-
-        //    return Json(project);
-        //}
-
-        //Get My Projects by Id
+        
 
     }
 }

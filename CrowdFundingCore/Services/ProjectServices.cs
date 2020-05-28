@@ -22,7 +22,7 @@ namespace CrowdFundingCore.Services
         }
 
        
-        public Result<Project> CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
+        public  Result<Project> CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
         {
             if (projectoption == null)
             {
