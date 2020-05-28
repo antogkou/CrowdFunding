@@ -218,3 +218,39 @@ function editProject(projectId) {
 function doUpdateProject(projectId) {
 
 }
+
+
+function editPledge(pledgeId) {
+    window.open("/Project/EditPledge/" + pledgeId, "_self");
+}
+
+function doUpdatePledge(pledgeId) {
+    actionMethod = "PUT"
+    actionUrl = "/Project/updatepledge"
+    sendData = {
+        "PledgeTitle": $('#PledgeTitle').val(),
+        "PledgeDescription": $('#PledgeDescription').val(),
+        "PledgePrice": parseFloat($('#PledgePrice').val()),
+        "PledgeReward": $('#PledgeReward').val(),
+        "PledgeId": pledgeId
+    }
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            alert("The pledge has been successfully updated!");
+
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
+
+}

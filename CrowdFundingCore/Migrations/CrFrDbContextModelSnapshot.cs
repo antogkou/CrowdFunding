@@ -142,18 +142,18 @@ namespace CrowdFundingCore.Migrations
                         {
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0f96988e-d2d1-487f-bac3-a02652437950",
+                            ConcurrencyStamp = "88b5b3c8-f389-4cad-9fe0-2d8e46ffe479",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIO3nLnO/s9annYUUiyoejOk7cV5oNELEVtRwgXwad7EyUVlAuNqHmeLN8xxhgxkHg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDc8e8yq6cIps1X8St1P+QZ1IzCxxG4WhIxzehxj50rfLavPnQ3JE8o89wQKsx8x3A==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
                             TwoFactorEnabled = false,
-                            UserDateCreated = new DateTimeOffset(new DateTime(2020, 5, 28, 12, 51, 26, 530, DateTimeKind.Unspecified).AddTicks(1851), new TimeSpan(0, 3, 0, 0, 0)),
+                            UserDateCreated = new DateTimeOffset(new DateTime(2020, 5, 29, 0, 20, 32, 577, DateTimeKind.Unspecified).AddTicks(8744), new TimeSpan(0, 3, 0, 0, 0)),
                             UserName = "admin@admin.com"
                         });
                 });
@@ -312,21 +312,21 @@ namespace CrowdFundingCore.Migrations
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "5f11758f-18ac-45d6-96c1-3cecdf157f6e",
+                            ConcurrencyStamp = "f387e05c-62ec-4f40-b633-aed56c2e69ec",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "8249c6e8-1ca6-41dd-9eed-1351c5ef6f6d",
+                            ConcurrencyStamp = "a45ca50e-aba0-42d9-98d3-43a13f059bb6",
                             Name = "Backer",
                             NormalizedName = "BACKER"
                         },
                         new
                         {
                             Id = "78A7570F-3CE5-48BA-9461-80283ED1D94D",
-                            ConcurrencyStamp = "c7909e87-1ff8-483c-bdb3-8fa0375fe936",
+                            ConcurrencyStamp = "ee232fca-1ef9-4e7b-ad2d-d1adafe42eba",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         });
