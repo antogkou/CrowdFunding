@@ -117,9 +117,9 @@ namespace CrowdFundingCore.Database
                 .Entity<BackedPledges>()
                 .ToTable("BackedPledges");
 
-            //modelBuilder
-            //    .Entity<BackedPledges>()
-            //    .HasKey(key => new { key.UserId, key.PledgeId });
+            modelBuilder
+                .Entity<BackedPledges>()
+                .HasKey(key => new { key.UserId, key.PledgeId, key.created_BackedPledge });
 
 
             // Post table

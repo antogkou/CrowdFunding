@@ -47,5 +47,24 @@ namespace CrowdFundingCore
         {
             throw new NotImplementedException();
         }
+
+        public static Result<T> CreateFailed(StatusCode code,
+            string text)
+        {
+            return new Result<T>
+            {
+                ErrorCode = code,
+                ErrorText = text
+            };
+        }
+
+        public static Result<T> CreateSuccessful(T data)
+        {
+            return new Result<T>
+            {
+                ErrorCode = StatusCode.OK,
+                Data = data
+            };
+        }
     }
 }

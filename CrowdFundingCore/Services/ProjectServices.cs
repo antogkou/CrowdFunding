@@ -1,4 +1,5 @@
-﻿using CrowdFundingCore.Database;
+﻿using System;
+using CrowdFundingCore.Database;
 using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
@@ -21,23 +22,92 @@ namespace CrowdFundingCore.Services
         }
 
         //Create Project
-        public Project CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
-        {
-            //User's Email=UserName
-            string userName = httpContextAccessor.HttpContext.User.Identity.Name;
-            //User's ID
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //public Project CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
+        //{
+        //    //User's Email=UserName
+        //    string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+        //    //User's ID
+        //    string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+        //    if (projectoption == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    if (string.IsNullOrWhiteSpace(projectoption.ProjectTitle))
+        //    {
+        //        return null;
+        //    }
+
+        //var project = new Project()
+        //{
+        //    UserId = userId,
+        //    Creator = userName,
+        //    ProjectTitle = projectoption.ProjectTitle,
+        //    ProjectDescription = projectoption.ProjectDescription,
+        //    ProjectTargetAmount = projectoption.ProjectTargetAmount,
+        //    EndingDate = projectoption.EndingDate,
+        //    ProjectCategory = projectoption.ProjectCategory,
+        //    IsActive = true,
+
+        //    ProjectPledges = new List<Pledge>
+        //        {
+        //            new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "liga", PledgePrice = 5, PledgeReward = "iPhone SE" },
+        //             new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "metria", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
+        //              new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "polla", PledgePrice = 20, PledgeReward = "OnePlus8Pro"  },
+        //        },
+
+        //    //ProjectPledges = new List<Pledge>
+        //    //{
+        //    //    new Pledge {
+        //    //    PledgeTitle = pledgeOptions.PledgeTitle,
+        //    //    PledgeDescription = pledgeOptions.PledgeDescription,
+        //    //    PledgePrice = pledgeOptions.PledgePrice,
+        //    //    PledgeReward = pledgeOptions.PledgeReward
+        //    //    }
+        //    //},
+
+
+        //    ProjectPosts = new List<Post>
+        //        {
+        //            new Post { PostTitle = "Welcome to our Project!" , PostDescription = "You can help us by funding our project, or simply share it to your friends who might be intrested!"},
+        //        },
+
+        //    };
+
+        //    _db.Add(project);
+
+        //    if (_db.SaveChanges() > 0)
+        //    {
+        //        return project;
+        //    }
+
+        //    return null;
+        //}
+
+        public Result<Project> CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
+        {
             if (projectoption == null)
             {
-                return null;
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (pledgeOptions == null)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
             }
 
             if (string.IsNullOrWhiteSpace(projectoption.ProjectTitle))
             {
-                return null;
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty ProjectTitle");
             }
 
+            //get username and userid from httpcontext
+            string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var project = new Project()
             {
                 UserId = userId,
@@ -51,39 +121,110 @@ namespace CrowdFundingCore.Services
 
                 ProjectPledges = new List<Pledge>
                 {
-                    new Pledge { PledgeTitle = "Level 1 Pledge" , PledgeDescription = "liga", PledgePrice = 5, PledgeReward = "iPhone SE" },
-                     new Pledge { PledgeTitle = "Level 2 Pledge" , PledgeDescription = "metria", PledgePrice = 10, PledgeReward = "SamsungGalaxyS10e"  },
-                      new Pledge { PledgeTitle = "Level 3 Pledge" , PledgeDescription = "polla", PledgePrice = 20, PledgeReward = "OnePlus8Pro"  },
+                    new Pledge
+                    {
+                        PledgeTitle = "Level 1 Pledge", PledgeDescription = "liga", PledgePrice = 5,
+                        PledgeReward = "iPhone SE"
+                    },
+                    new Pledge
+                    {
+                        PledgeTitle = "Level 2 Pledge", PledgeDescription = "metria", PledgePrice = 10,
+                        PledgeReward = "SamsungGalaxyS10e"
+                    },
+                    new Pledge
+                    {
+                        PledgeTitle = "Level 3 Pledge", PledgeDescription = "polla", PledgePrice = 20,
+                        PledgeReward = "OnePlus8Pro"
+                    },
                 },
-
-                //ProjectPledges = new List<Pledge>
-                //{
-                //    new Pledge {
-                //    PledgeTitle = pledgeOptions.PledgeTitle,
-                //    PledgeDescription = pledgeOptions.PledgeDescription,
-                //    PledgePrice = pledgeOptions.PledgePrice,
-                //    PledgeReward = pledgeOptions.PledgeReward
-                //    }
-                //},
-
 
                 ProjectPosts = new List<Post>
                 {
-                    new Post { PostTitle = "Welcome to our Project!" , PostDescription = "You can help us by funding our project, or simply share it to your friends who might be intrested!"},
+                    new Post
+                    {
+                        PostTitle = "Welcome to our Project!",
+                        PostDescription =
+                            "You can help us by funding our project, or simply share it to your friends who might be intrested!"
+                    },
                 },
-
             };
-
             _db.Add(project);
-
-            if (_db.SaveChanges() > 0)
+            var rows = 0;
+            try
             {
-                return project;
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return null;
+            if (rows <= 0)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Project could not be updated");
+            }
+
+            return Result<Project>.CreateSuccessful(project);
+
         }
 
+        //Get pledges by project id
+        public List<Pledge> GetPledgesByProjectId(int projectId)
+        {
+            return _db.Set<Pledge>()
+                .Where(p => p.Project.ProjectId == projectId)
+                .ToList();
+        }
+        public Result<Pledge> CreatePledges(PledgeOptions pledgeOptions)
+        {
+            if (pledgeOptions == null)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeTitle))
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PledgeTitle");
+            }
+
+
+            var project = FindProjectById(pledgeOptions.ProjectId);
+            var pledge = new Pledge
+            {
+                Project = project,
+                PledgeTitle = pledgeOptions.PledgeTitle,
+                PledgeDescription = pledgeOptions.PledgeDescription,
+                PledgePrice = pledgeOptions.PledgePrice,
+                PledgeReward = pledgeOptions.PledgeReward,
+            };
+            _db.Add(pledge);
+
+            var rows = 0;
+            try
+            {
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Pledge could not be updated");
+            }
+
+            return Result<Pledge>.CreateSuccessful(pledge);
+
+        }
 
         public IQueryable<Project> ListProjects(ProjectOptions options)
         {

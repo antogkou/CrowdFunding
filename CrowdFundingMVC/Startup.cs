@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace CrowdFundingMVC
 {
@@ -54,6 +56,13 @@ namespace CrowdFundingMVC
             {
                 options.AddPolicy("AllowAllOriginsHeadersAndMethods",
                     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                // Use the default property (Pascal) casing
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+
             });
 
             services.AddControllersWithViews();

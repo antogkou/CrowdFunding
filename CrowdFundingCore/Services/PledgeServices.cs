@@ -34,12 +34,23 @@ namespace CrowdFundingCore.Services
                 .Where(p => p.Project.ProjectId == projectId)
                 .ToList();
         }
-
-        //Create Pledges
-        public Pledge CreatePledges(PledgeOptions pledgeOptions)
+        public Result<Pledge> CreatePledges(PledgeOptions pledgeOptions)
         {
+            if (pledgeOptions == null)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeTitle))
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PledgeTitle");
+            }
+
+
             var project = projectservices.FindProjectById(pledgeOptions.ProjectId);
-            Pledge pledge = new Pledge
+            var pledge = new Pledge
             {
                 Project = project,
                 PledgeTitle = pledgeOptions.PledgeTitle,
@@ -47,17 +58,35 @@ namespace CrowdFundingCore.Services
                 PledgePrice = pledgeOptions.PledgePrice,
                 PledgeReward = pledgeOptions.PledgeReward,
             };
-
             _db.Add(pledge);
-            _db.SaveChanges();
-            return pledge;
+
+            var rows = 0;
+            try
+            {
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Pledge>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Pledge could not be updated");
+            }
+
+            return Result<Pledge>.CreateSuccessful(pledge);
+
         }
 
         //Buy a pledge
         public BackedPledges AddPledge(int pledgeId, int projectId)
         {
             var project = projectservices.FindProjectById(projectId);
-            var pledge =  _db
+            var pledge = _db
                 .Set<Pledge>()
                 .Where(i => i.PledgeId == pledgeId)
                 .SingleOrDefault();
@@ -66,7 +95,6 @@ namespace CrowdFundingCore.Services
             var backedPledge = new BackedPledges()
             {
                 UserId = userId,
-                //PledgeId = pledge.PledgeId
                 PledgeId = pledgeId
             };
 
