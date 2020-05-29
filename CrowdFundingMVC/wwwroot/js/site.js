@@ -29,16 +29,16 @@ function submitProjectToServer() {
         contentType: 'application/json',
         processData: false,
         success: function (data, textStatus, jQxhr) {
-            $('#responseDiv').html(JSON.stringify(data));
-            //ProjectId = data["id"]
+
             alert('You have successfully added a project')
-            window.open("/Project/GetMyProjects/ " + "_self")
+            window.open("/Project/GetMyProjects/","_self")
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
         }
     });
 }
+
 
 function submitPledgeToServer(projectId) {
 
@@ -51,9 +51,6 @@ function submitPledgeToServer(projectId) {
         "PledgePrice": parseFloat($('#PledgePrice').val()),
         "PledgeReward": $('#PledgeReward').val()
     }
-
-    alert(projectId)
-    alert(JSON.stringify(sendData))
 
     $.ajax({
         url: actionUrl,
@@ -83,9 +80,6 @@ function submitPostToServer(projectId) {
         "PostDescription": $('#PostDescription').val()
     }
 
-    alert(JSON.stringify(sendData))
-    //location.reload();
-
     $.ajax({
         url: actionUrl,
         dataType: 'json',
@@ -94,17 +88,7 @@ function submitPostToServer(projectId) {
         contentType: 'application/json',
         processData: false,
         success: function (data, textStatus, jQxhr) {
-            //if (data.success == true) { // if true (1)
-            //    setTimeout(function () {// wait for 5 secs(2)
-            //        location.reload(); // then reload the page.(3)
-            //    }, 5000);
-            //}
-
             location.reload();
-
-            //$('#responseDiv').html(JSON.stringify(data));
-            //refresh page after the post is added 
-
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -244,6 +228,4 @@ function doUpdatePledge(pledgeId) {
             console.log(errorThrown);
         }
     });
-
-
 }

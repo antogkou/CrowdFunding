@@ -35,113 +35,67 @@
 </div>
 
 <div class="container-fluid" style="background-color:lavender;">
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="well">
-                @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
 
-                <h5><label>created by:</label> @Model.Project.Creator</h5>
-                <h5><label>Our goal is:</label> @(Model.Project.ProjectTargetAmount.ToString("0.##"))</h5>
-            </div>
-            @progress% funded
-            @*<div class="progress" style="height: 35px;">
-            <div class="progress-bar bg-success progress-bar-striped"
-                 role="progressbar"
-                 aria-valuenow="@progress" aria-valuemin="0"
-                 style="width:@progress%;" aria-valuemax="100">
-            </div>
-        </div>*@
+    <div class="col-sm-8 mx-auto text-center">
+        <div class="well">
+            @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
 
-            <div class="text-center">@progress% funded</div>
-            <div class="progress bg-warning" style="height: 35px;">
-                <div class="progress-bar bg-success"
-                     role="progressbar"
-                     aria-valuenow="@progress"
-                     aria-valuemin="0"
-                     aria-valuemax="100"
-                     style="width:@progress%">
-                </div>
-            </div>
-
-        </div>
-        <div>
-            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-            {
-                <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg" id="GoToCreatePledges">Add Pledge!</a>
-            }
-        </div>
-        <div class="card-deck mb-3 text-center">
-            @foreach (var item in Model.Pledges.OrderBy(c => c.PledgePrice).ToList())
-            {<div class="card mb-4 box-shadow">
-                  
-                    <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">@Html.DisplayFor(modelItem => item.PledgeTitle)</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title"><ccc title="$0" class="ccc--converted" style="font-size: inherit; display: inline; color: inherit; --darkreader-inline-color: inherit;" data-darkreader-inline-color="">@Html.DisplayFor(modelItem => item.PledgePrice)</ccc> </h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>@Html.DisplayFor(modelItem => item.PledgeDescription)</li>
-                            <li>You get a reward for being cool!</li>
-                            <li>@Html.DisplayFor(modelItem => item.PledgeReward)</li>
-                        </ul>
-
-                        <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Get</button>
-                        <a href="@Url.Action("EditPledge", new { pledgeId = item.PledgeId})" class="btn btn-sm btn-outline-primary float" id="EditPledge">Edit!</a>
-                        <!-- Button trigger modal-->
-                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalBuyPledge">
-            Pledge
-            please
-        </button>*@
-
-                        @*Modal: modalBuyPledge
-        <div class="modal fade right" id="modalBuyPledge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             aria-hidden="true" data-backdrop="false">
-            <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
-                Content
-                <div class="modal-content">
-                    Header
-                    <div class="modal-header">
-                        <p class="heading">
-                            Your pledge
-                        </p>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" class="white-text">&times;</span>
-                        </button>
-                    </div>
-
-                    Body
-                    <div class="modal-body">
-
-                        <div class="row">
-                            <div class="col-3">
-                                <p>You chose: </p>
-                                <p>@Html.DisplayFor(modelItem => item.PledgePrice)e</p>
-                            </div>
-
-                            <div class="col-9">
-                                <p>Are you sure about your decision?</p>
-                                <p>No pressure!</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    Footer
-                    <div class="modal-footer justify-content-center">
-                        <a type="button" class="btn btn-info" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Take my money!</a>
-                        <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a>
-                    </div>
-                </div>
-                /.Content
-            </div>
-        </div>
-         Modal: modalAbandonedCart*@
-
-                    </div>
-                </div>
-            }
+            <h5><label>created by:</label> @Model.Project.Creator</h5>
+            <h5><label>Our goal is:</label> @(Model.Project.ProjectTargetAmount.ToString("0.##"))<label>€</label></h5>
         </div>
     </div>
+
+    <div class="text-center">@progress% funded</div>
+    <div class="progress bg-warning" style="height: 35px;">
+        <div class="progress-bar-striped bg-danger"
+             role="progressbar"
+             aria-valuenow="@progress"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             style="width:@progress%">
+        </div>
+    </div>
+
+    <p></p>
+    <div class="card-deck mb-3 text-center">
+        @foreach (var item in Model.Pledges.OrderBy(c => c.PledgePrice).ToList())
+        {<div class="card mb-4 box-shadow">
+
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">@Html.DisplayFor(modelItem => item.PledgeTitle)</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title"><ccc title="$0" class="ccc--converted" style="font-size: inherit; display: inline; color: inherit; --darkreader-inline-color: inherit;" data-darkreader-inline-color="">@Html.DisplayFor(modelItem => item.PledgePrice)</ccc> </h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>@Html.DisplayFor(modelItem => item.PledgeDescription)</li>
+                        <li>You get a reward for being cool!</li>
+                        <li>@Html.DisplayFor(modelItem => item.PledgeReward)</li>
+                    </ul>
+
+                    <button type="button" class="btn btn-primary btn-lg" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Get Pledge</button>
+                    <p></p>
+                    <a href="@Url.Action("EditPledge", new { pledgeId = item.PledgeId})" class="btn btn-lg btn-block btn-warning" id="EditPledge">Edit Pledge</a>
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+    @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+    {
+<div>
+    <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg"
+       id="GoToCreatePledges"
+       style="margin:auto; text-align:center; display:block; width:50%">Add Pledge</a>
+</div>
+ 
+    }
+
+
+
+
+
 </div>
 <div>
     @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)

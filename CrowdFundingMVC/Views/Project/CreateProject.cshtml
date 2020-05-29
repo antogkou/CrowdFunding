@@ -41,33 +41,36 @@
                     Please provide a valid EndingDate.
                 </div>
             </div>
-            
-             
-            @*<select asp-for="ProjectCategory" asp-items="Html.GetEnumSelectList<ProjectCategory>()">
-                <option selected="selected" value="">Please select</option>
-            </select>*@
-            
-            @*<select name="ProjectCategory" class="form-control col col-md-4">
-                @{
-                    var categories = Enum.GetValues(
-                        typeof(CrowdFundingCore.Models.ProjectCategory))
-                        .Cast< CrowdFundingCore.Models.ProjectCategory>();
 
-                    foreach (var category in categories) {
-                        <option value="@category">@category</option>
+
+            @*<select asp-for="ProjectCategory" asp-items="Html.GetEnumSelectList<ProjectCategory>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>*@
+
+            @*<select name="ProjectCategory" class="form-control col col-md-4">
+                    @{
+                        var categories = Enum.GetValues(
+                            typeof(CrowdFundingCore.Models.ProjectCategory))
+                            .Cast< CrowdFundingCore.Models.ProjectCategory>();
+
+                        foreach (var category in categories) {
+                            <option value="@category">@category</option>
+                        }
                     }
-                }
-            </select>*@
+                </select>*@
 
             <div class="form-group">
-                @Html.DropDownList("ProjectCategory", new List<SelectListItem>
-           {
-               new SelectListItem { Text = "Sport", Value = "Sport", Selected=true},
-               new SelectListItem { Text = "History", Value = "History"},
-               new SelectListItem { Text = "Technology", Value = "Technology"},
-               new SelectListItem { Text = "Pourgoutzidou", Value = "Pourgoutzidou"},
-               new SelectListItem { Text = "Art", Value = "Art"}
-           }, "Select Category")
+                <label asp-for="@Model.ProjectCategory" class="control-label">Category</label>
+                <div>
+                    @Html.DropDownList("ProjectCategory", new List<SelectListItem>
+               {
+                   new SelectListItem { Text = "Sport", Value = "Sport", Selected=true},
+                   new SelectListItem { Text = "History", Value = "History"},
+                   new SelectListItem { Text = "Technology", Value = "Technology"},
+                   new SelectListItem { Text = "Pourgoutzidou", Value = "Pourgoutzidou"},
+                   new SelectListItem { Text = "Art", Value = "Art"}
+               }, "Select Category")
+                </div>
             </div>
 
             <div class="col col-md-12 d-flex justify-content-end pr-0">
