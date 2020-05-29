@@ -5,10 +5,12 @@
     ViewData["Title"] = "Projects List";
 }
 
-<h1>Index</h1>
+    <div class="text-center">
+        <h1>All Projects</h1>
+    </div>
 
 <p>
-    <a asp-action="CreateProject">Create New</a>
+    <a asp-action="CreateProject">New Project</a>
 </p>
 <form asp-controller="Project" asp-action="GetAllProjects" method="get">
     <p>
@@ -31,7 +33,9 @@
 
             <div class="card" style="width: 18rem;">
 
-                <img class="card-img-top" src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" alt="Card image cap">
+                <img class="card-img-top" 
+                     src="/img/coverproject.png"
+                     alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>
@@ -50,7 +54,7 @@
         </div>*@
                     <div class="text-center">@progress% funded</div>
                     <div class="progress bg-warning">
-                        <div class="progress-bar bg-success"
+                        <div class="progress-bar-striped bg-danger"
                              role="progressbar"
                              aria-valuenow="@progress"
                              aria-valuemin="0"
@@ -59,9 +63,9 @@
                         </div>
                     </div>
                     <p></p>
-                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})" class="btn btn-sm btn-outline-primary float" id="SingleProjectView">Go to this Project!</a>
-                    <a href="@Url.Action("EditProject", new { projectId = item.ProjectId})" class="btn btn-sm btn-outline-primary float" id="EditProject">Edit!</a>
-                  
+                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})" 
+                       class="btn btn-primary mx-auto d-block" 
+                       id="SingleProjectView">Go to this Project!</a>
                 </div>
             </div>
         }
