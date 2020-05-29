@@ -1,4 +1,4 @@
-﻿@model CrowdFundingCore.Models.Pledge
+﻿@model CrowdFundingMVC.ViewModels.EditPledgeVM
 @{
     ViewData["Title"] = "Edit Pledge";
 
@@ -9,7 +9,7 @@
 @*@{
         int projectId = ViewBag.projectID;
     }*@
-<div class="text-center" id="">
+<div class="text-center">
     <h1>Edit this Pledge</h1>
 </div>
 
@@ -20,35 +20,35 @@
 
 
             <div class="form-group">
-                <label asp-for="PledgeTitle" class="control-label">Pledge Title</label>
-                <input class="form-control" type="text" required id="PledgeTitle" asp-for="PledgeTitle" />
+                <label asp-for="@Model.Pledge.PledgeTitle" class="control-label">Pledge Title</label>
+                <input class="form-control" type="text" required id="PledgeTitle" asp-for="@Model.Pledge.PledgeTitle" />
                 <div class="invalid-feedback">
                     Please provide a valid Name.
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="PledgeDescription" class="control-label">Pledge Description</label>
-                <input class="form-control" type="text" required id="PledgeDescription" asp-for="PledgeDescription" />
+                <label asp-for="@Model.Pledge.PledgeDescription" class="control-label">Pledge Description</label>
+                <input class="form-control" type="text" required id="PledgeDescription" asp-for="@Model.Pledge.PledgeDescription" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="PledgePrice" class="control-label">Pledge Price</label>
-                <input class="form-control" type="number" required id="PledgePrice" asp-for="PledgePrice" />
+                <label asp-for="@Model.Pledge.PledgePrice" class="control-label">Pledge Price</label>
+                <input class="form-control" type="number" required id="PledgePrice" asp-for="@Model.Pledge.PledgePrice" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="PledgeReward" class="control-label">Pledge Reward</label>
-                <input class="form-control" type="text" required id="PledgeReward" asp-for="PledgeReward" />
+                <label asp-for="@Model.Pledge.PledgeReward" class="control-label">Pledge Reward</label>
+                <input class="form-control" type="text" required id="PledgeReward" asp-for="@Model.Pledge.PledgeReward" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="col col-md-12 d-flex justify-content-end pr-0">
-                <input type="button" onclick="doUpdatePledge(@Model.PledgeId)" value="Submit">
+                <input type="button" onclick="doUpdatePledge(@Model.Pledge.PledgeId, @Model.Project.ProjectId)" value="Submit">
             </div>
         </form>
     </div>

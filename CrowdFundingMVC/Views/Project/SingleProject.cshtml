@@ -74,7 +74,8 @@
 
                     <button type="button" class="btn btn-primary btn-lg" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Get Pledge</button>
                     <p></p>
-                    <a href="@Url.Action("EditPledge", new { pledgeId = item.PledgeId})" class="btn btn-lg btn-block btn-warning" id="EditPledge">Edit Pledge</a>
+                    @*<a href="@Url.Action("EditPledge", new { pledgeId = item.PledgeId})" class="btn btn-lg btn-block btn-warning" id="EditPledge">Edit Pledge</a>*@
+                    <button type="button" class="btn btn-warning btn-lg" onclick="editPledge(@Model.Project.ProjectId , @item.PledgeId)">Edit Pledge</button>
                 </div>
             </div>
         }
@@ -85,9 +86,10 @@
     @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
     {
 <div>
-    <a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg"
+    @*<a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg"
        id="GoToCreatePledges"
-       style="margin:auto; text-align:center; display:block; width:50%">Add Pledge</a>
+       style="margin:auto; text-align:center; display:block; width:50%">Add Pledge</a>*@
+    <button type="button" class="btn btn-primary btn-lg" onclick="addPledge(@Model.Project.ProjectId)">Add Pledge</button>
 </div>
  
     }
