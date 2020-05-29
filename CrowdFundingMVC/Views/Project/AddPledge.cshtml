@@ -1,5 +1,52 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CrowdFundingMVC.ViewModels.AddPledgeVM
+
 @{
+    ViewData["Title"] = "AddPledge";
 }
+
+
+
+<div class="text-center" id="">
+    <h1>Add Pledges to your project</h1>
+</div>
+
+<div class="row">
+    <div class="col col-md-2"></div>
+    <div class="tab col-md-8">
+        <form data-form="0">
+
+            <div class="form-group">
+                <label asp-for="@Model.Pledge.PledgeTitle" class="control-label">Pledge Title</label>
+                <input asp-for="@Model.Pledge.PledgeTitle" class="form-control" type="text" required id="PledgeTitle" />
+                <div class="invalid-feedback">
+                    Please provide a valid Name.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Pledge.PledgeDescription" class="control-label">Pledge Description</label>
+                <input asp-for="@Model.Pledge.PledgeDescription" class="form-control" type="text" required id="PledgeDescription" />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Pledge.PledgePrice" class="control-label">Pledge Price</label>
+                <input class="form-control" type="number" required id="PledgePrice" />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Pledge.PledgeReward" class="control-label">Pledge Reward</label>
+                <input class="form-control" type="text" required id="PledgeReward" />
+                <div class="invalid-feedback">
+                    Please provide a NeededAmount.
+                </div>
+            </div>
+
+            <div class="col col-md-12 d-flex justify-content-end pr-0">
+                <input type="button" onclick="submitPledgeToServer(@Model.Project.ProjectId)" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>

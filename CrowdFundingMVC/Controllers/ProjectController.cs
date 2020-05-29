@@ -6,6 +6,7 @@ using CrowdFundingMVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Claims;
@@ -169,11 +170,12 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //Edit Project
-        [HttpGet]
-        public IActionResult EditProject([FromQuery]int projectId)
+        [HttpGet, Route("Project/{projectId}/Edit/")]
+        public IActionResult EditProject([FromRoute]int? projectId)
         {
-            Project project = _projMangr.FindProjectById((int) projectId);
-            return View(project); 
+            Project project = _projMangr.FindProjectById((int)projectId.Value);
+            return View(project);
+
         }
 
         //UpdateProjectInfo
@@ -206,10 +208,14 @@ namespace CrowdFundingMVC.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult AddPledge()
+        [HttpGet, Route("Project/SingleProject/{projectId}/AddPledge/")]
+        public IActionResult AddPledge([FromRoute]int? projectId)
         {
-            return View();
+
+            return View(new AddPledgeVM
+            {
+                Project = _projMangr.FindProjectById(projectId.Value),
+            });
         }
 
 
@@ -235,10 +241,10 @@ namespace CrowdFundingMVC.Controllers
             var projects = _db.Set<BackedPledges>()
                 .Where(p => p.UserId == userId)
                 .Select(p => p.BackedPledge)
-                .Select(p=>p.Project)
+                .Select(p => p.Project)
                 .Distinct();
-                
-               
+
+
             return View(projects);
         }
 
@@ -249,12 +255,16 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult EditPledge([FromQuery]int pledgeId)
+        [HttpGet, Route("Project/SingleProject/{projectId}/EditPledge/{pledgeId}")]
+        public IActionResult EditPledge([FromRoute]int? projectId, [FromRoute]int? pledgeId)
         {
-            Pledge pledge = _pledges.FindPledgeById((int)pledgeId);
-            return View(pledge);
+            return View(new EditPledgeVM
+            {
+                Pledge = _pledges.FindPledgeById((int)pledgeId.Value),
+                Project = _projMangr.FindProjectById((int)projectId.Value)
+            });
         }
+
 
         [HttpPut]
         public IActionResult UpdatePledge([FromBody] PledgeOptions pledgeOptions)

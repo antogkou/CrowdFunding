@@ -185,7 +185,7 @@ function doUpdateProject(projectId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             alert("The project has been successfully updated!");
-            
+            window.open("/Project/SingleProject/" + projectId, "_self")
 
         },
         error: function (jqXhr, textStatus, errorThrown) {
@@ -197,11 +197,17 @@ function doUpdateProject(projectId) {
 }
 
 
-function editPledge(pledgeId) {
-    window.open("/Project/EditPledge/" + pledgeId, "_self");
+
+
+function addPledge(projectId) {
+    window.open("/Project/SingleProject/" + projectId + "/AddPledge/" , "_self");
 }
 
-function doUpdatePledge(pledgeId) {
+function editPledge(projectId, pledgeId) {
+    window.open("/Project/SingleProject/" + projectId + "/EditPledge/" + pledgeId , "_self");
+}
+
+function doUpdatePledge(pledgeId, projectId) {
     actionMethod = "PUT"
     actionUrl = "/Project/updatepledge"
     sendData = {
@@ -222,6 +228,7 @@ function doUpdatePledge(pledgeId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             alert("The pledge has been successfully updated!");
+            window.open("/Project/SingleProject/" + projectId , "_self")
 
         },
         error: function (jqXhr, textStatus, errorThrown) {
