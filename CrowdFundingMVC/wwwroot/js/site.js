@@ -163,16 +163,16 @@ function editProject(projectId) {
 
 function doUpdateProject(projectId) {
     actionMethod = "PUT"
-    actionUrl = "/Project/updateproject"
+    actionUrl = "/Project/UpdateProject/"
     sendData = {
+        "ProjectId": projectId,
         "ProjectTitle": $('#ProjectTitle').val(),
         "ProjectDescription": $('#ProjectDescription').val(),
         "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
         "IsActive": $('#IsActive').val(),
         "IsComplete": $('#IsComplete').val(),
-        "EndingDate": $('#EndingDate').val(),
-        "ProjectCategory": $('#ProjectCategory').val(),
-        "ProjectId": projectId
+        "ProjectEndingDate": $('#ProjectEndingDate').val(),
+        "ProjectCategory": $('#ProjectCategory').val()
     }
 
     $.ajax({
