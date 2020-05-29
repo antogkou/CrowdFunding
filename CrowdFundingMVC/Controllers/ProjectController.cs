@@ -38,14 +38,14 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
-        //// [Authorize("Admin,Project Creator")]
+        //// [Authorize("Admin,Project ProjectCreator")]
         //[HttpPost]
         //public Project CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
         //{
         //    return _projMangr.CreateProject(projOpt, pledgeOptions);
         //}
 
-        // [Authorize("Admin,Project Creator")]
+        // [Authorize("Admin,Project ProjectCreator")]
         [HttpPost]
         public IActionResult CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
         {

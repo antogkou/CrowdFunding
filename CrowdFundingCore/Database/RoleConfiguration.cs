@@ -28,7 +28,7 @@ namespace CrowdFundingCore
                 new IdentityRole
                 {
                     Id = projectCreatorId,
-                    Name = "Creator",
+                    Name = "ProjectCreator",
                     NormalizedName = "CREATOR"
                 }
             );

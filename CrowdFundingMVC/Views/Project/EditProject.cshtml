@@ -31,9 +31,7 @@
             </div>
             <div class="form-group">
 
-                <div class="checkbox">
-
-
+                <div class="form-check-input">
                     <label>
                         <input type="checkbox" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
 
@@ -57,9 +55,9 @@
 
 
             <div class="form-group">
-                <label asp-for="EndingDate" class="control-label"></label>
-                <input asp-for="EndingDate" class="form-control" />
-                <span asp-validation-for="EndingDate" class="text-danger"></span>
+                <label asp-for="ProjectEndingDate" class="control-label"></label>
+                <input asp-for="ProjectEndingDate" class="form-control" />
+                <span asp-validation-for="ProjectEndingDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProjectCategory" class="control-label"></label>

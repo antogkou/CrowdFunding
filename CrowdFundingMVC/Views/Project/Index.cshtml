@@ -34,8 +34,8 @@
                     <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>
                     <p class="card-text"></p>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.Creator)</p>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.CreationDate)</p>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreator)</p>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreationDate)</p>
 
                     <div class="progress">
                         <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -55,7 +55,7 @@
                 @Html.DisplayNameFor(model => model.Projects[0].ProjectTitle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Projects[0].CreationDate)
+                @Html.DisplayNameFor(model => model.Projects[0].ProjectCreationDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Projects[0].ProjectCategory)
@@ -74,7 +74,7 @@
                     @Html.DisplayFor(modelItem => item.ProjectTitle)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreationDate)
+                    @Html.DisplayFor(modelItem => item.ProjectCreationDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProjectCategory)

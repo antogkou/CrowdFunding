@@ -9,36 +9,25 @@ namespace CrowdFundingCore.Models
     {
 
         public int ProjectId { get; set; }
-
         public MyUsers User { get; set; }
-
         public string UserId { get; set; }
         public string ProjectTitle { get; set; }
-        
         public string ProjectDescription { get; set; }
-
-        [Required, Column(TypeName = "decimal(18,2)")]
+        [DataType(DataType.Currency)]
         public decimal ProjectTargetAmount { get; set; } 
-        [Column(TypeName = "decimal(18,2)")]
+        [DataType(DataType.Currency)]
         public decimal ProjectCurrentAmount { get; set; } 
-        public decimal Progress { get; set; }
-        public int ProjectViewsCounter { get; set; }
+        public decimal ProjectProgress { get; set; }
+        public int ProjectViews { get; set; }
         public bool IsActive { get; set; }
         public bool IsComplete { get; set; }
-        public DateTimeOffset CreationDate { get; set; }
-
-        [Required, DataType(DataType.Date), Display(Name = "Ending date"), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
-        public DateTimeOffset EndingDate { get; set; }
-
+        public DateTimeOffset ProjectCreationDate { get; set; }
+        [Required, DataType(DataType.Date), Display(Name = "ProjectEndingDate"), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        public DateTime ProjectEndingDate { get; set; }
         public string ProjectCategory { get; set; }
-
-        public string Creator { get; set; }
-
+        public string ProjectCreator { get; set; }
         public ICollection<Post> ProjectPosts { get; set; }
-
         public ICollection<Pledge> ProjectPledges { get; set; }
-        //public Pledge Pledge { get; set; }
-
         public ICollection<Multimedia> ProjectMultimedia { get; set; }
 
         public Project()
@@ -47,7 +36,7 @@ namespace CrowdFundingCore.Models
             ProjectPosts = new List<Post>();
             ProjectPledges = new List<Pledge>();
             ProjectMultimedia = new List<Multimedia>();
-            CreationDate = DateTimeOffset.Now;
+            ProjectCreationDate = DateTimeOffset.Now;
         }
     }
 }

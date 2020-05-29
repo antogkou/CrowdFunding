@@ -48,11 +48,11 @@ namespace CrowdFundingCore.Services
             var project = new Project()
             {
                 UserId = userId,
-                Creator = userName,
+                ProjectCreator = userName,
                 ProjectTitle = projectoption.ProjectTitle,
                 ProjectDescription = projectoption.ProjectDescription,
                 ProjectTargetAmount = projectoption.ProjectTargetAmount,
-                EndingDate = projectoption.EndingDate,
+                ProjectEndingDate = projectoption.ProjectEndingDate,
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
 
@@ -108,7 +108,7 @@ namespace CrowdFundingCore.Services
 
         }
 
-        //Get pledges by project id
+        //Pledges list by project id
         public List<Pledge> GetPledgesByProjectId(int projectId)
         {
             return _db.Set<Pledge>()
@@ -207,19 +207,13 @@ namespace CrowdFundingCore.Services
             return query;
         }
 
-        //new find way
+        //Find A Project By ID
         public Project FindProjectById(int id)
         {
             return _db.Set<Project>().Find(id);
         }
 
-        ////List Projects
-        public List<Project> GetAllProjects()
-        {
-            return _db.Set<Project>().ToList();
-        }
-
-        ////List My Projects
+        ////List Current User's Created Projects
         public List<Project> SearchProject()
         {
             return _db.Set<Project>().Select(s => new Project
@@ -228,7 +222,7 @@ namespace CrowdFundingCore.Services
             }).ToList();
         }
 
-        //Edit project
+        //Edit Project
         public Result<Project> UpdateProject(UpdateProjectOptions options)
         {
             if (options == null)
@@ -269,8 +263,8 @@ namespace CrowdFundingCore.Services
                 project.ProjectCategory = options.ProjectCategory;
             if (project.ProjectTargetAmount != 0)
                 project.ProjectTargetAmount = options.ProjectTargetAmount;
-            if (options.EndingDate != null)
-                project.EndingDate = options.EndingDate;
+            //if (options.ProjectEndingDate != null)
+                project.ProjectEndingDate = options.ProjectEndingDate;
 
                 project.IsActive = options.IsActive;
                 project.IsComplete = options.IsComplete;
