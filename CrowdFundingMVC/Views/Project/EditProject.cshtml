@@ -13,27 +13,27 @@
     <div class="col-md-4">
         <form asp-action="EditProject">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="@Model.Project.ProjectId" />
+            <input type="hidden" asp-for="@Model.Project.ProjectId" id="ProjectId"/>
             <div class="form-group">
                 <label asp-for="@Model.Project.ProjectTitle" class="control-label"></label>
-                <input asp-for="@Model.Project.ProjectTitle" class="form-control" />
+                <input asp-for="@Model.Project.ProjectTitle" class="form-control" id="ProjectTitle"/>
                 <span asp-validation-for="@Model.Project.ProjectTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Project.ProjectDescription" class="control-label"></label>
-                <input asp-for="@Model.Project.ProjectDescription" class="form-control" />
+                <input asp-for="@Model.Project.ProjectDescription" class="form-control" id="ProjectDescription"/>
                 <span asp-validation-for="@Model.Project.ProjectDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Project.ProjectTargetAmount" class="control-label"></label>
-                <input asp-for="@Model.Project.ProjectTargetAmount" class="form-control" type="number" />
+                <input asp-for="@Model.Project.ProjectTargetAmount" class="form-control" type="number" id="ProjectTargetAmount"/>
                 <span asp-validation-for="@Model.Project.ProjectTargetAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
 
                 <div class="form-check-input">
                     <label>
-                        <input type="checkbox" asp-for="@Model.Project.IsActive" /> @Html.DisplayNameFor(model => model.Project.IsActive)
+                        <input type="checkbox" asp-for="@Model.Project.IsActive" id="IsActive"/> @Html.DisplayNameFor(model => model.Project.IsActive)
 
                     </label>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="checkbox">
 
                     <label>
-                        <input type="checkbox" asp-for="@Model.Project.IsComplete" /> @Html.DisplayNameFor(model => model.Project.IsComplete)
+                        <input type="checkbox" asp-for="@Model.Project.IsComplete" id="IsComplete"/> @Html.DisplayNameFor(model => model.Project.IsComplete)
 
                     </label>
                 </div>
@@ -56,13 +56,13 @@
 
             <div class="form-group">
                 <label asp-for="@Model.Project.ProjectEndingDate" class="control-label"></label>
-                <input asp-for="@Model.Project.ProjectEndingDate" class="form-control" />
+                <input asp-for="@Model.Project.ProjectEndingDate" class="form-control" id="ProjectEndingDate"/>
                 <span asp-validation-for="@Model.Project.ProjectEndingDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Project.ProjectCategory" class="control-label"></label>
                 @*<select asp-for="ProjectCategory" class="form-control" asp-items="ViewBag.ProjectCategory"></select>*@
-                <input asp-for="@Model.Project.ProjectCategory" class="form-control" />
+                <input asp-for="@Model.Project.ProjectCategory" class="form-control" id="ProjectCategory"/>
                 <span asp-validation-for="@Model.Project.ProjectCategory" class="text-danger"></span>
             </div>
             <div class="form-group">
