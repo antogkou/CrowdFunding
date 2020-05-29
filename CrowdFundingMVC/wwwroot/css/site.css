@@ -27,8 +27,18 @@ a {
 .navbar-nav .nav-item:hover .nav-link {
     color: #ffc107 !important;
     font-weight: 600;
+    letter-spacing: 0;
 }
 
+li, a {
+    display: inline-block;
+}
+
+a {
+    padding-left: 10px;
+    padding-right: 10px;
+    letter-spacing: 0.235px
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
