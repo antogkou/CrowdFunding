@@ -31,10 +31,9 @@
             </div>
             <div class="form-group">
 
-                <div class="form-check-input">
+                <div class="checkbox">
                     <label>
                         <input type="checkbox" asp-for="@Model.Project.IsActive" id="IsActive"/> @Html.DisplayNameFor(model => model.Project.IsActive)
-
                     </label>
                 </div>
             </div>
@@ -53,21 +52,38 @@
             @Html.CheckBox("isActive", new { value = Model.IsComplete, @checked = Model.IsComplete });*@
 
 
-
             <div class="form-group">
                 <label asp-for="@Model.Project.ProjectEndingDate" class="control-label"></label>
                 <input asp-for="@Model.Project.ProjectEndingDate" class="form-control" id="ProjectEndingDate"/>
                 <span asp-validation-for="@Model.Project.ProjectEndingDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.Project.ProjectCategory" class="control-label"></label>
-                @*<select asp-for="ProjectCategory" class="form-control" asp-items="ViewBag.ProjectCategory"></select>*@
-                <input asp-for="@Model.Project.ProjectCategory" class="form-control" id="ProjectCategory"/>
-                <span asp-validation-for="@Model.Project.ProjectCategory" class="text-danger"></span>
+                @*<label asp-for="@Model.Project.ProjectCategory" class="control-label"></label>
+                <select asp-for="ProjectCategory" class="form-control" asp-items="ViewBag.ProjectCategory"></select>
+                <input asp-for="@Model.Project.ProjectCategory" class="form-control" id="ProjectCategory" />
+                <span asp-validation-for="@Model.Project.ProjectCategory" class="text-danger"></span>*@
+
+                <div class="form-group">
+                    <label asp-for="@Model.Project.ProjectCategory" class="control-label"></label>
+                    <select name="@Model.Project.ProjectCategory" class="form-control" id="ProjectCategory" required="">
+                        @{
+                            var categories = Enum.GetValues(
+                                typeof(CrowdFundingCore.Models.ProjectCategory))
+                                .Cast<CrowdFundingCore.Models.ProjectCategory>();
+                            <option value="" selected disabled hidden>Choose here</option>
+                            foreach (var category in categories)
+                            {
+                                <option value="@category">@category</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="@Model.Project.ProjectCategory" class="text-danger"></span>
+                </div>
+
             </div>
             <div class="form-group">
                 @*<input type="button" value="Submit" onclick="doUpdateProject(@Model.ProjectId)" class="btn btn-default" />*@
-                <input type="button" onclick="doUpdateProject(@Model.Project.ProjectId)" value="Submit">
+                <input type="button" value="Submit" onclick="doUpdateProject(@Model.Project.ProjectId)">
             </div>
         </form>
     </div>
