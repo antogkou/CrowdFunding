@@ -3,17 +3,20 @@ using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
 using CrowdFundingMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CrowdFundingMVC.Controllers
 {
+
     public class ProjectController : Controller
     {
         private IProjectServices _projMangr;
@@ -173,8 +176,20 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet, Route("Project/{projectId}/Edit/")]
         public IActionResult EditProject([FromRoute]int? projectId)
         {
-            Project project = _projMangr.FindProjectById((int)projectId.Value);
-            return View(project);
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (new EditProjectVM
+            {
+                Project = _projMangr.FindProjectById((int)projectId)
+            }.Project != null)
+                if (new EditProjectVM
+                {
+                    Project = _projMangr.FindProjectById((int)projectId)
+                }.Project.UserId == userId)
+                    return View(new EditProjectVM
+                    {
+                        Project = _projMangr.FindProjectById((int)projectId)
+                    });
+            return View("~/Views/Project/AuthorizationError.cshtml");
 
         }
 
@@ -258,11 +273,24 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet, Route("Project/SingleProject/{projectId}/EditPledge/{pledgeId}")]
         public IActionResult EditPledge([FromRoute]int? projectId, [FromRoute]int? pledgeId)
         {
-            return View(new EditPledgeVM
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (new EditPledgeVM
             {
-                Pledge = _pledges.FindPledgeById((int)pledgeId.Value),
+                Pledge = _pledges.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
                 Project = _projMangr.FindProjectById((int)projectId.Value)
-            });
+            }.Pledge != null)
+                if (new EditPledgeVM
+                {
+                    Pledge = _pledges.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
+                    Project = _projMangr.FindProjectById((int)projectId.Value)
+                }.Project.UserId == userId)
+
+                    return View(new EditPledgeVM
+                    {
+                        Pledge = _pledges.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
+                        Project = _projMangr.FindProjectById((int)projectId.Value)
+                    });
+            return View("~/Views/Project/AuthorizationError.cshtml");
         }
 
 

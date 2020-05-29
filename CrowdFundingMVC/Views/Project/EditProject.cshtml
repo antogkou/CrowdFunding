@@ -1,4 +1,4 @@
-﻿@model CrowdFundingCore.Models.Project
+﻿@model CrowdFundingMVC.ViewModels.EditProjectVM
 
 
 @{
@@ -13,27 +13,27 @@
     <div class="col-md-4">
         <form asp-action="EditProject">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ProjectId" />
+            <input type="hidden" asp-for="@Model.Project.ProjectId" />
             <div class="form-group">
-                <label asp-for="ProjectTitle" class="control-label"></label>
-                <input asp-for="ProjectTitle" class="form-control" />
-                <span asp-validation-for="ProjectTitle" class="text-danger"></span>
+                <label asp-for="@Model.Project.ProjectTitle" class="control-label"></label>
+                <input asp-for="@Model.Project.ProjectTitle" class="form-control" />
+                <span asp-validation-for="@Model.Project.ProjectTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectDescription" class="control-label"></label>
-                <input asp-for="ProjectDescription" class="form-control" />
-                <span asp-validation-for="ProjectDescription" class="text-danger"></span>
+                <label asp-for="@Model.Project.ProjectDescription" class="control-label"></label>
+                <input asp-for="@Model.Project.ProjectDescription" class="form-control" />
+                <span asp-validation-for="@Model.Project.ProjectDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectTargetAmount" class="control-label"></label>
-                <input asp-for="ProjectTargetAmount" class="form-control" type="number" />
-                <span asp-validation-for="ProjectTargetAmount" class="text-danger"></span>
+                <label asp-for="@Model.Project.ProjectTargetAmount" class="control-label"></label>
+                <input asp-for="@Model.Project.ProjectTargetAmount" class="form-control" type="number" />
+                <span asp-validation-for="@Model.Project.ProjectTargetAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
 
                 <div class="form-check-input">
                     <label>
-                        <input type="checkbox" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                        <input type="checkbox" asp-for="@Model.Project.IsActive" /> @Html.DisplayNameFor(model => model.Project.IsActive)
 
                     </label>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="checkbox">
 
                     <label>
-                        <input type="checkbox" asp-for="IsComplete" /> @Html.DisplayNameFor(model => model.IsComplete)
+                        <input type="checkbox" asp-for="@Model.Project.IsComplete" /> @Html.DisplayNameFor(model => model.Project.IsComplete)
 
                     </label>
                 </div>
@@ -55,19 +55,19 @@
 
 
             <div class="form-group">
-                <label asp-for="ProjectEndingDate" class="control-label"></label>
-                <input asp-for="ProjectEndingDate" class="form-control" />
-                <span asp-validation-for="ProjectEndingDate" class="text-danger"></span>
+                <label asp-for="@Model.Project.ProjectEndingDate" class="control-label"></label>
+                <input asp-for="@Model.Project.ProjectEndingDate" class="form-control" />
+                <span asp-validation-for="@Model.Project.ProjectEndingDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectCategory" class="control-label"></label>
+                <label asp-for="@Model.Project.ProjectCategory" class="control-label"></label>
                 @*<select asp-for="ProjectCategory" class="form-control" asp-items="ViewBag.ProjectCategory"></select>*@
-                <input asp-for="ProjectCategory" class="form-control" />
-                <span asp-validation-for="ProjectCategory" class="text-danger"></span>
+                <input asp-for="@Model.Project.ProjectCategory" class="form-control" />
+                <span asp-validation-for="@Model.Project.ProjectCategory" class="text-danger"></span>
             </div>
             <div class="form-group">
                 @*<input type="button" value="Submit" onclick="doUpdateProject(@Model.ProjectId)" class="btn btn-default" />*@
-                <input type="button" onclick="doUpdateProject(@Model.ProjectId)" value="Submit">
+                <input type="button" onclick="doUpdateProject(@Model.Project.ProjectId)" value="Submit">
             </div>
         </form>
     </div>
