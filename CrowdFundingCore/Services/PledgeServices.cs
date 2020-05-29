@@ -116,12 +116,12 @@ namespace CrowdFundingCore.Services
 
             var pledge = _db.Set<Pledge>().Find(pledgeOptions.PledgeId);
 
-            
+
             pledge.PledgeTitle = pledgeOptions.PledgeTitle;
             pledge.PledgeDescription = pledgeOptions.PledgeDescription;
             pledge.PledgePrice = pledgeOptions.PledgePrice;
             pledge.PledgeReward = pledgeOptions.PledgeReward;
-            
+
 
 
             var rows = 0;
@@ -206,9 +206,23 @@ namespace CrowdFundingCore.Services
         }
 
         //new find way
-        public Pledge FindPledgeById(int id)
+        //public Pledge FindPledgeById(int id)
+        //{
+        //    return _db.Set<Pledge>().Find(id);
+        //}
+
+        public Pledge FindPledgeById(int projectId, int pledgeId)
         {
-            return _db.Set<Pledge>().Find(id);
+            var result = _db.Set<Pledge>()
+                .Where(p => p.Project.ProjectId == projectId)
+                .Where(p => p.PledgeId == pledgeId)
+                .SingleOrDefault();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
         }
     }
 }
