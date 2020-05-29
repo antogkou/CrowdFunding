@@ -170,11 +170,12 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //Edit Project
-        [HttpGet]
-        public IActionResult EditProject([FromQuery]int projectId)
+        [HttpGet, Route("Project/{projectId}/Edit/")]
+        public IActionResult EditProject([FromRoute]int? projectId)
         {
-            Project project = _projMangr.FindProjectById((int)projectId);
+            Project project = _projMangr.FindProjectById((int)projectId.Value);
             return View(project);
+
         }
 
         //UpdateProjectInfo
