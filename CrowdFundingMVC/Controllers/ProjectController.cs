@@ -271,7 +271,7 @@ namespace CrowdFundingMVC.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult GetPopularProjects()
+        public IActionResult GetTrendingProjects()
         {
 
             var trendingprojects = _db.Set<Project>()
@@ -288,6 +288,7 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult EditPledge([FromRoute]int? projectId, [FromRoute]int? pledgeId)
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (new EditPledgeVM
             {
                 Pledge = _pledges.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
