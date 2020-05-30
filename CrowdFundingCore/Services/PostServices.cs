@@ -10,6 +10,7 @@ using System.Security.Claims;
 
 namespace CrowdFundingCore.Services
 {
+   
     public class PostServices : IPostServices
     {
         private CrFrDbContext _db;
@@ -73,6 +74,7 @@ namespace CrowdFundingCore.Services
          
         }
 
+        //TODO result(?) not working check if user=active user
         public bool DeletePost(int postId)
         {
             Post post = _db.Set<Post>().Find(postId);
@@ -86,6 +88,7 @@ namespace CrowdFundingCore.Services
             return false;
         }
 
+        //NOTTODO
         public IQueryable<Post> SearchPosts(
             PostOptions postOptions)
         {
@@ -120,8 +123,6 @@ namespace CrowdFundingCore.Services
                 .Where(p => p.Project.ProjectId == projectId)
                 .ToList();
         }
-
-
 
         //not used
         public IQueryable<Post> ListPosts(PostOptions options)

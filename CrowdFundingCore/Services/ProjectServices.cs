@@ -269,6 +269,7 @@ namespace CrowdFundingCore.Services
                 project.IsActive = options.IsActive;
                 project.IsComplete = options.IsComplete;
 
+                project.ProjectProgress = project.ProjectCurrentAmount / project.ProjectTargetAmount;
             var rows = 0;
             try
             {

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using CrowdFundingCore.Database;
 
 namespace CrowdFundingMVC.Areas.Identity.Pages.Account
 {
@@ -97,7 +98,13 @@ namespace CrowdFundingMVC.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        //all registered users recieve Backer and Project Creator roles
+                        await _userManager.AddToRoleAsync(user, SD.BackerEndUser);
+                        await _userManager.AddToRoleAsync(user, SD.ProjectCreatorEndUser);
+                       // await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
+
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        
                         return LocalRedirect(returnUrl);
                     }
                 }

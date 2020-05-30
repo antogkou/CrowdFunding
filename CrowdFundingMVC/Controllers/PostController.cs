@@ -1,10 +1,12 @@
 ﻿using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdFundingMVC.Controllers
 {
+    [Authorize(Roles = "Administrator, Project Creator")]
     public class PostController : Controller
     {
         private IProjectServices _projectservices;
@@ -19,13 +21,7 @@ namespace CrowdFundingMVC.Controllers
         {
             return View();
         }
-        //GETnotused
-        //[HttpGet]
-        //public IActionResult CreatePost()
-        //{
-        //    return View("/Project/SingleProject/{id}");
-        //}
-
+        
         //Create Post(comment)
         [HttpPost]
         public IActionResult CreatePost([FromBody] PostOptions postOptions)
@@ -46,17 +42,5 @@ namespace CrowdFundingMVC.Controllers
             return Ok();
         }
 
-        
-        //[HttpGet("{id}/edit")]
-        //public IActionResult Edit(int id)
-        //{
-        //    var post = _postservices.DeletePost(
-        //        new SearchPostOptions()
-        //        {
-        //            PostId = id
-        //        }).SingleOrDefault();
-
-        //    return View(post);
-        //}
     }
 }

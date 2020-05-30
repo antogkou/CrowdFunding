@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -36,20 +34,14 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //Create Project View
+        [Authorize(Roles = "Administrator, Project Creator")]
         [HttpGet]
         public IActionResult CreateProject()
         {
             return View();
         }
 
-        //// [Authorize("Admin,Project ProjectCreator")]
-        //[HttpPost]
-        //public Project CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
-        //{
-        //    return _projMangr.CreateProject(projOpt, pledgeOptions);
-        //}
-
-        // [Authorize("Admin,Project ProjectCreator")]
+        [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPost]
         public IActionResult CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
         {
@@ -65,6 +57,7 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //All Projects List search
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllProjects(string projectCategory, string searchString)
         {
@@ -95,6 +88,7 @@ namespace CrowdFundingMVC.Controllers
             return View(projectCategoryVM);
         }
 
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpPost]
         public string GetAllProjects(string searchString, bool notUsed)
         {
@@ -102,6 +96,7 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //Single Project View (with posts, TODO pledges/multimedia)
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult SingleProject(int? id)
         {
@@ -115,6 +110,7 @@ namespace CrowdFundingMVC.Controllers
             return View(singleproject);  // will automatically look in the views folder
         }
 
+        [Authorize(Roles = "Administrator, Project Creator")]
         [HttpGet]
         public IActionResult CreatePledges(int? id)
         {
@@ -143,6 +139,7 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //CreatePledges
+        [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPost]
         public IActionResult CreatePledges([FromBody] PledgeOptions pledgeOptions)
         {
@@ -158,6 +155,7 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //Buy a pledge!
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpPost]
         public IActionResult AddPledge([FromBody] PledgeProjectOptions pledgeProjectOptions)
         {
@@ -173,6 +171,7 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //Edit Project
+        [Authorize(Roles = "Administrator, Project Creator")]
         [HttpGet, Route("Project/{projectId}/Edit/")]
         public IActionResult EditProject([FromRoute]int? projectId)
         {
@@ -193,22 +192,7 @@ namespace CrowdFundingMVC.Controllers
 
         }
 
-        //UpdateProjectInfo
-        //[HttpPut]
-        //public bool UpdateProject([FromBody]int projectId, UpdateProjectOptions options)
-        //{
-        //    //ProjectOptions p = new ProjectOptions()
-        //    {
-        //        ProjectTitle = options.ProjectTitle,
-        //        ProjectTargetAmount = options.ProjectTargetAmount,
-        //        ProjectDescription = options.ProjectDescription,
-        //        ProjectCategory = options.ProjectCategory,
-        //    };
-        //    _projMangr.UpdateProject(projectId, options);
-        //    return true;
-        //    //_projMangr.UpdateProject(projectId, options);
-        //}
-
+        [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPut]
         public IActionResult UpdateProject([FromBody] UpdateProjectOptions updateProjectOptions)
         {
@@ -222,7 +206,7 @@ namespace CrowdFundingMVC.Controllers
             return Json(result.Data);
         }
 
-
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpGet, Route("Project/SingleProject/{projectId}/AddPledge/")]
         public IActionResult AddPledge([FromRoute]int? projectId)
         {
@@ -235,6 +219,7 @@ namespace CrowdFundingMVC.Controllers
 
 
         //Get current user's projects View
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpGet]
         public IActionResult GetMyProjects()
         {
@@ -248,6 +233,7 @@ namespace CrowdFundingMVC.Controllers
         }
 
         //Get backed user's projects View
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpGet]
         public IActionResult GetMyBackedProjects()
         {
@@ -262,13 +248,21 @@ namespace CrowdFundingMVC.Controllers
             return View(projects);
         }
 
-        //TODO
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetPopularProjects()
         {
-            return View();
+
+            var trendingprojects = _db.Set<Project>()
+                .Where(s => s.ProjectProgress > 0.35m)
+                .Where(s => s.IsActive == true)
+                .ToList();
+
+            return View(trendingprojects);
         }
 
+        //Edit Pledge
+        [Authorize(Roles = "Administrator, Project Creator")]
         [HttpGet, Route("Project/SingleProject/{projectId}/EditPledge/{pledgeId}")]
         public IActionResult EditPledge([FromRoute]int? projectId, [FromRoute]int? pledgeId)
         {
@@ -292,7 +286,7 @@ namespace CrowdFundingMVC.Controllers
             return View("~/Views/Project/AuthorizationError.cshtml");
         }
 
-
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpPut]
         public IActionResult UpdatePledge([FromBody] PledgeOptions pledgeOptions)
         {

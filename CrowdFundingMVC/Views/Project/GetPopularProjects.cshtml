@@ -1,8 +1,48 @@
-﻿
+﻿@model IEnumerable<CrowdFundingCore.Models.Project>
 @{
     ViewData["Title"] = "GetPopularProjects";
 }
 
 <div class="text-center">
-    <h1>Popular Projects</h1>
+    <h1>Trending Projects</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");
+            var progress = Math.Round((item.ProjectCurrentAmount * 100) / item.ProjectTargetAmount, 2).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            <div class="card" style="width: 18rem;">
+
+                <img class="card-img-top"
+                     src="/img/coverproject.png"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>
+                    <p class="card-text"> @projectTargetAmount</p>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreator)</p>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreationDate)</p>
+
+                    <div class="text-center">@progress% funded</div>
+                    <div class="progress bg-warning">
+                        <div class="progress-bar-striped bg-danger"
+                             role="progressbar"
+                             aria-valuenow="@progress"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width:@progress%">
+                        </div>
+                    </div>
+
+                    <p></p>
+                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
+                       class="btn btn-sm btn-primary mx-auto d-block"
+                       id="SingleProjectView">Go to this Project!</a>
+
+                </div>
+            </div>
+        }
+    </div>
 </div>
