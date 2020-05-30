@@ -85,13 +85,13 @@
 
     @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
     {
-<div>
-    @*<a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg"
-       id="GoToCreatePledges"
-       style="margin:auto; text-align:center; display:block; width:50%">Add Pledge</a>*@
-    <button type="button" class="btn btn-primary btn-lg" onclick="addPledge(@Model.Project.ProjectId)">Add Pledge</button>
-</div>
- 
+        <div>
+            @*<a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg"
+                id="GoToCreatePledges"
+                style="margin:auto; text-align:center; display:block; width:50%">Add Pledge</a>*@
+            <button type="button" class="btn btn-primary btn-lg" onclick="addPledge(@Model.Project.ProjectId)">Add Pledge</button>
+        </div>
+
     }
 
 
@@ -115,25 +115,20 @@
 
     @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
     {
-        <li class="mb2">
-            <div class="border-box relative break-word border border-grey-400 px3 pt3 pb2 o100p transition-all transition-delay-1000 bg-grey-100">
-            </div><div class="flex">
-                <div class="w100p">
-                    <p class="type-14 mb0" style="font-weight:bold"> @Html.DisplayFor(modelItem => item.PostDateCreated)</p>
-                    <p class="type-14 mb2">@Html.DisplayFor(modelItem => item.PostTitle)</p>
-                    <p class="type-14 mb0">@Html.DisplayFor(modelItem => item.PostDescription)</p>
-                    @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-                    }
-                </div>
-            </div>
-            <div class="flex justify-end">
-            </div>
-        </li>
-    }
+        <div class="border-box relative break-word border border-grey-400 px3 pt3 pb2 o100p transition-all transition-delay-1000 bg-grey-100">
+        </div>
 
+            <div class="w100p">
+                <p class="type-14 mb0" style="font-weight:bold"> @Html.DisplayFor(modelItem => item.PostDateCreated)</p>
+                <p class="type-14 mb2">@Html.DisplayFor(modelItem => item.PostTitle)</p>
+                <p class="type-14 mb0">@Html.DisplayFor(modelItem => item.PostDescription)</p>
+                @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                }
+            </div>
+    }
 </ul>
 
 @*<table class="table" name="Posts Table">
