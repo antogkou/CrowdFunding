@@ -69,12 +69,12 @@ namespace CrowdFundingMVC.Controllers
             var projects = from m in _db.Set<Project>()
                            select m;
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrWhiteSpace(searchString))
             {
                 projects = projects.Where(s => s.ProjectTitle.Contains(searchString));
             }
 
-            if (!string.IsNullOrEmpty(projectCategory))
+            if (!string.IsNullOrWhiteSpace(projectCategory))
             {
                 projects = projects.Where(x => x.ProjectCategory == projectCategory);
             }
@@ -114,27 +114,48 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet]
         public IActionResult CreatePledges(int? id)
         {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (new SingleProjectMV
+            var project = _projMangr.ListProjects(
+                new ProjectOptions() {
+                    ProjectId = id.Value,
+                    UserId = userId
+                }).SingleOrDefault();
+
+            if (project == null)
             {
-                Project = _projMangr.FindProjectById((int)id),
-                Pledges = _pledges.GetPledgesByProjectId((int)id)
-            }.Project != null)
-            {
-                if (new SingleProjectMV
-                {
-                    Project = _projMangr.FindProjectById((int)id),
-                    Pledges = _pledges.GetPledgesByProjectId((int)id)
-                }.Project.UserId == userId)
-                {
-                    return View(new SingleProjectMV
-                    {
-                        Project = _projMangr.FindProjectById((int)id),
-                        Pledges = _pledges.GetPledgesByProjectId((int)id)
-                    });
-                }
+                return NotFound();
             }
+            
+
+            // .AddPledge
+
+
+
+            //if (new SingleProjectMV
+            //{
+            //    Project = _projMangr.FindProjectById(id.Value),
+            //    Pledges = _pledges.GetPledgesByProjectId((int)id)
+            //}.Project != null)
+            //{
+            //    if (new SingleProjectMV
+            //    {
+            //        Project = _projMangr.FindProjectById((int)id),
+            //        Pledges = _pledges.GetPledgesByProjectId((int)id)
+            //    }.Project.UserId == userId)
+            //    {
+            //        return View(new SingleProjectMV
+            //        {
+            //            Project = _projMangr.FindProjectById((int)id),
+            //            Pledges = _pledges.GetPledgesByProjectId((int)id)
+            //        });
+            //    }
+            //}
             return NotFound(); //404
         }
 

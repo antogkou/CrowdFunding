@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrowdFundingCore.Services
 {
@@ -56,24 +57,24 @@ namespace CrowdFundingCore.Services
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
 
-                ProjectPledges = new List<Pledge>
-                {
-                    new Pledge
-                    {
-                        PledgeTitle = "Level 1 Pledge", PledgeDescription = "liga", PledgePrice = 5,
-                        PledgeReward = "iPhone SE"
-                    },
-                    new Pledge
-                    {
-                        PledgeTitle = "Level 2 Pledge", PledgeDescription = "metria", PledgePrice = 10,
-                        PledgeReward = "SamsungGalaxyS10e"
-                    },
-                    new Pledge
-                    {
-                        PledgeTitle = "Level 3 Pledge", PledgeDescription = "polla", PledgePrice = 20,
-                        PledgeReward = "OnePlus8Pro"
-                    },
-                },
+                //ProjectPledges = new List<Pledge>
+                //{
+                //    new Pledge
+                //    {
+                //        PledgeTitle = "Level 1 Pledge", PledgeDescription = "liga", PledgePrice = 5,
+                //        PledgeReward = "iPhone SE"
+                //    },
+                //    new Pledge
+                //    {
+                //        PledgeTitle = "Level 2 Pledge", PledgeDescription = "metria", PledgePrice = 10,
+                //        PledgeReward = "SamsungGalaxyS10e"
+                //    },
+                //    new Pledge
+                //    {
+                //        PledgeTitle = "Level 3 Pledge", PledgeDescription = "polla", PledgePrice = 20,
+                //        PledgeReward = "OnePlus8Pro"
+                //    },
+                //},
 
                 ProjectPosts = new List<Post>
                 {
@@ -211,6 +212,24 @@ namespace CrowdFundingCore.Services
         public Project FindProjectById(int id)
         {
             return _db.Set<Project>().Find(id);
+        }
+
+        public Result<Project> GetProjectById(int id)
+        {
+            var project = ListProjects(new ProjectOptions()
+            {
+                ProjectId = id
+            })
+            .Include(p => p.ProjectPledges)
+            .SingleOrDefault();
+
+            if (project == null)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.NotFound, $"Project with {id} was not found");
+            }
+
+            return Result<Project>.CreateSuccessful(project);
         }
 
         ////List Current User's Created Projects
