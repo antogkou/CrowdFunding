@@ -259,7 +259,6 @@ namespace CrowdFundingMVC.Controllers
                 .Select(p => p.Project)
                 .Distinct();
 
-
             return View(projects);
         }
 

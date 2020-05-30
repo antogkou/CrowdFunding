@@ -169,8 +169,8 @@ function doUpdateProject(projectId) {
         "ProjectTitle": $('#ProjectTitle').val(),
         "ProjectDescription": $('#ProjectDescription').val(),
         "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
-        "IsActive": $('#IsActive').val(),
-        "IsComplete": $('#IsComplete').val(),
+        "IsActive": $('#IsActive').is(":checked") ? "true" : "false",
+        "IsComplete": $('#IsComplete').is(":checked"),
         "ProjectEndingDate": $('#ProjectEndingDate').val(),
         "ProjectCategory": $('#ProjectCategory').val()
     }

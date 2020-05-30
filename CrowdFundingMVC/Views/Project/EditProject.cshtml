@@ -65,15 +65,15 @@
 
                 <div class="form-group">
                     <label asp-for="@Model.Project.ProjectCategory" class="control-label"></label>
-                    <select name="@Model.Project.ProjectCategory" class="form-control" id="ProjectCategory" required="">
+                    <select name="@Model.Project.ProjectCategory" class="form-control" id="ProjectCategory">
                         @{
                             var categories = Enum.GetValues(
                                 typeof(CrowdFundingCore.Models.ProjectCategory))
                                 .Cast<CrowdFundingCore.Models.ProjectCategory>();
-                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="@Model.Project.ProjectCategory.ToString()" selected>@Model.Project.ProjectCategory.ToString()</option>
                             foreach (var category in categories)
                             {
-                                <option value="@category">@category</option>
+                                <option  value="@category">@category</option>
                             }
                         }
                     </select>
