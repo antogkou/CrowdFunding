@@ -26,7 +26,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Project.ProjectTargetAmount" class="control-label"></label>
-                <input asp-for="@Model.Project.ProjectTargetAmount" class="form-control" type="number" id="ProjectTargetAmount"/>
+                @*<input asp-for="@Model.Project.ProjectTargetAmount" value="@Model.Project.ProjectTargetAmount" class="form-control" type="number" id="ProjectTargetAmount" />
+                <input type="number" value="@(Model.Project.ProjectTargetAmount.ToString("N2"))" name="@Html.NameFor(m => m.Project.ProjectTargetAmount)" />*@
+                <input data-val="true" data-val-required="Field is required" 
+                       value="@(Model.Project.ProjectTargetAmount.ToString("N2", System.Globalization.CultureInfo.InvariantCulture))"  
+                       name="@Html.NameFor(m => m.Project.ProjectTargetAmount)" id="ProjectTargetAmount" />
                 <span asp-validation-for="@Model.Project.ProjectTargetAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
