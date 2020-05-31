@@ -20,15 +20,17 @@ namespace CrowdFundingMVC.Controllers
         private IProjectServices _projMangr;
         private IPledgeServices _pledges;
         private IPostServices _postservices;
+        private IMultimediaServices _multimediaServices;
         private readonly CrFrDbContext _db;
         private readonly IHttpContextAccessor httpContextAccessor;
 
         public ProjectController(IProjectServices projMangr, CrFrDbContext db, IHttpContextAccessor _httpContextAccessor,
-            IPledgeServices pledges, IPostServices postservices)
+            IPledgeServices pledges, IPostServices postservices, IMultimediaServices multimediaServices)
         {
             _projMangr = projMangr;
             _pledges = pledges;
             _postservices = postservices;
+            _multimediaServices = multimediaServices;
             _db = db;
             httpContextAccessor = _httpContextAccessor;
         }
@@ -105,7 +107,8 @@ namespace CrowdFundingMVC.Controllers
             {
                 Project = _projMangr.FindProjectById((int)id),
                 Posts = _postservices.GetAllPosts((int)id),
-                Pledges = _pledges.GetPledgesByProjectId((int)id)
+                Pledges = _pledges.GetPledgesByProjectId((int)id),
+                ProjectMultimedia = _multimediaServices.GetMultimediaOfProject((int)id),
             };
 
             return View(singleproject);  // will automatically look in the views folder

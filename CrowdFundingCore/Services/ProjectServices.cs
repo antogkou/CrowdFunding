@@ -98,7 +98,7 @@ namespace CrowdFundingCore.Services
                     {
                         PostTitle = "Welcome to our Project!",
                         PostDescription =
-                            "You can help us by funding our project, or simply share it to your friends who might be intrested!"
+                            "You can help us by funding our project, or simply share it to your friends who might be interested!"
                     },
                 },
             };
