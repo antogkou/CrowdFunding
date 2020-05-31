@@ -14,6 +14,7 @@ function submitProjectToServer() {
         "ProjectEndingDate": $('#ProjectEndingDate').val(),
         "MultimediaURL": $('#MultimediaURL').val(),
         "MultimediaTypes": $('#MultimediaTypes').val(),
+        "ProjectPhotoProfile": $('#ProjectPhotoProfile').val()
 
     }
 

@@ -20,5 +20,6 @@ namespace CrowdFundingCore.Models.Options
         public string Creator { get; set; }
         public string MultimediaURL { get; set; }
         public MultimediaTypes MultimediaTypes { get; set; }
+        public string ProjectPhotoProfile { get; set; }
     }
 }

@@ -88,6 +88,7 @@ namespace CrowdFundingCore.Services
                 {
                     new Multimedia
                     {
+                        ProjectPhotoProfile = projectoption.ProjectPhotoProfile,
                         MultimediaTypes = projectoption.MultimediaTypes,
                         MultimediaURL = projectoption.MultimediaURL
                     },
