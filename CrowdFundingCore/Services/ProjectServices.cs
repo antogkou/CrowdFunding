@@ -23,7 +23,7 @@ namespace CrowdFundingCore.Services
         }
 
 
-        public Result<Project> CreateProject(ProjectOptions projectoption, PledgeOptions pledgeOptions)
+        public Result<Project> CreateProject(ProjectOptions projectoption)
         {
             if (projectoption == null)
             {
@@ -31,11 +31,6 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null options");
             }
 
-            if (pledgeOptions == null)
-            {
-                return Result<Project>.CreateFailed(
-                    StatusCode.BadRequest, "Null options");
-            }
 
             if (string.IsNullOrWhiteSpace(projectoption.ProjectTitle))
             {
@@ -46,6 +41,16 @@ namespace CrowdFundingCore.Services
             //get username and userid from httpcontext
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrWhiteSpace(projectoption.MultimediaURL))
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty Multimedia URL");
+            }
+
+
+
+
             var project = new Project()
             {
                 UserId = userId,
@@ -56,7 +61,10 @@ namespace CrowdFundingCore.Services
                 ProjectEndingDate = projectoption.ProjectEndingDate,
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
-
+                //ProjectMultimedia = new List<Multimedia>
+                //{
+                //    multimedia
+                //},
                 //ProjectPledges = new List<Pledge>
                 //{
                 //    new Pledge
@@ -76,6 +84,14 @@ namespace CrowdFundingCore.Services
                 //    },
                 //},
 
+                ProjectMultimedia = new List<Multimedia>
+                {
+                    new Multimedia
+                    {
+                         
+                        MultimediaURL = projectoption.MultimediaURL
+                    },
+                },
                 ProjectPosts = new List<Post>
                 {
                     new Post
@@ -86,6 +102,7 @@ namespace CrowdFundingCore.Services
                     },
                 },
             };
+
             _db.Add(project);
             var rows = 0;
             try
@@ -108,6 +125,10 @@ namespace CrowdFundingCore.Services
             return Result<Project>.CreateSuccessful(project);
 
         }
+
+
+
+
 
         //Pledges list by project id
         public List<Pledge> GetPledgesByProjectId(int projectId)
@@ -283,12 +304,12 @@ namespace CrowdFundingCore.Services
             if (project.ProjectTargetAmount != 0)
                 project.ProjectTargetAmount = options.ProjectTargetAmount;
             //if (options.ProjectEndingDate != null)
-                project.ProjectEndingDate = options.ProjectEndingDate;
+            project.ProjectEndingDate = options.ProjectEndingDate;
 
-                project.IsActive = options.IsActive;
-                project.IsComplete = options.IsComplete;
+            project.IsActive = options.IsActive;
+            project.IsComplete = options.IsComplete;
 
-                project.ProjectProgress = project.ProjectCurrentAmount / project.ProjectTargetAmount;
+            project.ProjectProgress = project.ProjectCurrentAmount / project.ProjectTargetAmount;
             var rows = 0;
             try
             {

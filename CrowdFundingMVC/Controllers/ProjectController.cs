@@ -43,10 +43,11 @@ namespace CrowdFundingMVC.Controllers
 
         [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPost]
-        public IActionResult CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
+        //public IActionResult CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions, MultimediaOptions multimediaOptions)
+            public IActionResult CreateProject([FromBody] ProjectOptions projOpt)
         {
 
-            var result = _projMangr.CreateProject(projOpt, pledgeOptions);
+            var result = _projMangr.CreateProject(projOpt);
             if (!result.Success)
             {
                 return StatusCode((int)result.ErrorCode,

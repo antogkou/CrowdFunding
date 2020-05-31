@@ -12,6 +12,7 @@ function submitProjectToServer() {
         "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
         "ProjectCategory": $('#ProjectCategory').val(),
         "ProjectEndingDate": $('#ProjectEndingDate').val(),
+        "MultimediaURL": $('#MultimediaURL').val(),
 
         //"PledgeTitle": $('#PledgeTitle').val(),
         //"PledgeDescription": $('#PledgeDescription').val(),

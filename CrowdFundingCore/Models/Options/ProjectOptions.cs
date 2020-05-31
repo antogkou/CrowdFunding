@@ -18,5 +18,6 @@ namespace CrowdFundingCore.Models.Options
         public DateTime ProjectEndingDate { get; set; }
         public string UserId { get; set; }
         public string Creator { get; set; }
+        public string MultimediaURL { get; set; }
     }
 }

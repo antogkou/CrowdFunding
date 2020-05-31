@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingCore.Migrations
 {
-    public partial class saltsa : Migration
+    public partial class XDD : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -191,8 +191,7 @@ namespace CrowdFundingCore.Migrations
                     MultimediaId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectId = table.Column<int>(nullable: true),
-                    MultimediaURL = table.Column<string>(nullable: false),
-                    MultimediaType = table.Column<int>(nullable: false),
+                    MultimediaURL = table.Column<string>(maxLength: 255, nullable: false),
                     MultimediaDateCreated = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>
@@ -290,15 +289,15 @@ namespace CrowdFundingCore.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "baf32f01-5c25-4f59-91ee-96ef45438b60", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "22c1d78f-9686-412c-a47a-a19c91056e2f", "Backer", "BACKER" },
-                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "ea259a79-f938-4771-ba80-ce9b8ba94707", "Project Creator", "PROJECT CREATOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "f5d24ffc-7bf1-4a2b-a765-cf8cf4f4ceff", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "92bb8743-b810-44c2-982b-433f1e64044d", "Backer", "BACKER" },
+                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "3cfe8737-cbb1-43ab-a3da-d38abb6b3058", "Project Creator", "PROJECT CREATOR" }
                 });
 
             migrationBuilder.InsertData(
                 table: "MyUsers",
                 columns: new[] { "UserId", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserDateCreated", "UserName" },
-                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "290c9534-31b7-4a0f-a297-066f4139f49f", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEFpmN1oY/UwMqiUtwf/1KQ0nMTj06yNIuQG3laXxNOBwbfE2UgeSmdN3fdd95O0NAg==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 5, 30, 12, 58, 16, 712, DateTimeKind.Unspecified).AddTicks(3997), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com" });
+                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "60b0dd2c-e09b-47f3-b430-8c455a459cbb", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEGY6KsLsEvOyg6P2CNv1ojaqLXCYo79ETWNhv8A5Y8/wnAp5V74WupOCiAV8feq+Gw==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 5, 31, 19, 51, 0, 55, DateTimeKind.Unspecified).AddTicks(8992), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

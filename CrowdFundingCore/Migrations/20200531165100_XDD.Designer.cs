@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrowdFundingCore.Migrations
 {
     [DbContext(typeof(CrFrDbContext))]
-    [Migration("20200530095817_saltsa")]
-    partial class saltsa
+    [Migration("20200531165100_XDD")]
+    partial class XDD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,12 +52,10 @@ namespace CrowdFundingCore.Migrations
                     b.Property<DateTimeOffset>("MultimediaDateCreated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("MultimediaType")
-                        .HasColumnType("int");
-
                     b.Property<string>("MultimediaURL")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
@@ -144,18 +142,18 @@ namespace CrowdFundingCore.Migrations
                         {
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "290c9534-31b7-4a0f-a297-066f4139f49f",
+                            ConcurrencyStamp = "60b0dd2c-e09b-47f3-b430-8c455a459cbb",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFpmN1oY/UwMqiUtwf/1KQ0nMTj06yNIuQG3laXxNOBwbfE2UgeSmdN3fdd95O0NAg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGY6KsLsEvOyg6P2CNv1ojaqLXCYo79ETWNhv8A5Y8/wnAp5V74WupOCiAV8feq+Gw==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
                             TwoFactorEnabled = false,
-                            UserDateCreated = new DateTimeOffset(new DateTime(2020, 5, 30, 12, 58, 16, 712, DateTimeKind.Unspecified).AddTicks(3997), new TimeSpan(0, 3, 0, 0, 0)),
+                            UserDateCreated = new DateTimeOffset(new DateTime(2020, 5, 31, 19, 51, 0, 55, DateTimeKind.Unspecified).AddTicks(8992), new TimeSpan(0, 3, 0, 0, 0)),
                             UserName = "admin@admin.com"
                         });
                 });
@@ -314,21 +312,21 @@ namespace CrowdFundingCore.Migrations
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "baf32f01-5c25-4f59-91ee-96ef45438b60",
+                            ConcurrencyStamp = "f5d24ffc-7bf1-4a2b-a765-cf8cf4f4ceff",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "22c1d78f-9686-412c-a47a-a19c91056e2f",
+                            ConcurrencyStamp = "92bb8743-b810-44c2-982b-433f1e64044d",
                             Name = "Backer",
                             NormalizedName = "BACKER"
                         },
                         new
                         {
                             Id = "78A7570F-3CE5-48BA-9461-80283ED1D94D",
-                            ConcurrencyStamp = "ea259a79-f938-4771-ba80-ce9b8ba94707",
+                            ConcurrencyStamp = "3cfe8737-cbb1-43ab-a3da-d38abb6b3058",
                             Name = "Project Creator",
                             NormalizedName = "PROJECT CREATOR"
                         });
