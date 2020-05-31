@@ -7,7 +7,7 @@ namespace CrowdFundingCore.Models.Options
 {
     public class MultimediaOptions
     {
-        //public MultimediaTypes MediaTypes { get; set; }
+        public MultimediaTypes MediaTypes { get; set; }
         public string MultimediaURL { get; set; }
         public int MultimediaId { get; set; }
     }
