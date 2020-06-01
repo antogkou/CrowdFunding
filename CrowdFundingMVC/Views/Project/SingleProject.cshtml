@@ -39,13 +39,18 @@
     <div class="col-sm-8 mx-auto text-center">
         <div class="well">
             @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
-       
+
+
+            @*
+        @foreach (var multimedia in Model.ProjectMultimedia.ToList())
+        {
+            <img src="@multimedia.MultimediaURL" style="width:25%" class="img-responsive" />
             
-            @foreach (var multimedia in Model.ProjectMultimedia.ToList())
-            {
-                <img src="@multimedia.MultimediaURL" style="width:25%" class="img-responsive" />
-                @*<div>@Model.Multimedia.MultimediaURL.ToString()</div>*@
             }
+
+            *@
+
+            <img src="@Model.ProjectMultimedia.LastOrDefault().ProjectPhotoProfile" style="width:75%" class="img-responsive"/>
 
             <h5><label>created by:</label> @Model.Project.ProjectCreator</h5>
             <h5><label>Our goal is:</label> @(Model.Project.ProjectTargetAmount.ToString("0.##"))<label>€</label></h5>

@@ -32,5 +32,11 @@ namespace CrowdFundingCore.Services
                 .Where(p => p.Project.ProjectId == projectId)
                 .ToList();
         }
+
+        public List<Multimedia> GetAll()
+        {
+           var multi = _db.Set<Multimedia>().ToList();
+            return multi;
+        }
     }
 }
