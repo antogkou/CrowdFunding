@@ -51,6 +51,7 @@ namespace CrowdFundingMVC
             services.AddScoped<IProjectServices, ProjectServices>();
             services.AddScoped<IPledgeServices, PledgeServices>();
             services.AddScoped<IPostServices, PostServices>();
+            services.AddScoped<IMultimediaServices, MultimediaServices>();
             //services.AddTransient<IProjectManager, ProjectManagement>();
 
             services.AddCors(options =>

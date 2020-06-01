@@ -44,20 +44,20 @@
 
 
             @*<select asp-for="ProjectCategory" asp-items="Html.GetEnumSelectList<ProjectCategory>()">
-                    <option selected="selected" value="">Please select</option>
-                </select>*@
+            <option selected="selected" value="">Please select</option>
+        </select>*@
 
             @*<select name="ProjectCategory" class="form-control col col-md-4">
-                    @{
-                        var categories = Enum.GetValues(
-                            typeof(CrowdFundingCore.Models.ProjectCategory))
-                            .Cast< CrowdFundingCore.Models.ProjectCategory>();
+            @{
+                var categories = Enum.GetValues(
+                    typeof(CrowdFundingCore.Models.ProjectCategory))
+                    .Cast< CrowdFundingCore.Models.ProjectCategory>();
 
-                        foreach (var category in categories) {
-                            <option value="@category">@category</option>
-                        }
-                    }
-                </select>*@
+                foreach (var category in categories) {
+                    <option value="@category">@category</option>
+                }
+            }
+        </select>*@
 
             <div class="form-group">
                 <label asp-for="@Model.ProjectCategory" class="control-label">Category</label>
@@ -72,6 +72,40 @@
                }, "Select Category")
                 </div>
             </div>
+
+
+            <h4 class="col-md-12 text-info text-center font-weight-bold p-2">
+                Add Media:
+            </h4>
+
+
+            <div class="row">
+                <label>Project Profile Photo</label>
+                <input name="ProjectPhotoProfile" type="text" class="form-control col-md-10" placeholder="Project profile photo..." id="ProjectPhotoProfile" />
+            </div>
+
+            <div class="row">
+                <select name="MediaType" class="form-control col-md-2" id="MultimediaTypes">
+                    @{
+                        var mediatypes = Enum.GetValues(
+                            typeof(CrowdFundingCore.Models.MultimediaTypes))
+                            .Cast<CrowdFundingCore.Models.MultimediaTypes>();
+
+                        foreach (var type in mediatypes)
+                        {
+                            <option value="@type">@type</option>
+                        }
+                    }
+                </select>
+                <input name="MediaURL" type="text" class="form-control col-md-10" placeholder="Media URL..." id="MultimediaURL"/>
+            </div>
+
+
+
+
+
+
+
 
             <div class="col col-md-12 d-flex justify-content-end pr-0">
                 <input type="button" onclick="submitProjectToServer()" value="Submit">

@@ -14,7 +14,7 @@ namespace CrowdFundingCore.Database
 
         public readonly static string connectionString =
             "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123;MultipleActiveResultSets=true";
- 
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -98,7 +98,8 @@ namespace CrowdFundingCore.Database
             modelBuilder
                 .Entity<Multimedia>()
                 .Property(m => m.MultimediaURL)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(255);
 
             // Create Pledge table
             modelBuilder

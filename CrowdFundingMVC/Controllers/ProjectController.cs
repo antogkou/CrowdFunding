@@ -20,15 +20,17 @@ namespace CrowdFundingMVC.Controllers
         private IProjectServices _projMangr;
         private IPledgeServices _pledges;
         private IPostServices _postservices;
+        private IMultimediaServices _multimediaServices;
         private readonly CrFrDbContext _db;
         private readonly IHttpContextAccessor httpContextAccessor;
 
         public ProjectController(IProjectServices projMangr, CrFrDbContext db, IHttpContextAccessor _httpContextAccessor,
-            IPledgeServices pledges, IPostServices postservices)
+            IPledgeServices pledges, IPostServices postservices, IMultimediaServices multimediaServices)
         {
             _projMangr = projMangr;
             _pledges = pledges;
             _postservices = postservices;
+            _multimediaServices = multimediaServices;
             _db = db;
             httpContextAccessor = _httpContextAccessor;
         }
@@ -43,10 +45,11 @@ namespace CrowdFundingMVC.Controllers
 
         [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPost]
-        public IActionResult CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions)
+        //public IActionResult CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions, MultimediaOptions multimediaOptions)
+            public IActionResult CreateProject([FromBody] ProjectOptions projOpt)
         {
 
-            var result = _projMangr.CreateProject(projOpt, pledgeOptions);
+            var result = _projMangr.CreateProject(projOpt);
             if (!result.Success)
             {
                 return StatusCode((int)result.ErrorCode,
@@ -79,13 +82,14 @@ namespace CrowdFundingMVC.Controllers
                 projects = projects.Where(x => x.ProjectCategory == projectCategory);
             }
 
-            var projectCategoryVM = new ProjectCategoryViewModel
+            var viewallprojects = new ProjectsGridVM
             {
                 Categories = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Projects = await projects.ToListAsync()
+                Projects = await projects.ToListAsync(),
+                ProjectMultimedia = _multimediaServices.GetAll()
             };
 
-            return View(projectCategoryVM);
+            return View(viewallprojects);
         }
 
         [Authorize(Roles = "Administrator, Backer, Project Creator")]
@@ -104,7 +108,8 @@ namespace CrowdFundingMVC.Controllers
             {
                 Project = _projMangr.FindProjectById((int)id),
                 Posts = _postservices.GetAllPosts((int)id),
-                Pledges = _pledges.GetPledgesByProjectId((int)id)
+                Pledges = _pledges.GetPledgesByProjectId((int)id),
+                ProjectMultimedia = _multimediaServices.GetMultimediaOfProject((int)id),
             };
 
             return View(singleproject);  // will automatically look in the views folder
@@ -245,12 +250,15 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult GetMyProjects()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             var myprojectList = _db.Set<Project>()
                 .Where(s => s.UserId == userId)
                 .ToList();
-
-            return View(myprojectList);
+            var myprojects = new ProjectsGridVM
+            {
+                Projects = myprojectList,
+                ProjectMultimedia = _multimediaServices.GetAll()
+            };
+            return View(myprojects);
         }
 
         //Get backed user's projects View
@@ -266,7 +274,13 @@ namespace CrowdFundingMVC.Controllers
                 .Select(p => p.Project)
                 .Distinct();
 
-            return View(projects);
+            var mybackedprojects = new ProjectsGridVM
+            {
+                Projects = projects.ToList(),
+                ProjectMultimedia = _multimediaServices.GetAll()
+            };
+
+            return View(mybackedprojects);
         }
 
         [AllowAnonymous]
@@ -274,10 +288,16 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult GetTrendingProjects()
         {
 
-            var trendingprojects = _db.Set<Project>()
+            var projects = _db.Set<Project>()
                 .Where(s => s.ProjectProgress > 0.35m)
                 .Where(s => s.IsActive == true)
                 .ToList();
+
+            var trendingprojects = new ProjectsGridVM
+            {
+                Projects = projects,
+                ProjectMultimedia = _multimediaServices.GetAll()
+            };
 
             return View(trendingprojects);
         }

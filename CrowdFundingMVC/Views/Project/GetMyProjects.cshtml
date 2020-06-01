@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CrowdFundingCore.Models.Project>
+﻿@model CrowdFundingMVC.ViewModels.ProjectsGridVM
 @{
     ViewData["Title"] = "GetMyProjects";
 }
@@ -9,15 +9,17 @@
 
 <div class="container">
     <div class="row">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Projects)
         {
             string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");
             var progress = Math.Round((item.ProjectCurrentAmount * 100) / item.ProjectTargetAmount, 2).ToString(System.Globalization.CultureInfo.InvariantCulture);
-            <div class="card" style="width: 18rem;">
+            var multi = item.ProjectMultimedia.LastOrDefault();
+            var multiURL = multi.ProjectPhotoProfile;
 
-                <img class="card-img-top" 
-                     src="/img/coverproject.png"
-                     alt="Card image cap">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top img-fluid"
+                     src="@multiURL"
+                     alt="">
                 <div class="card-body">
                     <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>

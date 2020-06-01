@@ -12,14 +12,13 @@ function submitProjectToServer() {
         "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
         "ProjectCategory": $('#ProjectCategory').val(),
         "ProjectEndingDate": $('#ProjectEndingDate').val(),
+        "MultimediaURL": $('#MultimediaURL').val(),
+        "MultimediaTypes": $('#MultimediaTypes').val(),
+        "ProjectPhotoProfile": $('#ProjectPhotoProfile').val()
 
-        //"PledgeTitle": $('#PledgeTitle').val(),
-        //"PledgeDescription": $('#PledgeDescription').val(),
-        //"PledgePrice": $('#PledgePrice').val(),
-        //"PledgeReward": $('#PledgeReward').val(),
     }
 
-    //alert(JSON.stringify(sendData))
+
 
     $.ajax({
         url: actionUrl,

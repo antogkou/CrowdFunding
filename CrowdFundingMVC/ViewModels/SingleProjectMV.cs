@@ -10,5 +10,8 @@ namespace CrowdFundingMVC.ViewModels
         public List<Post> Posts { get; set; }
         public List<Pledge> Pledges { get; set; }
         public Pledge Pledge { get; set; }
+        public List<Multimedia> ProjectMultimedia{ get; set; }
+        public Multimedia Multimedia { get; set; }
+
     }
 }
