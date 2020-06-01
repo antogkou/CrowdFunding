@@ -7,9 +7,10 @@
     <title>@ViewData["Title"] - CrowdFundingMVC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+   
 
 </head>
-<body>
+<body style="background-color:whitesmoke;">
     <div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Crowdfunding App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,10 +22,10 @@
                     <a class="nav-link text-white active" asp-area="" asp-controller="Project" asp-action="CreateProject">Create Project</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetAllProjects">View Projects</a>
+                    <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetAllProjects">View All Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetMyProjects">My Projects</a>
+                    <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetMyProjects">My Created Projects</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetTrendingProjects">Trending Projects</a>
@@ -86,7 +87,11 @@
     <footer class="border-top footer text-muted navbar-dark bg-dark">
         <div class="container text-center py-3 text-white">
             &copy; 2020 -<a asp-area="" asp-controller="Home" asp-action="Index">Crowdfunding App</a>
+            <a href="https://github.com/codehub-learn/dotnet-skg-team5" class="btn btn-outline-primary">
+                <span class="fab fa-github mr-2"></span>
+                #team5 GitHub</a>
         </div>
+        
     </footer>
 
 

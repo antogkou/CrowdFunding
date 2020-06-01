@@ -104,3 +104,16 @@ body {
     position: relative;
     z-index: -1;
 }
+
+#projphotoprof-id {
+    background: cadetblue;
+}
+
+.box {
+    position: relative;
+}
+.created_by {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

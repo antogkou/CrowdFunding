@@ -1,9 +1,19 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<CrowdFundingCore.Models.MyUsers> UserManager
+
 @{
     ViewData["Title"] = "CreatePost";
 }
 
 <h1>Post view</h1>
+
+<div>
+    
+        <input type="text" class="form-control" placeholder="Title" id="PostTitle">
+        <input type="text" class="form-control" placeholder="What's on your mind?" id="PostDescription">
+        <input type="button" class="btn btn-dark" onclick="submitPostToServer(@Model.Project.ProjectId)" value="Post">
+    
+</div>
 
 <input type="text" class="form-control" placeholder="Description" id="PostExcerpt">
 <input type="button" onclick="submitPostToServer()" value="Submit Post">

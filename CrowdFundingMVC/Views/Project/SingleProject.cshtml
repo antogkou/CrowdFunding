@@ -2,15 +2,9 @@
 @using Microsoft.AspNetCore.Identity
 @using CrowdFundingCore.Models
 @inject UserManager<CrowdFundingCore.Models.MyUsers> UserManager
-
-<div class="text-center" id="@Model.Project.ProjectId">
-    <h1>@Model.Project.ProjectTitle</h1>
-</div>
-<script type="text/javascript">
-    function myFunc("@Model.Project.ProjectId") {
-        alert("@Model.Project.ProjectId");
-    }
-</script>
+@*<div class="text-center" id="@Model.Project.ProjectId">
+        <h1>@Model.Project.ProjectTitle</h1>
+    </div>*@
 
 @{
     var posts = Model.Project.ProjectPosts.OrderByDescending(p => p.PostDateCreated).ToList();
@@ -20,44 +14,32 @@
 }
 
 
-<div class="grid-row pt7-lg mt3 mt0-lg mb6-lg order2-md order1-lg text-center">
-    <div class="grid-col-12">
-        <div class="grid-row hide-md flex flex-column flex-row-md relative">
-            <div class="grid-col-12 grid-col-2-md flex items-center mb3">
-            </div>
-            <div class="grid-col-12">
-                <p class="type-14 type-18-md soft-black project-description mb1">@Html.Raw(Model.Project.ProjectDescription)</p>
-            </div><div class="grid-col-12">
-
-            </div>
-        </div>
+<div id="projphotoprof-id" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 font-weight-normal">@Model.Project.ProjectTitle</h1>
+        <p class="lead font-weight-normal">@Model.Project.ProjectDescription</p>
+        <h5>
+            <label>started by: @Model.Project.ProjectCreator</label>
+        </h5>
+        <h5>
+            <label created_by>created at: @Model.Project.ProjectCreationDate.Date</label>
+        </h5>
     </div>
+    @*<div class="product-device shadow-sm d-none d-md-block"></div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>*@
 </div>
 
-<div class="container-fluid" style="background-color:lavender;">
 
+<div class="container-fluid">
     <div class="col-sm-8 mx-auto text-center">
         <div class="well">
-            @*<img src="https://www.publichealthnotes.com/wp-content/uploads/2020/03/project-planning-header@2x.png" style="width:25%" class="img-responsive" />*@
-
-
-            @*
-        @foreach (var multimedia in Model.ProjectMultimedia.ToList())
-        {
-            <img src="@multimedia.MultimediaURL" style="width:25%" class="img-responsive" />
-            
-            }
-
-            *@
-
-            <img src="@Model.ProjectMultimedia.LastOrDefault().ProjectPhotoProfile" style="width:75%" class="img-responsive"/>
-
-            <h5><label>created by:</label> @Model.Project.ProjectCreator</h5>
-            <h5><label>Our goal is:</label> @(Model.Project.ProjectTargetAmount.ToString("0.##"))<label>€</label></h5>
+            <img src="@Model.ProjectMultimedia.LastOrDefault().ProjectPhotoProfile" style="width:75%" class="img-responsive" />
+            <h5 class="created_by"><label>created by:</label> @Model.Project.ProjectCreator</h5>
+            <h5><label>@Model.Project.ProjectCurrentAmount / </label> @(Model.Project.ProjectTargetAmount.ToString("0.##"))<label>€</label></h5>
         </div>
     </div>
 
-    <div class="text-center">@progress% funded</div>
+    @*<div class="text-center">@progress% funded</div>
     <div class="progress bg-warning" style="height: 35px;">
         <div class="progress-bar-striped bg-danger"
              role="progressbar"
@@ -65,6 +47,16 @@
              aria-valuemin="0"
              aria-valuemax="100"
              style="width:@progress%">
+        </div>
+    </div>*@
+    
+    <div class="progress" style="height: 35px;" >
+        <div class="progress-bar progress-bar-striped bg-success"
+             role="progressbar"
+             style="width: @progress%"
+             aria-valuenow="@progress"
+             aria-valuemin="0"
+             aria-valuemax="100">@progress%
         </div>
     </div>
 
@@ -80,7 +72,9 @@
                     <h1 class="card-title pricing-card-title"><ccc title="$0" class="ccc--converted" style="font-size: inherit; display: inline; color: inherit; --darkreader-inline-color: inherit;" data-darkreader-inline-color="">@Html.DisplayFor(modelItem => item.PledgePrice)</ccc> </h1>
                     <ul class="list-unstyled mt-3 mb-4">
                         <li>@Html.DisplayFor(modelItem => item.PledgeDescription)</li>
+
                         <li>You get a reward for being cool!</li>
+
                         <li>@Html.DisplayFor(modelItem => item.PledgeReward)</li>
                     </ul>
 
@@ -91,30 +85,21 @@
                 </div>
             </div>
         }
-
     </div>
 
 
     @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
     {
-        <div>
-            @*<a href="@Url.Action("CreatePledges", new { id = @Model.Project.ProjectId })" class="btn btn-primary btn-lg"
-                id="GoToCreatePledges"
-                style="margin:auto; text-align:center; display:block; width:50%">Add Pledge</a>*@
+        <div class="position-relative overflow-hidden p-3 p-md-2 m-md-3 text-center">
             <button type="button" class="btn btn-primary btn-lg" onclick="addPledge(@Model.Project.ProjectId)">Add Pledge</button>
         </div>
-
     }
 
-
-
-
-
 </div>
-<div>
+
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
     @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
     {
-
         <input type="text" class="form-control" placeholder="Title" id="PostTitle">
         <input type="text" class="form-control" placeholder="What's on your mind?" id="PostDescription">
         <input type="button" class="btn btn-dark" onclick="submitPostToServer(@Model.Project.ProjectId)" value="Post">
@@ -123,12 +108,38 @@
 
 
 @*List of Posts*@
-<ul class="bg-grey-100 border border-grey-400 p2 mb3">
 
+
+<div class="my-3 p-3 bg-white rounded box-shadow">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
     @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
     {
-        <div class="border-box relative break-word border border-grey-400 px3 pt3 pb2 o100p transition-all transition-delay-1000 bg-grey-100">
+        <div class="media text-muted pt-3">
+            <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1726ff2275c%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1726ff2275c%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2211.5390625%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <strong class="d-block text-gray-dark">@Model.Project.ProjectCreator</strong>
+                @Html.DisplayFor(modelItem => item.PostDescription)
+            </p>
+            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+            {
+                <small class="d-block text-right mt-3">
+                    <a href="#">Edit</a>
+                </small>
+                <small class="d-block text-right mt-3">
+                    <a href="#">Delete</a>
+                </small>
+            }
         </div>
+    }
+
+</div>
+
+@*<ul class="bg-grey-100 border border-grey-400 p2 mb3">
+
+        @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
+        {
+            <div class="border-box relative break-word border border-grey-400 px3 pt3 pb2 o100p transition-all transition-delay-1000 bg-grey-100">
+            </div>
 
             <div class="w100p">
                 <p class="type-14 mb0" style="font-weight:bold"> @Html.DisplayFor(modelItem => item.PostDateCreated)</p>
@@ -140,8 +151,8 @@
                     <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
                 }
             </div>
-    }
-</ul>
+        }
+    </ul>*@
 
 @*<table class="table" name="Posts Table">
         <thead>

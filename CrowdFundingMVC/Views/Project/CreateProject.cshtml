@@ -43,11 +43,11 @@
             </div>
 
 
-            @*<select asp-for="ProjectCategory" asp-items="Html.GetEnumSelectList<ProjectCategory>()">
+            <select asp-for="ProjectCategory" asp-items="Html.GetEnumSelectList<ProjectCategory>()">
             <option selected="selected" value="">Please select</option>
-        </select>*@
+        </select>
 
-            @*<select name="ProjectCategory" class="form-control col col-md-4">
+            <select name="ProjectCategory" class="form-control col col-md-4">
             @{
                 var categories = Enum.GetValues(
                     typeof(CrowdFundingCore.Models.ProjectCategory))
@@ -57,9 +57,9 @@
                     <option value="@category">@category</option>
                 }
             }
-        </select>*@
+        </select>
 
-            <div class="form-group">
+             @*<div class="form-group">
                 <label asp-for="@Model.ProjectCategory" class="control-label">Category</label>
                 <div>
                     @Html.DropDownList("ProjectCategory", new List<SelectListItem>
@@ -71,7 +71,7 @@
                    new SelectListItem { Text = "Art", Value = "Art"}
                }, "Select Category")
                 </div>
-            </div>
+            </div>*@
 
 
             <h4 class="col-md-12 text-info text-center font-weight-bold p-2">
@@ -100,15 +100,8 @@
                 <input name="MediaURL" type="text" class="form-control col-md-10" placeholder="Media URL..." id="MultimediaURL"/>
             </div>
 
-
-
-
-
-
-
-
             <div class="col col-md-12 d-flex justify-content-end pr-0">
-                <input type="button" onclick="submitProjectToServer()" value="Submit">
+                <input type="button" class="btn btn-primary" onclick="submitProjectToServer()" value="Submit">
             </div>
 
         </form>
