@@ -43,35 +43,53 @@
             </div>
 
 
-            <select asp-for="ProjectCategory" asp-items="Html.GetEnumSelectList<ProjectCategory>()">
-            <option selected="selected" value="">Please select</option>
-        </select>
+            @*<select asp-for="ProjectCategory" asp-items="Html.GetEnumSelectList<ProjectCategory>()" required>
+                <option selected="selected" value="">Please select</option>
+            </select>*@
 
-            <select name="ProjectCategory" class="form-control col col-md-4">
-            @{
-                var categories = Enum.GetValues(
-                    typeof(CrowdFundingCore.Models.ProjectCategory))
-                    .Cast< CrowdFundingCore.Models.ProjectCategory>();
+            @*<select name="ProjectCategory" class="form-control col col-md-4">
+                @{
+                    var categories = Enum.GetValues(
+                        typeof(CrowdFundingCore.Models.ProjectCategory))
+                        .Cast<CrowdFundingCore.Models.ProjectCategory>();
 
-                foreach (var category in categories) {
-                    <option value="@category">@category</option>
+                    foreach (var category in categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
                 }
-            }
-        </select>
+            </select>*@
+            
+            <div class="form-group">
+                <label asp-for="@Model.ProjectCategory" class="control-label"></label>
+                <select class="form-control" id="ProjectCategory">
+                    @{
+                        var categories = Enum.GetValues(
+                            typeof(CrowdFundingCore.Models.ProjectCategory))
+                            .Cast<CrowdFundingCore.Models.ProjectCategory>();
+                        @*<option value="@Model.ProjectCategory.ToString()" selected>@Model.ProjectCategory.ToString()</option>*@
+                        foreach (var category in categories)
+                        {
+                            <option  value="@category">@category</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="@Model.ProjectCategory" class="text-danger"></span>
+            </div>
 
-             @*<div class="form-group">
-                <label asp-for="@Model.ProjectCategory" class="control-label">Category</label>
-                <div>
-                    @Html.DropDownList("ProjectCategory", new List<SelectListItem>
-               {
-                   new SelectListItem { Text = "Sport", Value = "Sport", Selected=true},
-                   new SelectListItem { Text = "History", Value = "History"},
-                   new SelectListItem { Text = "Technology", Value = "Technology"},
-                   new SelectListItem { Text = "Pourgoutzidou", Value = "Pourgoutzidou"},
-                   new SelectListItem { Text = "Art", Value = "Art"}
-               }, "Select Category")
-                </div>
-            </div>*@
+            @*<div class="form-group">
+                    <label asp-for="@Model.ProjectCategory" class="control-label">Category</label>
+                    <div>
+                        @Html.DropDownList("ProjectCategory", new List<SelectListItem>
+                   {
+                       new SelectListItem { Text = "Sport", Value = "Sport", Selected=true},
+                       new SelectListItem { Text = "History", Value = "History"},
+                       new SelectListItem { Text = "Technology", Value = "Technology"},
+                       new SelectListItem { Text = "Pourgoutzidou", Value = "Pourgoutzidou"},
+                       new SelectListItem { Text = "Art", Value = "Art"}
+                   }, "Select Category")
+                    </div>
+                </div>*@
 
 
             <h4 class="col-md-12 text-info text-center font-weight-bold p-2">
@@ -97,7 +115,7 @@
                         }
                     }
                 </select>
-                <input name="MediaURL" type="text" class="form-control col-md-10" placeholder="Media URL..." id="MultimediaURL"/>
+                <input name="MediaURL" type="text" class="form-control col-md-10" placeholder="Media URL..." id="MultimediaURL" />
             </div>
 
             <div class="col col-md-12 d-flex justify-content-end pr-0">

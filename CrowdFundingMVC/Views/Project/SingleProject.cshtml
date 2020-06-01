@@ -1,10 +1,7 @@
 ﻿@model CrowdFundingMVC.ViewModels.SingleProjectMV
 @using Microsoft.AspNetCore.Identity
-@using CrowdFundingCore.Models
 @inject UserManager<CrowdFundingCore.Models.MyUsers> UserManager
-@*<div class="text-center" id="@Model.Project.ProjectId">
-        <h1>@Model.Project.ProjectTitle</h1>
-    </div>*@
+
 
 @{
     var posts = Model.Project.ProjectPosts.OrderByDescending(p => p.PostDateCreated).ToList();
@@ -22,7 +19,7 @@
             <label>started by: @Model.Project.ProjectCreator</label>
         </h5>
         <h5>
-            <label created_by>created at: @Model.Project.ProjectCreationDate.Date</label>
+            <label created_by>created at: @Model.Project.ProjectCreationDate</label>
         </h5>
     </div>
     @*<div class="product-device shadow-sm d-none d-md-block"></div>
@@ -34,7 +31,6 @@
     <div class="col-sm-8 mx-auto text-center">
         <div class="well">
             <img src="@Model.ProjectMultimedia.LastOrDefault().ProjectPhotoProfile" style="width:75%" class="img-responsive" />
-            <h5 class="created_by"><label>created by:</label> @Model.Project.ProjectCreator</h5>
             <h5><label>@Model.Project.ProjectCurrentAmount / </label> @(Model.Project.ProjectTargetAmount.ToString("0.##"))<label>€</label></h5>
         </div>
     </div>

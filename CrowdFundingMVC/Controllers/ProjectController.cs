@@ -102,14 +102,14 @@ namespace CrowdFundingMVC.Controllers
         //Single Project View (with posts, TODO pledges/multimedia)
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult SingleProject(int? id)
+        public IActionResult SingleProject(int id)
         {
             SingleProjectMV singleproject = new SingleProjectMV
             {
-                Project = _projMangr.FindProjectById((int)id),
-                Posts = _postservices.GetAllPosts((int)id),
-                Pledges = _pledges.GetPledgesByProjectId((int)id),
-                ProjectMultimedia = _multimediaServices.GetMultimediaOfProject((int)id),
+                Project = _projMangr.FindProjectById(id),
+                Posts = _postservices.GetAllPosts(id),
+                Pledges = _pledges.GetPledgesByProjectId(id),
+                ProjectMultimedia = _multimediaServices.GetMultimediaOfProject(id),
             };
 
             return View(singleproject);  // will automatically look in the views folder
