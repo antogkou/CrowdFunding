@@ -4,9 +4,6 @@
 
 
 @{
-    var posts = Model.Project.ProjectPosts.OrderByDescending(p => p.PostDateCreated).ToList();
-    var pledges = Model.Project.ProjectPledges.ToList();
-
     var progress = Math.Round((Model.Project.ProjectCurrentAmount * 100) / Model.Project.ProjectTargetAmount, 2).ToString(System.Globalization.CultureInfo.InvariantCulture);
 }
 
@@ -22,37 +19,26 @@
             <label created_by>created at: @Model.Project.ProjectCreationDate</label>
         </h5>
     </div>
-    @*<div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>*@
 </div>
 
 
 <div class="container-fluid">
     <div class="col-sm-8 mx-auto text-center">
         <div class="well">
-            <img src="@Model.ProjectMultimedia.LastOrDefault().ProjectPhotoProfile" style="width:75%" class="img-responsive" />
+            @*ERROR WHEN CREATING A URL WITHOUT HTTP:// (NULL)*@
+            <img src="@Url.Content(Model.ProjectMultimedia.Last().ProjectPhotoProfile)" style="width: 75%" class="img-responsive" />
             <h5><label>@Model.Project.ProjectCurrentAmount / </label> @(Model.Project.ProjectTargetAmount.ToString("0.##"))<label>€</label></h5>
         </div>
     </div>
 
-    @*<div class="text-center">@progress% funded</div>
-    <div class="progress bg-warning" style="height: 35px;">
-        <div class="progress-bar-striped bg-danger"
-             role="progressbar"
-             aria-valuenow="@progress"
-             aria-valuemin="0"
-             aria-valuemax="100"
-             style="width:@progress%">
-        </div>
-    </div>*@
-    
-    <div class="progress" style="height: 35px;" >
+    <div class="progress" style="height: 35px;">
         <div class="progress-bar progress-bar-striped bg-success"
              role="progressbar"
              style="width: @progress%"
              aria-valuenow="@progress"
              aria-valuemin="0"
-             aria-valuemax="100">@progress%
+             aria-valuemax="100">
+            @progress%
         </div>
     </div>
 
@@ -76,7 +62,6 @@
 
                     <button type="button" class="btn btn-primary btn-lg" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Get Pledge</button>
                     <p></p>
-                    @*<a href="@Url.Action("EditPledge", new { pledgeId = item.PledgeId})" class="btn btn-lg btn-block btn-warning" id="EditPledge">Edit Pledge</a>*@
                     <button type="button" class="btn btn-warning btn-lg" onclick="editPledge(@Model.Project.ProjectId , @item.PledgeId)">Edit Pledge</button>
                 </div>
             </div>
@@ -90,7 +75,6 @@
             <button type="button" class="btn btn-primary btn-lg" onclick="addPledge(@Model.Project.ProjectId)">Add Pledge</button>
         </div>
     }
-
 </div>
 
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
@@ -100,12 +84,11 @@
         <input type="text" class="form-control" placeholder="What's on your mind?" id="PostDescription">
         <input type="button" class="btn btn-dark" onclick="submitPostToServer(@Model.Project.ProjectId)" value="Post">
     }
+
 </div>
 
 
 @*List of Posts*@
-
-
 <div class="my-3 p-3 bg-white rounded box-shadow">
     <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
     @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
@@ -125,71 +108,8 @@
                     <a href="#">Delete</a>
                 </small>
             }
+
         </div>
     }
-
 </div>
 
-@*<ul class="bg-grey-100 border border-grey-400 p2 mb3">
-
-        @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
-        {
-            <div class="border-box relative break-word border border-grey-400 px3 pt3 pb2 o100p transition-all transition-delay-1000 bg-grey-100">
-            </div>
-
-            <div class="w100p">
-                <p class="type-14 mb0" style="font-weight:bold"> @Html.DisplayFor(modelItem => item.PostDateCreated)</p>
-                <p class="type-14 mb2">@Html.DisplayFor(modelItem => item.PostTitle)</p>
-                <p class="type-14 mb0">@Html.DisplayFor(modelItem => item.PostDescription)</p>
-                @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-                {
-                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-                }
-            </div>
-        }
-    </ul>*@
-
-@*<table class="table" name="Posts Table">
-        <thead>
-            <tr>
-                <th>
-                    <label>Post Title</label>
-                </th>
-                <th>
-                    <label>Post Description</label>
-                </th>
-                <th>
-                    <label>Post Date Created</label>
-                </th>
-                <th>
-                    <label>Post Id</label>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Posts)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostDateCreated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostId)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                        <a asp-action="SinglePost" asp-route-id="@item.PostId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@

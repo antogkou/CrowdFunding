@@ -38,7 +38,6 @@ function submitProjectToServer() {
     });
 }
 
-
 function submitPledgeToServer(projectId) {
 
     actionMethod = "POST"
@@ -194,9 +193,6 @@ function doUpdateProject(projectId) {
 
 
 }
-
-
-
 
 function addPledge(projectId) {
     window.open("/Project/SingleProject/" + projectId + "/AddPledge/" , "_self");

@@ -99,7 +99,7 @@ namespace CrowdFundingMVC.Controllers
             return "From [HttpPost]Index: filter on " + searchString;
         }
 
-        //Single Project View (with posts, TODO pledges/multimedia)
+        //Single Project View
         [AllowAnonymous]
         [HttpGet]
         public IActionResult SingleProject(int id)
@@ -112,7 +112,7 @@ namespace CrowdFundingMVC.Controllers
                 ProjectMultimedia = _multimediaServices.GetMultimediaOfProject(id),
             };
 
-            return View(singleproject);  // will automatically look in the views folder
+            return View(singleproject);
         }
 
         [Authorize(Roles = "Administrator, Project Creator")]
@@ -138,29 +138,6 @@ namespace CrowdFundingMVC.Controllers
             }
             
 
-            // .AddPledge
-
-
-
-            //if (new SingleProjectMV
-            //{
-            //    Project = _projMangr.FindProjectById(id.Value),
-            //    Pledges = _pledges.GetPledgesByProjectId((int)id)
-            //}.Project != null)
-            //{
-            //    if (new SingleProjectMV
-            //    {
-            //        Project = _projMangr.FindProjectById((int)id),
-            //        Pledges = _pledges.GetPledgesByProjectId((int)id)
-            //    }.Project.UserId == userId)
-            //    {
-            //        return View(new SingleProjectMV
-            //        {
-            //            Project = _projMangr.FindProjectById((int)id),
-            //            Pledges = _pledges.GetPledgesByProjectId((int)id)
-            //        });
-            //    }
-            //}
             return NotFound(); //404
         }
 

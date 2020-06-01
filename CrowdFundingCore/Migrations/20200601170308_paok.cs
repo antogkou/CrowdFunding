@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingCore.Migrations
 {
-    public partial class initial : Migration
+    public partial class paok : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -291,15 +291,15 @@ namespace CrowdFundingCore.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "f4e068aa-8a4a-4fd1-9734-f39bf1dcd29f", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "26b81901-de15-4249-948f-07d5a497abfa", "Backer", "BACKER" },
-                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "374acca2-54b6-462f-ae91-a3460f37be4b", "Project Creator", "PROJECT CREATOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "59354ade-8aee-41d6-9022-7fe0f100947f", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "b49ea6e3-7c48-4d87-8c11-ca9eb68dfa71", "Backer", "BACKER" },
+                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "04f4216a-7044-4fbf-98a2-1775e2605b08", "Project Creator", "PROJECT CREATOR" }
                 });
 
             migrationBuilder.InsertData(
                 table: "MyUsers",
                 columns: new[] { "UserId", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserDateCreated", "UserName" },
-                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "0edd9395-064a-4c95-92be-c6bcbfc66044", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOCtjQVfNxUk4E/7hSEXqqJeTpcrq/bQAaGolYSNDl09w8l7mOZXirnLyp0Xm7YR2g==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 6, 1, 14, 24, 57, 724, DateTimeKind.Unspecified).AddTicks(9257), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com" });
+                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "08e4441f-0c93-4c78-a663-86caab9ccf79", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEPIevRywbxFxHjPsFWd7nQZ/NtzNdiVNCIsGNM7btuB5ktnM22HGnFpps9eU5jdniA==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 6, 1, 20, 3, 8, 151, DateTimeKind.Unspecified).AddTicks(2236), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
