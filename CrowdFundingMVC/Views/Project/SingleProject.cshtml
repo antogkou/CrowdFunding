@@ -102,7 +102,7 @@
             @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
             {
                 <small class="d-block text-right mt-3">
-                    <a href="#">Edit</a>
+                    <a href="Url.Action("EditPost", new { id = item.PostId})">Edit</a>
                 </small>
                 <small class="d-block text-right mt-3">
                     <a href="#">Delete</a>

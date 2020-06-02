@@ -36,6 +36,19 @@ namespace CrowdFundingMVC.Controllers
             return Json(result.Data);
         }
 
+        [HttpPut]
+        public IActionResult EditPost([FromBody] PostOptions postOptions)
+        {
+            var result = _postservices.EditPost(postOptions);
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+
+            return Json(result.Data);
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeletePost(int id)
         {

@@ -74,6 +74,54 @@ namespace CrowdFundingCore.Services
          
         }
 
+        public Result<Post> EditPost(PostOptions postOptions)
+        {
+            if (postOptions == null)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(postOptions.PostTitle))
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PostTitle");
+            }
+
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var project = projectServices.FindProjectById(postOptions.ProjectId);
+            Post post = new Post
+            {
+                UserId = userId,
+                Project = project,
+                PostTitle = postOptions.PostTitle,
+                PostDescription = postOptions.PostDescription
+            };
+
+            _db.Update(post);
+
+            var rows = 0;
+            try
+            {
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Post could not be updated");
+            }
+
+            return Result<Post>.CreateSuccessful(post);
+         
+        }
+
         //TODO result(?) not working check if user=active user
         public bool DeletePost(int postId)
         {

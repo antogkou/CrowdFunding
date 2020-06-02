@@ -231,3 +231,35 @@ function doUpdatePledge(pledgeId, projectId) {
         }
     });
 }
+
+function editPledge(projectId, pledgeId) {
+    window.open("/Project/SingleProject/" + projectId + "/EditPledge/" + pledgeId , "_self");
+}
+
+function doUpdatePost(postId) {
+    actionMethod = "PUT"
+    actionUrl = "/Project/editpost"
+    sendData = {
+        "PostTitle": $('#PostTitle').val(),
+        "PostDescription": $('#PostDescription').val(),
+        "PostId": postId
+    }
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            alert("The post has been successfully updated!");
+            window.open("/Project/SingleProject/" + projectId , "_self")
+
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
