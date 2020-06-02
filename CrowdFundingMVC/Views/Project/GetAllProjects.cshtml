@@ -24,7 +24,7 @@
                 </select>
 
                 Title: <input type="text" asp-for="SearchString" />
-                <input type="submit" value="Filter" />
+                <input class="btn-outline-primary" type="submit" value="Filter" />
             </form>
         </div>
 
@@ -51,15 +51,6 @@
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreator)</p>
                     <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreationDate.DateTime)</p>
 
-                    @*<div class="text-center">@progress% funded</div>
-                        <div class="progress">
-                            <div class="progress-bar bg-success"
-                                 role="progressbar"
-                                 style="width:@progress%;"
-                                 aria-valuenow="@progress"
-                                 aria-valuemin="0"
-                                 aria-valuemax="100"></div>
-                        </div>*@
                     <div class="text-center">@progress% funded</div>
                     <div class="progress bg-warning">
                         <div class="progress-bar-striped bg-danger"

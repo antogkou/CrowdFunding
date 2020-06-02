@@ -2,9 +2,9 @@
 
 namespace CrowdFundingMVC.ViewModels
 {
-    public class EditPledgeVM
+    public class EditPostVM
     {
         public Project Project { get; set; }
-        public Pledge Pledge { get; set; }
+        public Post Post { get; set; }
     }
 }

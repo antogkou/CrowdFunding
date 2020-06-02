@@ -13,7 +13,7 @@ namespace CrowdFundingCore.Database
 
 
         public readonly static string connectionString =
-            "Server=localhost;Database=identityDB;User id=sa;Password=admin@@#123;MultipleActiveResultSets=true";
+            "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123;MultipleActiveResultSets=true";
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

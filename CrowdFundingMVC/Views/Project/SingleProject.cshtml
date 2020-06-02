@@ -102,10 +102,12 @@
             @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
             {
                 <small class="d-block text-right mt-3">
-                    <a href="Url.Action("EditPost", new { id = item.PostId})">Edit</a>
+                    @*<a href="Url.Action("EditPost", new { id = item.PostId})">Edit</a>*@
+                    <button type="button"class="btn btn-primary btn-sm mr-1" onclick="editPost(@Model.Project.ProjectId , @item.PostId)">Edit</button>
                 </small>
                 <small class="d-block text-right mt-3">
-                    <a href="#">Delete</a>
+                    @*<a href="#">Delete</a>*@
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePostFromServer(@Model.Project.ProjectId , @item.PostId)">Delete</button>
                 </small>
             }
 

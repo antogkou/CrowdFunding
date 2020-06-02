@@ -74,7 +74,7 @@ namespace CrowdFundingCore.Services
          
         }
 
-        public Result<Post> EditPost(PostOptions postOptions)
+        public Result<Post> UpdatePost(PostOptions postOptions)
         {
             if (postOptions == null)
             {
@@ -88,17 +88,14 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null or empty PostTitle");
             }
 
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var project = projectServices.FindProjectById(postOptions.ProjectId);
-            Post post = new Post
-            {
-                UserId = userId,
-                Project = project,
-                PostTitle = postOptions.PostTitle,
-                PostDescription = postOptions.PostDescription
-            };
+            //string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            var post = _db.Set<Post>().Find(postOptions.PostId);
 
-            _db.Update(post);
+
+            post.PostTitle = postOptions.PostTitle;
+            post.PostDescription = postOptions.PostDescription;
+        
 
             var rows = 0;
             try
@@ -196,6 +193,21 @@ namespace CrowdFundingCore.Services
             query = query.Take(500);
 
             return query;
+        }
+
+        //find_post
+        public Post FindPostById(int projectId, int postId)
+        {
+            var result = _db.Set<Post>()
+                .Where(p => p.Project.ProjectId == projectId)
+                .Where(p => p.PostId == postId)
+                .SingleOrDefault();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
         }
     }
 }

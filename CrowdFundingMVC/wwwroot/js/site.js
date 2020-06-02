@@ -41,7 +41,7 @@ function submitProjectToServer() {
 function submitPledgeToServer(projectId) {
 
     actionMethod = "POST"
-    actionUrl = "/Project/CreatePledges/"
+    actionUrl = "/Pledge/CreatePledges/"
     sendData = {
         "ProjectId": projectId,
         "PledgeTitle": $('#PledgeTitle').val(),
@@ -128,7 +128,7 @@ function deletePostFromServer(postId) {
 
 function submitBuyPledgeToServer(projectId, pledgeId) {
     actionMethod = "POST"
-    actionUrl = "/Project/AddPledge/"
+    actionUrl = "/Pledge/AddPledge/"
     sendData = {
         "PledgeId": pledgeId,
         "ProjectId": projectId
@@ -204,7 +204,7 @@ function editPledge(projectId, pledgeId) {
 
 function doUpdatePledge(pledgeId, projectId) {
     actionMethod = "PUT"
-    actionUrl = "/Project/updatepledge"
+    actionUrl = "/Pledge/updatepledge"
     sendData = {
         "PledgeTitle": $('#PledgeTitle').val(),
         "PledgeDescription": $('#PledgeDescription').val(),
@@ -232,13 +232,13 @@ function doUpdatePledge(pledgeId, projectId) {
     });
 }
 
-function editPledge(projectId, pledgeId) {
-    window.open("/Project/SingleProject/" + projectId + "/EditPledge/" + pledgeId , "_self");
+function editPost(projectId, pledgeId) {
+    window.open("/Project/SingleProject/" + projectId + "/EditPost/" + pledgeId , "_self");
 }
 
-function doUpdatePost(postId) {
+function doUpdatePost(postId, projectId) {
     actionMethod = "PUT"
-    actionUrl = "/Project/editpost"
+    actionUrl = "/Post/updatepost"
     sendData = {
         "PostTitle": $('#PostTitle').val(),
         "PostDescription": $('#PostDescription').val(),

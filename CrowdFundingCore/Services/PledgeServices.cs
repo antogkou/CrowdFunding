@@ -3,13 +3,10 @@ using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace CrowdFundingCore.Services
 {
@@ -110,9 +107,7 @@ namespace CrowdFundingCore.Services
                 return Result<Pledge>.CreateFailed(
                     StatusCode.BadRequest, "Null or empty PledgeReward");
             }
-
-
-
+            
 
             var pledge = _db.Set<Pledge>().Find(pledgeOptions.PledgeId);
 
@@ -121,8 +116,6 @@ namespace CrowdFundingCore.Services
             pledge.PledgeDescription = pledgeOptions.PledgeDescription;
             pledge.PledgePrice = pledgeOptions.PledgePrice;
             pledge.PledgeReward = pledgeOptions.PledgeReward;
-
-
 
             var rows = 0;
             try
@@ -223,6 +216,22 @@ namespace CrowdFundingCore.Services
                 return null;
             }
             return result;
+        }
+
+        public IQueryable<Pledge> ListPledges(PledgeOptions options)
+        {
+            if (options == null)
+            {
+                return null;
+            }
+
+            var query = _db
+                .Set<Pledge>()
+                .AsQueryable();
+
+            query = query.Take(500);
+
+            return query;
         }
     }
 }
