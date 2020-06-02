@@ -7,7 +7,7 @@
     <h1>My Projects</h1>
 </div>
 
-<div class="container">
+<div class="container" style="width: 60rem;">
     <div class="row">
         @foreach (var item in Model.Projects)
         {
@@ -16,37 +16,37 @@
             var multi = item.ProjectMultimedia.LastOrDefault();
             var multiURL = multi.ProjectPhotoProfile;
 
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top img-fluid"
-                     src="@multiURL"
-                     alt="">
-                <div class="card-body">
-                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>
-                    <p class="card-text"> @projectTargetAmount</p>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreator)</p>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreationDate)</p>
+        <div class="card mx-3 my-3" style="width: 18rem;">
+            <img class="card-img-top img-fluid"
+                 src="@multiURL"
+                 alt="">
+            <div class="card-body">
+                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>
+                <p class="card-text"> @projectTargetAmount</p>
+                <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreator)</p>
+                <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreationDate)</p>
 
-                    <div class="text-center">@progress% funded</div>
-                    <div class="progress bg-warning">
-                        <div class="progress-bar-striped bg-danger"
-                             role="progressbar"
-                             aria-valuenow="@progress"
-                             aria-valuemin="0"
-                             aria-valuemax="100"
-                             style="width:@progress%">
-                        </div>
+                <div class="text-center">@progress% funded</div>
+                <div class="progress bg-warning">
+                    <div class="progress-bar-striped bg-danger"
+                         role="progressbar"
+                         aria-valuenow="@progress"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         style="width:@progress%">
                     </div>
-
-                    <p></p>
-                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
-                       class="btn btn-sm btn-primary mx-auto d-block"
-                       id="SingleProjectView">Go to this Project!</a>
-                    <p></p>
-                    <a href="@Url.Action("EditProject", new { projectId = item.ProjectId})" class="btn btn-sm btn-warning mx-auto d-block" id="EditProject">Edit!</a>
-
                 </div>
+
+                <p></p>
+                <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
+                   class="btn btn-sm btn-primary mx-auto d-block"
+                   id="SingleProjectView">Go to this Project!</a>
+                <p></p>
+                <a href="@Url.Action("EditProject", new { projectId = item.ProjectId})" class="btn btn-sm btn-warning mx-auto d-block" id="EditProject">Edit!</a>
+
             </div>
+        </div>
         }
     </div>
 </div>

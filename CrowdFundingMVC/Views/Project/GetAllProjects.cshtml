@@ -9,24 +9,27 @@
     <h1>All Projects</h1>
 </div>
 
-<p>
-    <a asp-action="CreateProject">New Project</a>
-</p>
-<form asp-controller="Project" asp-action="GetAllProjects" method="get">
-    <p>
+    
 
-        <select asp-for="ProjectCategory" asp-items="Model.Categories">
-            <option value="">All</option>
-        </select>
 
-        Title: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Filter" />
-    </p>
-</form>
+<div class="container" style="width: 60rem;">
+    <div style="width: 60rem;" class="row px-3 mt-3">
+        <div>
+            <a asp-action="CreateProject">New Project</a>
+        </div>
+        <div class="ml-auto">
+            <form asp-controller="Project" asp-action="GetAllProjects" method="get">
+                <select asp-for="ProjectCategory" asp-items="Model.Categories">
+                    <option value="">All</option>
+                </select>
 
-<div class="container">
+                Title: <input type="text" asp-for="SearchString" />
+                <input type="submit" value="Filter" />
+            </form>
+        </div>
+
+    </div>
     <div class="row">
-
         @foreach (var item in Model.Projects)
         {
             string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");
@@ -36,7 +39,7 @@
             var multi = item.ProjectMultimedia.LastOrDefault();
             var multiURL = multi.ProjectPhotoProfile;
 
-            <div class="card" style="width: 18rem;">
+            <div class="card mx-3 my-3" style="width: 18rem;">
                 <img class="card-img-top img-fluid"
                      src="@multiURL"
                      alt="">
