@@ -97,7 +97,7 @@ namespace CrowdFundingMVC
                 endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Project}/{action=GetAllProjects}/{id?}");
             });
 
             
