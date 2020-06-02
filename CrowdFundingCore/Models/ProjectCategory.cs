@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CrowdFundingCore.Models
+﻿namespace CrowdFundingCore.Models
 {
     public enum ProjectCategory
     {
-        Art = 1,
+        General =1,
+        Art = 2,
 
-        Comics = 2,
+        Comics = 3,
 
-        Crafts = 3,
+        Crafts = 4,
 
-        Sports = 4,
+        Sports = 5,
 
-        Games = 5,
+        Games = 6,
 
-        Technology = 6
+        Technology = 7
     }
 
 }
