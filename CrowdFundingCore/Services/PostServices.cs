@@ -74,6 +74,51 @@ namespace CrowdFundingCore.Services
          
         }
 
+        public Result<Post> UpdatePost(PostOptions postOptions)
+        {
+            if (postOptions == null)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(postOptions.PostTitle))
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PostTitle");
+            }
+
+            //string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            var post = _db.Set<Post>().Find(postOptions.PostId);
+
+
+            post.PostTitle = postOptions.PostTitle;
+            post.PostDescription = postOptions.PostDescription;
+        
+
+            var rows = 0;
+            try
+            {
+                rows = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.InternalServerError,
+                    "Post could not be updated");
+            }
+
+            return Result<Post>.CreateSuccessful(post);
+         
+        }
+
         //TODO result(?) not working check if user=active user
         public bool DeletePost(int postId)
         {
@@ -148,6 +193,21 @@ namespace CrowdFundingCore.Services
             query = query.Take(500);
 
             return query;
+        }
+
+        //find_post
+        public Post FindPostById(int projectId, int postId)
+        {
+            var result = _db.Set<Post>()
+                .Where(p => p.Project.ProjectId == projectId)
+                .Where(p => p.PostId == postId)
+                .SingleOrDefault();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
         }
     }
 }

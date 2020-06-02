@@ -1,0 +1,31 @@
+﻿@model CrowdFundingMVC.ViewModels.EditPostVM
+@{
+    ViewData["Title"] = "Edit Post";
+
+}
+@{
+    var projectId = TempData["projectid"];
+}
+
+<div class="text-center">
+    <h1>Edit this Pledge</h1>
+</div>
+
+<div class="row">
+    <div class="col col-md-2"></div>
+    <div class="tab col-md-8">
+        <form data-form="0">
+            <div class="form-group">
+                <label asp-for="@Model.Post.PostTitle" class="control-label">Post Title</label>
+                <input class="form-control" type="text" required id="PostTitle" asp-for="@Model.Post.PostTitle" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Post.PostDescription" class="control-label">Post Description</label>
+                <input class="form-control" type="text" required id="PostDescription" asp-for="@Model.Post.PostDescription" />
+            </div>
+            <div class="col col-md-12 d-flex justify-content-end pr-0">
+                <input type="button" onclick="doUpdatePost(@Model.Post.PostId, @Model.Project.ProjectId)" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>

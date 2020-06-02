@@ -21,7 +21,7 @@
                     <span asp-validation-for="@Model.ProjectTitle" class="text-danger"></span>
                     <div class="invalid-feedback">
                         Please provide a valid Name.
-                    </div> 
+                    </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.ProjectDescription" class="control-label">Short Description</label>
@@ -53,6 +53,7 @@
                             var categories = Enum.GetValues(
                                 typeof(CrowdFundingCore.Models.ProjectCategory))
                                 .Cast<CrowdFundingCore.Models.ProjectCategory>();
+                            <option selected="selected" disabled hidden>---Select Category---</option>
                             @*<option value="@Model.ProjectCategory.ToString()" selected>@Model.ProjectCategory.ToString()</option>*@
                             foreach (var category in categories)
                             {
@@ -74,10 +75,10 @@
             <!-- Your second column here -->
             <form data-form="0">
 
-                
+
                 <div class="form-group">
                     <label class="control-label">Project Profile Photo</label>
-                    <input class="form-control" name="URL" type="url" required pattern="https://.*" 
+                    <input class="form-control" name="URL" type="url" required pattern="https://.*"
                            placeholder="Project profile photo URL..." id="ProjectPhotoProfile" />
 
                 </div>
@@ -101,32 +102,32 @@
 
                     </div>
                 </div>
-                    @*<form data-form="0">
-        <div class="form-group">
-            <label>Project Profile Photo</label>
-            <input class="form-control" name="URL" type="url" required pattern="https://.*"
-                   placeholder="Project profile photo URL..." id="ProjectPhotoProfile" />
-            <span asp-validation-for="@Model.ProjectMultimedia" class="text-danger"></span>
-            <div class="invalid-feedback"></div>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <select name="MultimediaType" class="form-control" id="MultimediaTypes">
-                    @{
-                        var multimediatypes = Enum.GetValues(
-                            typeof(CrowdFundingCore.Models.MultimediaTypes))
-                            .Cast<CrowdFundingCore.Models.MultimediaTypes>();
+                @*<form data-form="0">
+                    <div class="form-group">
+                        <label>Project Profile Photo</label>
+                        <input class="form-control" name="URL" type="url" required pattern="https://.*"
+                               placeholder="Project profile photo URL..." id="ProjectPhotoProfile" />
+                        <span asp-validation-for="@Model.ProjectMultimedia" class="text-danger"></span>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select name="MultimediaType" class="form-control" id="MultimediaTypes">
+                                @{
+                                    var multimediatypes = Enum.GetValues(
+                                        typeof(CrowdFundingCore.Models.MultimediaTypes))
+                                        .Cast<CrowdFundingCore.Models.MultimediaTypes>();
 
-                        foreach (var type in multimediatypes)
-                        {
-                            <option value="@type">@type</option>
-                        }
-                    }
-                </select>
-                <input name="MediaURL" type="text" class="form-control" placeholder="Multimedia URL..." id="MultimediaURL" />
-            </div>
-        </div>*@
-</form>
+                                    foreach (var type in multimediatypes)
+                                    {
+                                        <option value="@type">@type</option>
+                                    }
+                                }
+                            </select>
+                            <input name="MediaURL" type="text" class="form-control" placeholder="Multimedia URL..." id="MultimediaURL" />
+                        </div>
+                    </div>*@
+            </form>
 
 
 

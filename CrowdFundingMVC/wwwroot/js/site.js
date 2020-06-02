@@ -41,7 +41,7 @@ function submitProjectToServer() {
 function submitPledgeToServer(projectId) {
 
     actionMethod = "POST"
-    actionUrl = "/Project/CreatePledges/"
+    actionUrl = "/Pledge/CreatePledges/"
     sendData = {
         "ProjectId": projectId,
         "PledgeTitle": $('#PledgeTitle').val(),
@@ -128,7 +128,7 @@ function deletePostFromServer(postId) {
 
 function submitBuyPledgeToServer(projectId, pledgeId) {
     actionMethod = "POST"
-    actionUrl = "/Project/AddPledge/"
+    actionUrl = "/Pledge/AddPledge/"
     sendData = {
         "PledgeId": pledgeId,
         "ProjectId": projectId
@@ -204,7 +204,7 @@ function editPledge(projectId, pledgeId) {
 
 function doUpdatePledge(pledgeId, projectId) {
     actionMethod = "PUT"
-    actionUrl = "/Project/updatepledge"
+    actionUrl = "/Pledge/updatepledge"
     sendData = {
         "PledgeTitle": $('#PledgeTitle').val(),
         "PledgeDescription": $('#PledgeDescription').val(),
@@ -223,6 +223,38 @@ function doUpdatePledge(pledgeId, projectId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             alert("The pledge has been successfully updated!");
+            window.open("/Project/SingleProject/" + projectId , "_self")
+
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
+
+function editPost(projectId, pledgeId) {
+    window.open("/Project/SingleProject/" + projectId + "/EditPost/" + pledgeId , "_self");
+}
+
+function doUpdatePost(postId, projectId) {
+    actionMethod = "PUT"
+    actionUrl = "/Post/updatepost"
+    sendData = {
+        "PostTitle": $('#PostTitle').val(),
+        "PostDescription": $('#PostDescription').val(),
+        "PostId": postId
+    }
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            alert("The post has been successfully updated!");
             window.open("/Project/SingleProject/" + projectId , "_self")
 
         },
