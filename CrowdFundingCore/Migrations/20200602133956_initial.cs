@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingCore.Migrations
 {
-    public partial class macoz : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -161,7 +161,7 @@ namespace CrowdFundingCore.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: true),
                     ProjectTitle = table.Column<string>(maxLength: 255, nullable: false),
-                    ProjectDescription = table.Column<string>(nullable: true),
+                    ProjectDescription = table.Column<string>(nullable: false),
                     ProjectTargetAmount = table.Column<decimal>(maxLength: 20, nullable: false),
                     ProjectCurrentAmount = table.Column<decimal>(nullable: false),
                     ProjectProgress = table.Column<decimal>(nullable: false),
@@ -170,7 +170,7 @@ namespace CrowdFundingCore.Migrations
                     IsComplete = table.Column<bool>(nullable: false),
                     ProjectCreationDate = table.Column<DateTimeOffset>(nullable: false),
                     ProjectEndingDate = table.Column<DateTime>(nullable: false),
-                    ProjectCategory = table.Column<string>(nullable: true),
+                    ProjectCategory = table.Column<string>(nullable: false),
                     ProjectCreator = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -291,15 +291,15 @@ namespace CrowdFundingCore.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "63dd3107-ace7-4ac9-99ed-dac9fb2a20b5", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "abf72595-bea1-4ff0-acc6-7f8f861e6e70", "Backer", "BACKER" },
-                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "06dfd056-a20f-467a-9d42-7ad767000fc4", "Project Creator", "PROJECT CREATOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "6732ebc5-cb2b-4f75-b730-1e7a9cf6a35c", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "25629b48-4e03-4cfb-919b-09ad3d7d983b", "Backer", "BACKER" },
+                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "72eefbda-5ee3-4dea-ab8d-800d8511ad00", "Project Creator", "PROJECT CREATOR" }
                 });
 
             migrationBuilder.InsertData(
                 table: "MyUsers",
                 columns: new[] { "UserId", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserDateCreated", "UserName" },
-                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "273039dc-3629-446a-be94-5f46dd24583e", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEJc3wW5JKKG6pOk/B/glMrFwwTZg4dTt1BvnS3Y7ItNJygwyvjDvuuZMHuWmD61cpA==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 6, 1, 13, 15, 46, 478, DateTimeKind.Unspecified).AddTicks(9020), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com" });
+                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "84020c68-7cc4-41d2-9824-1e2aec9f66d6", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEHSiGarRNzg090Wcpmsd2KI2upLujPNDFkUoojdJEubjhmA2O5OGWaoRN1eM8RwMTw==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 6, 2, 16, 39, 56, 495, DateTimeKind.Unspecified).AddTicks(1803), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

@@ -16,7 +16,7 @@ namespace CrowdFundingMVC.Controllers
     {
         private IProjectServices _projectservices;
         private IPostServices _postservices;
-        private CrFrDbContext _db;
+        private readonly CrFrDbContext _db;
         private readonly IHttpContextAccessor httpContextAccessor;
 
         public PostController(CrFrDbContext db, IPostServices postservices, IProjectServices projectServices,

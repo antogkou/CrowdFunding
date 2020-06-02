@@ -24,13 +24,14 @@ namespace CrowdFundingCore.Services
             httpContextAccessor = _httpContextAccessor;
         }
 
-        //Get pledges by project id
+        //Get pledges by project id single project view
         public List<Pledge> GetPledgesByProjectId(int projectId)
         {
             return _db.Set<Pledge>()
                 .Where(p => p.Project.ProjectId == projectId)
                 .ToList();
         }
+
         public Result<Pledge> CreatePledges(PledgeOptions pledgeOptions)
         {
             if (pledgeOptions == null)
@@ -140,7 +141,7 @@ namespace CrowdFundingCore.Services
         }
 
 
-        //Buy a pledge
+        //Buy a pledge from single project view
         public Result<BackedPledges> AddPledge(int pledgeId, int projectId)
         {
 

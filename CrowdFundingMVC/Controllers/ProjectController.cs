@@ -17,18 +17,21 @@ namespace CrowdFundingMVC.Controllers
 
     public class ProjectController : Controller
     {
-        private IProjectServices _projMangr;
-        private IPledgeServices _pledges;
+        private IProjectServices _projectservices;
+        private IPledgeServices _pledgesservices;
         private IPostServices _postservices;
         private IMultimediaServices _multimediaServices;
         private readonly CrFrDbContext _db;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ProjectController(IProjectServices projMangr, CrFrDbContext db, IHttpContextAccessor _httpContextAccessor,
-            IPledgeServices pledges, IPostServices postservices, IMultimediaServices multimediaServices)
+        public ProjectController(IProjectServices projectservices, CrFrDbContext db,
+            IHttpContextAccessor _httpContextAccessor,
+            IPledgeServices pledgesservices,
+            IPostServices postservices,
+            IMultimediaServices multimediaServices)
         {
-            _projMangr = projMangr;
-            _pledges = pledges;
+            _projectservices = projectservices;
+            _pledgesservices = pledgesservices;
             _postservices = postservices;
             _multimediaServices = multimediaServices;
             _db = db;
@@ -45,11 +48,10 @@ namespace CrowdFundingMVC.Controllers
 
         [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPost]
-        //public IActionResult CreateProject([FromBody] ProjectOptions projOpt, PledgeOptions pledgeOptions, MultimediaOptions multimediaOptions)
         public IActionResult CreateProject([FromBody] ProjectOptions projOpt)
         {
 
-            var result = _projMangr.CreateProject(projOpt);
+            var result = _projectservices.CreateProject(projOpt);
             if (!result.Success)
             {
                 return StatusCode((int)result.ErrorCode,
@@ -92,6 +94,7 @@ namespace CrowdFundingMVC.Controllers
             return View(viewallprojects);
         }
 
+        //search projects
         [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpPost]
         public string GetAllProjects(string searchString, bool notUsed)
@@ -106,42 +109,35 @@ namespace CrowdFundingMVC.Controllers
         {
             SingleProjectMV singleproject = new SingleProjectMV
             {
-                Project = _projMangr.FindProjectById(id),
+                Project = _projectservices.FindProjectById(id),
                 Posts = _postservices.GetAllPosts(id),
-                Pledges = _pledges.GetPledgesByProjectId(id),
+                Pledges = _pledgesservices.GetPledgesByProjectId(id),
                 ProjectMultimedia = _multimediaServices.GetMultimediaOfProject(id),
             };
 
             return View(singleproject);
         }
-        
+
         //Edit Project
         [Authorize(Roles = "Administrator, Project Creator")]
         [HttpGet, Route("Project/{projectId}/Edit/")]
-        public IActionResult EditProject([FromRoute] int? projectId)
+        public IActionResult EditProject([FromRoute] int projectId)
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (new EditProjectVM
-            {
-                Project = _projMangr.FindProjectById((int)projectId)
-            }.Project != null)
-                if (new EditProjectVM
-                {
-                    Project = _projMangr.FindProjectById((int)projectId)
-                }.Project.UserId == userId)
-                    return View(new EditProjectVM
-                    {
-                        Project = _projMangr.FindProjectById((int)projectId)
-                    });
-            return View("~/Views/Project/AuthorizationError.cshtml");
+            var editproject = _projectservices.FindProjectByIdz(projectId);
+                //new ProjectOptions()
+                //{ 
+                //    ProjectId = projectId
+                //}).FirstOrDefault();
 
+            return View(editproject);
         }
 
+        //Update Project
         [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPut]
         public IActionResult UpdateProject([FromBody] UpdateProjectOptions updateProjectOptions)
         {
-            var result = _projMangr.UpdateProject(updateProjectOptions);
+            var result = _projectservices.UpdateProject(updateProjectOptions);
 
             if (!result.Success)
             {
@@ -150,8 +146,6 @@ namespace CrowdFundingMVC.Controllers
             }
             return Json(result.Data);
         }
-
-        
 
 
         //Get current user's projects View
@@ -211,12 +205,5 @@ namespace CrowdFundingMVC.Controllers
 
             return View(trendingprojects);
         }
-
-       
-
-
-       
-
-
     }
 }

@@ -60,25 +60,6 @@ namespace CrowdFundingCore.Services
                 ProjectEndingDate = projectoption.ProjectEndingDate,
                 ProjectCategory = projectoption.ProjectCategory,
                 IsActive = true,
-               
-                //ProjectPledges = new List<Pledge>
-                //{
-                //    new Pledge
-                //    {
-                //        PledgeTitle = "Level 1 Pledge", PledgeDescription = "liga", PledgePrice = 5,
-                //        PledgeReward = "iPhone SE"
-                //    },
-                //    new Pledge
-                //    {
-                //        PledgeTitle = "Level 2 Pledge", PledgeDescription = "metria", PledgePrice = 10,
-                //        PledgeReward = "SamsungGalaxyS10e"
-                //    },
-                //    new Pledge
-                //    {
-                //        PledgeTitle = "Level 3 Pledge", PledgeDescription = "polla", PledgePrice = 20,
-                //        PledgeReward = "OnePlus8Pro"
-                //    },
-                //},
 
                 ProjectMultimedia = new List<Multimedia>
                 {
@@ -123,9 +104,6 @@ namespace CrowdFundingCore.Services
             return Result<Project>.CreateSuccessful(project);
 
         }
-
-
-
 
 
         //Pledges list by project id
@@ -210,18 +188,35 @@ namespace CrowdFundingCore.Services
             return query;
         }
 
-        public IQueryable<Project> SearchProject2(ProjectOptions options)
+        public IQueryable<Project> SearchProject(ProjectOptions options)
         {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (options == null)
             {
                 return null;
             }
 
+            
+
             var query = _db
                 .Set<Project>()
+                .Where(p=> p.ProjectId == options.ProjectId)
+                .Where(p=> p.UserId == userId)
                 .AsQueryable();
 
-            query = query.Where(c => c.ProjectId == options.ProjectId);
+             if (!string.IsNullOrWhiteSpace(options.ProjectTitle)) {
+                query = query.Where(c => c.ProjectTitle == options.ProjectTitle);
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.ProjectDescription)) {
+                query = query.Where(c => c.ProjectDescription == options.ProjectDescription);
+            }
+
+             if (!string.IsNullOrWhiteSpace(options.ProjectCategory)) {
+                query = query.Where(c => c.ProjectCategory == options.ProjectCategory);
+            }
+           
 
             query = query.Take(500);
 
@@ -231,17 +226,16 @@ namespace CrowdFundingCore.Services
         //Find A Project By ID
         public Project FindProjectById(int id)
         {
-            return _db.Set<Project>().Find(id);
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            return _db.Set<Project>()
+                .Find(id);
         }
 
         public Result<Project> GetProjectById(int id)
         {
-            var project = ListProjects(new ProjectOptions()
-            {
-                ProjectId = id
-            })
-            .Include(p => p.ProjectPledges)
-            .SingleOrDefault();
+            var project = _db.Set<Project>()
+                .Find(id);
 
             if (project == null)
             {
@@ -252,15 +246,40 @@ namespace CrowdFundingCore.Services
             return Result<Project>.CreateSuccessful(project);
         }
 
-        ////List Current User's Created Projects
-        public List<Project> SearchProject()
+         public Project FindProjectByIdz(int projectId)
         {
-            return _db.Set<Project>().Select(s => new Project
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _db.Set<Project>()
+                .Where(p => p.ProjectId == projectId)
+                .Where(p => p.UserId == userId)
+                .SingleOrDefault();
+
+            if (result == null)
             {
-                UserId = s.UserId
-            }).ToList();
+                return null;
+            }
+            return result;
         }
 
+        //go to edit project
+        public Result<Project> FindProjectById2(int projectId)
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = _db.Set<Project>()
+                .Where(p => p.ProjectId == projectId)
+                .Where(p => p.UserId == userId)
+                .SingleOrDefault();
+
+            if (result == null)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.NotFound, $"Project with {projectId} was not found");
+            }
+            return Result<Project>.CreateSuccessful(result);
+        }
+
+       
         //Edit Project
         public Result<Project> UpdateProject(UpdateProjectOptions options)
         {
