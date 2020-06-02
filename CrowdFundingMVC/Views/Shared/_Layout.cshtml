@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Identity
+@using CrowdFundingCore.Models
 @inject Microsoft.AspNetCore.Identity.SignInManager<CrowdFundingCore.Models.MyUsers> signInManager;
+@inject UserManager<MyUsers> UserManager
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,7 +10,7 @@
     <title>@ViewData["Title"] - CrowdFundingMVC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-   
+
 
 </head>
 <body style="background-color:whitesmoke;">
@@ -19,95 +22,105 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-white active" asp-area="" asp-controller="Project" asp-action="CreateProject">Create Project</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetAllProjects">View All Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetMyProjects">My Created Projects</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetTrendingProjects">Trending Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetMyBackedProjects">My Backed Projects</a>
-                </li>
-                @if (signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+                </ul>
+
+                <partial name="_LoginPartial.cshtml" />
+
+
+
+                @*<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">*@
+                @*<a class="nav-link btn-warning" style="background-color:white;" asp-area="" asp-controller="User" asp-action="Dashboard">Dashboard</a>*@
+                @*<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
+                @if (signInManager.IsSignedIn(User))
                 {
-                    <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Manage
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-controller="Admin"
-                               asp-action="ListUsers">Users</a>
-                            <a class="dropdown-item" asp-controller="Admin"
-                               asp-action="ListRoles">Roles</a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dashboard
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" asp-area="" asp-controller="Project" asp-action="CreateProject">Create Project</a>
+                            <a class="dropdown-item" asp-controller="Project"
+                               asp-action="GetMyProjects">My Projects</a>
+                            <a class="dropdown-item" asp-controller="Project"
+                               asp-action="GetMyBackedProjects">My Backed Projects</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+
+                            <div class="dropdown-divider"></div>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <div class="text-center font-weight-bold">Admin</div>
+                                <a class="dropdown-item" asp-controller="Admin"
+                                   asp-action="ListUsers">Manage Users</a>
+                                <a class="dropdown-item" asp-controller="Admin"
+                                   asp-action="ListRoles">Manage Roles</a>
+                                <div class="dropdown-divider"></div>
+                            }
+                            @*<li class="nav-item">
+            <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        </li>*@
+                            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button id="logout" type="submit" class="dropdown-item">Logout</button>
+                                @*<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>*@
+                            </form>
+
+
+
+
+
+
                         </div>
-                    </li>
+                    </div>
                 }
-            </ul>
-            <partial name="_LoginPartial.cshtml" />
-
-
-            @*<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">*@
-            @*<a class="nav-link btn-warning" style="background-color:white;" asp-area="" asp-controller="User" asp-action="Dashboard">Dashboard</a>*@
-            @*<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
-            <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-warning my-2 my-sm-0"
-                        asp-area="" asp-controller="User" asp-action="Dashboard">
-                    Dashboard
-                </button>
-            </form>
-
-        </div>
-    </div>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <!-- Footer -->
-    @*<footer class="footer font-small navbar-dark bg-dark">
-
-
-        <div class="container text-center py-3 text-white">
-            © 2020 Copyright:
-            <a href="https://google.gr/"> Google.gr</a>
+            </div>
         </div>
 
-
-    </footer>*@
-
-    <footer class="border-top footer text-muted navbar-dark bg-dark">
-        <div class="container text-center py-3 text-white">
-            &copy; 2020 -<a asp-area="" asp-controller="Home" asp-action="Index">Crowdfunding App</a>
-            <a href="https://github.com/codehub-learn/dotnet-skg-team5" class="btn btn-outline-primary">
-                <span class="fab fa-github mr-2"></span>
-                #team5 GitHub</a>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-        
-    </footer>
+
+        <!-- Footer -->
+        @*<footer class="footer font-small navbar-dark bg-dark">
 
 
-    @*<div style="bottom:0;position: fixed; width:100%;">
-            <hr style="width:100%;" />
-            <footer>
-                <p>&copy; @DateTime.Now.Year</p>
-            </footer>
-        </div>*@
-    <!-- Footer -->
+                <div class="container text-center py-3 text-white">
+                    © 2020 Copyright:
+                    <a href="https://google.gr/"> Google.gr</a>
+                </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
-</body>
+
+            </footer>*@
+
+        <footer class="border-top footer text-muted navbar-dark bg-dark">
+            <div class="container text-center py-3 text-white">
+                &copy; 2020 -<a asp-area="" asp-controller="Home" asp-action="Index">Crowdfunding App</a>
+                <a href="https://github.com/codehub-learn/dotnet-skg-team5" class="btn btn-outline-primary">
+                    <span class="fab fa-github mr-2"></span>
+                    #team5 GitHub
+                </a>
+            </div>
+
+        </footer>
+
+
+        @*<div style="bottom:0;position: fixed; width:100%;">
+                <hr style="width:100%;" />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year</p>
+                </footer>
+            </div>*@
+        <!-- Footer -->
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @RenderSection("Scripts", required: false)
+    </body>
 </html>
