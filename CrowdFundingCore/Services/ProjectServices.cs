@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CrowdFundingCore.Services
 {
@@ -197,26 +198,29 @@ namespace CrowdFundingCore.Services
                 return null;
             }
 
-            
+
 
             var query = _db
                 .Set<Project>()
-                .Where(p=> p.ProjectId == options.ProjectId)
-                .Where(p=> p.UserId == userId)
+                .Where(p => p.ProjectId == options.ProjectId)
+                .Where(p => p.UserId == userId)
                 .AsQueryable();
 
-             if (!string.IsNullOrWhiteSpace(options.ProjectTitle)) {
+            if (!string.IsNullOrWhiteSpace(options.ProjectTitle))
+            {
                 query = query.Where(c => c.ProjectTitle == options.ProjectTitle);
             }
 
-            if (!string.IsNullOrWhiteSpace(options.ProjectDescription)) {
+            if (!string.IsNullOrWhiteSpace(options.ProjectDescription))
+            {
                 query = query.Where(c => c.ProjectDescription == options.ProjectDescription);
             }
 
-             if (!string.IsNullOrWhiteSpace(options.ProjectCategory)) {
+            if (!string.IsNullOrWhiteSpace(options.ProjectCategory))
+            {
                 query = query.Where(c => c.ProjectCategory == options.ProjectCategory);
             }
-           
+
 
             query = query.Take(500);
 
@@ -224,13 +228,13 @@ namespace CrowdFundingCore.Services
         }
 
         //Find A Project By ID
-        public Project FindProjectById(int id)
-        {
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            return _db.Set<Project>()
-                .Find(id);
-        }
+        //public Project FindProjectById(int id)
+        //{
+        //    string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        //    return _db.Set<Project>()
+        //        .Find(id);
+        //}
 
         public Result<Project> GetProjectById(int id)
         {
@@ -246,7 +250,7 @@ namespace CrowdFundingCore.Services
             return Result<Project>.CreateSuccessful(project);
         }
 
-         public Project FindProjectByIdz(int projectId)
+        public Project FindProjectById(int projectId)
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = _db.Set<Project>()
@@ -260,6 +264,80 @@ namespace CrowdFundingCore.Services
             }
             return result;
         }
+
+        public IQueryable<Project> GetTrendingProjects()
+        {
+            var result = _db.Set<Project>()
+                .Where(s => s.ProjectProgress > 0.35m)
+                .Where(s => s.IsActive == true)
+                .AsQueryable();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
+        }
+
+        public IQueryable<Project> GetMyBackedProjects()
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _db.Set<BackedPledges>()
+                .Where(p => p.UserId == userId)
+                .Select(p => p.BackedPledge)
+                .Select(p => p.Project)
+                .Distinct()
+                .AsQueryable();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
+        }
+
+        public IQueryable<Project> GetMyProjects()
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _db.Set<Project>()
+                .Where(p => p.UserId == userId)
+                .ToList()
+                .AsQueryable();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
+        }
+
+        public IQueryable<Project> GetAllProjects(string projectCategory, string searchString)
+        {
+
+            //var projects = from m in _db.Set<Project>()
+            //             select m;
+
+            var projects = _db.Set<Project>()
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                projects = projects.Where(s => s.ProjectTitle.Contains(searchString));
+            }
+
+            if (!string.IsNullOrWhiteSpace(projectCategory))
+            {
+                projects = projects.Where(x => x.ProjectCategory == projectCategory);
+            }
+
+
+            if (projects == null)
+            {
+                return null;
+            }
+            return projects;
+        }
+
 
         //go to edit project
         public Result<Project> FindProjectById2(int projectId)
@@ -279,7 +357,7 @@ namespace CrowdFundingCore.Services
             return Result<Project>.CreateSuccessful(result);
         }
 
-       
+
         //Edit Project
         public Result<Project> UpdateProject(UpdateProjectOptions options)
         {

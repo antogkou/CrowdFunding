@@ -199,19 +199,15 @@ namespace CrowdFundingCore.Services
 
         }
 
-        //new find way
-        //public Pledge FindPledgeById(int id)
-        //{
-        //    return _db.Set<Pledge>().Find(id);
-        //}
 
         public Pledge FindPledgeById(int projectId, int pledgeId)
         {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = _db.Set<Pledge>()
                 .Where(p => p.Project.ProjectId == projectId)
                 .Where(p => p.PledgeId == pledgeId)
+                .Where(p => p.Project.UserId == userId)
                 .SingleOrDefault();
-
             if (result == null)
             {
                 return null;
