@@ -3,6 +3,7 @@ using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -233,6 +234,23 @@ namespace CrowdFundingCore.Services
             query = query.Take(500);
 
             return query;
+        }
+
+        public bool DeletePledge(int pledgeId)
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Pledge pledge = _db.Set<Pledge>()
+                .Include(p => p.Project)
+                .Where(p => p.PledgeId == pledgeId)
+                .Where(p => p.Project.UserId == userId)
+                .SingleOrDefault();
+            if (pledge != null)
+            {
+                _db.Set<Pledge>().Remove(pledge);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

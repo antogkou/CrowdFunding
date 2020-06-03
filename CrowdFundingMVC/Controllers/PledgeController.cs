@@ -103,5 +103,13 @@ namespace CrowdFundingMVC.Controllers
             }
             return Json(result.Data);
         }
+
+        [HttpDelete]
+        public bool DeletePledge([FromBody] PledgeOptions pledgeOptions)
+        {
+            if (pledgeOptions != null)
+                return _pledgesservices.DeletePledge(pledgeOptions.PledgeId);
+            return false;
+        }
     }
 }
