@@ -34,7 +34,7 @@ namespace CrowdFundingMVC.Controllers
         {
             var addpledge = new AddPledgeVM()
             {
-                Project = _projectservices.FindProjectById(projectId.Value)
+                Project = _projectservices.FindMyProjectById(projectId.Value)
             };
 
             return View(addpledge);
@@ -49,7 +49,7 @@ namespace CrowdFundingMVC.Controllers
             var editpledge = new EditPledgeVM()
             {
                 Pledge = _pledgesservices.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
-                Project = _projectservices.FindProjectById((int)projectId.Value)
+                Project = _projectservices.FindMyProjectById((int)projectId.Value)
             };
             if (editpledge != null)
                 return View(editpledge);

@@ -138,7 +138,7 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet, Route("Project/{projectId}/Edit/")]
         public IActionResult EditProject([FromRoute] int projectId)
         {
-            var editproject = _projectservices.FindProjectById(projectId);
+            var editproject = _projectservices.FindMyProjectById(projectId);
             if (editproject != null)
             return View(editproject);
             return NotFound();

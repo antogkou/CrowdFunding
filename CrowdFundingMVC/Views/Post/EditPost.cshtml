@@ -13,12 +13,9 @@
     <div class="tab col-md-8">
         <form data-form="0">
             <div class="form-group">
-                <label asp-for="@Model.Post.PostTitle" class="control-label">Post Title</label>
-                <input class="form-control" type="text" required id="PostTitle" asp-for="@Model.Post.PostTitle" />
-            </div>
-            <div class="form-group">
                 <label asp-for="@Model.Post.PostDescription" class="control-label">Post Description</label>
-                <input class="form-control" type="text" required id="PostDescription" asp-for="@Model.Post.PostDescription" />
+                <textarea asp-for="@Model.Post.PostDescription" type="text" 
+                          class="form-control textarea text-wrap" id="PostDescription"></textarea>
             </div>
             <div class="col col-md-12 d-flex justify-content-end pr-0">
                 <input type="button" onclick="doUpdatePost(@Model.Post.PostId, @Model.Project.ProjectId)" value="Submit">
