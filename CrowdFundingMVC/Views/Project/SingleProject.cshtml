@@ -45,9 +45,12 @@
     <p></p>
     <div class="card-deck mb-3 text-center">
         @foreach (var item in Model.Pledges.OrderBy(c => c.PledgePrice).ToList())
-        {<div class="card mb-4 box-shadow">
-
+        {
+            <div class="card mb-4 box-shadow">
                 <div class="card-header">
+                    <button type="button" class="close" aria-label="Close" onclick="deletePledge(@item.PledgeId)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     <h4 class="my-0 font-weight-normal">@Html.DisplayFor(modelItem => item.PledgeTitle)</h4>
                 </div>
                 <div class="card-body">

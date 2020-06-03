@@ -94,38 +94,6 @@ function submitPostToServer(projectId) {
     });
 }
 
-function deletePostFromServer(postId) {
-    actionMethod = "DELETE"
-    actionUrl = "/Post/DeletePost"
-    sendData = {
-        "ProjectId": projectId,
-        "PostTitle": $('#PostTitle').val(),
-        "PostDescription": $('#PostDescription').val()
-    }
-
-    alert(JSON.stringify(sendData))
-
-    $.ajax({
-        url: actionUrl,
-        dataType: 'json',
-        type: actionMethod,
-        data: JSON.stringify(sendData),
-        contentType: 'application/json',
-        processData: false,
-        success: function (data, textStatus, jQxhr) {
-            if (data == null) {
-                $('#responseDiv).html("There is no such post');
-            }
-            //$('#responseDiv').html(JSON.stringify(data));
-            //refresh page after the post is added 
-
-        },
-        error: function (jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        }
-    });
-}
-
 function submitBuyPledgeToServer(projectId, pledgeId) {
     actionMethod = "POST"
     actionUrl = "/Pledge/AddPledge/"
@@ -266,25 +234,55 @@ function doUpdatePost(postId, projectId) {
 
 
 function deletePost(postId) {
-    actionMethod = "DELETE"
-    actionUrl = "/post/DeletePost"
-    sendData = { "PostId": postId }
-    confirm("Are you sure you want to delete this post?");
-    $.ajax({
-        url: actionUrl,
-        dataType: 'html',
-        type: actionMethod,
-        data: JSON.stringify(sendData),
+    if (confirm("Are you sure you want to delete this post?")) {
+        actionMethod = "DELETE"
+        actionUrl = "/post/DeletePost"
+        sendData = { "PostId": postId }
+        $.ajax({
+            url: actionUrl,
+            dataType: 'html',
+            type: actionMethod,
+            data: JSON.stringify(sendData),
 
-        contentType: 'application/json',
-        processData: false,
-        success: function (data, textStatus, jQxhr) {
-            location.reload();
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                location.reload();
 
-        },
-        error: function (jqXhr, textStatus, errorThrown) {
-            console.log(errorThrown);
-        }
-    });
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+    else {
+        return false;
+    }
 
+}
+
+function deletePledge(pledgeId) {
+
+    if (confirm("Are you sure you want to delete this pledge?")) {
+        actionMethod = "DELETE"
+        actionUrl = "/pledge/DeletePledge"
+        sendData = { "PledgeId": pledgeId }
+        $.ajax({
+            url: actionUrl,
+            dataType: 'html',
+            type: actionMethod,
+            data: JSON.stringify(sendData),
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                location.reload();
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+    else {
+        return false;
+    }
 }

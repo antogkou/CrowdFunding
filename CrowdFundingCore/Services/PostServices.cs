@@ -119,7 +119,6 @@ namespace CrowdFundingCore.Services
          
         }
 
-        //TODO result(?) not working check if user=active user
         public bool DeletePost(int postId)
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
