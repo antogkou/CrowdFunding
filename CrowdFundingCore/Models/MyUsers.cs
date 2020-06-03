@@ -27,7 +27,5 @@ namespace CrowdFundingCore.Models
             UserDateCreated = DateTimeOffset.Now;
             this.Id = Guid.NewGuid().ToString();
         }
-       
     }
-
 }
