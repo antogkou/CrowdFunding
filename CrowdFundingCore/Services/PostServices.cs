@@ -122,7 +122,12 @@ namespace CrowdFundingCore.Services
         //TODO result(?) not working check if user=active user
         public bool DeletePost(int postId)
         {
-            Post post = _db.Set<Post>().Find(postId);
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Post post = _db.Set<Post>()
+                .Where(p => p.UserId == userId)
+                .Where(p => p.PostId == postId)
+                .SingleOrDefault();
+
              if (post != null)
             {
                 _db.Set<Post>().Remove(post);

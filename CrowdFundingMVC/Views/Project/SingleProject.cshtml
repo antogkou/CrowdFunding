@@ -107,7 +107,8 @@
                 </small>
                 <small class="d-block text-right mt-3">
                     @*<a href="#">Delete</a>*@
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePostFromServer(@Model.Project.ProjectId , @item.PostId)">Delete</button>
+                    @*<button type="button" class="btn btn-danger btn-sm" onclick="deletePostFromServer(@Model.Project.ProjectId , @item.PostId)">Delete</button>*@
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePost(@item.PostId)">Delete</button>
                 </small>
             }
 

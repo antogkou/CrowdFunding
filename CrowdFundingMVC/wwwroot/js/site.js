@@ -30,7 +30,7 @@ function submitProjectToServer() {
         success: function (data, textStatus, jQxhr) {
 
             alert('You have successfully added a project')
-            window.open("/Project/GetMyProjects/","_self")
+            window.open("/Project/GetMyProjects/", "_self")
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -141,7 +141,7 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
         data: JSON.stringify(sendData),
         contentType: 'application/json',
         processData: false,
-        success: function(data, textStatus, jQxhr) {
+        success: function (data, textStatus, jQxhr) {
             alert('You have successfully payed for this!')
             window.open("/Project/SingleProject?id=" + projectId, "_self")
 
@@ -149,7 +149,7 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
             //refresh page after the post is added 
 
         },
-        error: function(jqXhr, textStatus, errorThrown) {
+        error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
         }
     });
@@ -195,11 +195,11 @@ function doUpdateProject(projectId) {
 }
 
 function addPledge(projectId) {
-    window.open("/Project/SingleProject/" + projectId + "/AddPledge/" , "_self");
+    window.open("/Project/SingleProject/" + projectId + "/AddPledge/", "_self");
 }
 
 function editPledge(projectId, pledgeId) {
-    window.open("/Project/SingleProject/" + projectId + "/EditPledge/" + pledgeId , "_self");
+    window.open("/Project/SingleProject/" + projectId + "/EditPledge/" + pledgeId, "_self");
 }
 
 function doUpdatePledge(pledgeId, projectId) {
@@ -223,7 +223,7 @@ function doUpdatePledge(pledgeId, projectId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             alert("The pledge has been successfully updated!");
-            window.open("/Project/SingleProject/" + projectId , "_self")
+            window.open("/Project/SingleProject/" + projectId, "_self")
 
         },
         error: function (jqXhr, textStatus, errorThrown) {
@@ -233,7 +233,7 @@ function doUpdatePledge(pledgeId, projectId) {
 }
 
 function editPost(projectId, pledgeId) {
-    window.open("/Project/SingleProject/" + projectId + "/EditPost/" + pledgeId , "_self");
+    window.open("/Project/SingleProject/" + projectId + "/EditPost/" + pledgeId, "_self");
 }
 
 function doUpdatePost(postId, projectId) {
@@ -255,11 +255,36 @@ function doUpdatePost(postId, projectId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             alert("The post has been successfully updated!");
-            window.open("/Project/SingleProject/" + projectId , "_self")
+            window.open("/Project/SingleProject/" + projectId, "_self")
 
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
         }
     });
+}
+
+
+function deletePost(postId) {
+    actionMethod = "DELETE"
+    actionUrl = "/post/DeletePost"
+    sendData = { "PostId": postId }
+    confirm("Are you sure you want to delete this post?");
+    $.ajax({
+        url: actionUrl,
+        dataType: 'html',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            location.reload();
+
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
 }
