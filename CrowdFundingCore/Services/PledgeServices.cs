@@ -172,6 +172,10 @@ namespace CrowdFundingCore.Services
 
             project.ProjectCurrentAmount += pledge.PledgePrice;
             project.ProjectProgress = project.ProjectCurrentAmount / project.ProjectTargetAmount;
+            if (project.ProjectCurrentAmount >= project.ProjectTargetAmount)
+            {
+                project.IsComplete = true;
+            }
 
             _db.Add(backedPledge);
             _db.Update(project);
