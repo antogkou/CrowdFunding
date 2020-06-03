@@ -70,10 +70,19 @@ namespace CrowdFundingMVC.Controllers
             return Json(result.Data);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeletePost(int id)
+        //[HttpDelete("{id}")]
+        //public IActionResult DeletePost(int id)
+        //{
+        //    return Ok();
+        //}
+
+        [HttpDelete]
+        public bool DeletePost([FromBody] PostOptions postOptions)
         {
-            return Ok();
+            if (postOptions != null)
+                return _postservices.DeletePost(postOptions.PostId);
+            return false;
         }
+
     }
 }
