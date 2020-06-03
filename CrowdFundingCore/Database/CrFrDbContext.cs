@@ -130,13 +130,6 @@ namespace CrowdFundingCore.Database
                 .Entity<Post>()
                 .ToTable("Post");
 
-            modelBuilder
-                .Entity<Post>()
-                .Property(p => p.PostTitle)
-                .IsRequired()
-                .HasMaxLength(255);
-
-
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new AdminConfiguration());
             modelBuilder.ApplyConfiguration(new UsersWithRolesConfig());

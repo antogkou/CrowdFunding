@@ -74,7 +74,6 @@ function submitPostToServer(projectId) {
     actionUrl = "/Post/CreatePost"
     sendData = {
         "ProjectId": projectId,
-        "PostTitle": $('#PostTitle').val(),
         "PostDescription": $('#PostDescription').val()
     }
 
@@ -208,7 +207,6 @@ function doUpdatePost(postId, projectId) {
     actionMethod = "PUT"
     actionUrl = "/Post/updatepost"
     sendData = {
-        "PostTitle": $('#PostTitle').val(),
         "PostDescription": $('#PostDescription').val(),
         "PostId": postId
     }

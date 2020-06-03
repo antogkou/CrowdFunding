@@ -77,7 +77,6 @@ namespace CrowdFundingCore.Services
                 {
                     new Post
                     {
-                        PostTitle = "Welcome to our Project!",
                         PostDescription =
                             "You can help us by funding our project, or simply share it to your friends who might be interested!"
                     },
@@ -252,6 +251,20 @@ namespace CrowdFundingCore.Services
         }
 
         public Project FindProjectById(int projectId)
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _db.Set<Project>()
+                .Where(p => p.ProjectId == projectId)
+                .SingleOrDefault();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
+        }
+
+        public Project FindMyProjectById(int projectId)
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = _db.Set<Project>()

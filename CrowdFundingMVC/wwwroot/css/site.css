@@ -97,6 +97,12 @@ body {
     object-fit: cover;
 }
 
+.single-project-cover {
+    max-height: 350px;
+    min-height: 350px;
+    object-fit: cover;
+}
+
 .placeholderImg {
     max-height: 200px;
     min-height: 200px;

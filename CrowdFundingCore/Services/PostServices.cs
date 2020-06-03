@@ -34,19 +34,12 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null options");
             }
 
-            if (string.IsNullOrWhiteSpace(postOptions.PostTitle))
-            {
-                return Result<Post>.CreateFailed(
-                    StatusCode.BadRequest, "Null or empty PostTitle");
-            }
-
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var project = projectServices.FindProjectById(postOptions.ProjectId);
             Post post = new Post
             {
                 UserId = userId,
                 Project = project,
-                PostTitle = postOptions.PostTitle,
                 PostDescription = postOptions.PostDescription
             };
 
@@ -82,18 +75,10 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null options");
             }
 
-            if (string.IsNullOrWhiteSpace(postOptions.PostTitle))
-            {
-                return Result<Post>.CreateFailed(
-                    StatusCode.BadRequest, "Null or empty PostTitle");
-            }
-
             //string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
            
             var post = _db.Set<Post>().Find(postOptions.PostId);
 
-
-            post.PostTitle = postOptions.PostTitle;
             post.PostDescription = postOptions.PostDescription;
         
 
@@ -150,11 +135,6 @@ namespace CrowdFundingCore.Services
                 .Set<Post>()
                 .AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(postOptions.PostTitle))
-            {
-                query = query.Where(c => c.PostTitle == postOptions.PostTitle);
-            }
-
             if (!string.IsNullOrWhiteSpace(postOptions.PostDescription))
             {
                 query = query.Where(c => c.PostDescription == postOptions.PostDescription);
@@ -184,11 +164,6 @@ namespace CrowdFundingCore.Services
             var query = _db
                 .Set<Post>()
                 .AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(options.PostTitle))
-            {
-                query = query.Where(c => c.PostTitle == options.PostTitle);
-            }
 
             if (!string.IsNullOrWhiteSpace(options.PostDescription))
             {

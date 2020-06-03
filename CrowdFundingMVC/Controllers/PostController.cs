@@ -36,7 +36,7 @@ namespace CrowdFundingMVC.Controllers
                     var editpost = new EditPostVM()
                     {
                         Post = _postservices.FindPostById(projectId.Value, postId.Value),
-                        Project = _projectservices.FindProjectById(projectId.Value)
+                        Project = _projectservices.FindMyProjectById(projectId.Value)
                     };
 
                     return View(editpost);
