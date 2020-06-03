@@ -17,16 +17,23 @@
             var progress = Math.Round((item.ProjectCurrentAmount * 100) / item.ProjectTargetAmount, 2).ToString(System.Globalization.CultureInfo.InvariantCulture);
             var multi = item.ProjectMultimedia.LastOrDefault();
             var multiURL = multi.ProjectPhotoProfile;
+            string creationdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectCreationDate);
+            string endingdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectEndingDate);
+
             <div class="card mx-3 my-3" style="width: 18rem;">
                 <img class="card-img-top img-fluid"
                      src="@multiURL"
                      alt="">
                 <div class="card-body">
-                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>
-                    <p class="card-text"> @projectTargetAmount</p>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreator)</p>
-                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectCreationDate)</p>
+                    <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                    @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
+                    <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
+                    <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
+                    @*<p class="card-text">Creation Date: @creationdateString</p>
+                    <p class="card-text">Ending Date: @endingdateString</p>
+                    <p class="card-text">Target: @projectTargetAmount €</p>*@
 
                     <div class="text-center">@progress% funded</div>
                     <div class="progress bg-warning">
