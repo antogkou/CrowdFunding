@@ -198,9 +198,11 @@ namespace CrowdFundingCore.Services
         //find_post
         public Post FindPostById(int projectId, int postId)
         {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = _db.Set<Post>()
                 .Where(p => p.Project.ProjectId == projectId)
                 .Where(p => p.PostId == postId)
+                .Where(p => p.Project.UserId == userId)
                 .SingleOrDefault();
 
             if (result == null)

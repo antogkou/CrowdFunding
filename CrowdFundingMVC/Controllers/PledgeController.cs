@@ -14,49 +14,50 @@ namespace CrowdFundingMVC.Controllers
     {
         private IProjectServices _projectservices;
         private IPledgeServices _pledgesservices;
-        private IPostServices _postservices;
         private readonly CrFrDbContext _db;
         private readonly IHttpContextAccessor httpContextAccessor;
 
 
         public PledgeController(IProjectServices projectservices, CrFrDbContext db, IHttpContextAccessor _httpContextAccessor,
-           IPledgeServices pledgesservices, IPostServices postservices)
+           IPledgeServices pledgesservices)
         {
-            _projectservices = projectservices;
-            _postservices = postservices;
-            _pledgesservices = pledgesservices;
             _db = db;
+            _projectservices = projectservices;
+            _pledgesservices = pledgesservices;
             httpContextAccessor = _httpContextAccessor;
         }
-        [Authorize(Roles = "Administrator, Project Creator")]
-        [HttpGet]
-        public IActionResult CreatePledges(int? id)
+
+        //GET Add Pledge
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
+        [HttpGet, Route("Project/SingleProject/{projectId}/AddPledge/")]
+        public IActionResult AddPledge([FromRoute] int? projectId)
         {
-            if (id == null)
+            var addpledge = new AddPledgeVM()
             {
-                return BadRequest();
-            }
+                Project = _projectservices.FindProjectById(projectId.Value)
+            };
 
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return View(addpledge);
+        }
 
-            var project = _projectservices.ListProjects(
-                new ProjectOptions()
-                {
-                    ProjectId = id.Value,
-                    UserId = userId
-                }).SingleOrDefault();
-
-            if (project == null)
+        //GET Edit Pledge
+        [AllowAnonymous]
+        //[Authorize(Roles = "Administrator, Project Creator")]
+        [HttpGet, Route("Project/SingleProject/{projectId}/EditPledge/{pledgeId}")]
+        public IActionResult EditPledge([FromRoute] int? projectId, [FromRoute] int? pledgeId)
+        {
+            var editpledge = new EditPledgeVM()
             {
-                return NotFound();
-            }
-
-
-            return NotFound(); //404
+                Pledge = _pledgesservices.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
+                Project = _projectservices.FindProjectById((int)projectId.Value)
+            };
+            if (editpledge != null)
+                return View(editpledge);
+            return NotFound();
         }
 
 
-        //CreatePledges
+        //POST CreatePledges
         [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPost]
         public IActionResult CreatePledges([FromBody] PledgeOptions pledgeOptions)
@@ -72,8 +73,7 @@ namespace CrowdFundingMVC.Controllers
             return Json(result.Data);
         }
 
-
-        //Buy a pledge!
+        //POST Buy a pledge!
         [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpPost]
         public IActionResult AddPledge([FromBody] PledgeProjectOptions pledgeProjectOptions)
@@ -89,71 +89,7 @@ namespace CrowdFundingMVC.Controllers
             return Json(result.Data);
         }
 
-
-        [Authorize(Roles = "Administrator, Backer, Project Creator")]
-        [HttpGet, Route("Project/SingleProject/{projectId}/AddPledge/")]
-        public IActionResult AddPledge([FromRoute] int? projectId)
-        {
-
-            return View(new AddPledgeVM
-            {
-                Project = _projectservices.FindProjectById(projectId.Value),
-            });
-        }
-
-
-
-        //Edit Pledge
-        [AllowAnonymous]
-        //[Authorize(Roles = "Administrator, Project Creator")]
-        [HttpGet, Route("Project/SingleProject/{projectId}/EditPledge/{pledgeId}")]
-        public IActionResult EditPledge([FromRoute] int? projectId, [FromRoute] int? pledgeId)
-        {
-            //if (projectId == null)
-            //{
-            //    return BadRequest();
-            //}
-            //if (pledgeId == null)
-            //{
-            //    return BadRequest();
-            //}
-            ////string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            //var pledge = _pledgesservices.ListPledges(
-            //   new PledgeOptions()
-            //   {
-            //       ProjectId = projectId.Value,
-            //       PledgeId = pledgeId.Value,
-            //        // UserId = userId
-            //    }).SingleOrDefault();
-
-            //if (pledge == null)
-            //{
-            //    return NotFound();
-            //}
-
-
-            //return NotFound(); //404
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (new EditPledgeVM
-            {
-                Pledge = _pledgesservices.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
-                Project = _projectservices.FindProjectById((int)projectId.Value)
-            }.Pledge != null)
-                if (new EditPledgeVM
-                {
-                    Pledge = _pledgesservices.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
-                    Project = _projectservices.FindProjectById((int)projectId.Value)
-                }.Project.UserId == userId)
-
-                    return View(new EditPledgeVM
-                    {
-                        Pledge = _pledgesservices.FindPledgeById((int)projectId.Value, (int)pledgeId.Value),
-                        Project = _projectservices.FindProjectById((int)projectId.Value)
-                    });
-            return View("~/Views/Project/AuthorizationError.cshtml");
-        }
-
+        //POST Update Pledge
         [Authorize(Roles = "Administrator, Backer, Project Creator")]
         [HttpPut]
         public IActionResult UpdatePledge([FromBody] PledgeOptions pledgeOptions)
@@ -167,9 +103,5 @@ namespace CrowdFundingMVC.Controllers
             }
             return Json(result.Data);
         }
-
-
-
-
     }
 }
