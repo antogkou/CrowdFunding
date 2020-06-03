@@ -111,8 +111,8 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             alert('You have successfully payed for this!')
-            window.open("/Project/SingleProject?id=" + projectId, "_self")
-
+            //window.open("/Project/SingleProject?id=" + projectId, "_self")
+             location.reload();
             //$('#responseDiv').html(JSON.stringify(data));
             //refresh page after the post is added 
 

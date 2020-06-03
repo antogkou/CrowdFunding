@@ -10,7 +10,7 @@
 <h4>Project</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-9">
         <form asp-action="EditProject">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.ProjectId" id="ProjectId"/>
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.ProjectDescription" class="control-label"></label>
-                <input asp-for="@Model.ProjectDescription" class="form-control" id="ProjectDescription"/>
+                <textarea asp-for="@Model.ProjectDescription" class="form-control textarea" id="ProjectDescription" ></textarea>
                 <span asp-validation-for="@Model.ProjectDescription" class="text-danger"></span>
             </div>
             <div class="form-group">

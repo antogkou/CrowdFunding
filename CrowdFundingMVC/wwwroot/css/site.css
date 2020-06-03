@@ -104,3 +104,11 @@ body {
     position: relative;
     z-index: -1;
 }
+
+textarea {
+    width: 500px;
+    height: 100px;
+    white-space: nowrap;
+    overflow-x: auto;
+    resize: both;
+}
