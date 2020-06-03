@@ -88,7 +88,6 @@ namespace CrowdFundingMVC
             app.UseCors("AllowAllOriginsHeadersAndMethods");
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseBrowserLink();
 
            
 
