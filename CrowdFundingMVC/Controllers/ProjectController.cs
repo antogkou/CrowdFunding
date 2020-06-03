@@ -86,6 +86,19 @@ namespace CrowdFundingMVC.Controllers
             return View(trendingprojects);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult CompletedProjects()
+        {
+            var completedprojects = new ProjectsGridVM
+            {
+                Projects = _projectservices.GetCompletedProjects().ToList(),
+                ProjectMultimedia = _multimediaServices.GetAll()
+            };
+
+            return View(completedprojects);
+        }
+
         //All Projects List search
         [AllowAnonymous]
         [HttpGet]

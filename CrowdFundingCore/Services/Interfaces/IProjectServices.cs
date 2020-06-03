@@ -17,6 +17,7 @@ namespace CrowdFundingCore.Services.Interfaces
         IQueryable<Project> GetAllProjects(string projectCategory, string searchString);
         IQueryable<Project> GetMyProjects();
         IQueryable<Project> GetTrendingProjects();
+        IQueryable<Project> GetCompletedProjects();
         IQueryable<Project> GetMyBackedProjects();
         //Project FindProjectByIdz(int projectId);
     }

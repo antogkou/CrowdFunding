@@ -41,6 +41,7 @@ namespace CrowdFundingCore.Services
 
             //get username and userid from httpcontext
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
+            userName = userName.Substring(0, userName.IndexOf('@'));
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             //am i sure?
@@ -270,6 +271,20 @@ namespace CrowdFundingCore.Services
             var result = _db.Set<Project>()
                 .Where(s => s.ProjectProgress > 0.35m)
                 .Where(s => s.IsActive == true)
+                .Where(s => s.IsComplete == false)
+                .AsQueryable();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
+        }
+
+        public IQueryable<Project> GetCompletedProjects()
+        {
+            var result = _db.Set<Project>()
+                .Where(s => s.IsComplete)
                 .AsQueryable();
 
             if (result == null)
