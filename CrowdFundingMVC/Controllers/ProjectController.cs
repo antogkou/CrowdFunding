@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Claims;
@@ -46,19 +47,56 @@ namespace CrowdFundingMVC.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administrator, Project Creator")]
-        [HttpPost]
-        public IActionResult CreateProject([FromBody] ProjectOptions projOpt)
+        //Get backed user's projects View
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
+        [HttpGet]
+        public IActionResult GetMyBackedProjects()
         {
-
-            var result = _projectservices.CreateProject(projOpt);
-            if (!result.Success)
+            var mybackedprojects = new ProjectsGridVM()
             {
-                return StatusCode((int)result.ErrorCode,
-                    result.ErrorText);
-            }
+                Projects = _projectservices.GetMyBackedProjects().ToList(),
+                ProjectMultimedia = _multimediaServices.GetAll()
+            };
+            return View(mybackedprojects);
+        }
 
-            return Json(result.Data);
+        //Get current user's projects View
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
+        [HttpGet]
+        public IActionResult GetMyProjects()
+        {
+            var myprojects = new ProjectsGridVM
+            {
+                Projects = _projectservices.GetMyProjects().ToList(),
+                ProjectMultimedia = _multimediaServices.GetAll()
+            };
+            return View(myprojects);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult GetTrendingProjects()
+        {
+            var trendingprojects = new ProjectsGridVM
+            {
+                Projects = _projectservices.GetTrendingProjects().ToList(),
+                ProjectMultimedia = _multimediaServices.GetAll()
+            };
+
+            return View(trendingprojects);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult CompletedProjects()
+        {
+            var completedprojects = new ProjectsGridVM
+            {
+                Projects = _projectservices.GetCompletedProjects().ToList(),
+                ProjectMultimedia = _multimediaServices.GetAll()
+            };
+
+            return View(completedprojects);
         }
 
         //All Projects List search
@@ -66,40 +104,18 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProjects(string projectCategory, string searchString)
         {
-            // Use LINQ to get list of genres.
-            IQueryable<string> categoryQuery = from m in _db.Set<Project>()
-                                               orderby m.ProjectCategory
-                                               select m.ProjectCategory;
-
-            var projects = from m in _db.Set<Project>()
-                           select m;
-
-            if (!string.IsNullOrWhiteSpace(searchString))
-            {
-                projects = projects.Where(s => s.ProjectTitle.Contains(searchString));
-            }
-
-            if (!string.IsNullOrWhiteSpace(projectCategory))
-            {
-                projects = projects.Where(x => x.ProjectCategory == projectCategory);
-            }
-
+            //Use LINQ to get list of genres.
+           IQueryable<string> categoryQuery = from m in _db.Set<Project>()
+                                              orderby m.ProjectCategory
+                                              select m.ProjectCategory;
             var viewallprojects = new ProjectsGridVM
             {
                 Categories = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Projects = await projects.ToListAsync(),
+                Projects = _projectservices.GetAllProjects(projectCategory, searchString).ToList(),
                 ProjectMultimedia = _multimediaServices.GetAll()
             };
 
             return View(viewallprojects);
-        }
-
-        //search projects
-        [Authorize(Roles = "Administrator, Backer, Project Creator")]
-        [HttpPost]
-        public string GetAllProjects(string searchString, bool notUsed)
-        {
-            return "From [HttpPost]Index: filter on " + searchString;
         }
 
         //Single Project View
@@ -114,8 +130,9 @@ namespace CrowdFundingMVC.Controllers
                 Pledges = _pledgesservices.GetPledgesByProjectId(id),
                 ProjectMultimedia = _multimediaServices.GetMultimediaOfProject(id),
             };
-
+            if (singleproject != null)
             return View(singleproject);
+            return NotFound();
         }
 
         //Edit Project
@@ -123,13 +140,34 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet, Route("Project/{projectId}/Edit/")]
         public IActionResult EditProject([FromRoute] int projectId)
         {
-            var editproject = _projectservices.FindProjectByIdz(projectId);
-                //new ProjectOptions()
-                //{ 
-                //    ProjectId = projectId
-                //}).FirstOrDefault();
-
+            var editproject = _projectservices.FindProjectById(projectId);
+            if (editproject != null)
             return View(editproject);
+            return NotFound();
+        }
+
+        //search projects
+        [Authorize(Roles = "Administrator, Backer, Project Creator")]
+        [HttpPost]
+        public string GetAllProjects(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
+        }
+
+
+        [Authorize(Roles = "Administrator, Project Creator")]
+        [HttpPost]
+        public IActionResult CreateProject([FromBody] ProjectOptions projectoptions)
+        {
+
+            var result = _projectservices.CreateProject(projectoptions);
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
+            }
+
+            return Json(result.Data);
         }
 
         //Update Project
@@ -145,65 +183,6 @@ namespace CrowdFundingMVC.Controllers
                     result.ErrorText);
             }
             return Json(result.Data);
-        }
-
-
-        //Get current user's projects View
-        [Authorize(Roles = "Administrator, Backer, Project Creator")]
-        [HttpGet]
-        public IActionResult GetMyProjects()
-        {
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var myprojectList = _db.Set<Project>()
-                .Where(s => s.UserId == userId)
-                .ToList();
-            var myprojects = new ProjectsGridVM
-            {
-                Projects = myprojectList,
-                ProjectMultimedia = _multimediaServices.GetAll()
-            };
-            return View(myprojects);
-        }
-
-        //Get backed user's projects View
-        [Authorize(Roles = "Administrator, Backer, Project Creator")]
-        [HttpGet]
-        public IActionResult GetMyBackedProjects()
-        {
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var projects = _db.Set<BackedPledges>()
-                .Where(p => p.UserId == userId)
-                .Select(p => p.BackedPledge)
-                .Select(p => p.Project)
-                .Distinct();
-
-            var mybackedprojects = new ProjectsGridVM
-            {
-                Projects = projects.ToList(),
-                ProjectMultimedia = _multimediaServices.GetAll()
-            };
-
-            return View(mybackedprojects);
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult GetTrendingProjects()
-        {
-
-            var projects = _db.Set<Project>()
-                .Where(s => s.ProjectProgress > 0.35m)
-                .Where(s => s.IsActive == true)
-                .ToList();
-
-            var trendingprojects = new ProjectsGridVM
-            {
-                Projects = projects,
-                ProjectMultimedia = _multimediaServices.GetAll()
-            };
-
-            return View(trendingprojects);
         }
     }
 }

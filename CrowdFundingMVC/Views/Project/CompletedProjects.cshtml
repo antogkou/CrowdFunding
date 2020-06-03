@@ -1,34 +1,15 @@
-﻿@*@model IEnumerable<CrowdFundingCore.Models.Project>*@
-@model CrowdFundingMVC.ViewModels.ProjectsGridVM
-
+﻿@model CrowdFundingMVC.ViewModels.ProjectsGridVM
 @{
-    ViewData["Title"] = "Projects List";
+    ViewData["Title"] = "CompletedProjects" +
+                "" +
+                "";
 }
 
 <div class="text-center">
-    <h1>All Projects</h1>
+    <h1>Completed Projects</h1>
 </div>
 
-
-
-
 <div class="container" style="width: 60rem;">
-    <div style="width: 60rem;" class="row px-3 mt-3">
-        <div>
-            <a asp-action="CreateProject">New Project</a>
-        </div>
-        <div class="ml-auto">
-            <form asp-controller="Project" asp-action="GetAllProjects" method="get">
-                <select asp-for="ProjectCategory" asp-items="Model.Categories">
-                    <option value="">All</option>
-                </select>
-
-                Title: <input type="text" asp-for="SearchString" />
-                <input class="btn-outline-primary" type="submit" value="Filter" />
-            </form>
-        </div>
-
-    </div>
     <div class="row">
         @foreach (var item in Model.Projects)
         {
@@ -40,17 +21,16 @@
             string endingdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectEndingDate);
 
             <div class="card mx-3 my-3" style="width: 18rem;">
-
                 <img class="card-img-top img-fluid"
                      src="@multiURL"
                      alt="">
                 <div class="card-body">
                     <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
                     @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
-                <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
-                <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
-                <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
-                <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
+                    <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
+                    <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
                     @*<p class="card-text">Creation Date: @creationdateString</p>
                     <p class="card-text">Ending Date: @endingdateString</p>
                     <p class="card-text">Target: @projectTargetAmount €</p>*@
@@ -65,10 +45,12 @@
                              style="width:@progress%">
                         </div>
                     </div>
+
                     <p></p>
                     <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
-                       class="btn btn-primary mx-auto d-block"
+                       class="btn btn-sm btn-primary mx-auto d-block"
                        id="SingleProjectView">Go to this Project!</a>
+
                 </div>
             </div>
         }

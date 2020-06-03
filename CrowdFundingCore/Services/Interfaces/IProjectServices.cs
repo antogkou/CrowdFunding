@@ -14,6 +14,11 @@ namespace CrowdFundingCore.Services.Interfaces
         Result<Project> UpdateProject(UpdateProjectOptions options);
         Result<Project> GetProjectById(int id);
         Result<Project> FindProjectById2(int projectId);
-        Project FindProjectByIdz(int projectId);
+        IQueryable<Project> GetAllProjects(string projectCategory, string searchString);
+        IQueryable<Project> GetMyProjects();
+        IQueryable<Project> GetTrendingProjects();
+        IQueryable<Project> GetCompletedProjects();
+        IQueryable<Project> GetMyBackedProjects();
+        //Project FindProjectByIdz(int projectId);
     }
 }

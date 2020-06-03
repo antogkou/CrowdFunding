@@ -33,49 +33,13 @@ namespace CrowdFundingMVC.Controllers
         [HttpGet, Route("Project/SingleProject/{projectId}/EditPost/{postId}")]
         public IActionResult EditPost([FromRoute] int? projectId, [FromRoute] int? postId)
         {
-            //if (projectId == null)
-            //{
-            //    return BadRequest();
-            //}
-            //if (postId == null)
-            //{
-            //    return BadRequest();
-            //}
-            ////string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            //var post = _postservices.SearchPosts(
-            //   new PostOptions()
-            //   {
-            //       ProjectId = projectId.Value,
-            //        // UserId = userId
-            //    }).FirstOrDefault();
-
-            //if (post == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return NotFound(); //404
-
-            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (new EditPostVM
-            {
-                Post = _postservices.FindPostById((int)projectId.Value, (int)postId.Value),
-                Project = _projectservices.FindProjectById((int)projectId.Value)
-            }.Post != null)
-                if (new EditPostVM
-                {
-                    Post = _postservices.FindPostById((int)projectId.Value, (int)postId.Value),
-                    Project = _projectservices.FindProjectById((int)projectId.Value)
-                }.Project.UserId == userId)
-
-                    return View(new EditPostVM
+                    var editpost = new EditPostVM()
                     {
-                        Post = _postservices.FindPostById((int)projectId.Value, (int)postId.Value),
-                        Project = _projectservices.FindProjectById((int)projectId.Value)
-                    });
-            return View("~/Views/Project/AuthorizationError.cshtml");
+                        Post = _postservices.FindPostById(projectId.Value, postId.Value),
+                        Project = _projectservices.FindProjectById(projectId.Value)
+                    };
 
+                    return View(editpost);
         }
 
         //Create Post(comment)
@@ -93,7 +57,7 @@ namespace CrowdFundingMVC.Controllers
         }
 
         [Authorize(Roles = "Administrator, Backer, Project Creator")]
-         [HttpPut]
+        [HttpPut]
         public IActionResult UpdatePost([FromBody] PostOptions postOptions)
         {
             var result = _postservices.UpdatePost(postOptions);
@@ -106,12 +70,19 @@ namespace CrowdFundingMVC.Controllers
             return Json(result.Data);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeletePost(int id)
-        {
-            return Ok();
-        }
+        //[HttpDelete("{id}")]
+        //public IActionResult DeletePost(int id)
+        //{
+        //    return Ok();
+        //}
 
+        [HttpDelete]
+        public bool DeletePost([FromBody] PostOptions postOptions)
+        {
+            if (postOptions != null)
+                return _postservices.DeletePost(postOptions.PostId);
+            return false;
+        }
 
     }
 }

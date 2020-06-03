@@ -3,6 +3,7 @@ using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -172,6 +173,10 @@ namespace CrowdFundingCore.Services
 
             project.ProjectCurrentAmount += pledge.PledgePrice;
             project.ProjectProgress = project.ProjectCurrentAmount / project.ProjectTargetAmount;
+            if (project.ProjectCurrentAmount >= project.ProjectTargetAmount)
+            {
+                project.IsComplete = true;
+            }
 
             _db.Add(backedPledge);
             _db.Update(project);
@@ -199,19 +204,15 @@ namespace CrowdFundingCore.Services
 
         }
 
-        //new find way
-        //public Pledge FindPledgeById(int id)
-        //{
-        //    return _db.Set<Pledge>().Find(id);
-        //}
 
         public Pledge FindPledgeById(int projectId, int pledgeId)
         {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = _db.Set<Pledge>()
                 .Where(p => p.Project.ProjectId == projectId)
                 .Where(p => p.PledgeId == pledgeId)
+                .Where(p => p.Project.UserId == userId)
                 .SingleOrDefault();
-
             if (result == null)
             {
                 return null;
@@ -233,6 +234,23 @@ namespace CrowdFundingCore.Services
             query = query.Take(500);
 
             return query;
+        }
+
+        public bool DeletePledge(int pledgeId)
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Pledge pledge = _db.Set<Pledge>()
+                .Include(p => p.Project)
+                .Where(p => p.PledgeId == pledgeId)
+                .Where(p => p.Project.UserId == userId)
+                .SingleOrDefault();
+            if (pledge != null)
+            {
+                _db.Set<Pledge>().Remove(pledge);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }
