@@ -126,6 +126,7 @@ namespace CrowdFundingMVC.Controllers
                 Project = _projectservices.FindProjectById(id),
                 Posts = _postservices.GetAllPosts(id),
                 Pledges = _pledgesservices.GetPledgesByProjectId(id),
+                PledgeUsers = _pledgesservices.GetUsersPledges(id),
                 ProjectMultimedia = _multimediaServices.GetMultimediaOfProject(id),
             };
             if (singleproject != null)

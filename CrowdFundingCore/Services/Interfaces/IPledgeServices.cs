@@ -11,6 +11,7 @@ namespace CrowdFundingCore.Services.Interfaces
         Result<BackedPledges> AddPledge(int pledgeId, int projectId);
         Pledge FindPledgeById(int projectId, int pledgeId);
         List<Pledge> GetPledgesByProjectId(int projectId);
+        List<Pledge> GetUsersPledges(int projectId);
         Result<Pledge> UpdatePledge(PledgeOptions pledgeOptions);
         IQueryable<Pledge> ListPledges(PledgeOptions options);
         bool DeletePledge(int pledgeId);

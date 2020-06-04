@@ -33,6 +33,15 @@ namespace CrowdFundingCore.Services
                 .ToList();
         }
 
+         public List<Pledge> GetUsersPledges(int projectId)
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return _db.Set<Pledge>()
+                .Where(p => p.Project.ProjectId == projectId)
+                .Include(p=> p.PledgeUsers)
+                .ToList();
+        }
+
         public Result<Pledge> CreatePledges(PledgeOptions pledgeOptions)
         {
             if (pledgeOptions == null)
