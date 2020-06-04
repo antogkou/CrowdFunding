@@ -123,7 +123,8 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
 }
 
 function editProject(projectId) {
-    window.open("/Project/EditProject/" + projectId, "_self");
+    window.open("/Project/" + projectId + "/Edit/", "_self");
+
 }
 
 function doUpdateProject(projectId) {
