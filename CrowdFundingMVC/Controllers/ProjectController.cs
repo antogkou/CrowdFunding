@@ -109,7 +109,7 @@ namespace CrowdFundingMVC.Controllers
             var viewallprojects = new ProjectsGridVM
             {
                 Categories = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Projects = _projectservices.GetAllProjects(projectCategory, searchString).ToList(),
+                Projects = _projectservices.GetAllActiveProjects(projectCategory, searchString).ToList(),
                 ProjectMultimedia = _multimediaServices.GetAll()
             };
 

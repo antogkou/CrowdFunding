@@ -284,3 +284,6 @@ function deletePledge(pledgeId) {
         return false;
     }
 }
+
+
+document.getElementByClassName("card").style.transform = "rotate(45deg)";
