@@ -33,6 +33,20 @@ namespace CrowdFundingMVC.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Range(9, int.MaxValue, ErrorMessage = "Please enter valid VAT Number")]
+            [DataType(DataType.Text)]
+            [Display(Name = "VAT number")]
+            public int user_VAT { get; set; }
+
+            //[Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First name")]
+            public string userFirstName { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            public string userLastName { get; set; }
         }
 
         private async Task LoadAsync(MyUsers user)
@@ -44,7 +58,10 @@ namespace CrowdFundingMVC.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                user_VAT = user.user_VAT,
+                userFirstName = user.userFirstName,
+                userLastName = user.userLastName
             };
         }
 
@@ -84,6 +101,21 @@ namespace CrowdFundingMVC.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            if (Input.user_VAT != user.user_VAT)
+            {
+                user.user_VAT = Input.user_VAT;
+            }
+            if (Input.userFirstName != user.userFirstName)
+            {
+                user.userFirstName = Input.userFirstName;
+            }
+
+            if (Input.userLastName != user.userLastName)
+            {
+                user.userLastName = Input.userLastName;
+            }
+
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

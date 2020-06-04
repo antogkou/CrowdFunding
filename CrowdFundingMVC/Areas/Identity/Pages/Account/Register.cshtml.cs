@@ -47,6 +47,22 @@ namespace CrowdFundingMVC.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First Name")]
+            public string user_FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last Name")]
+            public string user_LastName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "VAT Number")]
+            public int user_VAT { get; set; }
+
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -76,7 +92,14 @@ namespace CrowdFundingMVC.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 //char atSign = '@'; .Split(atSign)[0]
-                var user = new MyUsers { UserName = Input.Email, Email = Input.Email };
+                var user = new MyUsers
+                {
+                    userFirstName = Input.user_FirstName,
+                    userLastName = Input.user_LastName,
+                    user_VAT = Input.user_VAT,
+                    UserName = Input.Email,
+                    Email = Input.Email
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -102,10 +125,10 @@ namespace CrowdFundingMVC.Areas.Identity.Pages.Account
                         //all registered users recieve Backer and Project Creator roles
                         await _userManager.AddToRoleAsync(user, SD.BackerEndUser);
                         await _userManager.AddToRoleAsync(user, SD.ProjectCreatorEndUser);
-                       // await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
+                        // await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
 
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        
+
                         return LocalRedirect(returnUrl);
                     }
                 }

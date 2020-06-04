@@ -296,5 +296,4 @@ function passFunction() {
         x.type = "password";
         y.type = "password";
     }
-
 }
