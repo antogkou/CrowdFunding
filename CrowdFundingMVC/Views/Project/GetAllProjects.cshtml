@@ -38,7 +38,8 @@
             string creationdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectCreationDate);
             string endingdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectEndingDate);
 
-            <div class="card mx-3 my-3" style="width: 18rem;">
+        
+            <div class="card mx-3 my-3 position-relative" style="width: 18rem;">
 
                 <img class="card-img-top img-fluid"
                      src="@multiURL"
@@ -66,7 +67,7 @@
                     </div>
                     <p></p>
                     <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
-                       class="btn btn-primary mx-auto d-block"
+                       class="btn btn-primary mx-auto d-block stretched-link"
                        id="SingleProjectView">Go to this Project!</a>
                 </div>
             </div>

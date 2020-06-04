@@ -339,13 +339,15 @@ namespace CrowdFundingCore.Services
             return result;
         }
 
-        public IQueryable<Project> GetAllProjects(string projectCategory, string searchString)
+        public IQueryable<Project> GetAllActiveProjects(string projectCategory, string searchString)
         {
 
             //var projects = from m in _db.Set<Project>()
             //             select m;
 
             var projects = _db.Set<Project>()
+                .Where(p => p.IsActive ==true)
+                .Where(p => p.IsComplete == false)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchString))
