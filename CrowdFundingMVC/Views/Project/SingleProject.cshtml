@@ -8,6 +8,7 @@
     var progress = Math.Round((Model.Project.ProjectCurrentAmount * 100) / Model.Project.ProjectTargetAmount, 2)
         .ToString(System.Globalization.CultureInfo.InvariantCulture);
     var levelCounter = 0;
+   // var pledgeTotal = Math.Round((Model.PledgeUsers.Count * Model.Pledges.Count ));
 }
 
 <main>
@@ -106,7 +107,7 @@
                             </div>
                         }
                 </div>
-                @*test area*@
+
                 <table class="customers table table-striped">
                     <thead>
                         <tr>
@@ -115,6 +116,7 @@
                             <th scope="col">Price</th>
                             <th scope="col">Reward</th>
                             <th scope="col">Created Date</th>
+                            <th scope="col">Total per Pledge</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,17 +128,13 @@
                                 <td>@c.PledgePrice</td>
                                 <td>@c.PledgeReward</td>
                                 <td>@c.PledgeDateCreated</td>
-                                @*<td>
-                            <a class="nav-link" href="@Url.Action("Details", "Customer", new { id = c.CustomerId })">
-                                Details
-                            </a>
-                        </td>*@
+                                <td>@Math.Round(@c.PledgePrice * @c.PledgeUsers.Count)€</td>
                             </tr>
                         }
                     </tbody>
                 </table>
                 <h5>Total Pledges: @Model.Pledges.Count()</h5>
-                @*test area*@
+                <h5>Total Users: Users Count (not working)</h5>
             </div>
         </div>
     }
