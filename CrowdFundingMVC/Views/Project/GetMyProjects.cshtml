@@ -19,9 +19,18 @@
             string endingdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectEndingDate);
 
         <div class="card mx-3 my-3" style="width: 18rem;">
-            <img class="card-img-top img-fluid"
-                 src="@multiURL"
-                 alt="">
+            @if (multiURL != null && multiURL != "")
+            {
+                <img class="card-img-top img-fluid"
+                     src="@multiURL"
+                     alt="Project Image">
+            }
+            else
+            {
+                <img class="card-img-top img-fluid"
+                     src="~/img/coverproject.png"
+                     alt="Project Image">
+            }
             <div class="card-body">
                 <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
                 @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
