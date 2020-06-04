@@ -45,11 +45,11 @@ namespace CrowdFundingCore.Services
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             //am i sure?
-            if (string.IsNullOrWhiteSpace(projectoption.MultimediaURL))
-            {
-                return Result<Project>.CreateFailed(
-                    StatusCode.BadRequest, "Null or empty Multimedia URL");
-            }
+            //if (string.IsNullOrWhiteSpace(projectoption.MultimediaURL))
+            //{
+            //    return Result<Project>.CreateFailed(
+            //        StatusCode.BadRequest, "Null or empty Multimedia URL");
+            //}
 
 
             var project = new Project()
@@ -67,9 +67,8 @@ namespace CrowdFundingCore.Services
                 {
                     new Multimedia
                     {
-                        ProjectPhotoProfile = projectoption.ProjectPhotoProfile,
                         MultimediaTypes = projectoption.MultimediaTypes,
-                        MultimediaURL = projectoption.MultimediaURL
+                        MultimediaURL = projectoption.FilePath
                     },
                 },
 

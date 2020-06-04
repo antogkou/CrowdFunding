@@ -34,7 +34,7 @@
             string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");
             var progress = Math.Round((item.ProjectCurrentAmount * 100) / item.ProjectTargetAmount, 2).ToString(System.Globalization.CultureInfo.InvariantCulture);
             var multi = item.ProjectMultimedia.LastOrDefault();
-            var multiURL = multi.ProjectPhotoProfile;
+            var multiURL = multi.MultimediaURL;
             string creationdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectCreationDate);
             string endingdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectEndingDate);
 

@@ -31,16 +31,16 @@
                     <div class="row">
                         <div class="col-md-6 text-center">
 
-                            @if (Model.ProjectMultimedia.Last().ProjectPhotoProfile
-                               != null && Model.ProjectMultimedia.Last().ProjectPhotoProfile != "")
+                            @if (Model.ProjectMultimedia.Last().MultimediaURL
+                               != null && Model.ProjectMultimedia.Last().MultimediaURL != "")
                             {
-                                <img class="img-fluid single-project-cover" src="@Url.Content(Model.ProjectMultimedia.Last().ProjectPhotoProfile)"
+                                <img class="img-fluid single-project-cover" src="@Url.Content(Model.ProjectMultimedia.Last().MultimediaURL)"
                                      style="max-width:100%; height:auto; max-height: 350px; min-height: 350px;" />
                             }
                             else
                             {
                                 <img class="img-fluid single-project-cover" src="~/img/coverproject.png"
-                                     style="max-width:100%; alt="Project Image" height:auto; max-height: 350px; min-height: 350px;" />
+                                     style="max-width:100%; Project Image" height:auto; max-height: 350px; min-height: 350px;" />
                             }
 
 
@@ -142,7 +142,7 @@
                                 <td>@c.PledgeTitle</td>
                                 <td>@c.PledgePrice</td>
                                 <td>@c.PledgeReward</td>
-                                <td>@c.PledgeDateCreated</td>
+                                <td>@c.PledgeDateCreated.DateTime.ToLongDateString()</td>
                                 <td>@Math.Round(@c.PledgePrice * @c.PledgeUsers.Count)€</td>
                             </tr>
                         }

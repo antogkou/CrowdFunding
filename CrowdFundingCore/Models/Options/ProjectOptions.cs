@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace CrowdFundingCore.Models.Options
@@ -18,7 +19,8 @@ namespace CrowdFundingCore.Models.Options
         public DateTime ProjectEndingDate { get; set; }
         public string UserId { get; set; }
         public string Creator { get; set; }
-        public string MultimediaURL { get; set; }
+        public IFormFile MultimediaURL { get; set; }
+        public string FilePath { get; set; }
         public MultimediaTypes MultimediaTypes { get; set; }
         public string ProjectPhotoProfile { get; set; }
     }

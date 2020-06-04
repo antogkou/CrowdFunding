@@ -6,26 +6,37 @@
 function submitProjectToServer() {
     actionMethod = "POST"
     actionUrl = "/Project/CreateProject"
-    sendData = {
-        "ProjectTitle": $('#ProjectTitle').val(),
-        "ProjectDescription": $('#ProjectDescription').val(),
-        "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
-        "ProjectCategory": $('#ProjectCategory').val(),
-        "ProjectEndingDate": $('#ProjectEndingDate').val(),
-        "MultimediaURL": $('#MultimediaURL').val(),
-        "MultimediaTypes": $('#MultimediaTypes').val(),
-        "ProjectPhotoProfile": $('#ProjectPhotoProfile').val()
+    //sendData = {
+    //    "ProjectTitle": $('#ProjectTitle').val(),
+    //    "ProjectDescription": $('#ProjectDescription').val(),
+    //    "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
+    //    "ProjectCategory": $('#ProjectCategory').val(),
+    //    "ProjectEndingDate": $('#ProjectEndingDate').val(),
+    //    "MultimediaURL": $('#MultimediaURL').val(),
+    //"MultimediaTypes": $('#MultimediaTypes').val(),
+    //"ProjectPhotoProfile": $('#ProjectPhotoProfile').val()
 
+    //}
+
+    var formData = new FormData();
+    for (var i = 0; i < $('#MultimediaURL').length; i++) {
+        formData.append("MultimediaURL", $('#MultimediaURL')[0].files[i]);
     }
 
-
+    formData.append("ProjectTitle", $('#ProjectTitle').val());
+    formData.append("ProjectDescription", $('#ProjectDescription').val());
+    formData.append("ProjectTargetAmount", $('#ProjectTargetAmount').val());
+    formData.append("ProjectCategory", $('#ProjectCategory').val());
+    formData.append("ProjectEndingDate", $('#ProjectEndingDate').val());
+    //formData.append("MultimediaTypes", $('#MultimediaTypes').val());
+    //formData.append("ProjectPhotoProfile", $('#ProjectPhotoProfile').val());
 
     $.ajax({
         url: actionUrl,
         dataType: 'json',
         type: actionMethod,
-        data: JSON.stringify(sendData),
-        contentType: 'application/json',
+        data: formData,
+        contentType: false,  // important when sending formData
         processData: false,
         success: function (data, textStatus, jQxhr) {
 

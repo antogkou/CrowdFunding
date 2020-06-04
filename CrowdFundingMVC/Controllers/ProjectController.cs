@@ -4,10 +4,14 @@ using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
 using CrowdFundingMVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,12 +26,14 @@ namespace CrowdFundingMVC.Controllers
         private IMultimediaServices _multimediaServices;
         private readonly CrFrDbContext _db;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
         public ProjectController(IProjectServices projectservices, CrFrDbContext db,
             IHttpContextAccessor _httpContextAccessor,
             IPledgeServices pledgesservices,
             IPostServices postservices,
-            IMultimediaServices multimediaServices)
+            IMultimediaServices multimediaServices,
+            IWebHostEnvironment environment)
         {
             _projectservices = projectservices;
             _pledgesservices = pledgesservices;
@@ -35,6 +41,7 @@ namespace CrowdFundingMVC.Controllers
             _multimediaServices = multimediaServices;
             _db = db;
             httpContextAccessor = _httpContextAccessor;
+            hostingEnvironment = environment;
         }
 
         //Create Project View
@@ -103,9 +110,9 @@ namespace CrowdFundingMVC.Controllers
         public async Task<IActionResult> GetAllProjects(string projectCategory, string searchString)
         {
             //Use LINQ to get list of genres.
-           IQueryable<string> categoryQuery = from m in _db.Set<Project>()
-                                              orderby m.ProjectCategory
-                                              select m.ProjectCategory;
+            IQueryable<string> categoryQuery = from m in _db.Set<Project>()
+                                               orderby m.ProjectCategory
+                                               select m.ProjectCategory;
             var viewallprojects = new ProjectsGridVM
             {
                 Categories = new SelectList(await categoryQuery.Distinct().ToListAsync()),
@@ -130,7 +137,7 @@ namespace CrowdFundingMVC.Controllers
                 ProjectMultimedia = _multimediaServices.GetMultimediaOfProject(id),
             };
             if (singleproject != null)
-            return View(singleproject);
+                return View(singleproject);
             return NotFound();
         }
 
@@ -141,7 +148,7 @@ namespace CrowdFundingMVC.Controllers
         {
             var editproject = _projectservices.FindMyProjectById(projectId);
             if (editproject != null)
-            return View(editproject);
+                return View(editproject);
             return NotFound();
         }
 
@@ -156,18 +163,42 @@ namespace CrowdFundingMVC.Controllers
 
         [Authorize(Roles = "Administrator, Project Creator")]
         [HttpPost]
-        public IActionResult CreateProject([FromBody] ProjectOptions projectoptions)
+        public IActionResult CreateProject([FromForm] ProjectOptions projectoptions)
         {
 
-            var result = _projectservices.CreateProject(projectoptions);
-            if (!result.Success)
+
+
+            if (projectoptions.MultimediaURL != null)
             {
-                return StatusCode((int)result.ErrorCode,
-                    result.ErrorText);
+                var uniqueFileName = GetUniqueFileName(projectoptions.MultimediaURL.FileName);
+                var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+                projectoptions.MultimediaURL.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                projectoptions.FilePath = "/uploads/" + uniqueFileName;
+                //to do : Save uniqueFileName  to your db table   
+                var result = _projectservices.CreateProject(projectoptions);
+
+                if (!result.Success)
+                {
+                    return StatusCode((int)result.ErrorCode,
+                        result.ErrorText);
+                }
+
+                return Json(result.Data);
             }
 
-            return Json(result.Data);
+            else return NotFound();
         }
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
+        }
+
 
         //Update Project
         [Authorize(Roles = "Administrator, Project Creator")]
@@ -183,5 +214,7 @@ namespace CrowdFundingMVC.Controllers
             }
             return Json(result.Data);
         }
+
+
     }
 }
