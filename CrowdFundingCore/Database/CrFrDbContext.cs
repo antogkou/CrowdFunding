@@ -1,10 +1,6 @@
-﻿using System;
-using CrowdFundingCore.Models;
-using CrowdFundingCore.Services;
-using Microsoft.AspNetCore.Identity;
+﻿using CrowdFundingCore.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CrowdFundingCore.Database
 {

@@ -111,7 +111,7 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
         success: function (data, textStatus, jQxhr) {
             alert('You have successfully payed for this!')
             //window.open("/Project/SingleProject?id=" + projectId, "_self")
-             location.reload();
+            location.reload();
             //$('#responseDiv').html(JSON.stringify(data));
             //refresh page after the post is added 
 
@@ -283,4 +283,17 @@ function deletePledge(pledgeId) {
     else {
         return false;
     }
+}
+
+function passFunction() {
+    var x = document.getElementById("myPass");
+    var y = document.getElementById("myPass2");
+    if (x.type === "password") {
+        x.type = "text";
+        y.type = "text";
+    } else {
+        x.type = "password";
+        y.type = "password";
+    }
+
 }

@@ -14,17 +14,16 @@
 
 <div class="container" style="width: 60rem;">
     <div style="width: 60rem;" class="row px-3 mt-3">
-        <div>
+        @*<div>
             <a asp-action="CreateProject">New Project</a>
-        </div>
+        </div>*@
         <div class="ml-auto">
-            <form asp-controller="Project" asp-action="GetAllProjects" method="get">
-                <select asp-for="ProjectCategory" asp-items="Model.Categories">
+            <form class="searchform" asp-controller="Project" asp-action="GetAllProjects" method="get">
+                <select class="custom-select-sm" asp-for="ProjectCategory" asp-items="Model.Categories">
                     <option value="">All</option>
                 </select>
-
-                Title: <input type="text" asp-for="SearchString" />
-                <input class="btn-outline-primary" type="submit" value="Filter" />
+                <input class="searchform" type="text" placeholder="Search.." asp-for="SearchString" />
+                <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
 
@@ -43,17 +42,17 @@
 
                 <img class="card-img-top img-fluid"
                      src="@multiURL"
-                     alt="">
+                     alt="Project Image">
                 <div class="card-body">
                     <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
                     @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
-                <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
-                <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
-                <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
-                <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
+                    <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
+                    <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
                     @*<p class="card-text">Creation Date: @creationdateString</p>
-                    <p class="card-text">Ending Date: @endingdateString</p>
-                    <p class="card-text">Target: @projectTargetAmount €</p>*@
+                        <p class="card-text">Ending Date: @endingdateString</p>
+                        <p class="card-text">Target: @projectTargetAmount €</p>*@
 
                     <div class="text-center">@progress% funded</div>
                     <div class="progress bg-warning">
