@@ -39,6 +39,13 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null or empty ProjectTitle");
             }
 
+            if (projectoption.ProjectTargetAmount == 0)
+            {
+                return Result<Project>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty ProjectTargetAmount");
+            }
+
+
             //get username and userid from httpcontext
             string userName = httpContextAccessor.HttpContext.User.Identity.Name;
             userName = userName.Substring(0, userName.IndexOf('@'));
