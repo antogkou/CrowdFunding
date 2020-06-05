@@ -167,9 +167,6 @@
         }
 
 
-        
-
-
         <div class="row">
             <div class="container-fluid border shadow p-3 mb-4 bg-white rounded">
                 @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
@@ -183,13 +180,13 @@
                     </div>
                 }
                 <div>
-                    <a>Updates: <span class="badge">@Model.Posts.Count()</span></a>
+                    @*<a>Updates: <span class="badge">@Model.Posts.Count()</span></a>*@
                     @*<h5>Total Updates: @Model.Posts.Count()</h5>*@
-                    <h6 class="border-bottom border-gray pb-2 mb-0 text-center font-weight-bold font-italic">Recent updates</h6>
+                    <h6 class="border-bottom border-gray pb-2 mb-0 text-center font-weight-bold font-italic">Recent updates <span class="w3-badge w3-green">@Model.Posts.Count()</span></h6>
                     @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
                     {
                         <div class="media text-muted">
-                            <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="~/img/blue32.jpg" data-holder-rendered="true">
+                            <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" data-holder-rendered="true">
                             <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                                 <strong class="d-block text-gray-dark">@Model.Project.ProjectCreator · @item.PostDateCreated.DateTime</strong>
                                 @Html.DisplayFor(modelItem => item.PostDescription)
@@ -202,8 +199,6 @@
                                     <button type="button" class="btn btn-primary btn-sm mr-1" onclick="editPost(@Model.Project.ProjectId , @item.PostId)">Edit</button>
                                 </small>
                                 <small class="d-block text-right mt-0">
-                                    @*<a href="#">Delete</a>*@
-                                    @*<button type="button" class="btn btn-danger btn-sm" onclick="deletePostFromServer(@Model.Project.ProjectId , @item.PostId)">Delete</button>*@
                                     <button type="button" class="btn btn-danger btn-sm" onclick="deletePost(@item.PostId)">X</button>
                                 </small>
                             }
