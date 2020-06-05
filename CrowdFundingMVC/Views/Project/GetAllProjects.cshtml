@@ -56,7 +56,9 @@
                 }
 
                 <div class="card-body">
-                    <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                    <div class="cardTitle">
+                        <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                    </div>
                     @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
                     <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
                     <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>

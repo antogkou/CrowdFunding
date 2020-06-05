@@ -39,7 +39,7 @@
                 <label asp-for="@Model.Pledge.PledgePrice" class="control-label">Pledge Price</label>
                 <input class="form-control" data-val="true" data-val-required="Field is required" 
                        value="@(Model.Pledge.PledgePrice.ToString("N2", System.Globalization.CultureInfo.InvariantCulture))"  
-                       name="@Html.NameFor(m => m.Pledge.PledgePrice)" id="PledgePrice" />
+                       name="@Html.NameFor(m => m.Pledge.PledgePrice)" id="PledgePrice" min="0" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>

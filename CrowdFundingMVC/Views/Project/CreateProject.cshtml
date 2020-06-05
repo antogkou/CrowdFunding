@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.ProjectTargetAmount" class="control-label">Target Amount</label>
-                    <input asp-for="@Model.ProjectTargetAmount" class="form-control" type="number" required placeholder="The amount of money this project needs..." />
+                    <input asp-for="@Model.ProjectTargetAmount" class="form-control" type="number" required placeholder="The amount of money this project needs..." min="0" />
                     <div class="invalid-feedback">
                         Please provide a NeededAmount.
                     </div>

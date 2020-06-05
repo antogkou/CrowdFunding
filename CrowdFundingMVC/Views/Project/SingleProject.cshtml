@@ -89,7 +89,7 @@
                                     @*Buy Custom Pledge*@
                                     <div class="text-right">
                                         <label>Fund Amount: </label>
-                                        <input class="col-2 align-middle" id="FundAmount" type="number" />
+                                        <input class="col-2 align-middle" id="FundAmount" type="number" min="0" />
                                         <button class="btn btn-sm btn-dark" onclick="submitFundToServer(@Model.Project.ProjectId)">Fund</button>
                                     </div>
                                     @* End Buy Custom Pledge*@
