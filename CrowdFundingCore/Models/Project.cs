@@ -10,14 +10,12 @@ namespace CrowdFundingCore.Models
         public int ProjectId { get; set; }
         public MyUsers User { get; set; }
         public string UserId { get; set; }
-
         [StringLength(30, MinimumLength = 3)]
         [Required]
         public string ProjectTitle { get; set; }
         [Required]
         public string ProjectDescription { get; set; }
         [DataType(DataType.Currency)]
-        
         [Required]
         public decimal ProjectTargetAmount { get; set; } 
         [DataType(DataType.Currency)]

@@ -357,3 +357,4 @@ MigrationBackup/
 /CrowdFundingCore/Migrations/20200527142854_adf.Designer.cs
 /CrowdFundingCore/Migrations/20200528010050_TESZd.cs
 /CrowdFundingCore/Migrations/20200528010050_TESZd.Designer.cs
+/CrowdFundingMVC/wwwroot/uploads

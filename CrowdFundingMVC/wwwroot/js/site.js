@@ -6,30 +6,15 @@
 function submitProjectToServer() {
     actionMethod = "POST"
     actionUrl = "/Project/CreateProject"
-    //sendData = {
-    //    "ProjectTitle": $('#ProjectTitle').val(),
-    //    "ProjectDescription": $('#ProjectDescription').val(),
-    //    "ProjectTargetAmount": parseFloat($('#ProjectTargetAmount').val()),
-    //    "ProjectCategory": $('#ProjectCategory').val(),
-    //    "ProjectEndingDate": $('#ProjectEndingDate').val(),
-    //    "MultimediaURL": $('#MultimediaURL').val(),
-    //"MultimediaTypes": $('#MultimediaTypes').val(),
-    //"ProjectPhotoProfile": $('#ProjectPhotoProfile').val()
-
-    //}
-
     var formData = new FormData();
     for (var i = 0; i < $('#MultimediaURL').length; i++) {
         formData.append("MultimediaURL", $('#MultimediaURL')[0].files[i]);
     }
-
     formData.append("ProjectTitle", $('#ProjectTitle').val());
     formData.append("ProjectDescription", $('#ProjectDescription').val());
     formData.append("ProjectTargetAmount", $('#ProjectTargetAmount').val());
     formData.append("ProjectCategory", $('#ProjectCategory').val());
     formData.append("ProjectEndingDate", $('#ProjectEndingDate').val());
-    //formData.append("MultimediaTypes", $('#MultimediaTypes').val());
-    //formData.append("ProjectPhotoProfile", $('#ProjectPhotoProfile').val());
 
     $.ajax({
         url: actionUrl,
@@ -121,11 +106,7 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             alert('You have successfully payed for this!')
-            //window.open("/Project/SingleProject?id=" + projectId, "_self")
             location.reload();
-            //$('#responseDiv').html(JSON.stringify(data));
-            //refresh page after the post is added 
-
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -309,8 +290,27 @@ function passFunction() {
     }
 }
 
+
 $('#dropdownList').on('change', function (event) {
     var form = $(event.target).parents('form');
 
     form.submit();
 });
+
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}

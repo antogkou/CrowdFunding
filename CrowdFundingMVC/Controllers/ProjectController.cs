@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 using System;
 using System.IO;
 using System.Linq;
@@ -166,8 +165,6 @@ namespace CrowdFundingMVC.Controllers
         public IActionResult CreateProject([FromForm] ProjectOptions projectoptions)
         {
 
-
-
             if (projectoptions.MultimediaURL != null)
             {
                 var uniqueFileName = GetUniqueFileName(projectoptions.MultimediaURL.FileName);
@@ -176,7 +173,6 @@ namespace CrowdFundingMVC.Controllers
                 projectoptions.MultimediaURL.CopyTo(new FileStream(filePath, FileMode.Create));
 
                 projectoptions.FilePath = "/uploads/" + uniqueFileName;
-                //to do : Save uniqueFileName  to your db table   
                 var result = _projectservices.CreateProject(projectoptions);
 
                 if (!result.Success)
@@ -187,7 +183,6 @@ namespace CrowdFundingMVC.Controllers
 
                 return Json(result.Data);
             }
-
             else return NotFound();
         }
         private string GetUniqueFileName(string fileName)
@@ -198,7 +193,6 @@ namespace CrowdFundingMVC.Controllers
                       + Guid.NewGuid().ToString().Substring(0, 4)
                       + Path.GetExtension(fileName);
         }
-
 
         //Update Project
         [Authorize(Roles = "Administrator, Project Creator")]
@@ -214,7 +208,6 @@ namespace CrowdFundingMVC.Controllers
             }
             return Json(result.Data);
         }
-
 
     }
 }
