@@ -308,3 +308,9 @@ function passFunction() {
         y.type = "password";
     }
 }
+
+$('#dropdownList').on('change', function (event) {
+    var form = $(event.target).parents('form');
+
+    form.submit();
+});

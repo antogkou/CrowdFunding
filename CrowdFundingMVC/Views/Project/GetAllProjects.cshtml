@@ -19,7 +19,7 @@
             </div>*@
         
             <form class="searchform d-flex" asp-controller="Project" asp-action="GetAllProjects" method="get">
-                <select class="custom-select-sm mr-3" asp-for="ProjectCategory" asp-items="Model.Categories"
+                <select id="dropdownList" class="custom-select-sm mr-3" asp-for="ProjectCategory" asp-items="Model.Categories"
                         style="font-size: 17px; border: 1px solid grey; float: left; background: #f1f1f1; height:auto;">
                     <option value="">All</option>
                 </select>
