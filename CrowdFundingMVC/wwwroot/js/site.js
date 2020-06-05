@@ -290,6 +290,13 @@ function passFunction() {
     }
 }
 
+
+$('#dropdownList').on('change', function (event) {
+    var form = $(event.target).parents('form');
+
+    form.submit();
+});
+
 var slideIndex = 1;
 showDivs(slideIndex);
 
