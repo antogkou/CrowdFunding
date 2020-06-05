@@ -13,19 +13,20 @@
 
 
 <div class="container" style="width: 60rem;">
-    <div style="width: 60rem;" class="row px-3 mt-3">
+    <div style="width: 60rem;" class="row px-3 mt-3 justify-content-center">
         @*<div>
-            <a asp-action="CreateProject">New Project</a>
-        </div>*@
-        <div class="ml-auto">
-            <form class="searchform" asp-controller="Project" asp-action="GetAllProjects" method="get">
-                <select class="custom-select-sm" asp-for="ProjectCategory" asp-items="Model.Categories">
+                <a asp-action="CreateProject">New Project</a>
+            </div>*@
+        
+            <form class="searchform d-flex" asp-controller="Project" asp-action="GetAllProjects" method="get">
+                <select class="custom-select-sm mr-3" asp-for="ProjectCategory" asp-items="Model.Categories"
+                        style="font-size: 17px; border: 1px solid grey; float: left; background: #f1f1f1; height:auto;">
                     <option value="">All</option>
                 </select>
                 <input class="searchform" type="text" placeholder="Search.." asp-for="SearchString" />
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
-        </div>
+        
 
     </div>
     <div class="row">
@@ -39,48 +40,48 @@
             string endingdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectEndingDate);
 
 
-        <div class="card mx-3 my-3 position-relative" style="width: 18rem;">
+            <div class="card mx-3 my-3 position-relative" style="width: 18rem;">
 
-            @if (multiURL != null && multiURL != "")
-            {
-                <img class="card-img-top img-fluid"
-                     src="@multiURL"
-                     alt="Project Image">
-            }
-            else
-            {
-                <img class="card-img-top img-fluid"
-                     src="~/img/coverproject.png"
-                     alt="Project Image">
-            }
+                @if (multiURL != null && multiURL != "")
+                {
+                    <img class="card-img-top img-fluid"
+                         src="@multiURL"
+                         alt="Project Image">
+                }
+                else
+                {
+                    <img class="card-img-top img-fluid"
+                         src="~/img/coverproject.png"
+                         alt="Project Image">
+                }
 
-            <div class="card-body">
-                <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
-                @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
-                <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
-                <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
-                <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
-                <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
-                @*<p class="card-text">Creation Date: @creationdateString</p>
-            <p class="card-text">Ending Date: @endingdateString</p>
-            <p class="card-text">Target: @projectTargetAmount €</p>*@
+                <div class="card-body">
+                    <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                    @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
+                    <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
+                    <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
+                    @*<p class="card-text">Creation Date: @creationdateString</p>
+                        <p class="card-text">Ending Date: @endingdateString</p>
+                        <p class="card-text">Target: @projectTargetAmount €</p>*@
 
-                <div class="text-center">@progress% funded</div>
-                <div class="progress bg-warning">
-                    <div class="progress-bar-striped bg-danger"
-                         role="progressbar"
-                         aria-valuenow="@progress"
-                         aria-valuemin="0"
-                         aria-valuemax="100"
-                         style="width:@progress%">
+                    <div class="text-center">@progress% funded</div>
+                    <div class="progress bg-warning">
+                        <div class="progress-bar-striped bg-danger"
+                             role="progressbar"
+                             aria-valuenow="@progress"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width:@progress%">
+                        </div>
                     </div>
+                    <p></p>
+                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
+                       class="btn btn-primary mx-auto d-block stretched-link"
+                       id="SingleProjectView">Go to this Project!</a>
                 </div>
-                <p></p>
-                <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
-                   class="btn btn-primary mx-auto d-block stretched-link"
-                   id="SingleProjectView">Go to this Project!</a>
             </div>
-        </div>
         }
     </div>
 </div>
