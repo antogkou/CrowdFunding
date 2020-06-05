@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CrowdFundingCore.Models.Options
@@ -23,5 +24,6 @@ namespace CrowdFundingCore.Models.Options
         public string FilePath { get; set; }
         public MultimediaTypes MultimediaTypes { get; set; }
         public string ProjectPhotoProfile { get; set; }
+        public ICollection<Fund> Funds { get; set; }
     }
 }

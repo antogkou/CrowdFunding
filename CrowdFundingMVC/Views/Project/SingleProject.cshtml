@@ -86,6 +86,12 @@
                                             @progress% funded
                                         </div>
                                     </div>
+                                    @*Buy Custom Pledge*@
+                                <div>
+                                    <input id="FundAmount" type="number" />
+                                    <button class="btn btn-sm btn-dark" onclick="submitFundToServer(@Model.Project.ProjectId)">Fund</button>
+                                </div>
+                                    @* End Buy Custom Pledge*@
                                 </div>
                             </div>
                         </div>

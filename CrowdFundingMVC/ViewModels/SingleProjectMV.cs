@@ -14,6 +14,7 @@ namespace CrowdFundingMVC.ViewModels
         public BackedPledges BackedPledges {get;set;}
         public List<Multimedia> ProjectMultimedia{ get; set; }
         public Multimedia Multimedia { get; set; }
+        public Fund Fund { get; set; }
 
     }
 }

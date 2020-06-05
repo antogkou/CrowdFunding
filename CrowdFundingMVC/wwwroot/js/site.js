@@ -105,7 +105,32 @@ function submitBuyPledgeToServer(projectId, pledgeId) {
         contentType: 'application/json',
         processData: false,
         success: function (data, textStatus, jQxhr) {
-            alert('You have successfully payed for this!')
+            alert('You have successfully payed for this project!')
+            location.reload();
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
+
+function submitFundToServer(projectId) {
+    actionMethod = "POST"
+    actionUrl = "/Fund/AddFund/"
+    sendData = {
+        "ProjectId": projectId,
+        "FundAmount": parseFloat($('#FundAmount').val())
+    }
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            alert('You have successfully payed for this project!')
             location.reload();
         },
         error: function (jqXhr, textStatus, errorThrown) {
