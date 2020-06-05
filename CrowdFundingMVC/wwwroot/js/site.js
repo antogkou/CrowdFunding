@@ -339,3 +339,19 @@ function showDivs(n) {
   }
   x[slideIndex-1].style.display = "block";  
 }
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imgpreview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#MultimediaURL").change(function () {
+    readURL(this);
+});

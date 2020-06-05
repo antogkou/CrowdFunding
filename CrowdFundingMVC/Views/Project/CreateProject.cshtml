@@ -67,15 +67,23 @@
         </div>
         <div class="col-md-6">
             <!-- Your second column here -->
-            <form data-form="0">
-                <div class="form-group">
-                    <label class="control-label">Project Profile Photo</label>
-                    <input class="form-control" name="URL" type="file" @*required*@ @*pattern="https://.*"*@
-                           placeholder="Project profile photo URL..." id="MultimediaURL" />
-                </div>
-            </form>
 
-            <div class="row"></div>
+                <form data-form="0">
+                    <div class="form-group">
+
+                        <label class="control-label">Project Profile Photo</label>
+                        <input class="form-control" name="URL" type="file"
+                               required @*pattern="https://.*"*@
+                               placeholder="Project profile photo URL..."
+                               id="MultimediaURL"
+                               onchange="readURL(MultimediaURL)" />
+                        
+                    </div>
+                </form>
+            <div class="form-group">
+                    <img class="img-fluid single-project-cover" id="imgpreview" src="#"
+                         alt=""/>
+            </div>
         </div>
         <div class="col d-flex justify-content-center">
             <input type="button" class="btn btn-lg btn-primary" onclick="submitProjectToServer()" value="Submit">
