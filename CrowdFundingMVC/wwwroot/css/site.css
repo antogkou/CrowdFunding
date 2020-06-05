@@ -85,12 +85,18 @@ body {
 
 
 .footer {
-    background-color: #efefef;
+   /* background-color: #efefef;
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 40px; /* Vertically center the text there */
+    line-height: 40px;*/
+    bottom: 0;
+    color: #efefef;
+    height: 4em;
+    left: 0;
+    position: fixed;
+    width: 100%;
 }
 
 .card-img-top {
@@ -321,3 +327,4 @@ card:hover {
     width: 100%;
     height: 100%;
 }
+
