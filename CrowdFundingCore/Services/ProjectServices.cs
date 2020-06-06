@@ -313,15 +313,21 @@ namespace CrowdFundingCore.Services
                 .Where(p => p.UserId == userId)
                 .Select(p => p.BackedPledge)
                 .Select(p => p.Project)
-                .Distinct()
                 .AsQueryable();
 
-            if (result == null)
+            var projects = _db.Set<Fund>()
+                .Where(p => p.UserId == userId)
+                .Select(p => p.Project)
+                .AsQueryable();
+
+            var i3 = result.AsQueryable().Concat(projects.AsQueryable()).Distinct();
+
+            if (i3 == null)
             {
-                return result;
+                return i3;
             }
 
-            return result;
+            return i3;
         }
 
         public IQueryable<Project> GetMyProjects()
