@@ -13,25 +13,23 @@
     <div class="col-md-9">
         <form asp-action="EditProject">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="@Model.ProjectId" id="ProjectId"/>
+            <input type="hidden" asp-for="@Model.ProjectId" id="ProjectId" />
             <div class="form-group">
                 <label asp-for="@Model.ProjectTitle" class="control-label"></label>
-                <input asp-for="@Model.ProjectTitle" class="form-control" id="ProjectTitle"/>
+                <input asp-for="@Model.ProjectTitle" class="form-control" id="ProjectTitle" />
                 <span asp-validation-for="@Model.ProjectTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.ProjectDescription" class="control-label"></label>
-                <textarea asp-for="@Model.ProjectDescription" class="form-control textarea text-wrap" 
+                <textarea asp-for="@Model.ProjectDescription" class="form-control textarea text-wrap"
                           style="resize: vertical; min-height: 70px;"
-                          id="ProjectDescription" ></textarea>
+                          id="ProjectDescription"></textarea>
                 <span asp-validation-for="@Model.ProjectDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.ProjectTargetAmount" class="control-label"></label>
-                @*<input asp-for="@Model.ProjectTargetAmount" value="@Model.ProjectTargetAmount" class="form-control" type="number" id="ProjectTargetAmount" />
-                <input type="number" value="@(Model.Project.ProjectTargetAmount.ToString("N2"))" name="@Html.NameFor(m => m.Project.ProjectTargetAmount)" />*@
-                <input class="form-control" data-val="true" data-val-required="Field is required" 
-                       value="@(Model.ProjectTargetAmount.ToString("N2", System.Globalization.CultureInfo.InvariantCulture))"  
+                <input class="form-control" data-val="true" data-val-required="Field is required"
+                       value="@(Model.ProjectTargetAmount.ToString("N2", System.Globalization.CultureInfo.InvariantCulture))"
                        name="@Html.NameFor(m => m.ProjectTargetAmount)" id="ProjectTargetAmount" min="0" />
                 <span asp-validation-for="@Model.ProjectTargetAmount" class="text-danger"></span>
             </div>
@@ -39,7 +37,7 @@
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" asp-for="@Model.IsActive" id="IsActive"/> @Html.DisplayNameFor(model => model.IsActive)
+                        <input type="checkbox" asp-for="@Model.IsActive" id="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                     </label>
                 </div>
             </div>
@@ -47,28 +45,17 @@
                 <div class="checkbox">
 
                     <label>
-                        <input type="checkbox" asp-for="@Model.IsComplete" id="IsComplete"/> @Html.DisplayNameFor(model => model.IsComplete)
+                        <input type="checkbox" asp-for="@Model.IsComplete" id="IsComplete" /> @Html.DisplayNameFor(model => model.IsComplete)
 
                     </label>
                 </div>
             </div>
-
-            @*@Html.CheckBox("isActive", new { value = Model.IsActive, @checked = Model.IsActive });
-
-            @Html.CheckBox("isActive", new { value = Model.IsComplete, @checked = Model.IsComplete });*@
-          
-
             <div class="form-group">
                 <label asp-for="@Model.ProjectEndingDate" class="control-label"></label>
-                <input asp-for="@Model.ProjectEndingDate" class="form-control" id="ProjectEndingDate"/>
+                <input asp-for="@Model.ProjectEndingDate" class="form-control" id="ProjectEndingDate" />
                 <span asp-validation-for="@Model.ProjectEndingDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @*<label asp-for="@Model.ProjectCategory" class="control-label"></label>
-                <select asp-for="ProjectCategory" class="form-control" asp-items="ViewBag.ProjectCategory"></select>
-                <input asp-for="@Model.ProjectCategory" class="form-control" id="ProjectCategory" />
-                <span asp-validation-for="@Model.ProjectCategory" class="text-danger"></span>*@
-
                 <div class="form-group">
                     <label asp-for="@Model.ProjectCategory" class="control-label"></label>
                     <select name="@Model.ProjectCategory" class="form-control" id="ProjectCategory">
@@ -79,7 +66,7 @@
                             <option value="@Model.ProjectCategory.ToString()" selected>@Model.ProjectCategory.ToString()</option>
                             foreach (var category in categories)
                             {
-                                <option  value="@category">@category</option>
+                                <option value="@category">@category</option>
                             }
                         }
                     </select>
@@ -87,16 +74,16 @@
                 </div>
 
             </div>
+            
             <div class="form-group">
-                @*<input type="button" value="Submit" onclick="doUpdateProject(@Model.ProjectId)" class="btn btn-default" />*@
-                <input type="button" value="Submit" onclick="doUpdateProject(@Model.ProjectId)">
+                <a asp-action="SingleProject" asp-route-id="@Model.ProjectId" asp-controller="Project" class="btn btn-danger float-left">Cancel</a>
+                <input type="button" class="btn btn-success float-right" value="Submit" onclick="doUpdateProject(@Model.ProjectId)">
+
             </div>
         </form>
     </div>
 </div>
-<div>
-    <a asp-action="GetMyProjects">Back to List</a>
-</div>
+
 
 
 @section Scripts {

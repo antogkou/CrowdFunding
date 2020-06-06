@@ -163,7 +163,7 @@
                                 <td>@(++tier)</td>
                                 <td>@c.PledgePrice</td>
                                 <td>@c.PledgeReward</td>
-                                <td>@c.PledgeDateCreated.DateTime.ToLongDateString()</td>
+                                <td>@c.PledgeDateCreated.DateTime</td>
                                 <td>@Math.Round(@c.PledgePrice * @c.PledgeUsers.Count)€</td>
                             </tr>
                         }

@@ -29,8 +29,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Pledge.PledgePrice" class="control-label">Pledge Price</label>
-                <input class="form-control" data-val="true" data-val-required="Field is required" 
-                       value="@(Model.Pledge.PledgePrice.ToString("N2", System.Globalization.CultureInfo.InvariantCulture))"  
+                <input class="form-control" data-val="true" data-val-required="Field is required"
+                       value="@(Model.Pledge.PledgePrice.ToString("N2", System.Globalization.CultureInfo.InvariantCulture))"
                        name="@Html.NameFor(m => m.Pledge.PledgePrice)" id="PledgePrice" min="0" />
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
@@ -43,8 +43,10 @@
                     Please provide a NeededAmount.
                 </div>
             </div>
-            <div class="col col-md-12 d-flex justify-content-end pr-0">
-                <input type="button" onclick="doUpdatePledge(@Model.Pledge.PledgeId, @Model.Project.ProjectId)" value="Submit">
+            <div>
+                <a asp-action="SingleProject" asp-controller="Project"
+                   asp-route-id="@Model.Project.ProjectId" class="btn btn-danger float-left">Cancel</a>
+                <input type="button" class="btn btn-success float-right" onclick="doUpdatePledge(@Model.Pledge.PledgeId, @Model.Project.ProjectId)" value="Submit">
             </div>
         </form>
     </div>

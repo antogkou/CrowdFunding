@@ -308,6 +308,7 @@ namespace CrowdFundingCore.Services
         public IQueryable<Project> GetMyBackedProjects()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var result = _db.Set<BackedPledges>()
                 .Where(p => p.UserId == userId)
                 .Select(p => p.BackedPledge)
@@ -317,8 +318,9 @@ namespace CrowdFundingCore.Services
 
             if (result == null)
             {
-                return null;
+                return result;
             }
+
             return result;
         }
 
@@ -344,7 +346,7 @@ namespace CrowdFundingCore.Services
             //             select m;
 
             var projects = _db.Set<Project>()
-                .Where(p => p.IsActive ==true)
+                .Where(p => p.IsActive == true)
                 .Where(p => p.IsComplete == false)
                 .AsQueryable();
 

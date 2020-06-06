@@ -14,7 +14,7 @@
 
 <div class="container" style="width: 60rem;">
     <div class="row">
-        @foreach (var item in Model.Projects)
+        @foreach (var item in Model.Projects.OrderByDescending(c => c.ProjectProgress).ToList())
         {
             string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");
             var progress = Math.Round((item.ProjectCurrentAmount * 100) / item.ProjectTargetAmount, 2).ToString(System.Globalization.CultureInfo.InvariantCulture);
