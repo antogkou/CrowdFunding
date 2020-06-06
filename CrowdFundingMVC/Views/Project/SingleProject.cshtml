@@ -50,10 +50,10 @@
                             <h3 class="text-center font-weight-bold">
                                 @Model.Project.ProjectTitle
                             </h3>
-                            <div class="text-left">
+                            <div class="row d-flex float-right mx-3">
                                 <small>@Model.Project.ProjectDescription</small>
                             </div>
-                            <div id="stickBottom" class="position-absolute fixed-bottom mx-3">
+                            <div id="stickBottom" class="text-right mx-3">
                                 <div>
                                     <span class="font-weight-bold">Creator: </span><span>@Model.Project.ProjectCreator</span>
                                 </div>
@@ -63,7 +63,7 @@
                                 <div>
                                     <span class="font-weight-bold">Ending: </span><span>@endingdateString</span>
                                 </div>
-                                <div>
+                                <div class="text-center">
                                     @if (@Model.Project.ProjectCreationDate >= @Model.Project.ProjectEndingDate)
                                     {
                                         <h1>Project has reached it's deadline! </h1>
@@ -90,7 +90,7 @@
                                 @*Buy Custom Pledge*@
                                 <div class="text-right">
                                     <label>Fund Amount: </label>
-                                    <input class="col-2 align-middle" id="FundAmount" type="number" min="0" style="padding:2px;" />
+                                    <input class="col-2 align-middle" id="FundAmount" type="number" min="0"onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"/>
                                     <button class="btn btn-sm btn-dark" onclick="submitFundToServer(@Model.Project.ProjectId)">Fund</button>
                                 </div>
                                 @* End Buy Custom Pledge*@

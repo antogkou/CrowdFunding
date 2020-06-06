@@ -26,7 +26,7 @@ namespace CrowdFundingCore.Models
         public bool IsComplete { get; set; }
         public DateTimeOffset ProjectCreationDate { get; set; }
         [Required, DataType(DataType.Date), Display(Name = "ProjectEndingDate"), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
-        public DateTime ProjectEndingDate { get; set; }
+        public DateTime? ProjectEndingDate { get; set; }
         [Required]
         public string ProjectCategory { get; set; }
         public string ProjectCreator { get; set; }

@@ -39,6 +39,7 @@
                 <div class="form-group">
                     <label asp-for="@Model.ProjectEndingDate" class="control-label">Project Ending Date</label>
                     <input type="date" min="2020-06-09" asp-for="@Model.ProjectEndingDate" class="form-control" required />
+                    <span asp-validation-for="@Model.ProjectEndingDate" class="text-danger"></span>
                     <div class="invalid-feedback">
                         Please provide a valid ProjectEndingDate.
                     </div>
@@ -53,7 +54,6 @@
                                 typeof(CrowdFundingCore.Models.ProjectCategory))
                                 .Cast<CrowdFundingCore.Models.ProjectCategory>();
                             <option selected="selected" disabled hidden>---Select Category---</option>
-                            @*<option value="@Model.ProjectCategory.ToString()" selected>@Model.ProjectCategory.ToString()</option>*@
                             foreach (var category in categories)
                             {
                                 <option value="@category">@category</option>
@@ -67,7 +67,6 @@
         </div>
         <div class="col-md-6">
             <!-- Your second column here -->
-
                 <form data-form="0">
                     <div class="form-group">
 
