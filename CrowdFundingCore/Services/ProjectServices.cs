@@ -129,18 +129,10 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null options");
             }
 
-            if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeTitle))
-            {
-                return Result<Pledge>.CreateFailed(
-                    StatusCode.BadRequest, "Null or empty PledgeTitle");
-            }
-
-
             var project = FindProjectById(pledgeOptions.ProjectId);
             var pledge = new Pledge
             {
                 Project = project,
-                PledgeTitle = pledgeOptions.PledgeTitle,
                 PledgeDescription = pledgeOptions.PledgeDescription,
                 PledgePrice = pledgeOptions.PledgePrice,
                 PledgeReward = pledgeOptions.PledgeReward,

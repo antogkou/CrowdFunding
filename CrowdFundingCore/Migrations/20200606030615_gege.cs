@@ -244,7 +244,6 @@ namespace CrowdFundingCore.Migrations
                     PledgeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectId = table.Column<int>(nullable: true),
-                    PledgeTitle = table.Column<string>(maxLength: 255, nullable: false),
                     PledgeDescription = table.Column<string>(nullable: true),
                     PledgePrice = table.Column<decimal>(type: "decimal(18,2)", maxLength: 20, nullable: false),
                     PledgeReward = table.Column<string>(nullable: true),
@@ -320,15 +319,15 @@ namespace CrowdFundingCore.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "29942715-196d-469d-9afe-b6db85ef0ec7", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "4da67589-97a2-4f49-b988-4442bd607b7c", "Backer", "BACKER" },
-                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "ed63e9bf-f08f-47e2-aed5-f97ce9a6d6aa", "Project Creator", "PROJECT CREATOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "c9ad10e9-1839-4d93-8719-c4a169eb7ffe", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "f987d307-4f33-4591-a080-299f03ecb0f4", "Backer", "BACKER" },
+                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "a604e25f-c53b-4e01-a41d-a0e6c0a2aa66", "Project Creator", "PROJECT CREATOR" }
                 });
 
             migrationBuilder.InsertData(
                 table: "MyUsers",
                 columns: new[] { "UserId", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserDateCreated", "UserName", "userFirstName", "userLastName", "user_VAT" },
-                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "cd3f0561-f3f5-4077-af54-4458992fced1", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENXfeKrNB3uFt3YITv5hjv7uG+WwLtSly2+X57jFYdABoHXVuAeiNSiTE7yrIFdS/A==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 6, 5, 22, 25, 28, 222, DateTimeKind.Unspecified).AddTicks(3686), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com", null, null, 0 });
+                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "e92879ca-cc7f-4a64-a8c7-dad4943323ce", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEONL00RHi4lNZSfkWNOqgDy+rh5DF/ZfCrXh3AihC9uwZBasW2RZg0lp9zIPem+yMg==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 6, 6, 6, 6, 14, 653, DateTimeKind.Unspecified).AddTicks(3515), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com", null, null, 0 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

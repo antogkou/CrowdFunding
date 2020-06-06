@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrowdFundingCore.Migrations
 {
     [DbContext(typeof(CrFrDbContext))]
-    [Migration("20200605192528_gege")]
+    [Migration("20200606030615_gege")]
     partial class gege
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -183,18 +183,18 @@ namespace CrowdFundingCore.Migrations
                         {
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cd3f0561-f3f5-4077-af54-4458992fced1",
+                            ConcurrencyStamp = "e92879ca-cc7f-4a64-a8c7-dad4943323ce",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENXfeKrNB3uFt3YITv5hjv7uG+WwLtSly2+X57jFYdABoHXVuAeiNSiTE7yrIFdS/A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEONL00RHi4lNZSfkWNOqgDy+rh5DF/ZfCrXh3AihC9uwZBasW2RZg0lp9zIPem+yMg==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
                             TwoFactorEnabled = false,
-                            UserDateCreated = new DateTimeOffset(new DateTime(2020, 6, 5, 22, 25, 28, 222, DateTimeKind.Unspecified).AddTicks(3686), new TimeSpan(0, 3, 0, 0, 0)),
+                            UserDateCreated = new DateTimeOffset(new DateTime(2020, 6, 6, 6, 6, 14, 653, DateTimeKind.Unspecified).AddTicks(3515), new TimeSpan(0, 3, 0, 0, 0)),
                             UserName = "admin@admin.com",
                             user_VAT = 0
                         });
@@ -219,11 +219,6 @@ namespace CrowdFundingCore.Migrations
 
                     b.Property<string>("PledgeReward")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PledgeTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
@@ -351,21 +346,21 @@ namespace CrowdFundingCore.Migrations
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "29942715-196d-469d-9afe-b6db85ef0ec7",
+                            ConcurrencyStamp = "c9ad10e9-1839-4d93-8719-c4a169eb7ffe",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "4da67589-97a2-4f49-b988-4442bd607b7c",
+                            ConcurrencyStamp = "f987d307-4f33-4591-a080-299f03ecb0f4",
                             Name = "Backer",
                             NormalizedName = "BACKER"
                         },
                         new
                         {
                             Id = "78A7570F-3CE5-48BA-9461-80283ED1D94D",
-                            ConcurrencyStamp = "ed63e9bf-f08f-47e2-aed5-f97ce9a6d6aa",
+                            ConcurrencyStamp = "a604e25f-c53b-4e01-a41d-a0e6c0a2aa66",
                             Name = "Project Creator",
                             NormalizedName = "PROJECT CREATOR"
                         });

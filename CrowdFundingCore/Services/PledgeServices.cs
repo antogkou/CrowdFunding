@@ -50,18 +50,10 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null options");
             }
 
-            if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeTitle))
-            {
-                return Result<Pledge>.CreateFailed(
-                    StatusCode.BadRequest, "Null or empty PledgeTitle");
-            }
-
-
             var project = projectservices.FindProjectById(pledgeOptions.ProjectId);
             var pledge = new Pledge
             {
                 Project = project,
-                PledgeTitle = pledgeOptions.PledgeTitle,
                 PledgeDescription = pledgeOptions.PledgeDescription,
                 PledgePrice = pledgeOptions.PledgePrice,
                 PledgeReward = pledgeOptions.PledgeReward,
@@ -98,11 +90,6 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null options");
             }
 
-            if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeTitle))
-            {
-                return Result<Pledge>.CreateFailed(
-                    StatusCode.BadRequest, "Null or empty PledgeTitle");
-            }
             if (string.IsNullOrWhiteSpace(pledgeOptions.PledgeDescription))
             {
                 return Result<Pledge>.CreateFailed(
@@ -123,7 +110,6 @@ namespace CrowdFundingCore.Services
             var pledge = _db.Set<Pledge>().Find(pledgeOptions.PledgeId);
 
 
-            pledge.PledgeTitle = pledgeOptions.PledgeTitle;
             pledge.PledgeDescription = pledgeOptions.PledgeDescription;
             pledge.PledgePrice = pledgeOptions.PledgePrice;
             pledge.PledgeReward = pledgeOptions.PledgeReward;

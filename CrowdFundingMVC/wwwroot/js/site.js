@@ -40,7 +40,6 @@ function submitPledgeToServer(projectId) {
     actionUrl = "/Pledge/CreatePledges/"
     sendData = {
         "ProjectId": projectId,
-        "PledgeTitle": $('#PledgeTitle').val(),
         "PledgeDescription": $('#PledgeDescription').val(),
         "PledgePrice": parseFloat($('#PledgePrice').val()),
         "PledgeReward": $('#PledgeReward').val()
@@ -191,7 +190,6 @@ function doUpdatePledge(pledgeId, projectId) {
     actionMethod = "PUT"
     actionUrl = "/Pledge/updatepledge"
     sendData = {
-        "PledgeTitle": $('#PledgeTitle').val(),
         "PledgeDescription": $('#PledgeDescription').val(),
         "PledgePrice": parseFloat($('#PledgePrice').val()),
         "PledgeReward": $('#PledgeReward').val(),

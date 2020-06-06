@@ -27,7 +27,7 @@
                     <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="CreateProject">New Project</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetAllProjects">View All Projects</a>
+                    <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetAllProjects">Active Projects</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-area="" asp-controller="Project" asp-action="GetTrendingProjects">Trending Projects</a>
@@ -51,7 +51,7 @@
                         Dashboard
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" asp-area="" asp-controller="Project" asp-action="CreateProject">Create Project</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Project" asp-action="CreateProject">New Project</a>
                         <a class="dropdown-item" asp-controller="Project"
                            asp-action="GetMyProjects">My Projects</a>
                         <a class="dropdown-item" asp-controller="Project"
@@ -106,10 +106,10 @@
     <footer class="border-top footer text-muted navbar-dark bg-dark">
         <div class="container text-center py-3 text-white">
             &copy; 2020 -<a asp-area="" asp-controller="Home" asp-action="Index">Crowdfunding App</a>
-                         <a href="https://github.com/codehub-learn/dotnet-skg-team5" class="btn btn-outline-primary">
-                             <i class="fab fa-github-square"></i>
-                             #team5 GitHub
-                         </a>
+            <a href="https://github.com/codehub-learn/dotnet-skg-team5" class="btn btn-outline-primary">
+                <i class="fab fa-github-square"></i>
+                #team5 GitHub
+            </a>
         </div>
 
     </footer>
@@ -123,6 +123,7 @@
         </div>*@
     <!-- Footer -->
 
+    <script src="~/js/sorttable.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
