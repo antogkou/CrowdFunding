@@ -89,7 +89,7 @@
                                     @*Buy Custom Pledge*@
                                     <div class="text-right">
                                         <label>Fund Amount: </label>
-                                        <input class="col-2 align-middle" id="FundAmount" type="number" min="0" />
+                                        <input class="col-2 align-middle" id="FundAmount" type="number" min="0" style="padding:2px;" />
                                         <button class="btn btn-sm btn-dark" onclick="submitFundToServer(@Model.Project.ProjectId)">Fund</button>
                                     </div>
                                     @* End Buy Custom Pledge*@
@@ -189,7 +189,7 @@
                 <div>
                     @*<a>Updates: <span class="badge">@Model.Posts.Count()</span></a>*@
                     @*<h5>Total Updates: @Model.Posts.Count()</h5>*@
-                    <h6 class="border-bottom border-gray pb-2 mb-0 text-center font-weight-bold font-italic">Recent updates <span class="w3-badge w3-green">@Model.Posts.Count()</span></h6>
+                    <h6 class="border-bottom border-gray pb-2 mb-0 text-center font-weight-bold">Recent updates <span class="w3-badge w3-green">@Model.Posts.Count()</span></h6>
                     @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
                     {
                         <div class="media text-muted">
