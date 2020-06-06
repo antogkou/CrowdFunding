@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdFundingMVC.Controllers
 {
-    [Authorize(Roles = "Administrator, Project Creator")]
+     [Authorize(Roles = "Administrator, Backer, Project Creator")]
     public class FundController : Controller
     {
         private IProjectServices _projectservices;
