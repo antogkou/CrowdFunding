@@ -9,7 +9,6 @@ namespace CrowdFundingCore.Models
     {
         public int PledgeId { get; set; }
         public Project Project { get; set; }
-        public string PledgeTitle { get; set; }
         public string PledgeDescription { get; set; }
 
         [Required, Column(TypeName = "decimal(18,2)")]

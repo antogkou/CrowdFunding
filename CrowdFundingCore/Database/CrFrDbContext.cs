@@ -101,12 +101,6 @@ namespace CrowdFundingCore.Database
 
             modelBuilder
                 .Entity<Pledge>()
-                .Property(p => p.PledgeTitle)
-                .IsRequired()
-                .HasMaxLength(255);
-
-            modelBuilder
-                .Entity<Pledge>()
                 .Property(i => i.PledgePrice)
                 .IsRequired()
                 .HasMaxLength(20);

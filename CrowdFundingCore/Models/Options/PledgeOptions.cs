@@ -2,7 +2,6 @@
 {
     public class PledgeOptions
     {
-        public string PledgeTitle { get; set; }
         public string PledgeDescription { get; set; }
         public decimal PledgePrice { get; set; }
         public string PledgeReward { get; set; }
