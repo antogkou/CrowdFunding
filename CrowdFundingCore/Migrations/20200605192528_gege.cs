@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CrowdFundingCore.Migrations
 {
-    public partial class Initial : Migration
+    public partial class gege : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -188,6 +188,34 @@ namespace CrowdFundingCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Fund",
+                columns: table => new
+                {
+                    FundId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectId = table.Column<int>(nullable: true),
+                    FundAmount = table.Column<decimal>(type: "decimal(18,2)", maxLength: 20, nullable: false),
+                    FundDateCreated = table.Column<DateTimeOffset>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fund", x => x.FundId);
+                    table.ForeignKey(
+                        name: "FK_Fund_Project_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Project",
+                        principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Fund_MyUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "MyUsers",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Multimedia",
                 columns: table => new
                 {
@@ -292,15 +320,15 @@ namespace CrowdFundingCore.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "51d4c927-9048-48b0-9cec-58becdda4103", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "c106ba86-31c4-4ce6-94a2-196c155f8950", "Backer", "BACKER" },
-                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "5680d232-32fa-4296-ad2a-2cf88d9be610", "Project Creator", "PROJECT CREATOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "29942715-196d-469d-9afe-b6db85ef0ec7", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "4da67589-97a2-4f49-b988-4442bd607b7c", "Backer", "BACKER" },
+                    { "78A7570F-3CE5-48BA-9461-80283ED1D94D", "ed63e9bf-f08f-47e2-aed5-f97ce9a6d6aa", "Project Creator", "PROJECT CREATOR" }
                 });
 
             migrationBuilder.InsertData(
                 table: "MyUsers",
                 columns: new[] { "UserId", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserDateCreated", "UserName", "userFirstName", "userLastName", "user_VAT" },
-                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "37c03a3c-7bd8-4a1b-95c7-f6126d505af1", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEPg9htWEsTasHDZ8m2rzt2k451LnTqag4f2z/XhUyF069iO9iujbkyg3fZC9uMO/Sw==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 6, 4, 21, 27, 28, 964, DateTimeKind.Unspecified).AddTicks(7514), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com", null, null, 0 });
+                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "cd3f0561-f3f5-4077-af54-4458992fced1", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENXfeKrNB3uFt3YITv5hjv7uG+WwLtSly2+X57jFYdABoHXVuAeiNSiTE7yrIFdS/A==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, new DateTimeOffset(new DateTime(2020, 6, 5, 22, 25, 28, 222, DateTimeKind.Unspecified).AddTicks(3686), new TimeSpan(0, 3, 0, 0, 0)), "admin@admin.com", null, null, 0 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -338,6 +366,16 @@ namespace CrowdFundingCore.Migrations
                 name: "IX_BackedPledges_PledgeId",
                 table: "BackedPledges",
                 column: "PledgeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fund_ProjectId",
+                table: "Fund",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fund_UserId",
+                table: "Fund",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Multimedia_ProjectId",
@@ -396,6 +434,9 @@ namespace CrowdFundingCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "BackedPledges");
+
+            migrationBuilder.DropTable(
+                name: "Fund");
 
             migrationBuilder.DropTable(
                 name: "Multimedia");

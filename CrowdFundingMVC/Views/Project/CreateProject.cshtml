@@ -24,14 +24,14 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.ProjectDescription" class="control-label">Short Description</label>
-                    <textarea asp-for="@Model.ProjectDescription" class="form-control" type="text" placeholder="Give your project a short description..." required rows="4" cols="50" name="description" form="crproj"></textarea>
+                    <textarea style="resize:vertical;" asp-for="@Model.ProjectDescription" class="form-control text-wrap" type="text" placeholder="Give your project a short description..." required rows="4" cols="50" name="description" form="crproj"></textarea>
                     <div class="invalid-feedback">
                         Please provide a Description.
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.ProjectTargetAmount" class="control-label">Target Amount</label>
-                    <input asp-for="@Model.ProjectTargetAmount" class="form-control" type="number" required placeholder="The amount of money this project needs..." />
+                    <input asp-for="@Model.ProjectTargetAmount" class="form-control" type="number" required placeholder="The amount of money this project needs..." min="0" />
                     <div class="invalid-feedback">
                         Please provide a NeededAmount.
                     </div>
@@ -67,15 +67,23 @@
         </div>
         <div class="col-md-6">
             <!-- Your second column here -->
-            <form data-form="0">
-                <div class="form-group">
-                    <label class="control-label">Project Profile Photo</label>
-                    <input class="form-control" name="URL" type="file" @*required*@ @*pattern="https://.*"*@
-                           placeholder="Project profile photo URL..." id="MultimediaURL" />
-                </div>
-            </form>
 
-            <div class="row"></div>
+                <form data-form="0">
+                    <div class="form-group">
+
+                        <label class="control-label">Project Profile Photo</label>
+                        <input class="form-control" name="URL" type="file"
+                               required @*pattern="https://.*"*@
+                               placeholder="Project profile photo URL..."
+                               id="MultimediaURL"
+                               onchange="readURL(MultimediaURL)" />
+                        
+                    </div>
+                </form>
+            <div class="form-group">
+                    <img class="img-fluid single-project-cover" id="imgpreview" src="#"
+                         alt=""/>
+            </div>
         </div>
         <div class="col d-flex justify-content-center">
             <input type="button" class="btn btn-lg btn-primary" onclick="submitProjectToServer()" value="Submit">

@@ -1,10 +1,11 @@
 ﻿@model CrowdFundingMVC.ViewModels.ProjectsGridVM
 @{
     ViewData["Title"] = "GetMyProjects";
+    var count = @Model.Projects.Count();
 }
 
 <div class="text-center">
-    <h1>My Projects</h1>
+    <h1>My Projects (@count)</h1>
 </div>
 
 <div class="container" style="width: 60rem;">
@@ -32,7 +33,9 @@
                          alt="Project Image">
                 }
                 <div class="card-body">
-                    <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                    <div class="cardTitle">
+                        <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                    </div>
                     @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
                     <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
                     <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>

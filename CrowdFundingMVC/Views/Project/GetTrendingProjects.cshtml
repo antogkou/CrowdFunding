@@ -3,10 +3,13 @@
     ViewData["Title"] = "GetTrendingProjects" +
                 "" +
                 "";
+
+    var count = Model.Projects.Count();
 }
 
+
 <div class="text-center">
-    <h1>🔥Trending Projects🔥</h1>
+    <h1>🔥Trending Projects (@count)🔥</h1>
 </div>
 
 <div class="container" style="width: 60rem;">
@@ -20,48 +23,50 @@
             string creationdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectCreationDate);
             string endingdateString = String.Format("{0:dd/MM/yyyy}", item.ProjectEndingDate);
 
-        <div class="card mx-3 my-3 position-relative" style="width: 18rem;">
-            @if (multiURL != null && multiURL != "")
-            {
-                <img class="card-img-top img-fluid"
-                     src="@multiURL"
-                     alt="Project Image">
-            }
-            else
-            {
-                <img class="card-img-top img-fluid"
-                     src="~/img/coverproject.png"
-                     alt="Project Image">
-            }
-            <div class="card-body">
-                <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
-                @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
-                <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
-                <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
-                <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
-                <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
-                @*<p class="card-text">Creation Date: @creationdateString</p>
-            <p class="card-text">Ending Date: @endingdateString</p>
-            <p class="card-text">Target: @projectTargetAmount €</p>*@
-
-                <div class="text-center">@progress% funded</div>
-                <div class="progress bg-warning">
-                    <div class="progress-bar-striped bg-danger"
-                         role="progressbar"
-                         aria-valuenow="@progress"
-                         aria-valuemin="0"
-                         aria-valuemax="100"
-                         style="width:@progress%">
+            <div class="card mx-3 my-3 position-relative" style="width: 18rem;">
+                @if (multiURL != null && multiURL != "")
+                {
+                    <img class="card-img-top img-fluid"
+                         src="@multiURL"
+                         alt="Project Image">
+                }
+                else
+                {
+                    <img class="card-img-top img-fluid"
+                         src="~/img/coverproject.png"
+                         alt="Project Image">
+                }
+                <div class="card-body">
+                    <div class="cardTitle">
+                        <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
                     </div>
+                    @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
+                    <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
+                    <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
+                    <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
+                    @*<p class="card-text">Creation Date: @creationdateString</p>
+                        <p class="card-text">Ending Date: @endingdateString</p>
+                        <p class="card-text">Target: @projectTargetAmount €</p>*@
+
+                    <div class="text-center">@progress% funded</div>
+                    <div class="progress bg-warning">
+                        <div class="progress-bar-striped bg-danger"
+                             role="progressbar"
+                             aria-valuenow="@progress"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width:@progress%">
+                        </div>
+                    </div>
+
+                    <p></p>
+                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
+                       class="btn btn-primary mx-auto d-block stretched-link"
+                       id="SingleProjectView">Go to this Project!</a>
+
                 </div>
-
-                <p></p>
-                <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
-                   class="btn btn-primary mx-auto d-block stretched-link"
-                   id="SingleProjectView">Go to this Project!</a>
-
             </div>
-        </div>
         }
     </div>
 </div>

@@ -33,6 +33,7 @@ namespace CrowdFundingCore.Models
         public ICollection<Post> ProjectPosts { get; set; }
         public ICollection<Pledge> ProjectPledges { get; set; }
         public ICollection<Multimedia> ProjectMultimedia { get; set; }
+        public ICollection<Fund> Funds { get; set; }
 
         public Project()
         {
