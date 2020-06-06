@@ -1,10 +1,11 @@
 ﻿@model CrowdFundingMVC.ViewModels.ProjectsGridVM
 @{
     ViewData["Title"] = "GetMyProjects";
+    var count = @Model.Projects.Count();
 }
 
 <div class="text-center">
-    <h1>My Projects</h1>
+    <h1>My Projects (@count)</h1>
 </div>
 
 <div class="container" style="width: 60rem;">

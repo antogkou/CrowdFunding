@@ -3,10 +3,12 @@
 
 @{
     ViewData["Title"] = "Projects List";
+
+    var count = @Model.Projects.Count();
 }
 
 <div class="text-center">
-    <h1>All Projects</h1>
+    <h1>All Projects (@count)</h1>
 </div>
 
 
