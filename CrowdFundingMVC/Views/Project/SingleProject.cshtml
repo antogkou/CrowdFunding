@@ -39,7 +39,7 @@
                         <div class="col-md-6 text-center">
 
                             @if (Model.ProjectMultimedia.Last().MultimediaURL
-                     != null && Model.ProjectMultimedia.Last().MultimediaURL != "")
+                    != null && Model.ProjectMultimedia.Last().MultimediaURL != "")
                             {
                                 <img class="img-fluid single-project-cover"
                                      src="@Url.Content(Model.ProjectMultimedia.Last().MultimediaURL)"
@@ -57,78 +57,79 @@
                             <h3 class="text-center font-weight-bold">
                                 @Model.Project.ProjectTitle
                             </h3>
-                            <div class="row d-flex float-right mx-3">
+                            <div class="row d-flex mx-3" style="min-height: 150px;">
                                 <small>@Model.Project.ProjectDescription</small>
                             </div>
                             <div id="stickBottom" class="text-right mx-3">
-                                <div>
-                                    <span class="font-weight-bold">Creator: </span><span>@Model.Project.ProjectCreator</span>
-                                </div>
-                                <div>
-                                    <span class="font-weight-bold">Category: </span><span>@Model.Project.ProjectCategory</span>
-                                </div>
-                                <div>
-                                    <span class="font-weight-bold">Started: </span><span>@creationdateString</span>
-                                </div>
-                                <div>
-                                    <span class="font-weight-bold">Ending: </span><span>@endingdateString</span>
-                                </div>
-                                <div class="text-center">
-                                    @if (@Model.Project.ProjectCreationDate >= @Model.Project.ProjectEndingDate)
+                                <small>
+                                    <div>
+                                        <span class="font-weight-bold">Creator: </span><span>@Model.Project.ProjectCreator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-weight-bold">Category: </span><span>@Model.Project.ProjectCategory</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-weight-bold">Started: </span><span>@creationdateString</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-weight-bold">Ending: </span><span>@endingdateString</span>
+                                    </div>
+                                    <div class="text-center">
+                                        @if (@Model.Project.ProjectCreationDate >= @Model.Project.ProjectEndingDate)
+                                        {
+                                            <h1>Project has reached it's deadline! </h1>
+                                        }
+                                        @if (@Model.Project.ProjectCurrentAmount >= @Model.Project.ProjectTargetAmount)
+                                        {
+                                            <h1>We have reached our goal! Hooray! </h1>
+                                        }
+                                        <br />
+                                        <span class="font-weight-bold">Current Amount: </span>
+                                        <span>@Model.Project.ProjectCurrentAmount.ToString("0.##") / @Model.Project.ProjectTargetAmount.ToString("0.##") €
+                                            <strong>(@progress% funded)</strong></span>
+                                    </div>
+                                    @if (Model.Project.ProjectProgress >= 1 || Model.Project.IsComplete)
                                     {
-                                        <h1>Project has reached it's deadline! </h1>
-                                    }
-                                    @if (@Model.Project.ProjectCurrentAmount >= @Model.Project.ProjectTargetAmount)
-                                    {
-                                        <h1>We have reached our goal! Hooray! </h1>
-                                    }
-                                    <br />
-                                    <span class="font-weight-bold">Current Amount: </span>
-                                    <span>@Model.Project.ProjectCurrentAmount.ToString("0.##") / @Model.Project.ProjectTargetAmount.ToString("0.##") €</span>
-                                </div>
-                                @if (Model.Project.ProjectProgress >= 1 || Model.Project.IsComplete)
-                                {
-                                    <div class="progress" style="height:2rem;">
-                                        <div class="progress-bar font-weight-bolder text-dark
+                                        <div class="progress" style="height:2rem;">
+                                            <div class="progress-bar font-weight-bolder text-dark
                                          progress-bar-striped
                                              bg-success
                                          text-center"
-                                             role="progressbar"
-                                             style="width: @progress%"
-                                             aria-valuenow="@progress"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100">
-                                            @progress% funded
+                                                 role="progressbar"
+                                                 style="width: @progress%"
+                                                 aria-valuenow="@progress"
+                                                 aria-valuemin="0"
+                                                 aria-valuemax="100">
+                                            </div>
                                         </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="progress" style="height:2rem;">
-                                        <div class="progress-bar font-weight-bolder text-dark
+                                    }
+                                    else
+                                    {
+                                        <div class="progress" style="height:2rem;">
+                                            <div class="progress-bar font-weight-bolder text-dark
                                          progress-bar-striped
                                          text-center"
-                                             role="progressbar"
-                                             style="width: @progress%"
-                                             aria-valuenow="@progress"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100">
-                                            @progress% funded
+                                                 role="progressbar"
+                                                 style="width: @progress%"
+                                                 aria-valuenow="@progress"
+                                                 aria-valuemin="0"
+                                                 aria-valuemax="100">
+                                            </div>
                                         </div>
+                                    }
+                                    @*Buy Custom Pledge*@
+                                    <div class="text-right">
+                                        <label>Fund Amount: </label>
+                                        <input class="col-2 align-middle px-1" id="FundAmount"
+                                               type="number" min="0"
+                                               onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
+                                        <button class="btn btn-sm btn-dark"
+                                                onclick="submitFundToServer(@Model.Project.ProjectId)">
+                                            Fund
+                                        </button>
                                     </div>
-                                }
-                                @*Buy Custom Pledge*@
-                                <div class="text-right">
-                                    <label>Fund Amount: </label>
-                                    <input class="col-2 align-middle px-1" id="FundAmount"
-                                           type="number" min="0"
-                                           onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
-                                    <button class="btn btn-sm btn-dark"
-                                            onclick="submitFundToServer(@Model.Project.ProjectId)">
-                                        Fund
-                                    </button>
-                                </div>
-                                @* End Buy Custom Pledge*@
+                                    @* End Buy Custom Pledge*@
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -193,14 +194,14 @@
 
                         @foreach (var c in Model.PledgeUsers.OrderBy(c => c.PledgePrice).ToList())
                         {
-                        <tr>
-                            <th scope="row">@c.PledgeUsers.Count</th>
-                            <td>@(++tier)</td>
-                            <td>@c.PledgePrice</td>
-                            <td>@c.PledgeReward</td>
-                            <td>@c.PledgeDateCreated.DateTime</td>
-                            <td>@Math.Round(@c.PledgePrice * @c.PledgeUsers.Count)€</td>
-                        </tr>
+                            <tr>
+                                <th scope="row">@c.PledgeUsers.Count</th>
+                                <td>@(++tier)</td>
+                                <td>@c.PledgePrice</td>
+                                <td>@c.PledgeReward</td>
+                                <td>@c.PledgeDateCreated.DateTime</td>
+                                <td>@Math.Round(@c.PledgePrice * @c.PledgeUsers.Count)€</td>
+                            </tr>
                         }
                     </tbody>
                 </table>

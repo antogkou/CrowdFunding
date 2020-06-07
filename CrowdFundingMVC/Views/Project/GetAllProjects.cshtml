@@ -15,15 +15,15 @@
 
 <div class="container" style="width: 60rem;">
     <div style="width: 60rem;" class="row px-3 mt-3 justify-content-center">
-            <form class="searchform d-flex" asp-controller="Project" asp-action="GetAllProjects" method="get">
-                <select id="dropdownList" class="custom-select-sm mr-3" asp-for="ProjectCategory" asp-items="Model.Categories"
-                        style="font-size: 17px; border: 1px solid grey; float: left; background: #f1f1f1; height:auto;">
-                    <option value="">All</option>
-                </select>
-                <input class="searchform" type="text" placeholder="Search.." asp-for="SearchString" />
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        
+        <form class="searchform d-flex" asp-controller="Project" asp-action="GetAllProjects" method="get">
+            <select id="dropdownList" class="custom-select-sm mr-3" asp-for="ProjectCategory" asp-items="Model.Categories"
+                    style="font-size: 17px; border: 1px solid grey; float: left; background: #f1f1f1; height:auto;">
+                <option value="">All</option>
+            </select>
+            <input class="searchform" type="text" placeholder="Search.." asp-for="SearchString" />
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+
 
     </div>
     <div class="row">
@@ -52,30 +52,32 @@
                          alt="Project Image">
                 }
 
-            <div class="card-body">
-                <div class="cardTitle">
-                    <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
-                </div>
-                <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
-                <div><span class="card-text font-weight-bold">Category: </span><span>@Html.DisplayFor(modelItem => item.ProjectCategory)</span></div>
-                <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
-                <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
-                <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
-                <div class="text-center">@progress% funded</div>
-                <div class="progress">
-                    <div class="progress-bar bg-info"
-                         role="progressbar"
-                         aria-valuenow="@progress"
-                         aria-valuemin="0"
-                         aria-valuemax="100"
-                         style="width:@progress%">
+                <div class="card-body">
+                    <small>
+                        <div class="cardTitle">
+                            <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                        </div>
+                        <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
+                        <div><span class="card-text font-weight-bold">Category: </span><span>@Html.DisplayFor(modelItem => item.ProjectCategory)</span></div>
+                        <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
+                        <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
+                        <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
+                        <div class="text-center mt-3">@progress% funded</div>
+                    </small>
+                    <div class="progress">
+                        <div class="progress-bar bg-info"
+                             role="progressbar"
+                             aria-valuenow="@progress"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width:@progress%">
+                        </div>
                     </div>
+                    <p></p>
+                    <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
+                       class="btn btn-primary mx-auto d-block stretched-link"
+                       id="SingleProjectView">Go to this Project!</a>
                 </div>
-                <p></p>
-                <a href="@Url.Action("SingleProject", new { id = item.ProjectId})"
-                   class="btn btn-primary mx-auto d-block stretched-link"
-                   id="SingleProjectView">Go to this Project!</a>
-            </div>
             </div>
         }
     </div>

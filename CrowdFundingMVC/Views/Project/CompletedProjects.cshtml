@@ -35,21 +35,21 @@
                      alt="Project Image">
             }
         <div class="card-body">
-            <div class="cardTitle">
-                <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
-            </div>
-            @*<p class="card-text"> @Html.DisplayFor(modelItem => item.ProjectDescription)</p>*@
-            <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
-            <div><span class="card-text font-weight-bold">Category: </span><span>@Html.DisplayFor(modelItem => item.ProjectCategory)</span></div>
-            <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
-            <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
-            <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
-            @*<p class="card-text">Creation Date: @creationdateString</p>
-        <p class="card-text">Ending Date: @endingdateString</p>
-        <p class="card-text">Target: @projectTargetAmount €</p>*@
+            <small>
+                <div class="cardTitle">
+                    <h5 class="card-title text-center font-weight-bold"> @Html.DisplayFor(modelItem => item.ProjectTitle)</h5>
+                </div>
+                <div><span class="card-text font-weight-bold">Creator: </span><span>@Html.DisplayFor(modelItem => item.ProjectCreator)</span></div>
+                <div><span class="card-text font-weight-bold">Category: </span><span>@Html.DisplayFor(modelItem => item.ProjectCategory)</span></div>
+                <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
+                <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
+                <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
+                </small>
             @if (item.ProjectProgress >= 1 || item.IsComplete)
             {
-                <div class="text-center">@progress% funded</div>
+        <small>
+            <div class="text-center">@progress% funded</div>
+        </small>
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-success"
                          role="progressbar"
@@ -62,7 +62,9 @@
             }
             else
             {
-                <div class="text-center">@progress% funded</div>
+        <small>
+            <div class="text-center">@progress% funded</div>
+        </small>
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped"
                          role="progressbar"
