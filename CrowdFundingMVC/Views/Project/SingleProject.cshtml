@@ -85,8 +85,10 @@
                                         }
                                         <br />
                                         <span class="font-weight-bold">Current Amount: </span>
-                                        <span>@Model.Project.ProjectCurrentAmount.ToString("0.##") / @Model.Project.ProjectTargetAmount.ToString("0.##") €
-                                            <strong>(@progress% funded)</strong></span>
+                                        <span>
+                                            @Model.Project.ProjectCurrentAmount.ToString("0.##") / @Model.Project.ProjectTargetAmount.ToString("0.##") €
+                                            <strong>(@progress% funded)</strong>
+                                        </span>
                                     </div>
                                     @if (Model.Project.ProjectProgress >= 1 || Model.Project.IsComplete)
                                     {
@@ -118,9 +120,9 @@
                                         </div>
                                     }
                                     @*Buy Custom Pledge*@
-                                    <div class="text-right">
-                                        <label>Fund Amount: </label>
-                                        <input class="col-2 align-middle px-1" id="FundAmount"
+                                    <div class="text-right mt-3">
+                                        <label>Custom Fund*: </label>
+                                        <input class="col-2 align-middle px-1" style="height: 30px;" id="FundAmount"
                                                type="number" min="0"
                                                onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
                                         <button class="btn btn-sm btn-dark"
@@ -128,6 +130,7 @@
                                             Fund
                                         </button>
                                     </div>
+                                    <div class="mt-3 text-right text-muted  font-italic small">*Funding a project with a custom amount will not yield you a pledge reward.</div>
                                     @* End Buy Custom Pledge*@
                                 </small>
                             </div>
@@ -217,7 +220,7 @@
             {
                 <div class="shadow mb-5 bg-white rounded">
                     <textarea type="text" class="form-control text-wrap"
-                              placeholder="What's on your mind?"
+                              placeholder="Post a status update..."
                               id="PostDescription"
                               style="resize: vertical; min-height: 70px;"></textarea>
                     <input type="button" class="btn btn-dark form-control" onclick="submitPostToServer(@Model.Project.ProjectId)" value="Post">

@@ -20,11 +20,10 @@
             @*<div class="col col-md-12 d-flex justify-content-end pr-0">
                 <input type="button" onclick="doUpdatePost(@Model.Post.PostId, @Model.Project.ProjectId)" value="Submit">
             </div>*@
-            <div class="form-group">
-                <a asp-action="SingleProject" asp-route-id="@Model.Project.ProjectId" asp-controller="Project" class="btn btn-danger float-left">Cancel</a>
-                <input type="button" class="btn btn-success float-right" value="Submit" onclick="doUpdatePost(@Model.Post.PostId, @Model.Project.ProjectId)">
-
-            </div>
+        <div class="form-group">
+            <a asp-action="SingleProject" asp-route-id="@Model.Project.ProjectId" asp-controller="Project" class="btn btn-danger float-left">Cancel</a>
+            <input type="button" class="btn btn-success float-right" value="Submit" onclick="doUpdatePost(@Model.Post.PostId, @Model.Project.ProjectId)">
+        </div>
         </form>
     </div>
 </div>

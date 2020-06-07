@@ -44,15 +44,36 @@
                 <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
                 <div class="text-center mt-3">@progress% funded</div>
             </small>
-            <div class="progress">
-                <div class="progress-bar-striped"
-                     role="progressbar"
-                     aria-valuenow="@progress"
-                     aria-valuemin="0"
-                     aria-valuemax="100"
-                     style="width:@progress%">
+            @if (item.ProjectProgress >= 1 || item.IsComplete)
+            {
+                <small>
+                    <div class="text-center mt-3">@progress% funded</div>
+                </small>
+                <div class="progress">
+                    <div class="progress-bar bg-success"
+                         role="progressbar"
+                         aria-valuenow="@progress"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         style="width:@progress%">
+                    </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <small>
+                    <div class="text-center mt-3">@progress% funded</div>
+                </small>
+                <div class="progress">
+                    <div class="progress-bar"
+                         role="progressbar"
+                         aria-valuenow="@progress"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         style="width:@progress%">
+                    </div>
+                </div>
+            }
 
 
             <p></p>

@@ -24,10 +24,11 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.ProjectDescription" class="control-label">Short Description</label>
-                    <textarea style="resize:vertical; min-height: 200px;" 
-                              asp-for="@Model.ProjectDescription" class="form-control text-wrap" type="text" 
-                              placeholder="Give your project a short description..." required rows="4" cols="50" 
+                    <textarea style="resize:vertical; min-height: 200px;"
+                              asp-for="@Model.ProjectDescription" class="form-control text-wrap" type="text"
+                              placeholder="Give your project a short description..." required rows="4" cols="50"
                               name="description" form="crproj"></textarea>
+                    <span asp-validation-for="@Model.ProjectDescription" class="text-danger"></span>
                     <div class="invalid-feedback">
                         Please provide a Description.
                     </div>
@@ -36,6 +37,7 @@
                     <label asp-for="@Model.ProjectTargetAmount" class="control-label">Target Amount</label>
                     <input asp-for="@Model.ProjectTargetAmount" class="form-control" type="number"
                            required placeholder="The amount of money this project needs..." min="0" />
+                    <span asp-validation-for="@Model.ProjectTargetAmount" class="text-danger"></span>
                     <div class="invalid-feedback">
                         Please provide a NeededAmount.
                     </div>
@@ -91,7 +93,6 @@
         <div class="col d-flex justify-content-center">
             <input type="button" class="btn btn-lg btn-primary" onclick="submitProjectToServer()" value="Submit">
         </div>
-
     </div>
 </div>
 
