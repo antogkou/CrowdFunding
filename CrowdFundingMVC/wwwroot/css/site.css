@@ -256,12 +256,12 @@ form.searchform::after {
     display: table;
 }
 
-card:hover {
+/*card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     transform: scale(1.05);
-}
+}*/
 
-.card:hover {
+.cardGrid:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     transform: scale(1.04);
 }

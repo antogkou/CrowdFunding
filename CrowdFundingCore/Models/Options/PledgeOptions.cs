@@ -1,4 +1,6 @@
-﻿namespace CrowdFundingCore.Models.Options
+﻿using System;
+
+namespace CrowdFundingCore.Models.Options
 {
     public class PledgeOptions
     {
