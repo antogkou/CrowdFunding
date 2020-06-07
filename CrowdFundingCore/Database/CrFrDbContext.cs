@@ -43,29 +43,6 @@ namespace CrowdFundingCore.Database
 
             });
 
-
-            // Create User table
-            //modelBuilder
-            //    .Entity<User>()
-            //    .ToTable("User");
-
-            //modelBuilder
-            //    .Entity<User>()
-            //    .Property(u => u.user_First_Name)
-            //    .IsRequired()
-            //    .HasMaxLength(255);
-
-            //modelBuilder
-            //    .Entity<User>()
-            //    .HasIndex(u => u.user_Last_Name)
-            //    .IsUnique();
-
-            //modelBuilder
-            //    .Entity<User>()
-            //    .Property(u => u.user_Email)
-            //    .IsRequired()
-            //    .HasMaxLength(255);
-
             // Create Project table
             modelBuilder
                 .Entity<Project>()

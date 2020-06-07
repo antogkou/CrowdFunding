@@ -1,14 +1,13 @@
 ﻿using CrowdFundingCore.Database;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
-using CrowdFundingMVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrowdFundingMVC.Controllers
 {
-     [Authorize(Roles = "Administrator, Backer, Project Creator")]
+    [Authorize(Roles = "Administrator, Backer, Project Creator")]
     public class FundController : Controller
     {
         private IProjectServices _projectservices;

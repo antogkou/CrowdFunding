@@ -35,9 +35,10 @@
                     Please provide a NeededAmount.
                 </div>
             </div>
+            <div class="form-group">
+                <a asp-action="SingleProject" asp-route-id="@Model.Project.ProjectId" asp-controller="Project" class="btn btn-danger float-left">Cancel</a>
+                <input type="button" class="btn btn-success float-right" value="Submit" onclick="submitPledgeToServer(@Model.Project.ProjectId)">
 
-            <div class="col col-md-12 d-flex justify-content-end pr-0">
-                <input type="button" onclick="submitPledgeToServer(@Model.Project.ProjectId)" value="Submit">
             </div>
         </form>
     </div>
