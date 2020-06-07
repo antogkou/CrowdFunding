@@ -12,247 +12,247 @@
     // var pledgeTotal = Math.Round((Model.PledgeUsers.Count * Model.Pledges.Count ));
 }
 
-<main>
-    <div class="row justify-content-end">
-        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-        {
-            <div class="mr-2">
-                <button type="button" class="btn btn-primary"
-                        onclick="addPledge(@Model.Project.ProjectId)">
-                    Add Pledge
-                </button>
-            </div>
-            <div>
-                <button type="button" class="btn btn-warning"
-                        onclick="editProject(@Model.Project.ProjectId)">
-                    Edit Project
-                </button>
-            </div>
-        }
+    <main>
+        <div class="row justify-content-end">
+            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+            {
+                <div class="mr-2">
+                    <button type="button" class="btn btn-primary"
+                            onclick="addPledge(@Model.Project.ProjectId)">
+                        Add Pledge
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-warning"
+                            onclick="editProject(@Model.Project.ProjectId)">
+                        Edit Project
+                    </button>
+                </div>
+            }
 
-    </div>
-    <div class=row>
-        <div class="container-fluid border shadow p-3 mb-4 bg-white rounded">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6 text-center">
+        </div>
+        <div class=row>
+            <div class="container-fluid border shadow p-3 mb-4 bg-white rounded">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
 
-                            @if (Model.ProjectMultimedia.Last().MultimediaURL
-                    != null && Model.ProjectMultimedia.Last().MultimediaURL != "")
-                            {
-                                <img class="img-fluid single-project-cover"
-                                     src="@Url.Content(Model.ProjectMultimedia.Last().MultimediaURL)"
-                                     style="max-width:100%; height:auto; max-height: 350px; min-height: 350px;" />
-                            }
-                            else
-                            {
-                                <img class="img-fluid single-project-cover" src="~/img/coverproject.png"
-                                     style="max-width:100%;" height:auto; max-height: 350px; min-height: 350px;" />
-                            }
+                                @if (Model.ProjectMultimedia.Last().MultimediaURL
+                       != null && Model.ProjectMultimedia.Last().MultimediaURL != "")
+                                {
+                                    <img class="img-fluid single-project-cover"
+                                         src="@Url.Content(Model.ProjectMultimedia.Last().MultimediaURL)"
+                                         style="max-width:100%; height:auto; max-height: 350px; min-height: 350px;" />
+                                }
+                                else
+                                {
+                                    <img class="img-fluid single-project-cover" src="~/img/coverproject.png"
+                                         style="max-width:100%;" height:auto; max-height: 350px; min-height: 350px;" />
+                                }
 
 
-                        </div>
-                        <div class="col-md-6">
-                            <h3 class="text-center font-weight-bold">
-                                @Model.Project.ProjectTitle
-                            </h3>
-                            <div class="row d-flex mx-3" style="min-height: 150px;">
-                                <small>@Model.Project.ProjectDescription</small>
                             </div>
-                            <div id="stickBottom" class="text-right mx-3">
-                                <small>
-                                    <div>
-                                        <span class="font-weight-bold">Creator: </span><span>@Model.Project.ProjectCreator</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-weight-bold">Category: </span><span>@Model.Project.ProjectCategory</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-weight-bold">Started: </span><span>@creationdateString</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-weight-bold">Ending: </span><span>@endingdateString</span>
-                                    </div>
-                                    <div class="text-center">
-                                        @if (@Model.Project.ProjectCreationDate >= @Model.Project.ProjectEndingDate)
+                            <div class="col-md-6">
+                                <h3 class="text-center font-weight-bold">
+                                    @Model.Project.ProjectTitle
+                                </h3>
+                                <div class="row d-flex mx-3" style="min-height: 150px;">
+                                    <small>@Model.Project.ProjectDescription</small>
+                                </div>
+                                <div id="stickBottom" class="text-right mx-3">
+                                    <small>
+                                        <div>
+                                            <span class="font-weight-bold">Creator: </span><span>@Model.Project.ProjectCreator</span>
+                                        </div>
+                                        <div>
+                                            <span class="font-weight-bold">Category: </span><span>@Model.Project.ProjectCategory</span>
+                                        </div>
+                                        <div>
+                                            <span class="font-weight-bold">Started: </span><span>@creationdateString</span>
+                                        </div>
+                                        <div>
+                                            <span class="font-weight-bold">Ending: </span><span>@endingdateString</span>
+                                        </div>
+                                        <div class="text-center">
+                                            @if (@Model.Project.ProjectCreationDate >= @Model.Project.ProjectEndingDate)
+                                            {
+                                                <h4>Project has reached it's deadline! </h4>
+                                            }
+                                            @if (@Model.Project.ProjectCurrentAmount >= @Model.Project.ProjectTargetAmount)
+                                            {
+                                                <h4>We have reached our goal! Hooray! </h4>
+                                            }
+                                            <br />
+                                            <span class="font-weight-bold">Current Amount: </span>
+                                            <span>
+                                                @Model.Project.ProjectCurrentAmount.ToString("0.##") / @Model.Project.ProjectTargetAmount.ToString("0.##") €
+                                                <strong>(@progress% funded)</strong>
+                                            </span>
+                                        </div>
+                                        @if (Model.Project.ProjectProgress >= 1 || Model.Project.IsComplete)
                                         {
-                                            <h1>Project has reached it's deadline! </h1>
-                                        }
-                                        @if (@Model.Project.ProjectCurrentAmount >= @Model.Project.ProjectTargetAmount)
-                                        {
-                                            <h1>We have reached our goal! Hooray! </h1>
-                                        }
-                                        <br />
-                                        <span class="font-weight-bold">Current Amount: </span>
-                                        <span>
-                                            @Model.Project.ProjectCurrentAmount.ToString("0.##") / @Model.Project.ProjectTargetAmount.ToString("0.##") €
-                                            <strong>(@progress% funded)</strong>
-                                        </span>
-                                    </div>
-                                    @if (Model.Project.ProjectProgress >= 1 || Model.Project.IsComplete)
-                                    {
-                                        <div class="progress" style="height:2rem;">
-                                            <div class="progress-bar font-weight-bolder text-dark
+                                            <div class="progress" style="height:2rem;">
+                                                <div class="progress-bar font-weight-bolder text-dark
                                          progress-bar-striped
                                              bg-success
                                          text-center"
-                                                 role="progressbar"
-                                                 style="width: @progress%"
-                                                 aria-valuenow="@progress"
-                                                 aria-valuemin="0"
-                                                 aria-valuemax="100">
+                                                     role="progressbar"
+                                                     style="width: @progress%"
+                                                     aria-valuenow="@progress"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="progress" style="height:2rem;">
-                                            <div class="progress-bar font-weight-bolder text-dark
+                                        }
+                                        else
+                                        {
+                                            <div class="progress" style="height:2rem;">
+                                                <div class="progress-bar font-weight-bolder text-dark
                                          progress-bar-striped
                                          text-center"
-                                                 role="progressbar"
-                                                 style="width: @progress%"
-                                                 aria-valuenow="@progress"
-                                                 aria-valuemin="0"
-                                                 aria-valuemax="100">
+                                                     role="progressbar"
+                                                     style="width: @progress%"
+                                                     aria-valuenow="@progress"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                </div>
                                             </div>
+                                        }
+                                        @*Buy Custom Pledge*@
+                                        <div class="text-right mt-3">
+                                            <label>Custom Fund*: </label>
+                                            <input class="col-2 align-middle px-1" style="height: 30px;" id="FundAmount"
+                                                   type="number" min="0"
+                                                   onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
+                                            <button class="btn btn-sm btn-dark"
+                                                    onclick="submitFundToServer(@Model.Project.ProjectId)">
+                                                Fund
+                                            </button>
                                         </div>
-                                    }
-                                    @*Buy Custom Pledge*@
-                                    <div class="text-right mt-3">
-                                        <label>Custom Fund*: </label>
-                                        <input class="col-2 align-middle px-1" style="height: 30px;" id="FundAmount"
-                                               type="number" min="0"
-                                               onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
-                                        <button class="btn btn-sm btn-dark"
-                                                onclick="submitFundToServer(@Model.Project.ProjectId)">
-                                            Fund
-                                        </button>
-                                    </div>
-                                    <div class="mt-3 text-right text-muted  font-italic small">*Funding a project with a custom amount will not yield you a pledge reward.</div>
-                                    @* End Buy Custom Pledge*@
-                                </small>
+                                        <div class="mt-3 text-right text-muted  font-italic small">*Funding a project with a custom amount will not yield you a pledge reward.</div>
+                                        @* End Buy Custom Pledge*@
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    @if (Model.Pledges.Count > 0)
-    {
-        <div class=row>
-            <div class="container-fluid border shadow p-3 mb-4 bg-white rounded">
-                <div class="card-deck mb-3 text-center justify-content-center">
+        @if (Model.Pledges.Count > 0)
+        {
+            <div class=row>
+                <div class="container-fluid border shadow p-3 mb-4 bg-white rounded">
+                    <div class="card-deck mb-3 text-center justify-content-center">
 
 
-                    @foreach (var item in Model.Pledges.OrderBy(c => c.PledgePrice).ToList())
-                    {
-                        <div class="col-md-3 card mb-4 box-shadow">
-                            <div class="card-header">
-                                <button type="button" class="close" aria-label="Close" onclick="deletePledge(@item.PledgeId)">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="my-0 font-weight-normal">Tier @(++levelCounter) Pledge</h4>
-                            </div>
-                            <div class="card-body">
-                                <h1 class="card-title pricing-card-title">
-                                    <ccc title="$0" class="ccc--converted"
-                                         style="font-size: inherit; display: inline; color: inherit; --darkreader-inline-color: inherit;"
-                                         data-darkreader-inline-color="">@Html.DisplayFor(modelItem => item.PledgePrice) €</ccc>
-                                    </h1>
-                                    @*<ul class="list-unstyled mt-3 mb-4">*@
-                                    <p>@Html.DisplayFor(modelItem => item.PledgeDescription)</p>
-
-                                    <p><strong>Reward</strong></p>
-
-                                    <p>@Html.DisplayFor(modelItem => item.PledgeReward)</p>
-                                    @*</ul>*@
-
-                                    <button type="button" class="btn btn-primary btn-lg" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Get Pledge</button>
-                                    <p></p>
-                                    @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-                                    {
-                                        <button type="button" class="btn btn-warning btn-lg" onclick="editPledge(@Model.Project.ProjectId , @item.PledgeId)">Edit Pledge</button>
-                                    }
+                        @foreach (var item in Model.Pledges.OrderBy(c => c.PledgePrice).ToList())
+                        {
+                            <div class="col-md-3 card mb-4 box-shadow">
+                                <div class="card-header">
+                                    <button type="button" class="close" aria-label="Close" onclick="deletePledge(@item.PledgeId)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="my-0 font-weight-normal">Tier @(++levelCounter) Pledge</h4>
                                 </div>
-                            </div>
-                        }
-                </div>
+                                <div class="card-body">
+                                    <h1 class="card-title pricing-card-title">
+                                        <ccc title="$0" class="ccc--converted"
+                                             style="font-size: inherit; display: inline; color: inherit; --darkreader-inline-color: inherit;"
+                                             data-darkreader-inline-color="">@Html.DisplayFor(modelItem => item.PledgePrice) €</ccc>
+                                        </h1>
+                                        @*<ul class="list-unstyled mt-3 mb-4">*@
+                                        <p>@Html.DisplayFor(modelItem => item.PledgeDescription)</p>
 
-                <table class="sortable customers table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Pledge Buy Count</th>
-                            <th scope="col">Tier</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Reward</th>
-                            <th scope="col">Created Date</th>
-                            <th scope="col">Total € per Pledge</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                                        <p><strong>Reward</strong></p>
 
-                        @foreach (var c in Model.PledgeUsers.OrderBy(c => c.PledgePrice).ToList())
-                        {
+                                        <p>@Html.DisplayFor(modelItem => item.PledgeReward)</p>
+                                        @*</ul>*@
+
+                                        <button type="button" class="btn btn-primary btn-lg" onclick="submitBuyPledgeToServer(@Model.Project.ProjectId, @item.PledgeId)">Get Pledge</button>
+                                        <p></p>
+                                        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+                                        {
+                                            <button type="button" class="btn btn-warning btn-lg" onclick="editPledge(@Model.Project.ProjectId , @item.PledgeId)">Edit Pledge</button>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                    </div>
+
+                    <table class="sortable customers table table-striped">
+                        <thead>
                             <tr>
-                                <th scope="row">@c.PledgeUsers.Count</th>
-                                <td>@(++tier)</td>
-                                <td>@c.PledgePrice</td>
-                                <td>@c.PledgeReward</td>
-                                <td>@c.PledgeDateCreated.DateTime</td>
-                                <td>@Math.Round(@c.PledgePrice * @c.PledgeUsers.Count)€</td>
+                                <th scope="col">Pledge Buy Count</th>
+                                <th scope="col">Tier</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Reward</th>
+                                <th scope="col">Created Date</th>
+                                <th scope="col">Total € per Pledge</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-                @*<h5>Total Pledges: @Model.Pledges.Count()</h5>*@
-            </div>
-        </div>
-    }
+                        </thead>
+                        <tbody>
 
-
-    <div class="row">
-        <div class="container-fluid border shadow p-3 mb-4 bg-white rounded">
-            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
-            {
-                <div class="shadow mb-5 bg-white rounded">
-                    <textarea type="text" class="form-control text-wrap"
-                              placeholder="Post a status update..."
-                              id="PostDescription"
-                              style="resize: vertical; min-height: 70px;"></textarea>
-                    <input type="button" class="btn btn-dark form-control" onclick="submitPostToServer(@Model.Project.ProjectId)" value="Post">
+                            @foreach (var c in Model.PledgeUsers.OrderBy(c => c.PledgePrice).ToList())
+                            {
+                                <tr>
+                                    <th scope="row">@c.PledgeUsers.Count</th>
+                                    <td>@(++tier)</td>
+                                    <td>@c.PledgePrice</td>
+                                    <td>@c.PledgeReward</td>
+                                    <td>@c.PledgeDateCreated.DateTime</td>
+                                    <td>@Math.Round(@c.PledgePrice * @c.PledgeUsers.Count)€</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @*<h5>Total Pledges: @Model.Pledges.Count()</h5>*@
                 </div>
-            }
-            <div>
-                @*<a>Updates: <span class="badge">@Model.Posts.Count()</span></a>*@
-                @*<h5>Total Updates: @Model.Posts.Count()</h5>*@
-                <h6 class="border-bottom border-gray pb-2 mb-0 text-center font-weight-bold">Recent updates <span class="w3-badge w3-green">@Model.Posts.Count()</span></h6>
-                @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
+            </div>
+        }
+
+
+        <div class="row">
+            <div class="container-fluid border shadow p-3 mb-4 bg-white rounded">
+                @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
                 {
-                    <div class="media text-muted">
-                        <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" data-holder-rendered="true">
-                        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <strong class="d-block text-gray-dark">@Model.Project.ProjectCreator · @item.PostDateCreated.DateTime</strong>
-                            @Html.DisplayFor(modelItem => item.PostDescription)
-                        </p>
-                        @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId
-&& item.UserId != null)
-                        {
-                            <small class="d-block text-right mt-0">
-                                @*<a href="Url.Action("EditPost", new { id = item.PostId})">Edit</a>*@
-                                <button type="button" class="btn btn-primary btn-sm mr-1" onclick="editPost(@Model.Project.ProjectId , @item.PostId)">Edit</button>
-                            </small>
-                            <small class="d-block text-right mt-0">
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deletePost(@item.PostId)">X</button>
-                            </small>
-                        }
+                    <div class="shadow mb-5 bg-white rounded">
+                        <textarea type="text" class="form-control text-wrap"
+                                  placeholder="Post a status update..."
+                                  id="PostDescription"
+                                  style="resize: vertical; min-height: 70px;"></textarea>
+                        <input type="button" class="btn btn-dark form-control" onclick="submitPostToServer(@Model.Project.ProjectId)" value="Post">
                     </div>
                 }
+                <div>
+                    @*<a>Updates: <span class="badge">@Model.Posts.Count()</span></a>*@
+                    @*<h5>Total Updates: @Model.Posts.Count()</h5>*@
+                    <h6 class="border-bottom border-gray pb-2 mb-0 text-center font-weight-bold">Recent updates <span class="w3-badge w3-green">@Model.Posts.Count()</span></h6>
+                    @foreach (var item in Model.Posts.OrderByDescending(c => c.PostDateCreated).ToList())
+                    {
+                        <div class="media text-muted">
+                            <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" data-holder-rendered="true">
+                            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <strong class="d-block text-gray-dark">@Model.Project.ProjectCreator · @item.PostDateCreated.DateTime</strong>
+                                @Html.DisplayFor(modelItem => item.PostDescription)
+                            </p>
+                            @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId
+&& item.UserId != null)
+                            {
+                                <small class="d-block text-right mt-0">
+                                    @*<a href="Url.Action("EditPost", new { id = item.PostId})">Edit</a>*@
+                                    <button type="button" class="btn btn-primary btn-sm mr-1" onclick="editPost(@Model.Project.ProjectId , @item.PostId)">Edit</button>
+                                </small>
+                                <small class="d-block text-right mt-0">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePost(@item.PostId)">X</button>
+                                </small>
+                            }
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 

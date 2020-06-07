@@ -29,6 +29,7 @@ namespace CrowdFundingCore.Services
         public List<Pledge> GetPledgesByProjectId(int projectId)
         {
             return _db.Set<Pledge>()
+                .Include(p => p.PledgeUsers)
                 .Where(p => p.Project.ProjectId == projectId)
                 .ToList();
         }
@@ -208,6 +209,25 @@ namespace CrowdFundingCore.Services
                 .Where(p => p.PledgeId == pledgeId)
                 .Where(p => p.Project.UserId == userId)
                 .SingleOrDefault();
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
+        }
+
+        //New
+        public IQueryable<BackedPledges> GetUserBackedPledges()
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _db.Set<BackedPledges>()
+                .Include(p =>p.BackedPledge.Project)
+                .Include(p => p.BackedPledge.Project.Funds)
+                .Include(p => p.BackedPledge.PledgeUsers)
+                .Where(p => p.UserId == userId)
+                .Distinct()
+                .AsQueryable();
+
             if (result == null)
             {
                 return null;

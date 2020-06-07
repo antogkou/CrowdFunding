@@ -22,6 +22,7 @@ namespace CrowdFundingMVC.Controllers
         private IProjectServices _projectservices;
         private IPledgeServices _pledgesservices;
         private IPostServices _postservices;
+        private IFundServices _fundservices;
         private IMultimediaServices _multimediaServices;
         private readonly CrFrDbContext _db;
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -31,12 +32,14 @@ namespace CrowdFundingMVC.Controllers
             IHttpContextAccessor _httpContextAccessor,
             IPledgeServices pledgesservices,
             IPostServices postservices,
+            IFundServices fundservices,
             IMultimediaServices multimediaServices,
             IWebHostEnvironment environment)
         {
             _projectservices = projectservices;
             _pledgesservices = pledgesservices;
             _postservices = postservices;
+            _fundservices = fundservices;
             _multimediaServices = multimediaServices;
             _db = db;
             httpContextAccessor = _httpContextAccessor;
@@ -59,7 +62,9 @@ namespace CrowdFundingMVC.Controllers
             var mybackedprojects = new ProjectsGridVM()
             {
                 Projects = _projectservices.GetMyBackedProjects().ToList(),
-                ProjectMultimedia = _multimediaServices.GetAll()
+                ProjectMultimedia = _multimediaServices.GetAll(),
+                BackedPledges = _pledgesservices.GetUserBackedPledges().ToList(),
+                Funds = _fundservices.GetUserFunds().ToList()
             };
             return View(mybackedprojects);
         }
@@ -134,6 +139,7 @@ namespace CrowdFundingMVC.Controllers
                 Pledges = _pledgesservices.GetPledgesByProjectId(id),
                 PledgeUsers = _pledgesservices.GetUsersPledges(id),
                 ProjectMultimedia = _multimediaServices.GetMultimediaOfProject(id),
+                BackedPledges = _pledgesservices.GetUserBackedPledges().ToList(),
             };
             if (singleproject != null)
                 return View(singleproject);

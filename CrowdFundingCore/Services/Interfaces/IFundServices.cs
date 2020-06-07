@@ -10,5 +10,6 @@ namespace CrowdFundingCore.Services.Interfaces
     public interface IFundServices
     {
         Result<Fund> AddFund(FundOptions fundOptions);
+        IQueryable<Fund> GetUserFunds();
     }
 }

@@ -1,15 +1,93 @@
 ﻿@model CrowdFundingMVC.ViewModels.ProjectsGridVM
 @{
-    ViewData["Title"] = "My Backed Projects";
+    ViewData["Title"] = "My Backed History";
     var count = @Model.Projects.Count();
 }
 
 <div class="text-center">
-    <h1>My Backed Projects (@count)</h1>
+    <h1>My Backed History</h1>
 </div>
 
-<div class="container" style="width: 60rem;">
-    <div class="row">
+<div class="container">
+        <div class="text-center pb-2"><h4>Pledges</h4></div>
+            <table class="sortable customers table table-striped table-container">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Creator</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Backed Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        decimal totalbackedamount1 = 0;
+                    }
+                    @foreach (var c in Model.BackedPledges.OrderByDescending(p => p.created_BackedPledge))
+                    {
+                        <tr>
+                            <th scope="row"><a href="@Url.Action("SingleProject", new { id = c.BackedPledge.Project.ProjectId})"> @c.BackedPledge.Project.ProjectTitle</a></th>
+                            <td>@c.BackedPledge.Project.ProjectCreator</td>
+                            <td>@c.BackedPledge.Project.ProjectCategory</td>
+                            <td>@c.BackedPledge.PledgePrice</td>
+                            <td>@c.created_BackedPledge.DateTime</td>
+                        </tr>
+                        totalbackedamount1 += c.BackedPledge.PledgePrice;
+                    }
+                </tbody>
+            </table>
+        <div class="text-left"><small>Total Pledge Amount: @totalbackedamount1 €</small></div>
+        @* End Pledge *@
+
+        <div class="text-center"><h4>Funds</h4></div>
+        <table class="sortable customers table table-striped table-container">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Creator</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Backed Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    decimal totalbackedamount2 = 0;
+                }
+
+                @foreach (var c in Model.Funds.OrderByDescending(p => p.FundDateCreated))
+                {
+                    <tr>
+                        <th scope="row"><a href="@Url.Action("SingleProject", new { id = c.Project.ProjectId})"> @c.Project.ProjectTitle</a></th>
+                        <td>@c.Project.ProjectCreator</td>
+                        <td>@c.Project.ProjectCategory</td>
+                        <td>@c.FundAmount</td>
+                        <td>@c.FundDateCreated.DateTime</td>
+                    </tr>
+                    totalbackedamount2 += c.FundAmount;
+                }
+            </tbody>
+        </table>
+        <div class="text-left"><small>Total Fund Amount: @totalbackedamount2 €</small></div>
+</div>
+@* Funds*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="row">
         @foreach (var item in Model.Projects)
         {
             string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");
@@ -85,4 +163,4 @@
         </div>
         }
     </div>
-</div>
+</div>*@
