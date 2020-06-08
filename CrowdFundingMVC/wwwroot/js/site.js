@@ -35,6 +35,11 @@ function submitProjectToServer() {
 }
 
 function submitPledgeToServer(projectId) {
+    let form = $('.js-customer-edit-form');
+
+    if (!form.valid()) {
+        return;
+    }
 
     actionMethod = "POST"
     actionUrl = "/Pledge/CreatePledges/"

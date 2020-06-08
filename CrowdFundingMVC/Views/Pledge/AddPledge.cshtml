@@ -13,24 +13,30 @@
 <div class="row">
     <div class="col col-md-2"></div>
     <div class="tab col-md-8">
-        <form data-form="0">
+        <form data-form="0" class="js-customer-edit-form">
             <div class="form-group">
                 <label asp-for="@Model.Pledge.PledgeDescription" class="control-label">Pledge Description</label>
-                <input asp-for="@Model.Pledge.PledgeDescription" class="form-control" type="text" required id="PledgeDescription" />
+                <input asp-for="@Model.Pledge.PledgeDescription" class="form-control" type="text" required id="PledgeDescription"
+                       data-val="true" data-val-required="Pledge Description required" />
+                @Html.ValidationMessageFor(m => m.Pledge.PledgeDescription)
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Pledge.PledgePrice" class="control-label">Pledge Price</label>
-                <input class="form-control" type="number" required id="PledgePrice" />
+                <input asp-for="@Model.Pledge.PledgePrice" class="form-control" type="number" required id="PledgePrice"
+                       data-val="true" data-val-required="Pledge Price required" />
+                @Html.ValidationMessageFor(m => m.Pledge.PledgePrice)
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Pledge.PledgeReward" class="control-label">Pledge Reward</label>
-                <input class="form-control" type="text" required id="PledgeReward" />
+                <input asp-for="@Model.Pledge.PledgeReward" class="form-control" type="text" required id="PledgeReward"
+                       data-val="true" data-val-required="Pledge Reward required" />
+                @Html.ValidationMessageFor(m => m.Pledge.PledgeReward)
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
