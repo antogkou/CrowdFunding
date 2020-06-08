@@ -152,9 +152,13 @@
                     {
                         <div class="col-md-3 card mb-4 box-shadow">
                             <div class="card-header">
-                                <button type="button" class="close" aria-label="Close" onclick="deletePledge(@item.PledgeId)">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                @if (@UserManager.FindByNameAsync(UserManager.GetUserName(User)).Result.Id == @Model.Project.UserId)
+                                {
+                                    <button type="button" class="close" aria-label="Close" onclick="deletePledge(@item.PledgeId)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                }
+
                                 <h4 class="my-0 font-weight-normal">Tier @(++levelCounter) Pledge</h4>
                             </div>
                             <div class="card-body">

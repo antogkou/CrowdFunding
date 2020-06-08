@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        @foreach (var item in Model.Projects)
+        @foreach (var item in Model.Projects.AsEnumerable().Reverse().ToList())
         {
             string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");
             var progress = Math.Round((item.ProjectCurrentAmount * 100) / item.ProjectTargetAmount, 2).ToString(System.Globalization.CultureInfo.InvariantCulture);
