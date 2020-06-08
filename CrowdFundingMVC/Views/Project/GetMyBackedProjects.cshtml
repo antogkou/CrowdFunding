@@ -18,6 +18,7 @@
                         <th scope="col">Category</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Backed Date</th>
+                        <th scope="col">Reward</th>
                     </tr>
                 </thead>
                 <tbody class="backedtbody">
@@ -26,13 +27,14 @@
                     }
                     @foreach (var c in Model.BackedPledges.OrderByDescending(p => p.created_BackedPledge))
                     {
-                        <tr class="backedtr">
-                            <th scope="row"><a href="@Url.Action("SingleProject", new { id = c.BackedPledge.Project.ProjectId})"> @c.BackedPledge.Project.ProjectTitle</a></th>
-                            <td>@c.BackedPledge.Project.ProjectCreator</td>
-                            <td>@c.BackedPledge.Project.ProjectCategory</td>
-                            <td>@c.BackedPledge.PledgePrice</td>
-                            <td>@c.created_BackedPledge.DateTime</td>
-                        </tr>
+                    <tr class="backedtr">
+                        <th scope="row"><a href="@Url.Action("SingleProject", new { id = c.BackedPledge.Project.ProjectId})"> @c.BackedPledge.Project.ProjectTitle</a></th>
+                        <td>@c.BackedPledge.Project.ProjectCreator</td>
+                        <td>@c.BackedPledge.Project.ProjectCategory</td>
+                        <td>@c.BackedPledge.PledgePrice</td>
+                        <td>@c.created_BackedPledge.DateTime</td>
+                        <td>@c.BackedPledge.PledgeReward</td>
+                    </tr>
                         totalbackedamount1 += c.BackedPledge.PledgePrice;
                     }
                 </tbody>
@@ -45,7 +47,7 @@
             <thead class="backedthead">
                 <tr class="backedtr">
                     <th scope="col">Title</th>
-                    <th scope="col">Creator</th>
+                    <th scope="col">Backer</th>
                     <th scope="col">Category</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Backed Date</th>
