@@ -24,10 +24,10 @@
                 <div class="form-group">
                     <label asp-for="@Model.ProjectDescription" class="control-label">Short Description</label>
                     @*<textarea style="resize:vertical; min-height: 200px;"
-                        asp-for="@Model.ProjectDescription" class="form-control text-wrap" type="text"
-                        placeholder="Give your project a short description..." required rows="4" cols="50"
-                        name="description" form="crproj"
-                        data-val="true" data-val-required="Project Description is required"></textarea>*@
+            asp-for="@Model.ProjectDescription" class="form-control text-wrap" type="text"
+            placeholder="Give your project a short description..." required rows="4" cols="50"
+            name="description" form="crproj"
+            data-val="true" data-val-required="Project Description is required"></textarea>*@
                     @Html.TextAreaFor(m => m.ProjectDescription, new
                     {
                         rows = "10",
@@ -54,7 +54,6 @@
                            data-val="true" data-val-required="Project Ending Date is required" />
                     @Html.ValidationMessageFor(m => m.ProjectEndingDate)
                 </div>
-
                 <div class="form-group">
                     <label asp-for="@Model.ProjectCategory" class="control-label">Project Category</label>
                     <div class="dropdown">
