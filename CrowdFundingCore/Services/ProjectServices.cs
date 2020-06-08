@@ -296,6 +296,7 @@ namespace CrowdFundingCore.Services
         {
             var result = _db.Set<Project>()
                 .Where(s => s.IsComplete)
+                .Where(s =>s.IsActive)
                 .AsQueryable();
 
             if (result == null)
