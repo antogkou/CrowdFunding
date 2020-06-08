@@ -12,68 +12,79 @@
     <div class="modal-body row">
         <div class="col-md-6">
             <!-- Your first column here -->
-            <form data-form="0" id="crproj">
+            <form data-form="0" id="crproj" class="js-project-add-form">
                 <div class="form-group">
                     <label asp-for="@Model.ProjectTitle" class="control-label">Project Title</label>
-                    <input asp-for="@Model.ProjectTitle" class="form-control" type="text" 
-                           required placeholder="Give your project a Title..." />
-                    <span asp-validation-for="@Model.ProjectTitle" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        Please provide a valid Name.
-                    </div>
+                    <input asp-for="@Model.ProjectTitle" class="form-control" type="text"
+                           required placeholder="Give your project a Title..." 
+                           data-val="true" data-val-required="Project Title is required" />
+                    @Html.ValidationMessageFor(m => m.ProjectTitle)
+
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.ProjectDescription" class="control-label">Short Description</label>
-                    <textarea style="resize:vertical; min-height: 200px;"
-                              asp-for="@Model.ProjectDescription" class="form-control text-wrap" type="text"
-                              placeholder="Give your project a short description..." required rows="4" cols="50"
-                              name="description" form="crproj"></textarea>
-                    <span asp-validation-for="@Model.ProjectDescription" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        Please provide a Description.
-                    </div>
+                    @*<textarea style="resize:vertical; min-height: 200px;"
+        asp-for="@Model.ProjectDescription" class="form-control text-wrap" type="text"
+        placeholder="Give your project a short description..." required rows="4" cols="50"
+        name="description" form="crproj"
+        data-val="true" data-val-required="Project Description is required"></textarea>*@
+                    @Html.TextAreaFor(m => m.ProjectDescription, new { rows = "10", cols = "150",
+                   @class = "form-control text-wrap", @maxlength = "10000",
+                   @style = "resize: vertical; min-height: 200px;",
+                   @placeholder="Give your project a short description..."
+               })
+                    @Html.ValidationMessageFor(m => m.ProjectDescription)
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.ProjectTargetAmount" class="control-label">Target Amount</label>
                     <input asp-for="@Model.ProjectTargetAmount" class="form-control" type="number"
-                           required placeholder="The amount of money this project needs..." min="0" />
-                    <span asp-validation-for="@Model.ProjectTargetAmount" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        Please provide a NeededAmount.
-                    </div>
+                           required placeholder="The amount of money this project needs..." min="0"
+                           data-val="true" data-val-required="Project Target Amount is required" />
+                    @Html.ValidationMessageFor(m => m.ProjectTargetAmount)
+
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.ProjectEndingDate" class="control-label">Project Ending Date</label>
-                    <input type="date" min="2020-06-09" asp-for="@Model.ProjectEndingDate" 
-                           value="2020-06-10" class="form-control" required />
-                    <span asp-validation-for="@Model.ProjectEndingDate" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        Please provide a valid ProjectEndingDate.
-                    </div>
+                    <input type="date" min="2020-06-09" asp-for="@Model.ProjectEndingDate"
+                           value="2020-06-10" class="form-control" required
+                           data-val="true" data-val-required="Project Ending Date is required" />
+                    @Html.ValidationMessageFor(m => m.ProjectEndingDate)
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="@Model.ProjectCategory" class="control-label"></label>
-                    <select class="form-control" id="ProjectCategory">
-                        @{
-                            var categories = Enum.GetValues(
-                                typeof(CrowdFundingCore.Models.ProjectCategory))
-                                .Cast<CrowdFundingCore.Models.ProjectCategory>();
-                            <option selected="selected" disabled hidden>---Select Category---</option>
-                            foreach (var category in categories)
-                            {
-                                <option value="@category">@category</option>
-                            }
-                        }
-                    </select>
-                    <span asp-validation-for="@Model.ProjectCategory" class="text-danger"></span>
+                    <label asp-for="@Model.ProjectCategory" class="control-label">Project Category</label>
+                    @*<select class="form-control" id="ProjectCategory"
+                required data-val="true" data-val-required="Project Category is required" >*@
+            @{
+                var categories = Enum.GetValues(
+                    typeof(CrowdFundingCore.Models.ProjectCategory))
+                    .Cast<CrowdFundingCore.Models.ProjectCategory>();
+            }
+                @*<option selected="selected" disabled hidden>---Select Category---</option>
+                foreach (var category in categories)
+                {
+                    <option value="@category">@category</option>
+                }
+            }
+        </select>*@
+                <div class="dropdown">
+                    @Html.DropDownListFor(model => model.ProjectCategory,
+                                  new SelectList(Enum.GetValues(
+                    typeof(CrowdFundingCore.Models.ProjectCategory))
+                    .Cast<CrowdFundingCore.Models.ProjectCategory>()),
+                                 "-- Please Select --")
+                    <div>
+                        @Html.ValidationMessageFor(m => m.ProjectCategory)
+                    </div>
+                </div>
+                    @*<span asp-validation-for="@Model.ProjectCategory" class="text-danger"></span>*@
                 </div>
             </form>
 
         </div>
         <div class="col-md-6">
             <!-- Your second column here -->
-            <form data-form="0">
+            <form data-form="0" class="js-project-add-form">
                 <div class="form-group">
 
                     <label class="control-label">Project Profile Photo</label>
@@ -81,8 +92,9 @@
                            required
                            placeholder="Project profile photo URL..."
                            id="MultimediaURL"
-                           onchange="readURL(MultimediaURL)" />
-
+                           onchange="readURL(MultimediaURL)"
+                           data-val="true" data-val-required="Project Profile Photo is required" />
+                    @Html.ValidationMessageFor(m => m.ProjectMultimedia)
                 </div>
             </form>
             <div class="form-group">

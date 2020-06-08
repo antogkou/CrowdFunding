@@ -4,6 +4,11 @@
 // Write your JavaScript code.
 
 function submitProjectToServer() {
+    let form = $('.js-project-add-form');
+
+    if (!form.valid()) {
+        return;
+    }
     actionMethod = "POST"
     actionUrl = "/Project/CreateProject"
     var formData = new FormData();
