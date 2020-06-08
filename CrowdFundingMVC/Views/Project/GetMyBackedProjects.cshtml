@@ -10,9 +10,9 @@
 
 <div class="container">
         <div class="text-center pb-2"><h4>Pledges</h4></div>
-            <table class="sortable customers table table-striped table-container">
-                <thead>
-                    <tr>
+            <table class="sortable customers table backedtable table-striped table-container">
+                <thead class="backedthead">
+                    <tr class="backedtr">
                         <th scope="col">Title</th>
                         <th scope="col">Creator</th>
                         <th scope="col">Category</th>
@@ -20,13 +20,13 @@
                         <th scope="col">Backed Date</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="backedtbody">
                     @{
                         decimal totalbackedamount1 = 0;
                     }
                     @foreach (var c in Model.BackedPledges.OrderByDescending(p => p.created_BackedPledge))
                     {
-                        <tr>
+                        <tr class="backedtr">
                             <th scope="row"><a href="@Url.Action("SingleProject", new { id = c.BackedPledge.Project.ProjectId})"> @c.BackedPledge.Project.ProjectTitle</a></th>
                             <td>@c.BackedPledge.Project.ProjectCreator</td>
                             <td>@c.BackedPledge.Project.ProjectCategory</td>
@@ -41,9 +41,9 @@
         @* End Pledge *@
 
         <div class="text-center"><h4>Funds</h4></div>
-        <table class="sortable customers table table-striped table-container">
-            <thead>
-                <tr>
+        <table class="sortable customers table backedtable table-striped table-container">
+            <thead class="backedthead">
+                <tr class="backedtr">
                     <th scope="col">Title</th>
                     <th scope="col">Creator</th>
                     <th scope="col">Category</th>
@@ -51,14 +51,14 @@
                     <th scope="col">Backed Date</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="backedtbody">
                 @{
                     decimal totalbackedamount2 = 0;
                 }
 
                 @foreach (var c in Model.Funds.OrderByDescending(p => p.FundDateCreated))
                 {
-                    <tr>
+                    <tr class="backedtr">
                         <th scope="row"><a href="@Url.Action("SingleProject", new { id = c.Project.ProjectId})"> @c.Project.ProjectTitle</a></th>
                         <td>@c.Project.ProjectCreator</td>
                         <td>@c.Project.ProjectCategory</td>

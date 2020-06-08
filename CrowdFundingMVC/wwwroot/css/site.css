@@ -371,6 +371,15 @@ table {
         overflow-y: scroll;
     }
 
+    #defaultTable #defaultTbody {
+        /* body takes all the remaining available space */
+        flex: 1 1 auto;
+        display: block;
+        overflow-y: hidden;
+    }
+
+
+
         table tbody tr {
             width: 100%;
         }

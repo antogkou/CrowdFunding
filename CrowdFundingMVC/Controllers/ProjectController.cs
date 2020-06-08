@@ -214,6 +214,5 @@ namespace CrowdFundingMVC.Controllers
             }
             return Json(result.Data);
         }
-
     }
 }
