@@ -3,6 +3,7 @@ using CrowdFundingCore.Models;
 using CrowdFundingCore.Models.Options;
 using CrowdFundingCore.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +73,23 @@ namespace CrowdFundingCore.Services
 
             return Result<Fund>.CreateSuccessful(fund);
 
+        }
+
+
+        public IQueryable<Fund> GetUserFunds()
+        {
+            string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = _db.Set<Fund>()
+                .Include(p => p.Project)
+                .Where(p => p.UserId == userId)
+                .Distinct()
+                .AsQueryable();
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
         }
 
 

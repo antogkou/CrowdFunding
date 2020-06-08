@@ -34,6 +34,8 @@ namespace CrowdFundingMVC.ViewModels
         public ICollection<Post> ProjectPosts { get; set; }
         public ICollection<Pledge> ProjectPledges { get; set; }
         public ICollection<Multimedia> ProjectMultimedia { get; set; }
+        public ICollection<BackedPledges> BackedPledges { get; set; }
+        public ICollection<Fund> Funds { get; set; }
         public Multimedia Multimedia { get; set; }
     }
 }

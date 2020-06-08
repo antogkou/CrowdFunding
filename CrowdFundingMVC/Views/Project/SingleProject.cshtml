@@ -39,7 +39,7 @@
                         <div class="col-md-6 text-center">
 
                             @if (Model.ProjectMultimedia.Last().MultimediaURL
-                    != null && Model.ProjectMultimedia.Last().MultimediaURL != "")
+                  != null && Model.ProjectMultimedia.Last().MultimediaURL != "")
                             {
                                 <img class="img-fluid single-project-cover"
                                      src="@Url.Content(Model.ProjectMultimedia.Last().MultimediaURL)"
@@ -77,11 +77,11 @@
                                     <div class="text-center">
                                         @if (@Model.Project.ProjectCreationDate >= @Model.Project.ProjectEndingDate)
                                         {
-                                            <h1>Project has reached it's deadline! </h1>
+                                            <h4>Project has reached it's deadline! </h4>
                                         }
                                         @if (@Model.Project.ProjectCurrentAmount >= @Model.Project.ProjectTargetAmount)
                                         {
-                                            <h1>We have reached our goal! Hooray! </h1>
+                                            <h4>We have reached our goal! Hooray! </h4>
                                         }
                                         <br />
                                         <span class="font-weight-bold">Current Amount: </span>
@@ -182,9 +182,9 @@
                         }
                 </div>
 
-                <table class="sortable customers table table-striped">
-                    <thead>
-                        <tr>
+                <table id="defaultTable" class="sortable customers table table-striped">
+                    <thead id="defaultThead">
+                        <tr class="defaultTr">
                             <th scope="col">Pledge Buy Count</th>
                             <th scope="col">Tier</th>
                             <th scope="col">Price</th>
@@ -193,11 +193,11 @@
                             <th scope="col">Total € per Pledge</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="defaultTbody">
 
                         @foreach (var c in Model.PledgeUsers.OrderBy(c => c.PledgePrice).ToList())
                         {
-                            <tr>
+                            <tr class="defaultTr">
                                 <th scope="row">@c.PledgeUsers.Count</th>
                                 <td>@(++tier)</td>
                                 <td>@c.PledgePrice</td>

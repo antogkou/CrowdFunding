@@ -8,7 +8,7 @@
     <h1>My Projects (@count)</h1>
 </div>
 
-<div class="container" style="width: 60rem;">
+<div class="container">
     <div class="row">
         @foreach (var item in Model.Projects.OrderByDescending(c => c.ProjectCreationDate).ToList())
         {
