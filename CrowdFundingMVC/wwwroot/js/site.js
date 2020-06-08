@@ -154,6 +154,11 @@ function editProject(projectId) {
 }
 
 function doUpdateProject(projectId) {
+    let form = $('.js-project-edit-form');
+
+    if (!form.valid()) {
+        return;
+    }
     actionMethod = "PUT"
     actionUrl = "/Project/UpdateProject/"
     sendData = {
