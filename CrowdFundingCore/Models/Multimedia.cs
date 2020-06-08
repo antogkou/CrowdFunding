@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CrowdFundingCore.Models
 {
@@ -7,6 +8,7 @@ namespace CrowdFundingCore.Models
         public int MultimediaId { get; set; }
 
         public Project Project { get; set; }
+        [Required(ErrorMessage = "Project Profile Photo is required")]
         public string MultimediaURL { get; set; }
         public MultimediaTypes MultimediaTypes { get; set; }
 
