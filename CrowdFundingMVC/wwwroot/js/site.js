@@ -35,7 +35,7 @@ function submitProjectToServer() {
 }
 
 function submitPledgeToServer(projectId) {
-    let form = $('.js-customer-edit-form');
+    let form = $('.js-pledge-add-form');
 
     if (!form.valid()) {
         return;
@@ -192,6 +192,11 @@ function editPledge(projectId, pledgeId) {
 }
 
 function doUpdatePledge(pledgeId, projectId) {
+    let form = $('.js-pledge-edit-form');
+
+    if (!form.valid()) {
+        return;
+    }
     actionMethod = "PUT"
     actionUrl = "/Pledge/updatepledge"
     sendData = {
