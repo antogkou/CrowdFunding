@@ -13,7 +13,7 @@
 </div>
 
 <div class="container">
-    <div class="row">
+    <div class="row w3-animate-opacity">
         @foreach (var item in Model.Projects.OrderByDescending(c => c.ProjectProgress).ToList())
         {
             string projectTargetAmount = item.ProjectTargetAmount.ToString("0.##");

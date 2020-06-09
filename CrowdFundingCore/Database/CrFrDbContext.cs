@@ -7,7 +7,7 @@ namespace CrowdFundingCore.Database
     public class CrFrDbContext : IdentityDbContext<MyUsers>
     {
         public readonly static string connectionString =
-            "Server=localhost;Database=identityDB;User id=sa;Password=admin!@#123;MultipleActiveResultSets=true";
+            "Server=localhost;Database=identityDB;User id=sa;Password=admin@@#123;MultipleActiveResultSets=true";
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,13 +34,6 @@ namespace CrowdFundingCore.Database
                 b.Property(u => u.Email).HasMaxLength(256).IsRequired();
                 b.Property(u => u.NormalizedEmail).HasMaxLength(256).IsRequired();
 
-                //b.Property(u => u.user_First_Name).HasMaxLength(256).IsRequired();
-                //b.Property(u => u.user_Last_Name).HasMaxLength(256).IsRequired();
-
-                // The relationships between User and other entity types
-                // Note that these relationships are configured with no navigation properties
-
-
             });
 
             // Create Project table
@@ -60,7 +53,7 @@ namespace CrowdFundingCore.Database
                 .IsRequired()
                 .HasMaxLength(20);
 
-            // Create Media table
+            // Create Multimedia table
             modelBuilder
                 .Entity<Multimedia>()
                 .ToTable("Multimedia");
@@ -96,6 +89,8 @@ namespace CrowdFundingCore.Database
             modelBuilder
                 .Entity<Post>()
                 .ToTable("Post");
+
+            // Custom fund connection
 
             modelBuilder
                 .Entity<Fund>()
