@@ -34,6 +34,12 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null options");
             }
 
+            if (string.IsNullOrWhiteSpace(postOptions.PostDescription))
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PostDescription");
+            }
+
             string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var project = projectServices.FindProjectById(postOptions.ProjectId);
             Post post = new Post
@@ -75,8 +81,14 @@ namespace CrowdFundingCore.Services
                     StatusCode.BadRequest, "Null options");
             }
 
+            if (string.IsNullOrWhiteSpace(postOptions.PostDescription))
+            {
+                return Result<Post>.CreateFailed(
+                    StatusCode.BadRequest, "Null or empty PostDescription");
+            }
+
             //string userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
+
             var post = _db.Set<Post>().Find(postOptions.PostId);
 
             post.PostDescription = postOptions.PostDescription;

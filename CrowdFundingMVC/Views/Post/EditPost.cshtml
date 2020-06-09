@@ -15,11 +15,17 @@
             <div class="form-group">
                 <label asp-for="@Model.Post.PostDescription" class="control-label">Post Description</label>
                 <textarea asp-for="@Model.Post.PostDescription" type="text"
-                          class="form-control textarea text-wrap" id="PostDescription" style="resize: vertical; min-height: 200px;"></textarea>
+        class="form-control textarea text-wrap" id="PostDescription" style="resize: vertical; min-height: 200px;"></textarea>
+                @*@Html.TextAreaFor(m => m.Post.PostDescription, new
+                    {
+                        rows = "10",
+                        cols = "150",
+                   @class = "form-control text-wrap",
+                        @maxlength = "10000",
+                   @style = "resize: vertical; min-height: 200px;"
+               })
+                @Html.ValidationMessageFor(m => m.Post.PostDescription)*@
             </div>
-            @*<div class="col col-md-12 d-flex justify-content-end pr-0">
-                <input type="button" onclick="doUpdatePost(@Model.Post.PostId, @Model.Project.ProjectId)" value="Submit">
-            </div>*@
         <div class="form-group">
             <a asp-action="SingleProject" asp-route-id="@Model.Project.ProjectId" asp-controller="Project" class="btn btn-danger float-left">Cancel</a>
             <input type="button" class="btn btn-success float-right" value="Submit" onclick="doUpdatePost(@Model.Post.PostId, @Model.Project.ProjectId)">

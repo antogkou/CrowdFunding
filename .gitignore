@@ -364,3 +364,5 @@ MigrationBackup/
 /CrowdFundingCore/Migrations/20200607172427_bege.cs
 /CrowdFundingCore/Migrations/20200608152427_bg.cs
 /CrowdFundingCore/Migrations/20200608152427_bg.Designer.cs
+/CrowdFundingCore/Migrations/20200608201000_exdeeez.cs
+/CrowdFundingCore/Migrations/20200608201000_exdeeez.Designer.cs

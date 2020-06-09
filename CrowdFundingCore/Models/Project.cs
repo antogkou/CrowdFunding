@@ -6,14 +6,13 @@ namespace CrowdFundingCore.Models
 {
     public class Project
     {
-
         public int ProjectId { get; set; }
         public MyUsers User { get; set; }
         public string UserId { get; set; }
         [StringLength(30, MinimumLength = 3)]
         [Required]
         public string ProjectTitle { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Project Description is required")]
         public string ProjectDescription { get; set; }
         [DataType(DataType.Currency)]
         [Required]
@@ -27,7 +26,7 @@ namespace CrowdFundingCore.Models
         public DateTimeOffset ProjectCreationDate { get; set; }
         [Required, DataType(DataType.Date), Display(Name = "ProjectEndingDate"), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? ProjectEndingDate { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Project Category is required")]
         public string ProjectCategory { get; set; }
         public string ProjectCreator { get; set; }
         public ICollection<Post> ProjectPosts { get; set; }

@@ -4,6 +4,11 @@
 // Write your JavaScript code.
 
 function submitProjectToServer() {
+    let form = $('.js-project-add-form');
+
+    if (!form.valid()) {
+        return;
+    }
     actionMethod = "POST"
     actionUrl = "/Project/CreateProject"
     var formData = new FormData();
@@ -35,6 +40,11 @@ function submitProjectToServer() {
 }
 
 function submitPledgeToServer(projectId) {
+    let form = $('.js-pledge-add-form');
+
+    if (!form.valid()) {
+        return;
+    }
 
     actionMethod = "POST"
     actionUrl = "/Pledge/CreatePledges/"
@@ -144,6 +154,11 @@ function editProject(projectId) {
 }
 
 function doUpdateProject(projectId) {
+    let form = $('.js-project-edit-form');
+
+    if (!form.valid()) {
+        return;
+    }
     actionMethod = "PUT"
     actionUrl = "/Project/UpdateProject/"
     sendData = {
@@ -187,6 +202,11 @@ function editPledge(projectId, pledgeId) {
 }
 
 function doUpdatePledge(pledgeId, projectId) {
+    let form = $('.js-pledge-edit-form');
+
+    if (!form.valid()) {
+        return;
+    }
     actionMethod = "PUT"
     actionUrl = "/Pledge/updatepledge"
     sendData = {

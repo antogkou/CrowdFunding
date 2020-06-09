@@ -5,18 +5,23 @@
     ViewData["Title"] = "Edit Project";
 }
 
-<h1>Edit Project</h1>
+    <div class="text-center">
+        <h1>Edit Project</h1>
+    </div>
 <hr />
 <div class="row">
-    <div class="col-md-9">
-        <form asp-action="EditProject">
+    <div class="container" style="width: 800px;">
+        <form asp-action="EditProject" class="js-project-edit-form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.ProjectId" id="ProjectId" />
+
             <div class="form-group">
                 <label asp-for="@Model.ProjectTitle" class="control-label">Project Title</label>
-                <input asp-for="@Model.ProjectTitle" class="form-control" id="ProjectTitle" />
-                <span asp-validation-for="@Model.ProjectTitle" class="text-danger"></span>
+                <input asp-for="@Model.ProjectTitle" class="form-control" id="ProjectTitle"
+                       required data-val="true" data-val-required="Project Title is required" />
+                @Html.ValidationMessageFor(m => m.ProjectTitle)
             </div>
+
             <div class="form-group">
                 <label asp-for="@Model.ProjectDescription" class="control-label">Description</label>
                 <textarea asp-for="@Model.ProjectDescription" class="form-control textarea text-wrap"
@@ -24,12 +29,13 @@
                           id="ProjectDescription"></textarea>
                 <span asp-validation-for="@Model.ProjectDescription" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="@Model.ProjectTargetAmount" class="control-label">Target Amount</label>
-                <input class="form-control" data-val="true" data-val-required="Field is required"
+                <input class="form-control" data-val="true" required data-val-required="Project Target Amount is required"
                        value="@(Model.ProjectTargetAmount.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture))"
                        name="@Html.NameFor(m => m.ProjectTargetAmount)" id="ProjectTargetAmount" min="0" />
-                <span asp-validation-for="@Model.ProjectTargetAmount" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.ProjectTargetAmount)
             </div>
             <div class="form-group">
 
@@ -49,8 +55,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.ProjectEndingDate" class="control-label">Ending Date</label>
-                <input asp-for="@Model.ProjectEndingDate" class="form-control" id="ProjectEndingDate" />
-                <span asp-validation-for="@Model.ProjectEndingDate" class="text-danger"></span>
+                <input asp-for="@Model.ProjectEndingDate" required data-val="true"
+                       class="form-control" id="ProjectEndingDate"
+                       data-val-required="Project Ending Date is required" />
+                @Html.ValidationMessageFor(m => m.ProjectEndingDate)
             </div>
             <div class="form-group">
                 <div class="form-group">

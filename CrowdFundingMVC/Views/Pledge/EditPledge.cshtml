@@ -14,34 +14,38 @@
 <div class="text-center">
     <h1>Edit this Pledge</h1>
 </div>
-
+<hr />
 <div class="row">
     <div class="col col-md-2"></div>
     <div class="tab col-md-8">
-        <form data-form="0">
+        <form data-form="0" class="js-pledge-edit-form">
 
             <div class="form-group">
                 <label asp-for="@Model.Pledge.PledgeDescription" class="control-label">Pledge Description</label>
-                <input class="form-control" type="text" required id="PledgeDescription" asp-for="@Model.Pledge.PledgeDescription" />
-                <span asp-validation-for="@Model.Pledge.PledgeDescription" class="text-danger"></span>
+                <input asp-for="@Model.Pledge.PledgeDescription" class="form-control" type="text" 
+                       required id="PledgeDescription"  
+                       data-val="true" data-val-required="Pledge Description is required" />
+                @Html.ValidationMessageFor(m => m.Pledge.PledgeDescription)
+                
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Pledge.PledgePrice" class="control-label">Pledge Price</label>
-                <input class="form-control" data-val="true" data-val-required="Field is required"
+                <input asp-for="@Model.Pledge.PledgePrice" class="form-control" data-val="true" data-val-required="Pledge Price is required"
                        value="@(Model.Pledge.PledgePrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture))"
                        name="@Html.NameFor(m => m.Pledge.PledgePrice)" id="PledgePrice" min="0" />
-                <span asp-validation-for="@Model.Pledge.PledgePrice" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Pledge.PledgePrice)
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Pledge.PledgeReward" class="control-label">Pledge Reward</label>
-                <input class="form-control" type="text" required id="PledgeReward" asp-for="@Model.Pledge.PledgeReward" />
-                <span asp-validation-for="@Model.Pledge.PledgeReward" class="text-danger"></span>
+                <input asp-for="@Model.Pledge.PledgeReward" class="form-control" type="text" required id="PledgeReward"
+                       data-val="true" data-val-required="Pledge Reward is required" />
+                @Html.ValidationMessageFor(m => m.Pledge.PledgeReward)
                 <div class="invalid-feedback">
                     Please provide a NeededAmount.
                 </div>
