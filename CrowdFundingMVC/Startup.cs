@@ -5,12 +5,10 @@ using CrowdFundingCore.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Routing.Patterns;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace CrowdFundingMVC
@@ -97,7 +95,7 @@ namespace CrowdFundingMVC
                 endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Project}/{action=GetAllProjects}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
             
