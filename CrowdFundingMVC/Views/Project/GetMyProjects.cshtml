@@ -42,7 +42,16 @@
                     <div><span class="card-text font-weight-bold">Creation Date: </span><span>@creationdateString</span></div>
                     <div><span class="card-text font-weight-bold">Ending Date: </span><span>@endingdateString</span></div>
                     <div><span class="card-text font-weight-bold">Target: </span><span>@projectTargetAmount €</span></div>
-                    </small>
+                    @if (item.IsActive)
+                    {
+                        <div><span class="card-text font-weight-bold">Status: </span><span class="font-weight-bold" style="color:green;">Active</span></div>
+                    }
+                    else
+                    {
+                        <div><span class="card-text font-weight-bold">Status: </span><span class="font-weight-bold" style="color:red;">Inactive</span></div>
+                    }
+
+                </small>
                 @if (item.ProjectProgress >= 1 || item.IsComplete)
                 {
             <small>
